@@ -50,8 +50,8 @@
       config:
         apiKeyEnv: COHERE_API_KEY
 
-    - id: web-fetch-http
-      name: '@deepseek-ai/dsh-web-fetch-http'
+    # web-fetch-http ships in the upstream base bundle as of 0.1.2 — no
+    # insert needed here anymore.
 
     - id: mcp-workspace-alberta
       name: '@deepseek-ai/dsh-mcp-client'
