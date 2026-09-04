@@ -9,17 +9,3 @@ export const WELCOME_NOTICE_ACK_FIELD = 'welcomeNoticeVersion'
  * again. The acknowledgement is compared for exact equality.
  */
 export const WELCOME_NOTICE_VERSION = 'workspace-alberta-2026-08-19.1'
-
-/** The complete editable internal-testing notice in both supported GUI locales. */
-export const WELCOME_NOTICE_COPY = {
-  zh: {
-    title: 'workspaceAlberta 声明',
-    body: 'workspaceAlberta 是 Warre & Vavasour 的独立部署，基于 MIT 许可的上游 dsh 插件式智能体运行时。\n\n它不是上游项目的官方产品，也不使用上游商标或图标。',
-    continueLabel: '继续',
-  },
-  en: {
-    title: 'workspaceAlberta Notice',
-    body: 'workspaceAlberta is an independent Warre & Vavasour deployment built on the MIT-licensed upstream dsh plugin runtime.\n\nIt is not an official upstream product and does not use upstream trademarks or product icons.',
-    continueLabel: 'Continue',
-  },
-} as const

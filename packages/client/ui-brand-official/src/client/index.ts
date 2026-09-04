@@ -1,5 +1,5 @@
 /** workspaceAlberta occupants for the generic browser-brand slots. */
-import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client'
+import type { Context as ClientContext } from '@deepseek-ai/cordis'
 import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type {} from '@deepseek-ai/dsh-client-ui-sidebar/client'
 import { OfficialBrandMark, OfficialBrandName } from './Brand.tsx'
@@ -8,7 +8,9 @@ import { OfficialBrandMark, OfficialBrandName } from './Brand.tsx'
 export const inject = ['slots']
 
 /**
- * Fill every shipped brand slot as one declaration-aware registration set.
+ * Fill every shipped brand slot as one declaration-aware registration set:
+ * the sidebar mark and name, plus the conversation hero mark. Occupying the
+ * hero slot is what keeps the upstream whale fallback from ever rendering.
  * @param ctx - Client root context.
  */
 export function apply(ctx: ClientContext): void {

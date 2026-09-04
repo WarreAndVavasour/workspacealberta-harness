@@ -27,10 +27,10 @@ exports[`sidebar shell snapshots > renders the collapsed rail after the crossfad
           >
             <svg
               aria-hidden="true"
-              data-content="db1af851"
+              data-content="965fe321"
               fill="none"
-              height="24"
-              viewBox="0 0 64 64"
+              height="17.6580310880829"
+              viewBox="0 0 23.16 17.04"
               width="24"
             />
           </div>
@@ -122,10 +122,10 @@ exports[`sidebar shell snapshots > renders the expanded column (wordmark, capsul
             >
               <svg
                 aria-hidden="true"
-                data-content="db1af851"
+                data-content="965fe321"
                 fill="none"
-                height="24"
-                viewBox="0 0 64 64"
+                height="17.6580310880829"
+                viewBox="0 0 23.16 17.04"
                 width="24"
               />
             </div>
@@ -138,14 +138,18 @@ exports[`sidebar shell snapshots > renders the expanded column (wordmark, capsul
               style="display: contents;"
             >
               <span
-                class="fallbackBrandName"
+                class="localBuildBrand"
               >
-                workspaceAlberta
-              </span>
-              <span
-                class="buildRevision"
-              >
-                abc1234
+                <span
+                  class="localBuildTitle"
+                >
+                  workspaceAlberta
+                </span>
+                <span
+                  class="buildVersion"
+                >
+                  1.2.3-rc.4-abc1234-dirty
+                </span>
               </span>
             </div>
           </span>
@@ -248,10 +252,10 @@ exports[`sidebar shell snapshots > renders the expanded column in the default lo
             >
               <svg
                 aria-hidden="true"
-                data-content="db1af851"
+                data-content="965fe321"
                 fill="none"
-                height="24"
-                viewBox="0 0 64 64"
+                height="17.6580310880829"
+                viewBox="0 0 23.16 17.04"
                 width="24"
               />
             </div>
@@ -264,14 +268,18 @@ exports[`sidebar shell snapshots > renders the expanded column in the default lo
               style="display: contents;"
             >
               <span
-                class="fallbackBrandName"
+                class="localBuildBrand"
               >
-                workspaceAlberta
-              </span>
-              <span
-                class="buildRevision"
-              >
-                abc1234
+                <span
+                  class="localBuildTitle"
+                >
+                  DSH 本地构建
+                </span>
+                <span
+                  class="buildVersion"
+                >
+                  1.2.3-rc.4-abc1234-dirty
+                </span>
               </span>
             </div>
           </span>

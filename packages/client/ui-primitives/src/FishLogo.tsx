@@ -1,3 +1,5 @@
+import type { IconProps } from './icons/props.ts'
+
 // workspaceAlberta monogram: the fallback mark rendered whenever a surface's
 // brand slot is unfilled. Artwork matches ui-brand-official's OfficialBrandMark
 // so a filled and an unfilled slot look identical.
@@ -6,7 +8,11 @@
 // sees, and holding it steady keeps `git merge` on upstream releases confined
 // to this file instead of every import site.
 
-import type { IconProps } from './icons/props.ts'
+/** Native viewBox of {@link FISH_LOGO_PATH} (width and height in user units). */
+export const FISH_LOGO_VIEWBOX = { width: 64, height: 64 }
+
+/** The workspaceAlberta monogram stroke centerline, exported for consumers that compose their own svg around the same geometry. */
+export const FISH_LOGO_PATH = 'M12 17l9 30 11-21 11 21 9-30'
 
 /**
  * Render the fallback brand mark.
@@ -20,19 +26,12 @@ export function FishLogo({ size = 24, className }: IconProps) {
       width={size}
       height={size}
       className={className}
-      viewBox="0 0 64 64"
+      viewBox={`0 0 ${FISH_LOGO_VIEWBOX.width} ${FISH_LOGO_VIEWBOX.height}`}
       fill="none"
       aria-hidden="true"
     >
       <rect width="64" height="64" rx="14" fill="#16324f" />
-      <path
-        d="M12 17l9 30 11-21 11 21 9-30"
-        fill="none"
-        stroke="#f2c14e"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d={FISH_LOGO_PATH} fill="none" stroke="#f2c14e" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }

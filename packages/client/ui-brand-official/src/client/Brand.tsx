@@ -1,3 +1,4 @@
+import { BrandWordmark } from '@deepseek-ai/dsh-client-ui-primitives'
 import type { HeroBrandMarkOwnerProps } from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type { SidebarBrandMarkOwnerProps } from '@deepseek-ai/dsh-client-ui-sidebar/client'
 
@@ -16,9 +17,9 @@ export function OfficialBrandMark({ size, className }: OfficialBrandMarkProps) {
 }
 
 /**
- * Render the workspaceAlberta name without its independently slotted mark.
- * @returns the workspaceAlberta product name.
+ * Render the official name artwork without its independently slotted mark.
+ * @returns the workspaceAlberta name.
  */
 export function OfficialBrandName() {
-  return <span>workspaceAlberta</span>
+  return <BrandWordmark includeMark={false} />
 }
