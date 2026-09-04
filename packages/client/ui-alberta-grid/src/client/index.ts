@@ -7,6 +7,8 @@ import type { Context } from '@deepseek-ai/cordis'
 import type {} from '@deepseek-ai/dsh-client-locale/client'
 // Type-only: the 'conversation.view' SlotMap row must be in the program.
 import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+// Type-only: pulls the SlotRegistry Context merge (ctx.slots).
+import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import { AlbertaGridView } from './AlbertaGridView.tsx'
 import { en, NS, zh } from './locales.ts'
 

@@ -8,10 +8,23 @@
     "src"
   ],
   "references": [
-    { "path": "../../../vendor/cordis" },
-    { "path": "../locale" },
-    { "path": "../ui-conversation" },
-    { "path": "../runtime" },
-    { "path": "../../runtime-diagnostics/invariants" }
+    {
+      "path": "../../../vendor/cordis"
+    },
+    {
+      "path": "../locale"
+    },
+    {
+      "path": "../ui-conversation"
+    },
+    {
+      "path": "../../runtime-diagnostics/invariants"
+    },
+    {
+      "path": "../ui-slots"
+    },
+    {
+      "path": "../ui-renderer"
+    }
   ]
 }
