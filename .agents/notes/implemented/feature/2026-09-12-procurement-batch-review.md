@@ -2,7 +2,7 @@
 
 Status: implemented
 
-English | [中文](2026-09-12-cohere-procurement-batch-review.zh.md)
+English | [中文](2026-09-12-procurement-batch-review.zh.md)
 
 ## Problem
 

@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-alberta-grid/README.md
-README.md: 114000ce4494bb7fe3c7b561024005c4c75713db
-README.zh.md: be9ec109ed3423ee2581fa534306adb690cda20e
+README.md: 2f1d69c137a26fd222259daf023faa169046ffee
+README.zh.md: 5c7c3845c2c221683c11a2f7ceb4eb43df880752

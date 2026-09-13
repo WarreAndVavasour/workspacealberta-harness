@@ -14,6 +14,7 @@ import { existsSync, globSync, readFileSync, writeFileSync } from 'node:fs'
 import { basename, join, resolve, sep } from 'node:path'
 import { gitBlobHash, readGitIndexBlob, storeGitBlob } from './translation-pairing-git.ts'
 import {
+  pairingBasenameScannerCollision,
   parseTranslationPairingRecord,
   renderTranslationPairingRecord,
   translationPairPaths,
@@ -138,6 +139,11 @@ if (writeMode) {
     if (isExcluded(source)) continue
     const paths = translationPairPaths(source)
     const { zh, meta } = paths
+    const collision = pairingBasenameScannerCollision(basename(source))
+    if (collision !== undefined) {
+      console.error(`verify-translation-pairing: cannot record ${source}: pairing basename contains ${collision}, which secret scanners treat as an API-key vendor next to the recorded 40-hex blob hashes (see docs/i18n/README.md); rename the pair`)
+      process.exit(2)
+    }
     if (!repositoryFileExists(source) || !repositoryFileExists(zh)) {
       if (request.scope === 'pairs') {
         console.error(`verify-translation-pairing: cannot record ${source}: missing ${repositoryFileExists(source) ? zh : source}`)
@@ -197,6 +203,10 @@ for (const source of [...pairAnchors].sort()) {
     if (have.zh) errors.push(`${zh}: ${source} is excluded from pairing (generated or bilingual-by-construction); this translation must not exist`)
     if (have.meta) errors.push(`${meta}: ${source} is excluded from pairing; this consistency record must not exist`)
     continue
+  }
+  const collision = pairingBasenameScannerCollision(basename(source))
+  if (collision !== undefined) {
+    errors.push(`${source}: pairing basename contains ${collision}, which secret scanners treat as an API-key vendor next to the recorded 40-hex blob hashes; rename the pair`)
   }
   const missing = Object.entries(have).filter(([, ok]) => !ok).map(([k]) => (k === 'source' ? source : k === 'zh' ? zh : meta))
   if (missing.length > 0) {

@@ -1,0 +1,8 @@
+# Pairing sidecars hold only git blob hashes of bilingual Markdown. Secret
+# scanners that treat a 40-hex token next to a vendor name as an API key must
+# not scan them. See docs/i18n/README.md and
+# .agents/notes/implemented/process/2026-09-13-pairing-hash-scanner-collision.md.
+version: 2
+secret:
+  ignored_paths:
+    - '**/*.i18n.yaml'

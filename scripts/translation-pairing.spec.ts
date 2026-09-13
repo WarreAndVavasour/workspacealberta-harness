@@ -7,6 +7,7 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { gitBlobHash, readGitIndexBlob, storeGitBlob } from './translation-pairing-git.ts'
 import {
+  pairingBasenameScannerCollision,
   parseTranslationPairingRecord,
   renderTranslationPairingRecord,
   translationPairPaths,
@@ -192,6 +193,18 @@ describe('translation pairing records', () => {
       `bar.zh.md: ${'2'.repeat(40)}`,
       '',
     ].join('\n'), paths)).toBeUndefined()
+  })
+
+  it('rejects pairing basenames that secret scanners treat as API-key vendors', () => {
+    expect(pairingBasenameScannerCollision('2026-09-12-cohere-procurement-batch-review.md')).toBe('cohere')
+    expect(pairingBasenameScannerCollision('2026-09-12-COHERE-review.zh.md')).toBe('cohere')
+    expect(pairingBasenameScannerCollision('cohere.md')).toBe('cohere')
+  })
+
+  it('accepts pairing basenames that only mention a vendor as a substring or not at all', () => {
+    expect(pairingBasenameScannerCollision('2026-09-12-procurement-batch-review.md')).toBeUndefined()
+    expect(pairingBasenameScannerCollision('2026-07-19-required-cancellation-through-tool-capability-seams.md')).toBeUndefined()
+    expect(pairingBasenameScannerCollision('keep-request-generations-coherent.md')).toBeUndefined()
   })
 })
 

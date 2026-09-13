@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-08-06-bundled-dsh-badge-skill.md
-2026-08-06-bundled-dsh-badge-skill.md: 4c6fbdcb76298759c2f17b3b5349a5b48198595e
-2026-08-06-bundled-dsh-badge-skill.zh.md: f249c31f6e9db937d244bcc82d85beddb7bd75fe
+2026-08-06-bundled-dsh-badge-skill.md: 5b4725d3b02816f0eef6eaacf4ad8eacb44f4c11
+2026-08-06-bundled-dsh-badge-skill.zh.md: e1c5a21428f81bd8b230a3f1c561259e19d15a61

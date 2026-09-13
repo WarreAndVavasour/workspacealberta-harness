@@ -23,6 +23,32 @@ export interface TranslationPairingRecord {
 const META_LINE = /^([^:#]+\.md): ([0-9a-f]{40})$/
 
 /**
+ * Basename tokens that secret scanners treat as API-key vendors when they sit
+ * next to a pairing sidecar's 40-hex blob hashes.
+ *
+ * Keep this list to tokens a current detector matches against the sidecar
+ * format; do not add a vendor because its name appears in prose.
+ */
+export const PAIRING_BASENAME_SCANNER_COLLISIONS = ['cohere'] as const
+
+const PAIRING_BASENAME_SCANNER_COLLISION = new RegExp(
+  `(^|[^a-z0-9])(${PAIRING_BASENAME_SCANNER_COLLISIONS.join('|')})(?![a-z0-9])`,
+  'i',
+)
+
+/**
+ * Return the scanner-collision token in a pairing basename, if any.
+ *
+ * @param name - English or Chinese Markdown basename, or the pair stem.
+ * @returns The matched token in lowercase, or `undefined` when the name is clear.
+ */
+export function pairingBasenameScannerCollision(name: string): string | undefined {
+  const match = PAIRING_BASENAME_SCANNER_COLLISION.exec(name)
+  const token = match?.[2]
+  return token === undefined ? undefined : token.toLowerCase()
+}
+
+/**
  * Derive the counterpart and consistency-record paths from an English document.
  *
  * @param source - Repository-relative English Markdown path.
