@@ -6,7 +6,7 @@
 
 ## 布局与命名
 
-每份 Agent Note 有两个维度，都编码在其**路径**中：`{lifecycle}/{class}/yyyy-mm-dd-topic-title.md`。
+每份 Agent Note 有两个维度，都编码在其**路径**中：`{lifecycle}/{class}/yyyy-mm-dd-topic-title.md`。主题 slug 不得包含配对扫描碰撞词（[配对约定](../../docs/i18n/README.md#the-pairing-contract)）；sidecar 会把 40 位十六进制 blob hash 写在该 basename 旁边。
 
 - **生命周期**（顶层文件夹）是 Agent Note 的状态，Agent Note 随状态变化在文件夹之间移动：
   - **`proposed/`**：实施前评审的提案；尚未构建（或仅部分构建）。

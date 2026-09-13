@@ -6,7 +6,7 @@ One kind of design doc lives here. An **Agent Note** records a decision or propo
 
 ## Layout and naming
 
-Every Agent Note has two axes, both encoded in its **path** — `{lifecycle}/{class}/yyyy-mm-dd-topic-title.md`:
+Every Agent Note has two axes, both encoded in its **path** — `{lifecycle}/{class}/yyyy-mm-dd-topic-title.md`. The topic slug must not contain a pairing scanner-collision token ([pairing contract](../../docs/i18n/README.md#the-pairing-contract)); the sidecar stores 40-hex blob hashes next to that basename.
 
 - **Lifecycle** (the top-level folder) is the Agent Note's status, and an Agent Note moves between folders as that status changes:
   - **`proposed/`** — proposals reviewed before implementation; not yet built (or only partly).
