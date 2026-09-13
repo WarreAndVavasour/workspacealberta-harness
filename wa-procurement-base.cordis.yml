@@ -1,0 +1,8 @@
+# Workspace Alberta Cohere procurement batch review overlay.
+# Apply with: wa --profile web --patch ./wa-procurement-base.cordis.yml
+# Secrets are resolved from the process environment and are never stored here.
+
+- id: procurement-cohere
+  name: '@workspacealberta/wa-procurement-base'
+  config:
+    apiKeyEnv: COHERE_API_KEY

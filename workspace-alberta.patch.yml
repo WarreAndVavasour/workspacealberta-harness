@@ -62,6 +62,11 @@
         headers: {}
         failOnStartupError: false
 
+    - id: procurement-cohere
+      name: '@workspacealberta/wa-procurement-base'
+      config:
+        apiKeyEnv: COHERE_API_KEY
+
     # Alberta Grid v2 Wilke-honest AESO conversation view (tab label: Grid)
     - id: ui-alberta-grid
       name: '@workspacealberta/ui-alberta-grid'

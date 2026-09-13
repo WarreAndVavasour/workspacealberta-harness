@@ -1,0 +1,57 @@
+{
+  "name": "@workspacealberta/wa-procurement-base",
+  "description": "Cohere-backed batch procurement review for Workspace Alberta: bounded parallel synthesis with native citations over supplied tender evidence",
+  "version": "0.1.0-rc.8",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "directory": "packages/procurement/wa-procurement-base"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./invariant": {
+      "types": "./lib/types/invariant.d.ts",
+      "default": "./lib/invariant.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/invariant.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@workspacealberta/schemastery": "workspace:^"
+  },
+  "peerDependencies": {
+    "@workspacealberta/wa-credentials": "workspace:^",
+    "@workspacealberta/wa-invariants": "workspace:^",
+    "@workspacealberta/wa-launch-environment": "workspace:^",
+    "@workspacealberta/wa-tools": "workspace:^",
+    "@workspacealberta/cordis": "workspace:^"
+  },
+  "devDependencies": {
+    "@workspacealberta/cordis-plugin-include": "workspace:^",
+    "@workspacealberta/cordis-plugin-loader": "workspace:^",
+    "@workspacealberta/wa-agent": "workspace:^",
+    "@workspacealberta/wa-credentials": "workspace:^",
+    "@workspacealberta/wa-invariants": "workspace:^",
+    "@workspacealberta/wa-launch-environment": "workspace:^",
+    "@workspacealberta/wa-llm": "workspace:^",
+    "@workspacealberta/wa-session": "workspace:^",
+    "@workspacealberta/wa-system-prompt": "workspace:^",
+    "@workspacealberta/wa-tools": "workspace:^",
+    "@workspacealberta/cordis": "workspace:^"
+  }
+}

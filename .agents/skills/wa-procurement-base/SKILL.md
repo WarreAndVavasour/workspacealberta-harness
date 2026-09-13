@@ -25,6 +25,16 @@ Use only these labels; labels from different rows may coexist:
 
 If sources disagree, show both, add `needs-human`, and add `blocked-data` when the conflict prevents the decision. Do not select the convenient deadline. See [label examples](resources/wa-label-examples.md) for ambiguous cases.
 
+## Cohere-assisted processing
+
+Use the installed Cohere-backed web-search provider for semantic discovery and synthesis, with the Workspace Alberta procurement server and official notices as the primary acquisition sources. Discover actual tool names from the running harness; do not invent `mcp__cohere__search`, `mcp__web__fetch`, or assume an MCP server exists merely from this procedure. The shipped `web-search-cohere` provider combines web acquisition with Cohere v2 tool use; Cohere is not itself a replacement procurement database.
+
+For batches, use the bounded procurement processor when installed (`procurement_review_batch`). Queue 100 or more opportunities as independent jobs rather than spawning 100 requests at once. Respect configured concurrency, cancellation, rate limits, and per-item failures. Report completed, failed, cancelled, and unprocessed counts separately; preserve results for every requested opportunity. If using the existing `subagent`/workflow capabilities, pass only the current subscriber profile and relevant evidence to each worker. Never promise a dedicated 256K context: the currently documented Command A+ context is 128K, and the actual deployment and input budget control availability.
+
+Analyze accessible document text and supported images with Command A+. PDFs require an actual extraction/rendering path; videos require an explicit supported frame-sampling path with timestamps and cannot be described as fully watched. Preserve inaccessible pages, unsupported media, extraction limits and omitted content as coverage gaps. Do not remove safety/file/token limits simply to claim full-document support. Confirm authority before sending nonpublic subscriber documents to a hosted provider.
+
+Use native Cohere v2 citation records for grounded text, then validate their spans and source IDs against the documents actually supplied. Automatic citation generation does not establish that a statement is true or that a document is current. Visual interpretations are observations, not contractual requirements or proof of customer capacity. Follow the citation policy for invalid or absent citation records.
+
 ## Deliver desk work
 
 Produce a compact brief: **opportunity and labels; fit and evidence; closing time and mandatory events; requirements and unknowns; risks; one next action; sources checked at**. Link each decisive fact to its evidence. A no-results report names sources, filters, and time checked. Quality means a useful, verified brief, not a quota of leads.

@@ -73,6 +73,8 @@
       "@workspacealberta/wa-cordis-host-runner/types": ["./packages/extensions/cordis-host-runner/src/types.ts"],
       "@workspacealberta/wa-goal/types": ["./packages/goal/goal/src/types.ts"],
       "@workspacealberta/wa-goal/client": ["./packages/goal/goal/src/client.ts"],
+      "@workspacealberta/wa-procurement-base": ["./packages/procurement/wa-procurement-base/src/index.ts"],
+      "@workspacealberta/wa-procurement-base/invariant": ["./packages/procurement/wa-procurement-base/src/invariant.ts"],
       "@workspacealberta/wa-llm/types": ["./packages/llm/llm/src/types.ts"],
       "@workspacealberta/wa-llm/brand": ["./packages/llm/llm/src/brand.ts"],
       "@workspacealberta/wa-llm-retry/types": ["./packages/llm/llm-retry/src/types.ts"],
