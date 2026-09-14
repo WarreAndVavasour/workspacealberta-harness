@@ -42,3 +42,6 @@ apps/web/dist/
 worktrees/
 .agents/worktrees/
 .typert-*/
+
+# runtime log spam from ad-hoc doc servers
+server*.log
