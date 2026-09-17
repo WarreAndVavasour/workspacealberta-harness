@@ -189,6 +189,12 @@ describe('serializeCohereV2ChatRequest', () => {
 
   it('omits tools and thinking unless configured, and disables thinking for off', () => {
     expect(serializeCohereV2ChatRequest('m', context({ tools: [] }))).not.toHaveProperty('tools')
+    expect(serializeCohereV2ChatRequest('m', context({
+      tools: [{ name: 'lookup', parameters: { type: 'object', properties: {} } }],
+    })).tools).toEqual([{
+      type: 'function',
+      function: { name: 'lookup', parameters: { type: 'object', properties: {} } },
+    }])
     expect(serializeCohereV2ChatRequest('m', context(), { reasoning: 'off' }).thinking).toEqual({ type: 'disabled' })
     expect(serializeCohereV2ChatRequest('m', context())).not.toHaveProperty('thinking')
   })
@@ -254,6 +260,16 @@ describe('serializeCohereV2ChatRequest', () => {
         },
         {
           role: 'assistant',
+          content: [{ type: 'text', text: 'plain' }],
+          api: COHERE_V2_CHAT_API as Api,
+          provider: 'cohere-canada',
+          model: 'm',
+          usage: ZERO_USAGE,
+          stopReason: 'stop',
+          timestamp: 0,
+        },
+        {
+          role: 'assistant',
           content: [{ type: 'toolCall', id: 'c2', name: 'f', arguments: {} }],
           api: COHERE_V2_CHAT_API as Api,
           provider: 'cohere-canada',
@@ -295,6 +311,7 @@ describe('serializeCohereV2ChatRequest', () => {
         ],
       },
       { role: 'assistant', content: [{ type: 'thinking', thinking: 'only' }] },
+      { role: 'assistant', content: 'plain' },
       {
         role: 'assistant',
         tool_calls: [{ id: 'c2', type: 'function', function: { name: 'f', arguments: '{}' } }],
@@ -335,6 +352,19 @@ describe('parseCohereSse', () => {
 
   it('does not flush an empty event block', async () => {
     expect(await collect(parseCohereSse(sseBytes('\n\n')))).toEqual([])
+  })
+
+  it('ignores comments, unknown fields, and empty frames', async () => {
+    const frames = await collect(parseCohereSse(sseBytes([
+      ': keep-alive\n',
+      '\n',
+      'foo: bar\n',
+      '\n',
+      'event: debug\n',
+      'data: {}\n',
+      '\n',
+    ].join(''))))
+    expect(frames).toEqual([{ event: 'debug', data: '{}' }])
   })
 })
 
@@ -474,6 +504,66 @@ describe('translateCohereSse', () => {
     const end = unusable.find(event => event.type === 'toolcall_end')
     expect(end).toMatchObject({ toolCall: { arguments: {} } })
   })
+
+  it('falls through empty error objects, invalid usage numbers, and missing tool arguments', async () => {
+    const events = await collect(translateCohereSse(model('https://example'), (async function* () {
+      yield {
+        event: '',
+        data: JSON.stringify({
+          type: 'tool-call-start',
+          delta: { message: { tool_calls: { function: { arguments: 'not-json' } } } },
+        }),
+      }
+      yield { event: '', data: JSON.stringify({ type: 'tool-call-delta', delta: { message: {} } }) }
+      yield { event: '', data: JSON.stringify({ type: 'content-start', delta: { message: {} } }) }
+      yield {
+        event: '',
+        data: JSON.stringify({
+          type: 'message-end',
+          delta: {
+            finish_reason: 'ERROR',
+            error: { message: '', error: '', errorObject: {} },
+            usage: { tokens: { input_tokens: Number.NaN, output_tokens: 'x' } },
+          },
+        }),
+      }
+    })()))
+    expect(events.at(-1)).toMatchObject({
+      type: 'error',
+      error: { errorMessage: 'Cohere v2 chat generation failed' },
+    })
+  })
+
+  it('covers unused SSE fields, non-object deltas, and fallback usage', async () => {
+    const events = await collect(translateCohereSse(model('https://example'), (async function* () {
+      yield { event: '', data: JSON.stringify({ type: 1 }) }
+      yield { event: '', data: JSON.stringify({ type: 'message-start', id: 9 }) }
+      yield { event: '', data: JSON.stringify({ type: 'message-start', id: '' }) }
+      yield { event: '', data: JSON.stringify({ type: 'content-delta', delta: { message: { content: 'x' } } }) }
+      yield { event: '', data: JSON.stringify({ type: 'content-delta', delta: { message: { content: { thinking: 'late' } } } }) }
+      yield { event: '', data: JSON.stringify({ type: 'content-end' }) }
+      yield { event: '', data: JSON.stringify({ type: 'tool-call-start', delta: { message: { tool_calls: 'x' } } }) }
+      yield { event: '', data: JSON.stringify({ type: 'tool-call-delta', index: 0, delta: { message: { tool_calls: { function: { arguments: '' } } } } }) }
+      yield { event: '', data: JSON.stringify({ type: 'tool-call-end', index: 1 }) }
+      yield {
+        event: '',
+        data: JSON.stringify({
+          type: 'message-end',
+          delta: {
+            finish_reason: 'ERROR',
+            error: { error: { message: 5 } },
+            usage: 'none',
+          },
+        }),
+      }
+    })()))
+    expect(events.at(-1)).toMatchObject({
+      type: 'error',
+      error: { errorMessage: 'Cohere v2 chat generation failed' },
+    })
+    const start = events.find(event => event.type === 'toolcall_start')
+    expect(start).toMatchObject({ type: 'toolcall_start' })
+  })
 })
 
 describe('cohereV2ChatApi stream', () => {
@@ -581,11 +671,13 @@ describe('cohereV2ChatApi stream', () => {
       error: { stopReason: 'aborted' },
     })
 
+    const controller = new AbortController()
     vi.stubGlobal('fetch', async () => {
+      controller.abort()
       throw new DOMException('The operation was aborted.', 'AbortError')
     })
     const mid = await collect(api.stream(model('https://example'), context(), {
-      signal: AbortSignal.abort('stop'),
+      signal: controller.signal,
     }))
     expect(mid.at(-1)).toMatchObject({ type: 'error', reason: 'aborted' })
 
@@ -608,6 +700,22 @@ describe('cohereV2ChatApi stream', () => {
     })
   })
 
+  it('copies caller headers and drops null suppressions', async () => {
+    const api = cohereV2ChatApi()
+    const server = await mockServer([{ events: textEvents }, { events: textEvents }])
+    const events = await collect(api.streamSimple(model(`${server.url}/v2`), context(), {
+      apiKey: 'k',
+      headers: { 'x-test': '1', 'x-omit': null },
+    }))
+    expect(events.at(-1)).toMatchObject({ type: 'done' })
+    expect(server.headers[0]?.['x-test']).toBe('1')
+    expect(server.headers[0]?.['x-omit']).toBeUndefined()
+
+    const keyless = await collect(api.stream(model(`${server.url}/v2`), context(), { apiKey: '' }))
+    expect(keyless.at(-1)).toMatchObject({ type: 'done' })
+    expect(server.headers[1]?.authorization).toBeUndefined()
+  })
+
   it('reads nested HTTP error objects', async () => {
     const api = cohereV2ChatApi()
     const http = await mockServer([{ status: 400, body: '{"error":{"message":"schema rejected"}}' }])
@@ -615,6 +723,13 @@ describe('cohereV2ChatApi stream', () => {
     expect(rejected.at(-1)).toMatchObject({
       type: 'error',
       error: { errorMessage: 'schema rejected' },
+    })
+
+    const stringError = await mockServer([{ status: 400, body: '{"error":"quota"}' }])
+    const quota = await collect(api.stream(model(stringError.url), context(), { apiKey: 'k' }))
+    expect(quota.at(-1)).toMatchObject({
+      type: 'error',
+      error: { errorMessage: 'quota' },
     })
   })
 })

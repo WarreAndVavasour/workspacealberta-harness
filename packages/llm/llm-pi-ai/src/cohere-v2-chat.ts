@@ -15,10 +15,10 @@ import type {
   Context,
   Model,
   ProviderStreams,
+  SimpleStreamOptions,
   Usage,
 } from '@earendil-works/pi-ai'
 import { COHERE_V2_CHAT_API, cohereV2ChatUrl, serializeCohereV2ChatRequest } from './cohere-v2-chat-request.ts'
-import type { CohereV2ChatRequestOptions } from './cohere-v2-chat-request.ts'
 
 export {
   COHERE_V2_CHAT_API,
@@ -33,15 +33,6 @@ export type {
   CohereV2ToolCall,
 } from './cohere-v2-chat-request.ts'
 
-/** Stream options this protocol reads from pi-ai's common option bag. */
-interface CohereV2StreamOptions extends CohereV2ChatRequestOptions {
-  /** Bearer token the harness already resolved; omitted when the route is keyless. */
-  apiKey?: string
-  /** Extra headers; attribution is already merged by the adapter. */
-  headers?: Record<string, string>
-  /** Caller/watchdog cancellation. */
-  signal?: AbortSignal
-}
 
 /** One parsed SSE frame. */
 export interface CohereSseFrame {
@@ -237,7 +228,6 @@ export async function* translateCohereSse(
   const content: AssistantMessage['content'] = []
   let responseId: string | undefined
   let usage = emptyUsage()
-  let sawTerminal = false
   let nextIndex = 0
   let openThinking: { index: number; text: string } | undefined
   const toolDrafts = new Map<number, { index: number; draft: ToolCallDraft }>()
@@ -382,8 +372,12 @@ export async function* translateCohereSse(
         const known = toolDrafts.get(wireIndex)
         if (known === undefined || extra.length === 0) break
         known.draft.arguments += extra
-        const block = content[known.index]
-        if (block?.type === 'toolCall') block.arguments = parseArguments(known.draft.arguments)
+        content[known.index] = {
+          type: 'toolCall',
+          id: known.draft.id,
+          name: known.draft.name,
+          arguments: parseArguments(known.draft.arguments),
+        }
         yield { type: 'toolcall_delta', contentIndex: known.index, delta: extra, partial: snapshot() }
         break
       }
@@ -408,7 +402,6 @@ export async function* translateCohereSse(
       }
       case 'message-end': {
         yield* closeThinking()
-        sawTerminal = true
         usage = usageOf(body.delta?.usage)
         const finish = body.delta?.finish_reason
         const stopReason = stopReasonOf(finish)
@@ -434,21 +427,19 @@ export async function* translateCohereSse(
     }
   }
 
-  if (!sawTerminal) {
-    yield {
-      type: 'error',
-      reason: 'error',
-      error: snapshot('error', {
-        errorMessage: 'Cohere v2 chat stream ended without a terminal message-end event',
-      }),
-    }
+  yield {
+    type: 'error',
+    reason: 'error',
+    error: snapshot('error', {
+      errorMessage: 'Cohere v2 chat stream ended without a terminal message-end event',
+    }),
   }
 }
 
 async function* streamCohereV2Chat(
   model: Model<Api>,
   context: Context,
-  options: CohereV2StreamOptions,
+  options: SimpleStreamOptions = {},
 ): AsyncGenerator<AssistantMessageEvent> {
   const failed = (stopReason: AssistantMessage['stopReason'], errorMessage: string): AssistantMessageEvent => ({
     type: 'error',
@@ -464,7 +455,11 @@ async function* streamCohereV2Chat(
   const headers: Record<string, string> = {
     accept: 'text/event-stream',
     'content-type': 'application/json',
-    ...options.headers,
+  }
+  if (options.headers !== undefined) {
+    for (const [name, value] of Object.entries(options.headers)) {
+      if (value !== null) headers[name] = value
+    }
   }
   if (options.apiKey !== undefined && options.apiKey.length > 0) {
     headers.authorization = `Bearer ${options.apiKey}`
@@ -518,5 +513,8 @@ async function* streamCohereV2Chat(
 export function cohereV2ChatApi(): ProviderStreams {
   return {
     stream: streamCohereV2Chat,
+    // createProvider dispatches Models.streamSimple through this slot; the
+    // adapter never calls `stream` on a hand-declared route.
+    streamSimple: streamCohereV2Chat,
   }
 }
