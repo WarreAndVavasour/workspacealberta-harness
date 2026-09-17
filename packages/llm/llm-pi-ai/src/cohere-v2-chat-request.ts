@@ -173,12 +173,12 @@ function serializeMessage(message: Message): CohereV2Message {
         content: text.length > 0 ? text : '(no output)',
       }
     }
+    /* v8 ignore start -- closed Message union; TypeScript exhaustiveness */
     default: {
-      /* v8 ignore start -- closed Message union; TypeScript exhaustiveness */
       const exhaustive: never = message
       return exhaustive
-      /* v8 ignore stop */
     }
+    /* v8 ignore stop */
   }
 }
 
