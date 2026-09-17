@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context, FiberState, type Plugin } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import { remoteMethods } from '@deepseek-ai/dsh-typert-protocol'
-import type { AgentPresets } from '@deepseek-ai/dsh-agent-presets'
+import { Context, FiberState, type Plugin } from '@workspacealberta/cordis'
+import Loader from '@workspacealberta/cordis-plugin-loader'
+import { remoteMethods } from '@workspacealberta/wa-typert-protocol'
+import type { AgentPresets } from '@workspacealberta/wa-agent-presets'
 import PluginInventoryGateway from '../src/index.ts'
 
 const contexts: Context[] = []

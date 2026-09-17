@@ -14,25 +14,25 @@ import type {
   InboxTarget,
   PreStepDecision,
   RequestErrorAction,
-} from '@deepseek-ai/dsh-agent'
-import { Inbox, agentEvents, assembleContextFor } from '@deepseek-ai/dsh-agent'
-import type { GenerateOptions, LlmCallConfig, Message, PreparedLlmCall } from '@deepseek-ai/dsh-llm'
+} from '@workspacealberta/wa-agent'
+import { Inbox, agentEvents, assembleContextFor } from '@workspacealberta/wa-agent'
+import type { GenerateOptions, LlmCallConfig, Message, PreparedLlmCall } from '@workspacealberta/wa-llm'
 import {
   BlockAssembler,
   LlmError,
   createAssistantMessage,
   errorChain,
   markAgentLoopRequest,
-} from '@deepseek-ai/dsh-llm'
-import { deepFreeze } from '@deepseek-ai/dsh-util-values'
-import type { Scope } from '@deepseek-ai/dsh-scope'
-import { createScope } from '@deepseek-ai/dsh-scope'
-import type { EpochHeader, RequestContext, Session, SessionId, SessionSeq, TurnEndReason, UserMessage } from '@deepseek-ai/dsh-session'
-import { canonicalHeader, headerEquals } from '@deepseek-ai/dsh-session'
-import { joinContextSections, renderContextSections, renderPrompt } from '@deepseek-ai/dsh-system-prompt'
-import type { PromptAssembly } from '@deepseek-ai/dsh-system-prompt'
-import type {} from '@deepseek-ai/dsh-session-projection'
-import type { Context } from '@deepseek-ai/cordis'
+} from '@workspacealberta/wa-llm'
+import { deepFreeze } from '@workspacealberta/wa-util-values'
+import type { Scope } from '@workspacealberta/wa-scope'
+import { createScope } from '@workspacealberta/wa-scope'
+import type { EpochHeader, RequestContext, Session, SessionId, SessionSeq, TurnEndReason, UserMessage } from '@workspacealberta/wa-session'
+import { canonicalHeader, headerEquals } from '@workspacealberta/wa-session'
+import { joinContextSections, renderContextSections, renderPrompt } from '@workspacealberta/wa-system-prompt'
+import type { PromptAssembly } from '@workspacealberta/wa-system-prompt'
+import type {} from '@workspacealberta/wa-session-projection'
+import type { Context } from '@workspacealberta/cordis'
 import { RuntimeContextProjection } from './runtime-context.ts'
 import { executeToolCalls } from './tool-calls.ts'
 

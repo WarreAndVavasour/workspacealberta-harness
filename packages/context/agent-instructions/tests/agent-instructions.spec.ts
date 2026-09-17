@@ -2,15 +2,15 @@ import { chmod, mkdtemp, mkdir, rm, stat, symlink, utimes, writeFile } from 'nod
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
 import { tmpdir } from 'node:os'
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import * as workspaceContext from '@deepseek-ai/dsh-agent-instructions'
-import LlmRuntime, { createUserMessage, ToolCallId, type Message, type StreamChunk } from '@deepseek-ai/dsh-llm'
-import SessionStore, { Session, SessionId, SessionSeq, SESSION_FORMAT_VERSION, type SessionEvent, type UserMessage } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import AgentRegistry, { agentEvents, Inbox, type Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop, { turnBoundaryProjectionDefinition } from '@deepseek-ai/dsh-agent-loop'
-import { FileSystem, FsTargetKey, FsVersion } from '@deepseek-ai/dsh-fs'
+import { Context } from '@workspacealberta/cordis'
+import Loader from '@workspacealberta/cordis-plugin-loader'
+import * as workspaceContext from '@workspacealberta/wa-agent-instructions'
+import LlmRuntime, { createUserMessage, ToolCallId, type Message, type StreamChunk } from '@workspacealberta/wa-llm'
+import SessionStore, { Session, SessionId, SessionSeq, SESSION_FORMAT_VERSION, type SessionEvent, type UserMessage } from '@workspacealberta/wa-session'
+import SessionProjectionRegistry from '@workspacealberta/wa-session-projection'
+import AgentRegistry, { agentEvents, Inbox, type Agent } from '@workspacealberta/wa-agent'
+import AgentLoop, { turnBoundaryProjectionDefinition } from '@workspacealberta/wa-agent-loop'
+import { FileSystem, FsTargetKey, FsVersion } from '@workspacealberta/wa-fs'
 import type {
   FsDirEntry,
   FsEditOutcome,
@@ -20,20 +20,20 @@ import type {
   FsTarget,
   FsWriteIntent,
   FsWriteOutcome,
-} from '@deepseek-ai/dsh-fs'
-import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@deepseek-ai/dsh-tools'
+} from '@workspacealberta/wa-fs'
+import LocalFileSystem from '@workspacealberta/wa-fs-local'
+import SystemPrompt from '@workspacealberta/wa-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@workspacealberta/wa-tools'
 import type {
   ToolExecution,
   ToolExecutionToken,
-} from '@deepseek-ai/dsh-tools'
-import * as ToolFs from '@deepseek-ai/dsh-tool-fs'
+} from '@workspacealberta/wa-tools'
+import * as ToolFs from '@workspacealberta/wa-tool-fs'
 import {
   discoverBaselineInstructionFiles,
   loadBaselineInstructions,
   renderWorkspaceContext,
-} from '@deepseek-ai/dsh-agent-instructions'
+} from '@workspacealberta/wa-agent-instructions'
 import {
   applyInstructionVersionUpdates,
   baselineInstructionState,
@@ -639,7 +639,7 @@ describe('workspace context instruction discovery', () => {
       vi.stubEnv('DSH_HOME', '')
       vi.resetModules()
       vi.doMock('node:os', () => ({ homedir: () => home }))
-      const isolated = await import('@deepseek-ai/dsh-agent-instructions')
+      const isolated = await import('@workspacealberta/wa-agent-instructions')
       const files = await isolated.discoverBaselineInstructionFiles({ cwd: root })
 
       expect(files.map(file => file.displayPath)).toEqual(['~/.dsh/AGENTS.md'])
@@ -660,7 +660,7 @@ describe('workspace context instruction discovery', () => {
 
       vi.resetModules()
       vi.doMock('node:os', () => ({ homedir: () => home }))
-      const isolated = await import('@deepseek-ai/dsh-agent-instructions')
+      const isolated = await import('@workspacealberta/wa-agent-instructions')
       const files = await isolated.discoverBaselineInstructionFiles({ cwd: root, dshHome: '~/.dsh' })
 
       expect(files).toEqual([{ absolutePath: join(home, '.dsh/AGENTS.md'), displayPath: '~/.dsh/AGENTS.md' }])
@@ -2471,7 +2471,7 @@ describe('workspace context request injection', () => {
           },
         }
       })
-      const isolated = await import('@deepseek-ai/dsh-agent-instructions')
+      const isolated = await import('@workspacealberta/wa-agent-instructions')
       await isolated.loadBaselineInstructions({ cwd: root, dshHome: home, maxBytes: 65536 })
       observedStats.clear()
       await isolated.loadBaselineInstructions({ cwd: root, dshHome: home, maxBytes: 65536 })
@@ -2504,7 +2504,7 @@ describe('workspace context request injection', () => {
           },
         }
       })
-      const isolated = await import('@deepseek-ai/dsh-agent-instructions')
+      const isolated = await import('@workspacealberta/wa-agent-instructions')
 
       const rendered = await isolated.loadBaselineInstructions({ cwd: root, dshHome: home, maxBytes: 65536 })
 

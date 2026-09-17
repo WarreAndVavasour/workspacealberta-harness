@@ -8,12 +8,12 @@ import { mkdirSync, mkdtempSync, realpathSync, rmSync, symlinkSync } from 'node:
 import { tmpdir } from 'node:os'
 import { join, resolve, sep } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { Session, SessionId } from '@deepseek-ai/dsh-session'
-import SandboxPolicyService, { SANDBOX_MODES, setSandboxMode } from '@deepseek-ai/dsh-sandbox-policy'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SystemPrompt, { renderContextSnapshot, renderPrompt } from '@deepseek-ai/dsh-system-prompt'
+import { Context } from '@workspacealberta/cordis'
+import type { Agent } from '@workspacealberta/wa-agent'
+import { Session, SessionId } from '@workspacealberta/wa-session'
+import SandboxPolicyService, { SANDBOX_MODES, setSandboxMode } from '@workspacealberta/wa-sandbox-policy'
+import SessionProjectionRegistry from '@workspacealberta/wa-session-projection'
+import SystemPrompt, { renderContextSnapshot, renderPrompt } from '@workspacealberta/wa-system-prompt'
 
 async function mounted(config: { mode?: 'read-only' | 'workspace-write' | 'danger-full-access'; workspaceRoot?: string } = {}) {
   const ctx = new Context()

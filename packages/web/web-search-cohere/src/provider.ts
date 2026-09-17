@@ -12,15 +12,15 @@
  * @module @workspacealberta/web-search-cohere/provider
  */
 
-import { WebError } from '@deepseek-ai/dsh-web'
+import { WebError } from '@workspacealberta/wa-web'
 import type {
   WebSearchProvider,
   WebSearchRequest,
   WebSearchResult,
   WebSearchSource,
-} from '@deepseek-ai/dsh-web'
-import type { CredentialRef } from '@deepseek-ai/dsh-credentials'
-import type {} from '@deepseek-ai/dsh-session'
+} from '@workspacealberta/wa-web'
+import type { CredentialRef } from '@workspacealberta/wa-credentials'
+import type {} from '@workspacealberta/wa-session'
 import type {
   CohereChatMessage,
   CohereChatRequest,
@@ -65,7 +65,7 @@ export interface CohereSearchLlmRequest {
   readonly body: CohereChatRequest
 }
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@workspacealberta/wa-session/types' {
   interface SessionEventMap {
     /** Secret-free auxiliary Cohere search request recorded before dispatch. */
     'web/cohere-search-llm-request': CohereSearchLlmRequest

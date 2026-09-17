@@ -1,8 +1,8 @@
-import { Context } from '@deepseek-ai/cordis'
-import { HostConnectionService } from '@deepseek-ai/dsh-client-connection'
-import type { BrowserAuth } from '@deepseek-ai/dsh-client-connection/src/browser-auth.ts'
-import type { SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionHandle } from '@deepseek-ai/dsh-session-persistence'
+import { Context } from '@workspacealberta/cordis'
+import { HostConnectionService } from '@workspacealberta/wa-client-connection'
+import type { BrowserAuth } from '@workspacealberta/wa-client-connection/src/browser-auth.ts'
+import type { SessionHeader, SessionId } from '@workspacealberta/wa-session'
+import type { SessionHandle } from '@workspacealberta/wa-session-persistence'
 import { strFromU8, unzipSync } from 'fflate'
 import { describe, expect, it } from 'vitest'
 import {

@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-09-07-wa-procurement-two-clocks.md
+2026-09-07-wa-procurement-two-clocks.md: a32745b48e11ef5cf3300059cd3a808d6032c8c3
+2026-09-07-wa-procurement-two-clocks.zh.md: 816336316b1fc189a93c40c18480ad5f4a764380

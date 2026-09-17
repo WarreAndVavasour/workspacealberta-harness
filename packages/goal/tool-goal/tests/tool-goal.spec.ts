@@ -1,24 +1,24 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import AgentRegistry, { agentEvents, Inbox } from '@deepseek-ai/dsh-agent'
-import type { Agent, AgentStatus } from '@deepseek-ai/dsh-agent'
-import { turnBoundaryProjectionDefinition } from '@deepseek-ai/dsh-agent-loop'
-import GoalService, { GoalId } from '@deepseek-ai/dsh-goal'
-import type { GoalRef } from '@deepseek-ai/dsh-goal'
-import { createUserMessage, ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { MessageSource } from '@deepseek-ai/dsh-llm'
+import { Context } from '@workspacealberta/cordis'
+import Loader from '@workspacealberta/cordis-plugin-loader'
+import AgentRegistry, { agentEvents, Inbox } from '@workspacealberta/wa-agent'
+import type { Agent, AgentStatus } from '@workspacealberta/wa-agent'
+import { turnBoundaryProjectionDefinition } from '@workspacealberta/wa-agent-loop'
+import GoalService, { GoalId } from '@workspacealberta/wa-goal'
+import type { GoalRef } from '@workspacealberta/wa-goal'
+import { createUserMessage, ToolCallId } from '@workspacealberta/wa-llm'
+import type { MessageSource } from '@workspacealberta/wa-llm'
 import {
   SESSION_FORMAT_VERSION,
   Session,
   SessionId,
   SessionLogOffset,
-} from '@deepseek-ai/dsh-session'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import type { ToolExecutionResult } from '@deepseek-ai/dsh-tools'
-import * as toolGoal from '@deepseek-ai/dsh-tool-goal'
+} from '@workspacealberta/wa-session'
+import SystemPrompt from '@workspacealberta/wa-system-prompt'
+import ToolRuntime from '@workspacealberta/wa-tools'
+import SessionProjectionRegistry from '@workspacealberta/wa-session-projection'
+import type { ToolExecutionResult } from '@workspacealberta/wa-tools'
+import * as toolGoal from '@workspacealberta/wa-tool-goal'
 
 const testToolSignal = new AbortController().signal
 

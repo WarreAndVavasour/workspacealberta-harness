@@ -2,15 +2,15 @@
  * Concrete agent-loop plugin: creates scoped ReactLoopAgents, publishes them
  * through the agent/session registries, and owns their ordered teardown.
  *
- * @module @deepseek-ai/dsh-agent-loop
+ * @module @workspacealberta/wa-agent-loop
  */
 
-import { Context, FiberState, Service } from '@deepseek-ai/cordis'
+import { Context, FiberState, Service } from '@workspacealberta/cordis'
 import { randomUUID } from 'node:crypto'
-import z from '@deepseek-ai/schemastery'
+import z from '@workspacealberta/schemastery'
 import { z as zod } from 'zod'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { emitAgentEvent } from '@deepseek-ai/dsh-agent'
+import { brandString } from '@workspacealberta/wa-brand'
+import { emitAgentEvent } from '@workspacealberta/wa-agent'
 import type {
   Agent,
   AgentFactory,
@@ -21,17 +21,17 @@ import type {
   ResumeAgentOptions,
   SessionStartSource,
   TurnBoundaryProjection,
-} from '@deepseek-ai/dsh-agent'
-import { errorChain, ReasoningEffortId } from '@deepseek-ai/dsh-llm'
-import type {} from '@deepseek-ai/dsh-settings'
-import { interruptedTurnClosers, SessionLogOffset, SessionPreparation, SessionSeq } from '@deepseek-ai/dsh-session'
-import type { Session, SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-system-prompt'
-import type {} from '@deepseek-ai/dsh-tools'
-import type {} from '@deepseek-ai/dsh-session-projection'
-import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
-import { SessionPersistenceNotFoundError } from '@deepseek-ai/dsh-session-persistence'
-import type { SessionHandle, SessionPersistence } from '@deepseek-ai/dsh-session-persistence'
+} from '@workspacealberta/wa-agent'
+import { errorChain, ReasoningEffortId } from '@workspacealberta/wa-llm'
+import type {} from '@workspacealberta/wa-settings'
+import { interruptedTurnClosers, SessionLogOffset, SessionPreparation, SessionSeq } from '@workspacealberta/wa-session'
+import type { Session, SessionHeader, SessionId } from '@workspacealberta/wa-session'
+import type {} from '@workspacealberta/wa-system-prompt'
+import type {} from '@workspacealberta/wa-tools'
+import type {} from '@workspacealberta/wa-session-projection'
+import type { ProjectionDefinition } from '@workspacealberta/wa-session-projection'
+import { SessionPersistenceNotFoundError } from '@workspacealberta/wa-session-persistence'
+import type { SessionHandle, SessionPersistence } from '@workspacealberta/wa-session-persistence'
 import { ReactLoopAgent } from './agent.ts'
 import { DEFAULT_MAX_PARALLEL_TOOL_CALLS } from './constants.ts'
 
@@ -220,7 +220,7 @@ interface PreparedAgent {
   dispose(): Promise<void>
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@workspacealberta/cordis' {
   interface Context {
     agentLoop: AgentLoop
     /**

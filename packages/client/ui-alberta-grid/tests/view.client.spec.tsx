@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import { makeTranslate } from '@workspacealberta/wa-client-test-runtime'
 import { CSD_URL, PRICE_URL } from '../src/client/aeso.ts'
 import { AlbertaGridView } from '../src/client/AlbertaGridView.tsx'
 import { en } from '../src/client/locales.ts'

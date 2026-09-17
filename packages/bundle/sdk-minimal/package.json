@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-sdk-minimal",
+  "name": "@workspacealberta/wa-sdk-minimal",
   "description": "The standalone minimal SDK profile bundle: JSON-RPC, one DeepSeek adapter, persistent shell, editor, and JSONL sessions",
   "version": "0.1.2-rc.1",
   "publishConfig": {
@@ -34,40 +34,40 @@
     }
   },
   "dependencies": {
-    "@deepseek-ai/cordis-plugin-timer": "workspace:^",
-    "@deepseek-ai/dsh-agent": "workspace:^",
-    "@deepseek-ai/dsh-agent-loop": "workspace:^",
-    "@deepseek-ai/dsh-deepseek-llm-api-extensions": "workspace:^",
-    "@deepseek-ai/dsh-fs-local": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-jobs-local": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-llm-deepseek": "workspace:^",
-    "@deepseek-ai/dsh-llm-retry": "workspace:^",
-    "@deepseek-ai/dsh-plugin-package-inventory-deepseek": "workspace:^",
-    "@deepseek-ai/dsh-sandbox-local": "workspace:^",
-    "@deepseek-ai/dsh-sandbox-policy": "workspace:^",
-    "@deepseek-ai/dsh-scope": "workspace:^",
-    "@deepseek-ai/dsh-sdk-app": "workspace:^",
-    "@deepseek-ai/dsh-sdk-jsonrpc-server": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-session-log-deepseek": "workspace:^",
-    "@deepseek-ai/dsh-session-persistence-jsonl": "workspace:^",
-    "@deepseek-ai/dsh-session-projection": "workspace:^",
-    "@deepseek-ai/dsh-session-title": "workspace:^",
-    "@deepseek-ai/dsh-subprocess-local": "workspace:^",
-    "@deepseek-ai/dsh-system-prompt": "workspace:^",
-    "@deepseek-ai/dsh-terminal": "workspace:^",
-    "@deepseek-ai/dsh-terminal-bash": "workspace:^",
-    "@deepseek-ai/dsh-tool-bash-persistent": "workspace:^",
-    "@deepseek-ai/dsh-tool-pwsh-persistent": "workspace:^",
-    "@deepseek-ai/dsh-tool-str-replace-editor": "workspace:^",
-    "@deepseek-ai/dsh-tools": "workspace:^"
+    "@workspacealberta/cordis-plugin-timer": "workspace:^",
+    "@workspacealberta/wa-agent": "workspace:^",
+    "@workspacealberta/wa-agent-loop": "workspace:^",
+    "@workspacealberta/wa-deepseek-llm-api-extensions": "workspace:^",
+    "@workspacealberta/wa-fs-local": "workspace:^",
+    "@workspacealberta/wa-invariants": "workspace:^",
+    "@workspacealberta/wa-jobs-local": "workspace:^",
+    "@workspacealberta/wa-llm": "workspace:^",
+    "@workspacealberta/wa-llm-deepseek": "workspace:^",
+    "@workspacealberta/wa-llm-retry": "workspace:^",
+    "@workspacealberta/wa-plugin-package-inventory-deepseek": "workspace:^",
+    "@workspacealberta/wa-sandbox-local": "workspace:^",
+    "@workspacealberta/wa-sandbox-policy": "workspace:^",
+    "@workspacealberta/wa-scope": "workspace:^",
+    "@workspacealberta/wa-sdk-app": "workspace:^",
+    "@workspacealberta/wa-sdk-jsonrpc-server": "workspace:^",
+    "@workspacealberta/wa-session": "workspace:^",
+    "@workspacealberta/wa-session-log-deepseek": "workspace:^",
+    "@workspacealberta/wa-session-persistence-jsonl": "workspace:^",
+    "@workspacealberta/wa-session-projection": "workspace:^",
+    "@workspacealberta/wa-session-title": "workspace:^",
+    "@workspacealberta/wa-subprocess-local": "workspace:^",
+    "@workspacealberta/wa-system-prompt": "workspace:^",
+    "@workspacealberta/wa-terminal": "workspace:^",
+    "@workspacealberta/wa-terminal-bash": "workspace:^",
+    "@workspacealberta/wa-tool-bash-persistent": "workspace:^",
+    "@workspacealberta/wa-tool-pwsh-persistent": "workspace:^",
+    "@workspacealberta/wa-tool-str-replace-editor": "workspace:^",
+    "@workspacealberta/wa-tools": "workspace:^"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:^"
+    "@workspacealberta/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:^"
+    "@workspacealberta/cordis": "workspace:^"
   }
 }

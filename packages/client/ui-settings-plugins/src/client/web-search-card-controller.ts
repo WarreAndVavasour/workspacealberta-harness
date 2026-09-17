@@ -9,11 +9,11 @@
  * covers everything the card shows.
  */
 
-import type { Context as ClientContext } from '@deepseek-ai/cordis'
+import type { Context as ClientContext } from '@workspacealberta/cordis'
 // Type-only: pulls the ctx.remote merge into this program.
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type { SnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { SettingsScope, SettingsScopeSnapshot } from '@deepseek-ai/dsh-client-ui-settings/client'
+import type {} from '@workspacealberta/wa-api-remotes/client'
+import type { SnapshotStore } from '@workspacealberta/wa-client-store'
+import type { SettingsScope, SettingsScopeSnapshot } from '@workspacealberta/wa-client-ui-settings/client'
 import {
   CardForm, numberField, textField,
   type CardActions, type CardFieldState, type CardShell,

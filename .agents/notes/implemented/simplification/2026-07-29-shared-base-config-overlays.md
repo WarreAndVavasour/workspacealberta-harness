@@ -6,7 +6,7 @@ English | [中文](2026-07-29-shared-base-config-overlays.zh.md)
 
 ## Problem
 
-`dsh` shipped two full config trees that were 43 rows the same. `apps/cli/cordis.yml` composed the web surface as 74 flat rows, while the TUI booted `examples/tui-agent/cordis.yml`, whose single `@deepseek-ai/dsh-tui-demo` row mounted twelve plugins and re-declared their configuration as its own twenty-key pass-through `Config`.
+`dsh` shipped two full config trees that were 43 rows the same. `apps/cli/cordis.yml` composed the web surface as 74 flat rows, while the TUI booted `examples/tui-agent/cordis.yml`, whose single `@workspacealberta/wa-tui-demo` row mounted twelve plugins and re-declared their configuration as its own twenty-key pass-through `Config`.
 
 Neither file was what its location claimed. `examples/tui-agent` was not an example: `apps/cli/src/tui.ts` hardcoded it as the product's default config, and it owned the TUI PTY smoke, the eight terminal snapshot scenarios, and the PTY harness the `cordis-agent` leaf imported. `dsh-tui-demo` was not a demo either — it was the application, mounted by the shipped binary from `packages/examples/`.
 
@@ -38,11 +38,11 @@ The TUI tests live in `apps/cli/tests/`, the Cordis-toolset e2e in `packages/ext
 
 ## Consequences
 
-An overlay or `--config` tree that named `@deepseek-ai/dsh-tui-demo`, or patched the `tui-agent` row, no longer resolves. Overlays now patch the row that owns each key: the model route on `agent-loop`, the persona on `system-prompt`, presentation on `tui`.
+An overlay or `--config` tree that named `@workspacealberta/wa-tui-demo`, or patched the `tui-agent` row, no longer resolves. Overlays now patch the row that owns each key: the model route on `agent-loop`, the persona on `system-prompt`, presentation on `tui`.
 
 A patch whose `id` matches no row stays a no-op rather than an error. That is deliberate: one personal overlay is shared across surfaces, and `insert` rows match nothing by design, so a row that exists only under `web` must not fail the TUI's boot.
 
-`dsh web` gains `--config`, threaded into `AppCLIEntry` as an extra overlay. Web keeps sandboxed Bash and filesystem providers plus approval, permission presets, directory picking, and browser permission UI; the overlay disables the shared local providers because patches can disable rows but cannot delete them. The TUI query index uses a unique process-local temporary database because the SQLite backend requires one writer owner. It is a disposable derived index rebuilt by each process; `/resume` lists the underlying corpus directly and does not depend on index reuse. `AppCLIEntry` reads both the base and its surface overlay when recovering row defaults for its own patch merge, since a flag override must preserve the overlay's other fields on the same row.
+`wa web` gains `--config`, threaded into `AppCLIEntry` as an extra overlay. Web keeps sandboxed Bash and filesystem providers plus approval, permission presets, directory picking, and browser permission UI; the overlay disables the shared local providers because patches can disable rows but cannot delete them. The TUI query index uses a unique process-local temporary database because the SQLite backend requires one writer owner. It is a disposable derived index rebuilt by each process; `/resume` lists the underlying corpus directly and does not depend on index reuse. `AppCLIEntry` reads both the base and its surface overlay when recovering row defaults for its own patch merge, since a flag override must preserve the overlay's other fields on the same row.
 
 ## Verification
 

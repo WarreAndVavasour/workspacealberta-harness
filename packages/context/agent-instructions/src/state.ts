@@ -1,14 +1,14 @@
 /**
  * Session-visible workspace instruction state and dynamic reconciliation.
  *
- * @module @deepseek-ai/dsh-agent-instructions/state
+ * @module @workspacealberta/wa-agent-instructions/state
  */
 
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import type { Message } from '@deepseek-ai/dsh-llm'
-import type { Session, UserMessage } from '@deepseek-ai/dsh-session'
-import type { FileSystem, FsVersion } from '@deepseek-ai/dsh-fs'
+import type { Agent } from '@workspacealberta/wa-agent'
+import { createUserMessage } from '@workspacealberta/wa-llm'
+import type { Message } from '@workspacealberta/wa-llm'
+import type { Session, UserMessage } from '@workspacealberta/wa-session'
+import type { FileSystem, FsVersion } from '@workspacealberta/wa-fs'
 import type { ResolvedConfig } from './config.ts'
 import { instructionContentSha1, trimmedInstructionDigest } from './digest.ts'
 import {
@@ -45,7 +45,7 @@ export interface AgentInstructionSource {
   changes: AgentInstructionChange[]
 }
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@workspacealberta/wa-llm' {
   interface MessageSourceMap {
     'agent-instructions': AgentInstructionSource
   }

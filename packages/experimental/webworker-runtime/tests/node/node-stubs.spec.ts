@@ -43,7 +43,7 @@ const CALLED: [string, Record<string, unknown>, readonly string[]][] = [
   // these three need a real process, so they stay refusals.
   ['node:child_process', childProcess, ['execFileSync', 'execSync', 'fork']],
   ['node-pty', nodePty, ['spawn', 'open']],
-  ['@deepseek-ai/pi-ai', piAi, [
+  ['@workspacealberta/pi-ai', piAi, [
     'createProvider', 'createModels', 'openAICompletionsApi', 'openAIResponsesApi', 'anthropicMessagesApi',
     'isContextOverflow', 'getSupportedThinkingLevels',
   ]],
@@ -118,7 +118,7 @@ describe('constructible-but-inert fakes', () => {
 describe('replaced external packages', () => {
   it('lists the packages the loader serves from the bundle', () => {
     expect(REPLACED_EXTERNAL_PACKAGES).not.toContain('chokidar')
-    expect(REPLACED_EXTERNAL_PACKAGES).not.toContain('@deepseek-ai/node-addon-landlock-run')
+    expect(REPLACED_EXTERNAL_PACKAGES).not.toContain('@workspacealberta/node-addon-landlock-run')
     expect(REPLACED_EXTERNAL_PACKAGES).toContain('ws')
   })
 

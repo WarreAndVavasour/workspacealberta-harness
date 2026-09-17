@@ -8,7 +8,7 @@ Status: implemented
 
 ## 问题
 
-用户可编辑配置没有归属：`dsh web` 经静态白名单读 cwd 锚定的 profile json 且无写路径，TUI 读 `$DSH_HOME/config.yaml` 裸 loader patch，两者都在启动时冻结。个人设置页（web GUI）需要一个跨 surface 的用户层，带 schema 校验、写路径与热传导——同类产品（Codex、Claude Code、Kimi、OpenCode、Pi）也全部收敛于「用户偏好与扩展组合分离」。Loader 的 reactive 配置更新承载不了这件事：`fiber.update` 原地替换 entry config，构造期读过配置的插件毫无感知，也没有任何回调通知它。
+用户可编辑配置没有归属：`wa web` 经静态白名单读 cwd 锚定的 profile json 且无写路径，TUI 读 `$DSH_HOME/config.yaml` 裸 loader patch，两者都在启动时冻结。个人设置页（web GUI）需要一个跨 surface 的用户层，带 schema 校验、写路径与热传导——同类产品（Codex、Claude Code、Kimi、OpenCode、Pi）也全部收敛于「用户偏好与扩展组合分离」。Loader 的 reactive 配置更新承载不了这件事：`fiber.update` 原地替换 entry config，构造期读过配置的插件毫无感知，也没有任何回调通知它。
 
 ## 决策
 

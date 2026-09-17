@@ -1,0 +1,53 @@
+[
+  {
+    "tools": [
+      "apc_connect",
+      "apc_download",
+      "apc_resume",
+      "apc_status"
+    ]
+  },
+  {
+    "invalid_reference_rejected": true
+  },
+  {
+    "status": "sign_in_required",
+    "next_action": "Call apc_resume after signing in or completing verification.",
+    "reference": "AB-2026-05716",
+    "documents": []
+  },
+  {
+    "status": "downloaded",
+    "complete": true,
+    "expected_documents": 6,
+    "verified_documents": [
+      {
+        "title": "Document 0",
+        "sha256": "9d780da158afef19a55212c793b1cbfbbcd07d3281697bdbdf9aec7f577dfa87"
+      },
+      {
+        "title": "Document 1",
+        "sha256": "c665e1c4937dd1aada8bff152cfacca31c1aabcd2a0c339e2b66ac170913f035"
+      },
+      {
+        "title": "Document 2",
+        "sha256": "d0639499581404343cbe8438855464e7896e940e4fe1907a8aaa938368905ca4"
+      },
+      {
+        "title": "Document 3",
+        "sha256": "d6a87db6293c3d1e68a8b360a9c959e33964b9f470792e487c439e31844d1941"
+      },
+      {
+        "title": "Document 4",
+        "sha256": "f451cd891189b13af01b6a12e6bb3e2d90f12c07db93aa79a26083e704855c79"
+      },
+      {
+        "title": "Document 5",
+        "sha256": "947fd095002e7964376c6fda89e99f6afcb36d3f974d20eaeba8de5742502489"
+      }
+    ]
+  },
+  {
+    "documents_survive_browser_shutdown": true
+  }
+]

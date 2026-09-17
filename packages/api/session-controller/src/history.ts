@@ -1,23 +1,23 @@
 /** Cold Session history pagination and live-event source. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { Deque } from '@deepseek-ai/dsh-deque'
+import type { Context } from '@workspacealberta/cordis'
+import { Deque } from '@workspacealberta/wa-deque'
 import {
   isAppendSurfaceEvent,
   SessionLogOffset,
   SessionSeq,
-} from '@deepseek-ai/dsh-session'
-import { isChunkRow, packChunkRuns, type ChunkRow } from '@deepseek-ai/dsh-session/chunk-rows'
+} from '@workspacealberta/wa-session'
+import { isChunkRow, packChunkRuns, type ChunkRow } from '@workspacealberta/wa-session/chunk-rows'
 import type {
   SessionEvent,
   SessionHeader,
   SessionId,
   SessionLogOffset as SessionLogOffsetType,
   SessionSeqCursor,
-} from '@deepseek-ai/dsh-session'
-import { SessionQueryError, type SessionObservation } from '@deepseek-ai/dsh-session-query'
-import type {} from '@deepseek-ai/dsh-subagent'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+} from '@workspacealberta/wa-session'
+import { SessionQueryError, type SessionObservation } from '@workspacealberta/wa-session-query'
+import type {} from '@workspacealberta/wa-subagent'
+import { RemoteError } from '@workspacealberta/wa-typert-protocol'
 import type {
   SessionAddress,
   SessionChunkRun,

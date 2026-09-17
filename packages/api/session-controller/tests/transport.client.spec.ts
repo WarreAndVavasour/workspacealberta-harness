@@ -4,9 +4,9 @@ import {
   RemoteStream,
   RemoteStreamCarrierError,
   type RemoteStreamOptions,
-} from '@deepseek-ai/dsh-api-gateway/client'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
-import type { RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+} from '@workspacealberta/wa-api-gateway/client'
+import { RemoteError } from '@workspacealberta/wa-typert-protocol'
+import type { RemoteResult } from '@workspacealberta/wa-typert-protocol'
 import {
   createSessionControlStream,
   SessionEventStream,

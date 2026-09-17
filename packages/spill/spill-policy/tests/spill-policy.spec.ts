@@ -9,19 +9,19 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import { createUserMessage, ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@deepseek-ai/dsh-tools'
-import type { ToolDefinition } from '@deepseek-ai/dsh-tools'
-import type { PostToolDecision, ToolExecution, ToolExecutionToken } from '@deepseek-ai/dsh-tools'
-import { SpillLocator, SpillStore } from '@deepseek-ai/dsh-spill'
-import type { SaveTextSpill, SpillRef } from '@deepseek-ai/dsh-spill'
-import * as SpillPolicy from '@deepseek-ai/dsh-spill-policy'
-import { WorkerThreadCodeRuntime } from '@deepseek-ai/dsh-code-runtime-worker-thread'
+import { Context } from '@workspacealberta/cordis'
+import Loader from '@workspacealberta/cordis-plugin-loader'
+import { createUserMessage, ToolCallId } from '@workspacealberta/wa-llm'
+import type { ContentBlock } from '@workspacealberta/wa-llm'
+import { SessionId } from '@workspacealberta/wa-session'
+import SystemPrompt from '@workspacealberta/wa-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@workspacealberta/wa-tools'
+import type { ToolDefinition } from '@workspacealberta/wa-tools'
+import type { PostToolDecision, ToolExecution, ToolExecutionToken } from '@workspacealberta/wa-tools'
+import { SpillLocator, SpillStore } from '@workspacealberta/wa-spill'
+import type { SaveTextSpill, SpillRef } from '@workspacealberta/wa-spill'
+import * as SpillPolicy from '@workspacealberta/wa-spill-policy'
+import { WorkerThreadCodeRuntime } from '@workspacealberta/wa-code-runtime-worker-thread'
 
 const testToolSignal = new AbortController().signal
 

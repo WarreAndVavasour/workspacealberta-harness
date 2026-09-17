@@ -1,19 +1,19 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import { agentEvents } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import { SessionLogOffset, SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent, SessionHeader } from '@deepseek-ai/dsh-session'
+import { Context } from '@workspacealberta/cordis'
+import Loader from '@workspacealberta/cordis-plugin-loader'
+import { agentEvents } from '@workspacealberta/wa-agent'
+import AgentLoop from '@workspacealberta/wa-agent-loop'
+import { mountAgentLoopTestDependencies } from '@workspacealberta/wa-agent-loop-testkit'
+import SessionProjectionRegistry from '@workspacealberta/wa-session-projection'
+import { ToolCallId } from '@workspacealberta/wa-llm'
+import { SessionLogOffset, SessionId } from '@workspacealberta/wa-session'
+import type { SessionEvent, SessionHeader } from '@workspacealberta/wa-session'
 import {
   SessionPersistence,
   SessionPersistenceNotFoundError,
   SessionPersistenceRevision,
-} from '@deepseek-ai/dsh-session-persistence'
-import type { SessionAccess, SessionHandle, SessionPersistenceSnapshot } from '@deepseek-ai/dsh-session-persistence'
+} from '@workspacealberta/wa-session-persistence'
+import type { SessionAccess, SessionHandle, SessionPersistenceSnapshot } from '@workspacealberta/wa-session-persistence'
 import * as toolSchedule from '../src/index.ts'
 
 interface StoredProbeSession {

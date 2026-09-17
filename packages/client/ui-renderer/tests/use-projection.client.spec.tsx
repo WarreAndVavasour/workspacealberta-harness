@@ -10,11 +10,11 @@
  */
 import { describe, expect, it } from 'vitest'
 import { act, render } from '@testing-library/react'
-import { Context } from '@deepseek-ai/cordis'
-import type { StoredEntry } from '@deepseek-ai/dsh-client-ui-slots'
+import { Context } from '@workspacealberta/cordis'
+import type { StoredEntry } from '@workspacealberta/wa-client-ui-slots'
 import type {
   ScopedStandardSourceBinding, SlotRendererHost, SlotScopeAdapter, StandardSourceBinding,
-} from '@deepseek-ai/dsh-client-ui-renderer/client'
+} from '@workspacealberta/wa-client-ui-renderer/client'
 import { createSlotRenderer } from '../src/client/scoped-slots.tsx'
 
 type SessionBinding = ScopedStandardSourceBinding

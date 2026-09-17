@@ -1,6 +1,6 @@
 /**
  * Host-native command execution and path-opening utilities.
- * @module @deepseek-ai/dsh-native-command
+ * @module @workspacealberta/wa-native-command
  */
 
 export { runNativeCommand } from './runner.ts'

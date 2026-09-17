@@ -11,8 +11,8 @@ import {
   PROTOCOL_VERSION,
   type SessionNotification,
 } from '@agentclientprotocol/sdk'
-import { startMockLlmServer } from '@deepseek-ai/dsh-llm-mock-server'
-import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
+import { startMockLlmServer } from '@workspacealberta/wa-llm-mock-server'
+import { entryListSchema } from '@workspacealberta/cordis-plugin-include'
 import { execa } from 'execa'
 import * as yaml from 'js-yaml'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
@@ -203,7 +203,7 @@ function createEnvironmentProbeProfile(home: string, project: string): void {
     name: 'dsh-profile-environment-probe',
     private: true,
     dependencies: {},
-    dsh: { profile: { bundles: ['@deepseek-ai/dsh-base'] } },
+    dsh: { profile: { bundles: ['@workspacealberta/wa-base'] } },
   }, undefined, 2))
   writeFileSync(join(profileDir, 'cordis.patch.yml'), [
     '- insert:',
@@ -226,7 +226,7 @@ interface StartupFixture {
  * A custom profile whose ordinary provider plugin injects `cmdlineArgs`, plus
  * a row that reads its app-owned service through a `!!js` config expression.
  * Both plugin modules resolve
- * `@deepseek-ai/dsh-cmdline` and `commander` through the profile module
+ * `@workspacealberta/wa-cmdline` and `commander` through the profile module
  * fallback, exactly as an installed out-of-tree bundle does.
  */
 function createStartupFixture(): StartupFixture {
@@ -239,7 +239,7 @@ function createStartupFixture(): StartupFixture {
   mkdirSync(bundleDir, { recursive: true })
   writeFileSync(join(bundleDir, 'startup.mjs'), [
     "import { Command } from 'commander'",
-    "import { parseCmdline } from '@deepseek-ai/dsh-cmdline'",
+    "import { parseCmdline } from '@workspacealberta/wa-cmdline'",
     "export const name = 'fixture-startup'",
     "export const inject = ['cmdlineArgs']",
     'export function apply(ctx) {',
@@ -406,7 +406,7 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
     writeFileSync(patch, [
       '- insert:',
       '    - id: missing-sdk-startup-plugin',
-      '      name: "@deepseek-ai/dsh-missing-sdk-startup-plugin"',
+      '      name: "@workspacealberta/wa-missing-sdk-startup-plugin"',
       '',
     ].join('\n'))
     try {
@@ -418,7 +418,7 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
       expect(result.code).toBe(1)
       expect(result.stdout).toBe('')
       expect(result.stderr).toContain('plugin tree failed to load')
-      expect(result.stderr).toContain('@deepseek-ai/dsh-missing-sdk-startup-plugin')
+      expect(result.stderr).toContain('@workspacealberta/wa-missing-sdk-startup-plugin')
     } finally {
       rmSync(home, { recursive: true, force: true })
     }
@@ -882,7 +882,7 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
         name: 'dsh-profile-up',
         private: true,
         dependencies: { 'late-bundle': 'file:./late-bundle' },
-        dsh: { profile: { bundles: ['@deepseek-ai/dsh-base'] } },
+        dsh: { profile: { bundles: ['@workspacealberta/wa-base'] } },
       }))
       writeFileSync(join(profileDir, 'cordis.patch.yml'), '[]\n')
       // v1: no dsh manifest — a plain dependency.
@@ -890,7 +890,7 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
       const first = await runBuiltBin(['plugin', '--profile', 'up', 'root'], { DSH_HOME: home })
       expect(first.code).toBe(0)
       let manifest = JSON.parse(readFileSync(join(profileDir, 'package.json'), 'utf8')) as { dsh: { profile: { bundles: string[] } } }
-      expect(manifest.dsh.profile.bundles).toEqual(['@deepseek-ai/dsh-base'])
+      expect(manifest.dsh.profile.bundles).toEqual(['@workspacealberta/wa-base'])
       // v2: the installed package now declares dsh.bundle (an update landed).
       writeFileSync(join(installed, 'package.json'), JSON.stringify({
         name: 'late-bundle', version: '2.0.0', dsh: { bundle: { patch: './cordis.patch.yml' } },
@@ -899,7 +899,7 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
       const second = await runBuiltBin(['plugin', '--profile', 'up', 'root'], { DSH_HOME: home })
       expect(second.code).toBe(0)
       manifest = JSON.parse(readFileSync(join(profileDir, 'package.json'), 'utf8')) as { dsh: { profile: { bundles: string[] } } }
-      expect(manifest.dsh.profile.bundles).toEqual(['@deepseek-ai/dsh-base', 'late-bundle'])
+      expect(manifest.dsh.profile.bundles).toEqual(['@workspacealberta/wa-base', 'late-bundle'])
     } finally {
       rmSync(home, { recursive: true, force: true })
     }
@@ -914,10 +914,10 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
       const { stdout, code, stderr } = await runBuiltBin(['--profile', 'web', '--dump-default-config'], { DSH_HOME: home })
       expect(code).toBe(0)
       expect(stderr).toBe('')
-      expect(stdout).toContain("name: '@deepseek-ai/dsh-agent-loop'")
+      expect(stdout).toContain("name: '@workspacealberta/wa-agent-loop'")
       expect(stdout).toContain('agents: []')
-      expect(stdout).toContain('# == @deepseek-ai/dsh-base')
-      expect(stdout).toContain("name: '@deepseek-ai/dsh-host-webserver'")
+      expect(stdout).toContain('# == @workspacealberta/wa-base')
+      expect(stdout).toContain("name: '@workspacealberta/wa-host-webserver'")
       expect(existsSync(join(home, 'profiles', 'node_modules'))).toBe(false)
     }, SPAWN_TIMEOUT_MS + 30_000)
 
@@ -928,9 +928,9 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
       )
       expect(code).toBe(0)
       expect(stderr).toBe('')
-      expect(stdout).toContain("name: '@deepseek-ai/dsh-headless'")
+      expect(stdout).toContain("name: '@workspacealberta/wa-headless'")
       expect(stdout).not.toMatch(/name: '@deepseek-ai\/dsh-host-/)
-      expect(stdout).not.toContain("name: '@deepseek-ai/dsh-web-app'")
+      expect(stdout).not.toContain("name: '@workspacealberta/wa-web-app'")
       expect(stdout).not.toMatch(/name: '@deepseek-ai\/dsh-client-/)
     }, SPAWN_TIMEOUT_MS + 30_000)
 
@@ -943,43 +943,43 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
       expect(stderr).toBe('')
       const rows = yaml.load(stdout, { schema: entryListSchema }) as Array<{ id?: string; name?: string }>
       expect(rows.map(row => [row.id, row.name])).toEqual([
-        ['sdk-app-startup', '@deepseek-ai/dsh-sdk-app'],
-        ['sdk-jsonrpc-server', '@deepseek-ai/dsh-sdk-jsonrpc-server'],
-        ['deepseek-llm-api-extensions', '@deepseek-ai/dsh-deepseek-llm-api-extensions'],
-        ['session-log-deepseek', '@deepseek-ai/dsh-session-log-deepseek'],
-        ['plugin-package-inventory-deepseek', '@deepseek-ai/dsh-plugin-package-inventory-deepseek'],
-        ['llm-deepseek', '@deepseek-ai/dsh-llm-deepseek'],
-        ['sandbox', '@deepseek-ai/dsh-sandbox-local'],
-        ['session-projection', '@deepseek-ai/dsh-session-projection'],
-        ['sandbox-policy', '@deepseek-ai/dsh-sandbox-policy'],
-        ['subprocess', '@deepseek-ai/dsh-subprocess-local'],
-        ['pty', '@deepseek-ai/dsh-terminal'],
-        ['terminal-bash', '@deepseek-ai/dsh-terminal-bash'],
-        ['terminal-pwsh', '@deepseek-ai/dsh-terminal-bash'],
-        ['fs-local', '@deepseek-ai/dsh-fs-local'],
-        ['timer', '@deepseek-ai/cordis-plugin-timer'],
-        ['llm', '@deepseek-ai/dsh-llm'],
-        ['session', '@deepseek-ai/dsh-session'],
-        ['session-title', '@deepseek-ai/dsh-session-title'],
-        ['system-prompt', '@deepseek-ai/dsh-system-prompt'],
-        ['tools', '@deepseek-ai/dsh-tools'],
-        ['agent', '@deepseek-ai/dsh-agent'],
-        ['llm-retry', '@deepseek-ai/dsh-llm-retry'],
-        ['jobs', '@deepseek-ai/dsh-jobs-local'],
-        ['invariants', '@deepseek-ai/dsh-invariants'],
-        ['session-invariant', '@deepseek-ai/dsh-session/invariant'],
-        ['agent-invariant', '@deepseek-ai/dsh-agent/invariant'],
-        ['scope-invariant', '@deepseek-ai/dsh-scope/invariant'],
-        ['agent-loop-invariant', '@deepseek-ai/dsh-agent-loop/invariant'],
-        ['agent-loop', '@deepseek-ai/dsh-agent-loop'],
-        ['persistent-bash', '@deepseek-ai/dsh-tool-bash-persistent'],
-        ['persistent-pwsh', '@deepseek-ai/dsh-tool-pwsh-persistent'],
-        ['str-replace-editor', '@deepseek-ai/dsh-tool-str-replace-editor'],
-        ['sessions', '@deepseek-ai/dsh-session-persistence-jsonl'],
+        ['sdk-app-startup', '@workspacealberta/wa-sdk-app'],
+        ['sdk-jsonrpc-server', '@workspacealberta/wa-sdk-jsonrpc-server'],
+        ['deepseek-llm-api-extensions', '@workspacealberta/wa-deepseek-llm-api-extensions'],
+        ['session-log-deepseek', '@workspacealberta/wa-session-log-deepseek'],
+        ['plugin-package-inventory-deepseek', '@workspacealberta/wa-plugin-package-inventory-deepseek'],
+        ['llm-deepseek', '@workspacealberta/wa-llm-deepseek'],
+        ['sandbox', '@workspacealberta/wa-sandbox-local'],
+        ['session-projection', '@workspacealberta/wa-session-projection'],
+        ['sandbox-policy', '@workspacealberta/wa-sandbox-policy'],
+        ['subprocess', '@workspacealberta/wa-subprocess-local'],
+        ['pty', '@workspacealberta/wa-terminal'],
+        ['terminal-bash', '@workspacealberta/wa-terminal-bash'],
+        ['terminal-pwsh', '@workspacealberta/wa-terminal-bash'],
+        ['fs-local', '@workspacealberta/wa-fs-local'],
+        ['timer', '@workspacealberta/cordis-plugin-timer'],
+        ['llm', '@workspacealberta/wa-llm'],
+        ['session', '@workspacealberta/wa-session'],
+        ['session-title', '@workspacealberta/wa-session-title'],
+        ['system-prompt', '@workspacealberta/wa-system-prompt'],
+        ['tools', '@workspacealberta/wa-tools'],
+        ['agent', '@workspacealberta/wa-agent'],
+        ['llm-retry', '@workspacealberta/wa-llm-retry'],
+        ['jobs', '@workspacealberta/wa-jobs-local'],
+        ['invariants', '@workspacealberta/wa-invariants'],
+        ['session-invariant', '@workspacealberta/wa-session/invariant'],
+        ['agent-invariant', '@workspacealberta/wa-agent/invariant'],
+        ['scope-invariant', '@workspacealberta/wa-scope/invariant'],
+        ['agent-loop-invariant', '@workspacealberta/wa-agent-loop/invariant'],
+        ['agent-loop', '@workspacealberta/wa-agent-loop'],
+        ['persistent-bash', '@workspacealberta/wa-tool-bash-persistent'],
+        ['persistent-pwsh', '@workspacealberta/wa-tool-pwsh-persistent'],
+        ['str-replace-editor', '@workspacealberta/wa-tool-str-replace-editor'],
+        ['sessions', '@workspacealberta/wa-session-persistence-jsonl'],
       ])
-      expect(stdout).toContain('# == @deepseek-ai/dsh-sdk-minimal')
-      expect(stdout).not.toContain('@deepseek-ai/dsh-base')
-      expect(stdout).not.toContain('@deepseek-ai/dsh-web-app')
+      expect(stdout).toContain('# == @workspacealberta/wa-sdk-minimal')
+      expect(stdout).not.toContain('@workspacealberta/wa-base')
+      expect(stdout).not.toContain('@workspacealberta/wa-web-app')
     }, SPAWN_TIMEOUT_MS * 2 + 30_000)
 
     it('composes the profile user layer and a --patch overlay in order', async () => {

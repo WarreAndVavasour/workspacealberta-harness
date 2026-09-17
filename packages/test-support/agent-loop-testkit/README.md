@@ -3,7 +3,7 @@ description: "Shared service mounting for tests that exercise the concrete Agent
 kind: "package-library"
 ---
 
-# @deepseek-ai/dsh-agent-loop-testkit
+# @workspacealberta/wa-agent-loop-testkit
 
 English | [中文](README.zh.md)
 
@@ -30,9 +30,9 @@ This package gives an AgentLoop test a working service topology before the loop 
 ### Minimal example
 
 ```ts
-import { Context } from '@deepseek-ai/cordis'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { Context } from '@workspacealberta/cordis'
+import AgentLoop from '@workspacealberta/wa-agent-loop'
+import { mountAgentLoopTestDependencies } from '@workspacealberta/wa-agent-loop-testkit'
 
 const ctx = new Context()
 

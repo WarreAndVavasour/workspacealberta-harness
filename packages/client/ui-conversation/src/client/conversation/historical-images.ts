@@ -1,9 +1,9 @@
 /** Session-scoped durable image URL cache shared by Conversation targets. */
-import type { Context } from '@deepseek-ai/cordis'
-import type { ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
-import type { ISessions } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { bytesToBase64 } from '@deepseek-ai/dsh-util-crypto'
+import type { Context } from '@workspacealberta/cordis'
+import type { ImageAttachmentRef } from '@workspacealberta/wa-attachment'
+import type { ISessions } from '@workspacealberta/wa-api-session-controller/client'
+import type { SessionId } from '@workspacealberta/wa-session/types'
+import { bytesToBase64 } from '@workspacealberta/wa-util-crypto'
 
 interface ImageUrlEntry {
   readonly sessionId: SessionId

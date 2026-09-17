@@ -1,9 +1,9 @@
 /** Session-owned observable state excluding Conversation target data. */
-import type { ContentBlock } from '@deepseek-ai/dsh-llm/types'
-import type { MessageId } from '@deepseek-ai/dsh-llm/brand'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { SubagentAddress } from '@deepseek-ai/dsh-subagent/client'
-import type { RemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
+import type { ContentBlock } from '@workspacealberta/wa-llm/types'
+import type { MessageId } from '@workspacealberta/wa-llm/brand'
+import type { SessionId } from '@workspacealberta/wa-session/types'
+import type { SubagentAddress } from '@workspacealberta/wa-subagent/client'
+import type { RemoteFailure } from '@workspacealberta/wa-typert-protocol'
 import type { SessionRequestId } from '../../types.ts'
 
 /** One transient inbox occurrence from the authoritative queue snapshot. */

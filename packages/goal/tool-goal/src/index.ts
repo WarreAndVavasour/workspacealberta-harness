@@ -1,16 +1,16 @@
 /**
  * Model-facing `get_goal`, `create_goal`, and `update_goal` tools over the
  * persisted same-session goal domain.
- * @module @deepseek-ai/dsh-tool-goal
+ * @module @workspacealberta/wa-tool-goal
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { GoalId } from '@deepseek-ai/dsh-goal'
-import type { GoalRef, GoalView } from '@deepseek-ai/dsh-goal'
-import { boundContextSummary, createUserMessage, HarnessError } from '@deepseek-ai/dsh-llm'
-import { defineTool } from '@deepseek-ai/dsh-tools'
-import type { GenericCallView } from '@deepseek-ai/dsh-tools'
+import type { Context } from '@workspacealberta/cordis'
+import z from '@workspacealberta/schemastery'
+import { GoalId } from '@workspacealberta/wa-goal'
+import type { GoalRef, GoalView } from '@workspacealberta/wa-goal'
+import { boundContextSummary, createUserMessage, HarnessError } from '@workspacealberta/wa-llm'
+import { defineTool } from '@workspacealberta/wa-tools'
+import type { GenericCallView } from '@workspacealberta/wa-tools'
 import {
   completionAuthority,
   goalToolExecution,

@@ -2,12 +2,12 @@
  * The one-shot app's command-line provider: it parses the task positional and
  * `--help`, then publishes {@link HEADLESS_STARTUP_SERVICE}. The runner is an
  * ordinary consumer whose lazy config waits for that service.
- * @module @deepseek-ai/dsh-headless/startup
+ * @module @workspacealberta/wa-headless/startup
  */
 
 import { Command } from 'commander'
-import type { Context } from '@deepseek-ai/cordis'
-import { parseCmdline } from '@deepseek-ai/dsh-cmdline'
+import type { Context } from '@workspacealberta/cordis'
+import { parseCmdline } from '@workspacealberta/wa-cmdline'
 
 /** Stable Cordis plugin name. */
 export const name = 'headless-startup'
@@ -36,7 +36,7 @@ function headlessCommand(): Command {
     .argument('[task...]', 'the task text; multiple words are joined by spaces')
     .addHelpText('after', `
 Examples:
-  dsh --profile headless "run the tests"     answer one task and exit
+  wa --profile headless "run the tests"     answer one task and exit
 `)
 }
 

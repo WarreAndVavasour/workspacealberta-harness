@@ -1,12 +1,10 @@
-# DeepSeek Harness Brand Asset Usage Guidelines
+# Workspace Alberta Brand Asset Usage Guidelines
 
 English | [中文](BRAND_GUIDELINES.zh.md)
 
-To maintain the long\-term healthy development of the DeepSeek Harness ecosystem, avoid user confusion, and facilitate the retrieval and identification of related resources, we have established these specifications and hope that everyone will adhere to them:
+Workspace Alberta is a Warre & Vavasour product. Use that name, or the short form workspaceAlberta, when describing this terminal and its packages.
 
-- In your project's descriptive text, you may use "DeepSeek Harness" to truthfully and accurately describe your project's relationship with DeepSeek Harness, for example, "built on DeepSeek Harness" or "compatible with DeepSeek Harness\." Such descriptions comply with license requirements and help users understand your project's positioning\.
-- If you wish your project name to reflect its association with the DeepSeek Harness ecosystem, we recommend using the abbreviated "DSH" designation for naming, which is both clear and facilitates communication within the community\.
-- When naming your project, please avoid using the full "DeepSeek Harness" trademark directly\. "DeepSeek Harness" is a registered trademark of DeepSeek\. Unauthorized use in project names can easily lead to user misunderstanding and confusion, thereby affecting the clarity of the entire ecosystem\. It may also involve trademark infringement\.
-- Additionally, please avoid using official brand materials in your promotions or presentations in a way that could cause misunderstanding, so as not to give users the false impression of official endorsement, cooperation, or authorization\.
-
-We believe that a clear and orderly community environment will make every developer's efforts more visible and more readily recognized\. For the few cases that do not comply with the above specifications, we may contact the relevant parties to make appropriate adjustments in order to maintain the overall order of the ecosystem\. Thank you for your understanding and support—let us work together to build a more friendly and sustainable open\-source community\.
+- The npm scope is `@workspacealberta`. The operator command is `wa`.
+- Do not describe this product as DeepSeek Harness, DSH, or `dsh`. Those names belong to a different project and must not appear as this product's identity.
+- You may state that inherited source is MIT-licensed and that copyright notices remain in `LICENSE` and `THIRD_PARTY_NOTICES.md`.
+- Do not use DeepSeek trademarks, logos, or official brand materials in a way that implies DeepSeek endorsement, cooperation, or authorship of Workspace Alberta.

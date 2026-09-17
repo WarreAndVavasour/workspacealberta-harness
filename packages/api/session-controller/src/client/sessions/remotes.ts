@@ -2,16 +2,16 @@
  * Remote namespaces the Session cluster calls. One parameter for one concept:
  * the generated surface a Session and its manager reach the Host through.
  *
- * @module @deepseek-ai/dsh-api-session-controller/client/sessions/remotes
+ * @module @workspacealberta/wa-api-session-controller/client/sessions/remotes
  */
 
-import type { EncodedImageAttachment } from '@deepseek-ai/dsh-attachment/types'
-import type { ClientRemote } from '@deepseek-ai/dsh-api-gateway/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { EncodedImageAttachment } from '@workspacealberta/wa-attachment/types'
+import type { ClientRemote } from '@workspacealberta/wa-api-gateway/client'
+import type { SessionId } from '@workspacealberta/wa-session/types'
 import type {
   SubagentCatalog, SubagentInterruptReceipt, SubagentPromptReceipt, SubagentPromptRequest,
-} from '@deepseek-ai/dsh-subagent/client'
-import type { RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+} from '@workspacealberta/wa-subagent/client'
+import type { RemoteResult } from '@workspacealberta/wa-typert-protocol'
 import type { SessionRemote } from '../transport.ts'
 
 /** Narrow Commands namespace consumed by a Client Session. */

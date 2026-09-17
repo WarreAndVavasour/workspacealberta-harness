@@ -1,0 +1,13 @@
+# Apply after workspace-alberta.patch.yml from the repository root.
+# Set WA_APC_PYTHON to the connector virtualenv's absolute Python executable.
+- insert:
+    - id: mcp-apc-local
+      name: '@workspacealberta/wa-mcp-client'
+      config:
+        transport: stdio
+        serverName: apc_local
+        command: !!js process.env.WA_APC_PYTHON || 'python'
+        args: ['integrations/apc/server.py']
+        cwd: !!js process.cwd()
+        toolCallTimeoutMs: 240000
+        failOnStartupError: true

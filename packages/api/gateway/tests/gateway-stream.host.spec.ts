@@ -2,10 +2,10 @@ import { randomUUID } from 'node:crypto'
 import { once } from 'node:events'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import WebSocket, { type RawData } from 'ws'
-import { Context, Service, symbols } from '@deepseek-ai/cordis'
-import { apply as applyConnection, inject as connectionInject } from '@deepseek-ai/dsh-client-connection'
-import WebServer from '@deepseek-ai/dsh-host-webserver'
-import { MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
+import { Context, Service, symbols } from '@workspacealberta/cordis'
+import { apply as applyConnection, inject as connectionInject } from '@workspacealberta/wa-client-connection'
+import WebServer from '@workspacealberta/wa-host-webserver'
+import { MAX_TIMER_DELAY_MS } from '@workspacealberta/wa-timeout'
 import {
   bindTypertRemote,
   Remote,
@@ -13,10 +13,10 @@ import {
   type TypertContextMap,
   type TypertContextWire,
   RemoteError,
-} from '@deepseek-ai/dsh-typert-protocol'
-import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
+} from '@workspacealberta/wa-typert-protocol'
+import TypertRegistry from '@workspacealberta/wa-typert-registry'
 
-declare module '@deepseek-ai/dsh-typert-protocol' {
+declare module '@workspacealberta/wa-typert-protocol' {
   interface RemoteErrorDetailsMap {
     'fixture/rejected': { readonly retryable: boolean }
     'fixture/broken': { readonly count: bigint }
@@ -29,7 +29,7 @@ import TypertGatewayService, {
   type TypertRemoteEventDispatch,
   type TypertRemoteEventInvocation,
   type TypertRemoteEventOutcome,
-} from '@deepseek-ai/dsh-api-gateway'
+} from '@workspacealberta/wa-api-gateway'
 import { z } from 'zod'
 import type {
   RemoteEventClientId,

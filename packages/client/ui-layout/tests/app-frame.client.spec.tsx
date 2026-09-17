@@ -13,13 +13,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, render } from '@testing-library/react'
 import { useSyncExternalStore } from 'react'
-import { AppFrame } from '@deepseek-ai/dsh-client-ui-layout/src/client/AppFrame.tsx'
-import type { AppFrameProps } from '@deepseek-ai/dsh-client-ui-layout/src/client/AppFrame.tsx'
-import { SIDEBAR_COLLAPSED } from '@deepseek-ai/dsh-client-ui-layout/src/client/columns.ts'
-import { createLayoutStore } from '@deepseek-ai/dsh-client-ui-layout/src/client/stores.ts'
-import type { SessionListState } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { WorkspaceSnapshot } from '@deepseek-ai/dsh-api-workspace-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { AppFrame } from '@workspacealberta/wa-client-ui-layout/src/client/AppFrame.tsx'
+import type { AppFrameProps } from '@workspacealberta/wa-client-ui-layout/src/client/AppFrame.tsx'
+import { SIDEBAR_COLLAPSED } from '@workspacealberta/wa-client-ui-layout/src/client/columns.ts'
+import { createLayoutStore } from '@workspacealberta/wa-client-ui-layout/src/client/stores.ts'
+import type { SessionListState } from '@workspacealberta/wa-api-session-controller/client'
+import type { WorkspaceSnapshot } from '@workspacealberta/wa-api-workspace-controller/client'
+import type { SessionId } from '@workspacealberta/wa-session/types'
 
 // Session selection controls for the SessionProvider and useSessions stubs.
 const selectedSession = { current: 's-test' as SessionId | undefined }

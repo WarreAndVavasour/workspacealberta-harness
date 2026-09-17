@@ -4,23 +4,23 @@
  * isolation, and prompt failure mapping.
  */
 
-import { SessionLogOffset, SessionSeq } from '@deepseek-ai/dsh-session'
+import { SessionLogOffset, SessionSeq } from '@workspacealberta/wa-session'
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import SessionStore from '@deepseek-ai/dsh-session'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import { SessionHistoryController } from '@deepseek-ai/dsh-api-session-controller/src/history.ts'
-import { subagentIdentityProjectionDefinition } from '@deepseek-ai/dsh-subagent/src/projection.ts'
-import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
-import { createUserMessage, MessageId } from '@deepseek-ai/dsh-llm'
-import { snapshotSubagentDescriptor } from '@deepseek-ai/dsh-subagent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type { Session, SessionEvent, SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
+import { Context } from '@workspacealberta/cordis'
+import SessionStore from '@workspacealberta/wa-session'
+import AgentRegistry from '@workspacealberta/wa-agent'
+import { SessionHistoryController } from '@workspacealberta/wa-api-session-controller/src/history.ts'
+import { subagentIdentityProjectionDefinition } from '@workspacealberta/wa-subagent/src/projection.ts'
+import TypertRegistry from '@workspacealberta/wa-typert-registry'
+import { createUserMessage, MessageId } from '@workspacealberta/wa-llm'
+import { snapshotSubagentDescriptor } from '@workspacealberta/wa-subagent'
+import type { Agent } from '@workspacealberta/wa-agent'
+import type { Session, SessionEvent, SessionHeader, SessionId } from '@workspacealberta/wa-session'
 import type { SessionPromptRequest, SessionRequestId } from '../src/types.ts'
 import {
   SessionPersistenceRevision,
   type SessionPersistenceSnapshot,
-} from '@deepseek-ai/dsh-session-persistence'
+} from '@workspacealberta/wa-session-persistence'
 import { ApiSessionList } from '../src/list.ts'
 import {
   createSessionTestRemote,
@@ -589,7 +589,7 @@ describe('Remote Agent and Session lookup policy', () => {
       list: () => Promise.resolve([meta]),
       inspect,
     })
-    const resumedSession = { id: sessionId, header: meta, events: [] } as unknown as import('@deepseek-ai/dsh-session').Session
+    const resumedSession = { id: sessionId, header: meta, events: [] } as unknown as import('@workspacealberta/wa-session').Session
     const resumedAgent = { id: sessionId, session: resumedSession, status: 'idle', ctx } as Agent
     const release = Promise.withResolvers<undefined>()
     const resume = vi.spyOn(ctx.agents, 'resume').mockImplementation(async () => {

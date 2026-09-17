@@ -4,12 +4,12 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { randomBytes } from 'node:crypto'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import LlmRuntime, { createUserMessage, ToolCallId, ReasoningEffortId, createMessage } from '@deepseek-ai/dsh-llm'
-import type { Message, ToolSchema } from '@deepseek-ai/dsh-llm'
-import AttachmentStore, { AttachmentId, ImageVariantId } from '@deepseek-ai/dsh-attachment'
+import { Context } from '@workspacealberta/cordis'
+import Loader from '@workspacealberta/cordis-plugin-loader'
+import AgentRegistry from '@workspacealberta/wa-agent'
+import LlmRuntime, { createUserMessage, ToolCallId, ReasoningEffortId, createMessage } from '@workspacealberta/wa-llm'
+import type { Message, ToolSchema } from '@workspacealberta/wa-llm'
+import AttachmentStore, { AttachmentId, ImageVariantId } from '@workspacealberta/wa-attachment'
 import type {
   ImageAttachmentLimits,
   ImageAttachmentRef,
@@ -17,14 +17,14 @@ import type {
   RequestImageAttachment,
   SaveImageAttachment,
   StoredImageAttachment,
-} from '@deepseek-ai/dsh-attachment'
-import { LocalCredentialProvider } from '@deepseek-ai/dsh-credentials-local'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import DeepSeekLlmApiExtensionRegistry from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
-import * as PluginPackageInventoryDeepSeek from '@deepseek-ai/dsh-plugin-package-inventory-deepseek'
-import * as SessionLogDeepSeek from '@deepseek-ai/dsh-session-log-deepseek'
-import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek'
-import type { Config } from '@deepseek-ai/dsh-llm-deepseek'
+} from '@workspacealberta/wa-attachment'
+import { LocalCredentialProvider } from '@workspacealberta/wa-credentials-local'
+import SessionStore, { SessionId } from '@workspacealberta/wa-session'
+import DeepSeekLlmApiExtensionRegistry from '@workspacealberta/wa-deepseek-llm-api-extensions'
+import * as PluginPackageInventoryDeepSeek from '@workspacealberta/wa-plugin-package-inventory-deepseek'
+import * as SessionLogDeepSeek from '@workspacealberta/wa-session-log-deepseek'
+import * as LlmDeepSeek from '@workspacealberta/wa-llm-deepseek'
+import type { Config } from '@workspacealberta/wa-llm-deepseek'
 import { assemble, type AssembledResult } from './assemble.ts'
 
 /**

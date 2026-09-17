@@ -6,14 +6,14 @@
  */
 
 import { z } from 'zod'
-import { canonicalHeader, SessionSeq } from '@deepseek-ai/dsh-session'
-import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
+import { canonicalHeader, SessionSeq } from '@workspacealberta/wa-session'
+import type { ProjectionDefinition } from '@workspacealberta/wa-session-projection'
 import { estimateSystemTokens, estimateToolsTokens } from './estimate.ts'
 import { foldSurfaceProjection } from './surface-projection.ts'
 // Import for the `contextBreakdown` SessionProjectionStateMap key merge.
 import type {} from './projection.ts'
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@workspacealberta/wa-session-projection/types' {
   interface SessionProjectionStateMap {
     contextBreakdown: ContextBreakdownState
   }

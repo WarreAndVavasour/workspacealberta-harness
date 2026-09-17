@@ -1,9 +1,9 @@
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@workspacealberta/cordis'
 import type {
   ConversationMatch, ConversationNodeContext, ConversationNodeDefinition,
-} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import { isAppendSurfaceEvent } from '@deepseek-ai/dsh-session/surface'
-import type {} from '@deepseek-ai/dsh-tools/types'
+} from '@workspacealberta/wa-client-ui-conversation/client'
+import { isAppendSurfaceEvent } from '@workspacealberta/wa-session/surface'
+import type {} from '@workspacealberta/wa-tools/types'
 import type { ToolChatData } from '../contract/chat-nodes.ts'
 import type { RunningToolCall, ToolCallBlock, ToolResultNode } from '../contract/snapshot.ts'
 import { CHAT_SYNTHETIC_SEQ_OFFSETS, chatNode } from './common.ts'

@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-experimental-code-runtime-python",
+  "name": "@workspacealberta/wa-experimental-code-runtime-python",
   "description": "CPython subprocess implementation of the DeepSeek Harness code-execution seam",
   "version": "0.1.2-rc.1",
   "repository": {
@@ -24,19 +24,19 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-code-runtime": "workspace:^",
-    "@deepseek-ai/dsh-timeout": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-util-values": "workspace:^"
+    "@workspacealberta/wa-code-runtime": "workspace:^",
+    "@workspacealberta/wa-timeout": "workspace:^",
+    "@workspacealberta/cordis": "workspace:^",
+    "@workspacealberta/wa-util-values": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-code-runtime": "workspace:^",
-    "@deepseek-ai/dsh-timeout": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-util-values": "workspace:^"
+    "@workspacealberta/wa-code-runtime": "workspace:^",
+    "@workspacealberta/wa-timeout": "workspace:^",
+    "@workspacealberta/cordis": "workspace:^",
+    "@workspacealberta/wa-util-values": "workspace:^"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:^"
+    "@workspacealberta/schemastery": "workspace:^"
   },
   "private": true
 }

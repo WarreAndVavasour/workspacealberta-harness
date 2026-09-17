@@ -9,16 +9,16 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry, { Inbox } from '@deepseek-ai/dsh-agent'
-import type { Agent, AgentStatus } from '@deepseek-ai/dsh-agent'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import type { UserMessage } from '@deepseek-ai/dsh-session'
-import SessionStore from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import GoalService, { GoalId, applyGoalProjection, foldGoal, goalProjectionDefinition } from '@deepseek-ai/dsh-goal'
-import type { GoalProjection, GoalProjectionState, GoalRef } from '@deepseek-ai/dsh-goal'
+import { Context } from '@workspacealberta/cordis'
+import AgentRegistry, { Inbox } from '@workspacealberta/wa-agent'
+import type { Agent, AgentStatus } from '@workspacealberta/wa-agent'
+import { createUserMessage } from '@workspacealberta/wa-llm'
+import type { UserMessage } from '@workspacealberta/wa-session'
+import SessionStore from '@workspacealberta/wa-session'
+import type { Session } from '@workspacealberta/wa-session'
+import SessionProjectionRegistry from '@workspacealberta/wa-session-projection'
+import GoalService, { GoalId, applyGoalProjection, foldGoal, goalProjectionDefinition } from '@workspacealberta/wa-goal'
+import type { GoalProjection, GoalProjectionState, GoalRef } from '@workspacealberta/wa-goal'
 
 interface Bench {
   ctx: Context

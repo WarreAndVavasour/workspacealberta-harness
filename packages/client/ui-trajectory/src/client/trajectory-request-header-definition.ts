@@ -1,7 +1,7 @@
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@workspacealberta/cordis'
 import type {
   ConversationNodeDefinition, RequestPromptInspector,
-} from '@deepseek-ai/dsh-client-ui-conversation/client'
+} from '@workspacealberta/wa-client-ui-conversation/client'
 import { trajectoryNode } from './trajectory-definition-common.ts'
 import type { TrajectoryRequestHeaderState } from './trajectory-contract.ts'
 

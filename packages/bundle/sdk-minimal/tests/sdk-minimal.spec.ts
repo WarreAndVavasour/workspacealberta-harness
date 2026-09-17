@@ -5,7 +5,7 @@ import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import * as yaml from 'js-yaml'
 import { describe, expect, it } from 'vitest'
-import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
+import { entryListSchema } from '@workspacealberta/cordis-plugin-include'
 
 function packageName(specifier: string): string {
   return specifier.startsWith('@') ? specifier.split('/').slice(0, 2).join('/') : specifier.split('/')[0]!
@@ -26,39 +26,39 @@ describe('dsh-sdk-minimal bundle', () => {
     expect(patches).toHaveLength(1)
     const rows = patches[0]?.insert ?? []
     expect(rows.map(row => [row.id, row.name])).toEqual([
-      ['sdk-app-startup', '@deepseek-ai/dsh-sdk-app'],
-      ['sdk-jsonrpc-server', '@deepseek-ai/dsh-sdk-jsonrpc-server'],
-      ['deepseek-llm-api-extensions', '@deepseek-ai/dsh-deepseek-llm-api-extensions'],
-      ['session-log-deepseek', '@deepseek-ai/dsh-session-log-deepseek'],
-      ['plugin-package-inventory-deepseek', '@deepseek-ai/dsh-plugin-package-inventory-deepseek'],
-      ['llm-deepseek', '@deepseek-ai/dsh-llm-deepseek'],
-      ['sandbox', '@deepseek-ai/dsh-sandbox-local'],
-      ['session-projection', '@deepseek-ai/dsh-session-projection'],
-      ['sandbox-policy', '@deepseek-ai/dsh-sandbox-policy'],
-      ['subprocess', '@deepseek-ai/dsh-subprocess-local'],
-      ['pty', '@deepseek-ai/dsh-terminal'],
-      ['terminal-bash', '@deepseek-ai/dsh-terminal-bash'],
-      ['terminal-pwsh', '@deepseek-ai/dsh-terminal-bash'],
-      ['fs-local', '@deepseek-ai/dsh-fs-local'],
-      ['timer', '@deepseek-ai/cordis-plugin-timer'],
-      ['llm', '@deepseek-ai/dsh-llm'],
-      ['session', '@deepseek-ai/dsh-session'],
-      ['session-title', '@deepseek-ai/dsh-session-title'],
-      ['system-prompt', '@deepseek-ai/dsh-system-prompt'],
-      ['tools', '@deepseek-ai/dsh-tools'],
-      ['agent', '@deepseek-ai/dsh-agent'],
-      ['llm-retry', '@deepseek-ai/dsh-llm-retry'],
-      ['jobs', '@deepseek-ai/dsh-jobs-local'],
-      ['invariants', '@deepseek-ai/dsh-invariants'],
-      ['session-invariant', '@deepseek-ai/dsh-session/invariant'],
-      ['agent-invariant', '@deepseek-ai/dsh-agent/invariant'],
-      ['scope-invariant', '@deepseek-ai/dsh-scope/invariant'],
-      ['agent-loop-invariant', '@deepseek-ai/dsh-agent-loop/invariant'],
-      ['agent-loop', '@deepseek-ai/dsh-agent-loop'],
-      ['persistent-bash', '@deepseek-ai/dsh-tool-bash-persistent'],
-      ['persistent-pwsh', '@deepseek-ai/dsh-tool-pwsh-persistent'],
-      ['str-replace-editor', '@deepseek-ai/dsh-tool-str-replace-editor'],
-      ['sessions', '@deepseek-ai/dsh-session-persistence-jsonl'],
+      ['sdk-app-startup', '@workspacealberta/wa-sdk-app'],
+      ['sdk-jsonrpc-server', '@workspacealberta/wa-sdk-jsonrpc-server'],
+      ['deepseek-llm-api-extensions', '@workspacealberta/wa-deepseek-llm-api-extensions'],
+      ['session-log-deepseek', '@workspacealberta/wa-session-log-deepseek'],
+      ['plugin-package-inventory-deepseek', '@workspacealberta/wa-plugin-package-inventory-deepseek'],
+      ['llm-deepseek', '@workspacealberta/wa-llm-deepseek'],
+      ['sandbox', '@workspacealberta/wa-sandbox-local'],
+      ['session-projection', '@workspacealberta/wa-session-projection'],
+      ['sandbox-policy', '@workspacealberta/wa-sandbox-policy'],
+      ['subprocess', '@workspacealberta/wa-subprocess-local'],
+      ['pty', '@workspacealberta/wa-terminal'],
+      ['terminal-bash', '@workspacealberta/wa-terminal-bash'],
+      ['terminal-pwsh', '@workspacealberta/wa-terminal-bash'],
+      ['fs-local', '@workspacealberta/wa-fs-local'],
+      ['timer', '@workspacealberta/cordis-plugin-timer'],
+      ['llm', '@workspacealberta/wa-llm'],
+      ['session', '@workspacealberta/wa-session'],
+      ['session-title', '@workspacealberta/wa-session-title'],
+      ['system-prompt', '@workspacealberta/wa-system-prompt'],
+      ['tools', '@workspacealberta/wa-tools'],
+      ['agent', '@workspacealberta/wa-agent'],
+      ['llm-retry', '@workspacealberta/wa-llm-retry'],
+      ['jobs', '@workspacealberta/wa-jobs-local'],
+      ['invariants', '@workspacealberta/wa-invariants'],
+      ['session-invariant', '@workspacealberta/wa-session/invariant'],
+      ['agent-invariant', '@workspacealberta/wa-agent/invariant'],
+      ['scope-invariant', '@workspacealberta/wa-scope/invariant'],
+      ['agent-loop-invariant', '@workspacealberta/wa-agent-loop/invariant'],
+      ['agent-loop', '@workspacealberta/wa-agent-loop'],
+      ['persistent-bash', '@workspacealberta/wa-tool-bash-persistent'],
+      ['persistent-pwsh', '@workspacealberta/wa-tool-pwsh-persistent'],
+      ['str-replace-editor', '@workspacealberta/wa-tool-str-replace-editor'],
+      ['sessions', '@workspacealberta/wa-session-persistence-jsonl'],
     ])
     expect(rows.find(row => row.id === 'sdk-app-startup')?.config).toEqual({ profile: 'sdk-minimal' })
     expect(rows.find(row => row.id === 'sdk-jsonrpc-server')).toMatchObject({

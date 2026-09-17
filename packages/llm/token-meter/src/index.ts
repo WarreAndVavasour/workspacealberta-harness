@@ -1,24 +1,24 @@
 /**
  * Single replay-aware token-meter service for request and surface pressure.
  *
- * @module @deepseek-ai/dsh-token-meter
+ * @module @workspacealberta/wa-token-meter
  */
 
-import { Context, Service } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { BlockAssembler } from '@deepseek-ai/dsh-llm'
-import type { LlmImageRequestPricing, Message, TokenUsage } from '@deepseek-ai/dsh-llm'
-import { deepFreeze } from '@deepseek-ai/dsh-util-values'
+import { Context, Service } from '@workspacealberta/cordis'
+import z from '@workspacealberta/schemastery'
+import { BlockAssembler } from '@workspacealberta/wa-llm'
+import type { LlmImageRequestPricing, Message, TokenUsage } from '@workspacealberta/wa-llm'
+import { deepFreeze } from '@workspacealberta/wa-util-values'
 import type {
   EpochHeader,
   Session,
   SessionEvent,
   SessionLogOffset as SessionLogOffsetType,
   SessionSeq as SessionSeqType,
-} from '@deepseek-ai/dsh-session'
-import { canonicalHeader, headerEquals, isSurfaceEvent, SessionLogOffset, SessionSeq } from '@deepseek-ai/dsh-session'
+} from '@workspacealberta/wa-session'
+import { canonicalHeader, headerEquals, isSurfaceEvent, SessionLogOffset, SessionSeq } from '@workspacealberta/wa-session'
 // Type-only: activates the `ctx.sessionProjections` Context declaration.
-import type {} from '@deepseek-ai/dsh-session-projection'
+import type {} from '@workspacealberta/wa-session-projection'
 import type {
   TokenMeasurement,
   TokenMeasurementBaseline,
@@ -85,7 +85,7 @@ function validateConfigKeys(config: TokenMeterConfig): void {
   }
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@workspacealberta/cordis' {
   interface Context {
     tokenMeter: TokenMeter
   }

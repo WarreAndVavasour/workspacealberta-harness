@@ -16,6 +16,12 @@ profile's credential references; nothing durable lives outside
   path — service or manual — resolves the same home.
 - Logs: `journalctl --user -u workspacealberta-harness -f`.
 
+## Remote support / desk rebuild
+
+RaspberryPiBot / Litter-style remote support rebuilds a customer desk
+checkout with `bash scripts/wa-desk-rebuild.sh` from the repo root (no
+inline `pnpm install`).
+
 ## Home layout (`~/.workspaceAlberta`)
 
 | Path | Contents |
@@ -62,6 +68,6 @@ profile's credential references; nothing durable lives outside
 
 - Push-time typecheck was removed from `lefthook.yml` (flaky under concurrent
   agent builds, ~3 min); CI owns that gate — wire CI before relying on it.
-- The legacy global `dsh web` (npm install, port 3080, PID since Aug 28) still
+- The legacy global `wa web` (npm install, port 3080, PID since Aug 28) still
   expects the old `~/.dsh`; if restarted it recreates that directory. Retire it
   when convenient: `systemctl --user` is the only supported launcher now.

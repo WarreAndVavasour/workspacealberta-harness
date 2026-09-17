@@ -4,24 +4,24 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import { Session, SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import AgentRegistry, { Inbox } from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import TerminalSessionService from '@deepseek-ai/dsh-terminal'
-import * as TerminalBash from '@deepseek-ai/dsh-terminal-bash'
-import SandboxProvider from '@deepseek-ai/dsh-sandbox'
-import type { ConfinedArgv, SandboxPolicy } from '@deepseek-ai/dsh-sandbox'
-import SandboxPolicyService from '@deepseek-ai/dsh-sandbox-policy'
-import LocalSubprocessService from '@deepseek-ai/dsh-subprocess-local'
-import { resolvePwshPath } from '@deepseek-ai/dsh-pwsh-local/src/resolve.ts'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRegistry from '@deepseek-ai/dsh-tools'
-import * as ToolPwshPersistent from '@deepseek-ai/dsh-tool-pwsh-persistent'
+import { Context } from '@workspacealberta/cordis'
+import Loader from '@workspacealberta/cordis-plugin-loader'
+import Include from '@workspacealberta/cordis-plugin-include'
+import { ToolCallId } from '@workspacealberta/wa-llm'
+import { Session, SessionId } from '@workspacealberta/wa-session'
+import SessionProjectionRegistry from '@workspacealberta/wa-session-projection'
+import AgentRegistry, { Inbox } from '@workspacealberta/wa-agent'
+import type { Agent } from '@workspacealberta/wa-agent'
+import TerminalSessionService from '@workspacealberta/wa-terminal'
+import * as TerminalBash from '@workspacealberta/wa-terminal-bash'
+import SandboxProvider from '@workspacealberta/wa-sandbox'
+import type { ConfinedArgv, SandboxPolicy } from '@workspacealberta/wa-sandbox'
+import SandboxPolicyService from '@workspacealberta/wa-sandbox-policy'
+import LocalSubprocessService from '@workspacealberta/wa-subprocess-local'
+import { resolvePwshPath } from '@workspacealberta/wa-pwsh-local/src/resolve.ts'
+import SystemPrompt from '@workspacealberta/wa-system-prompt'
+import ToolRegistry from '@workspacealberta/wa-tools'
+import * as ToolPwshPersistent from '@workspacealberta/wa-tool-pwsh-persistent'
 
 const hasPwsh = spawnSync(
   resolvePwshPath(), ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', '$true'],
@@ -76,18 +76,18 @@ describe.skipIf(!hasPwsh)('persistent pwsh through a real cordis.yml Loader comp
     root = await realpath(await mkdtemp(join(tmpdir(), 'dsh-persistent-pwsh-loader-')))
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
-      "- name: '@deepseek-ai/dsh-agent'",
-      "- name: '@deepseek-ai/dsh-system-prompt'",
-      "- name: '@deepseek-ai/dsh-tools'",
-      "- name: '@deepseek-ai/dsh-terminal'",
-      "- name: '@deepseek-ai/dsh-test-sandbox'",
-      "- name: '@deepseek-ai/dsh-session-projection'",
-      "- name: '@deepseek-ai/dsh-sandbox-policy'",
+      "- name: '@workspacealberta/wa-agent'",
+      "- name: '@workspacealberta/wa-system-prompt'",
+      "- name: '@workspacealberta/wa-tools'",
+      "- name: '@workspacealberta/wa-terminal'",
+      "- name: '@workspacealberta/wa-test-sandbox'",
+      "- name: '@workspacealberta/wa-session-projection'",
+      "- name: '@workspacealberta/wa-sandbox-policy'",
       '  config:',
       '    mode: danger-full-access',
       `    workspaceRoot: ${JSON.stringify(root)}`,
-      "- name: '@deepseek-ai/dsh-subprocess-local'",
-      "- name: '@deepseek-ai/dsh-terminal-bash'",
+      "- name: '@workspacealberta/wa-subprocess-local'",
+      "- name: '@workspacealberta/wa-terminal-bash'",
       '  config:',
       '    shellDialect: pwsh',
       '    pollIntervalMs: 10',
@@ -97,7 +97,7 @@ describe.skipIf(!hasPwsh)('persistent pwsh through a real cordis.yml Loader comp
       '    scrollbackLines: 20000',
       '    timeoutMs: 60000',
       '    disposeGraceMs: 500',
-      "- name: '@deepseek-ai/dsh-tool-pwsh-persistent'",
+      "- name: '@workspacealberta/wa-tool-pwsh-persistent'",
       '  config:',
       '    timeoutMs: 60000',
       '',
@@ -108,16 +108,16 @@ describe.skipIf(!hasPwsh)('persistent pwsh through a real cordis.yml Loader comp
     await context.plugin(Loader)
     context.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
-      ['@deepseek-ai/dsh-agent', AgentRegistry],
-      ['@deepseek-ai/dsh-system-prompt', SystemPrompt],
-      ['@deepseek-ai/dsh-tools', ToolRegistry],
-      ['@deepseek-ai/dsh-terminal', TerminalSessionService],
-      ['@deepseek-ai/dsh-test-sandbox', PassthroughSandbox],
-      ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
-      ['@deepseek-ai/dsh-sandbox-policy', SandboxPolicyService],
-      ['@deepseek-ai/dsh-subprocess-local', LocalSubprocessService],
-      ['@deepseek-ai/dsh-terminal-bash', TerminalBash],
-      ['@deepseek-ai/dsh-tool-pwsh-persistent', ToolPwshPersistent],
+      ['@workspacealberta/wa-agent', AgentRegistry],
+      ['@workspacealberta/wa-system-prompt', SystemPrompt],
+      ['@workspacealberta/wa-tools', ToolRegistry],
+      ['@workspacealberta/wa-terminal', TerminalSessionService],
+      ['@workspacealberta/wa-test-sandbox', PassthroughSandbox],
+      ['@workspacealberta/wa-session-projection', SessionProjectionRegistry],
+      ['@workspacealberta/wa-sandbox-policy', SandboxPolicyService],
+      ['@workspacealberta/wa-subprocess-local', LocalSubprocessService],
+      ['@workspacealberta/wa-terminal-bash', TerminalBash],
+      ['@workspacealberta/wa-tool-pwsh-persistent', ToolPwshPersistent],
     ])
     context.loader.internal = {
       version: 'v2',

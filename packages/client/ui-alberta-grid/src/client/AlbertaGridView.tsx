@@ -1,8 +1,8 @@
 /** Alberta Grid v2 conversation view: Wilke-honest 2D encodings plus optional orbit. */
 
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactElement } from 'react'
-import type { ConvViewProps } from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type { PropsLocale } from '@deepseek-ai/dsh-client-ui-slots'
+import type { ConvViewProps } from '@workspacealberta/wa-client-ui-conversation/client'
+import type { PropsLocale } from '@workspacealberta/wa-client-ui-slots'
 import { fetchGrid, type GridSnapshot } from './aeso.ts'
 import {
   POLL_MS,

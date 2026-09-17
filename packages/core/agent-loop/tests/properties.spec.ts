@@ -10,17 +10,17 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import { createUserMessage, LlmAdapter } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions, StreamChunk } from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
+import { Context } from '@workspacealberta/cordis'
+import LlmRuntime from '@workspacealberta/wa-llm'
+import { createUserMessage, LlmAdapter } from '@workspacealberta/wa-llm'
+import type { GenerateOptions, StreamChunk } from '@workspacealberta/wa-llm'
+import SessionStore, { SessionId } from '@workspacealberta/wa-session'
+import SystemPrompt from '@workspacealberta/wa-system-prompt'
+import ToolRuntime from '@workspacealberta/wa-tools'
+import AgentRegistry, { type Agent } from '@workspacealberta/wa-agent'
 
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import AgentLoop from '@workspacealberta/wa-agent-loop'
+import SessionProjectionRegistry from '@workspacealberta/wa-session-projection'
 import fc from 'fast-check'
 
 /** A never-exhausting adapter: every model call returns the same short reply. */

@@ -1,13 +1,13 @@
 /**
  * Enforce the MIT license declaration for repository-owned DSH npm packages.
- * @module scripts/verify-dsh-package-licenses
+ * @module scripts/verify-wa-package-licenses
  */
 
 import { globSync, readFileSync } from 'node:fs'
 import { resolve, sep } from 'node:path'
 
 const ROOT = resolve(import.meta.dirname, '..')
-const DSH_PACKAGE_NAME = /^@deepseek-ai\/dsh(?:-|$)/
+const DSH_PACKAGE_NAME = /^@workspacealberta\/wa(?:-|$)/
 
 /** Result of checking every DSH package reachable through the root workspace list. */
 export interface DshPackageLicenseReport {
@@ -20,7 +20,7 @@ export interface DshPackageLicenseReport {
 function readManifest(root: string, file: string): Record<string, unknown> {
   const parsed: unknown = JSON.parse(readFileSync(resolve(root, file), 'utf8'))
   if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
-    throw new Error(`verify-dsh-package-licenses: ${file} must contain a JSON object.`)
+    throw new Error(`verify-wa-package-licenses: ${file} must contain a JSON object.`)
   }
   return parsed as Record<string, unknown>
 }
@@ -33,7 +33,7 @@ function workspaceManifestPaths(root: string): string[] {
   const rootManifest = readManifest(root, 'package.json')
   const workspaces = rootManifest.workspaces
   if (!isStringArray(workspaces)) {
-    throw new Error('verify-dsh-package-licenses: package.json workspaces must be a string array.')
+    throw new Error('verify-wa-package-licenses: package.json workspaces must be a string array.')
   }
 
   const files = new Set(['package.json'])
@@ -78,12 +78,12 @@ export function inspectDshPackageLicenses(root: string): DshPackageLicenseReport
 if (process.argv[1] && import.meta.filename === resolve(process.argv[1])) {
   const report = inspectDshPackageLicenses(ROOT)
   if (report.failures.length > 0) {
-    process.stderr.write('verify-dsh-package-licenses: non-MIT DSH package declarations found:\n')
+    process.stderr.write('verify-wa-package-licenses: non-MIT DSH package declarations found:\n')
     for (const failure of report.failures) process.stderr.write(`  ${failure}\n`)
     process.exitCode = 1
   } else {
     process.stdout.write(
-      `verify-dsh-package-licenses: ${String(report.packageCount)} DSH package(s) checked; all declare MIT.\n`,
+      `verify-wa-package-licenses: ${String(report.packageCount)} DSH package(s) checked; all declare MIT.\n`,
     )
   }
 }

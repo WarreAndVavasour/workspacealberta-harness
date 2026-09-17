@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import WebRuntime from '@deepseek-ai/dsh-web'
+import { Context } from '@workspacealberta/cordis'
+import WebRuntime from '@workspacealberta/wa-web'
 import {
   CohereSearchProvider,
   COHERE_PROVIDER_ID,

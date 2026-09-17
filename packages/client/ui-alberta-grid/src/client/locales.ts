@@ -25,7 +25,7 @@ export type AlbertaGridKey =
   | 'hud.orbitHint'
   | 'hud.orbitTitle'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@workspacealberta/wa-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Alberta Grid view tab + HUD copy. */
     'alberta-grid': AlbertaGridKey

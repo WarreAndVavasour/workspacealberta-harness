@@ -1,13 +1,13 @@
 /**
  * Agent-scoped durable one-shot and fixed-rate reminders over the session event log.
- * @module @deepseek-ai/dsh-schedule
+ * @module @workspacealberta/wa-schedule
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-session-persistence'
+import type { Context } from '@workspacealberta/cordis'
+import type { Agent } from '@workspacealberta/wa-agent'
+import type {} from '@workspacealberta/wa-session-persistence'
 // Type-only: resolves ctx.sessionProjections for the optional projection child.
-import type {} from '@deepseek-ai/dsh-session-projection'
+import type {} from '@workspacealberta/wa-session-projection'
 import { scheduleProjectionDefinition } from './projection.ts'
 import { ScheduleRuntime } from './runtime.ts'
 import { registerScheduleTools } from './tools.ts'

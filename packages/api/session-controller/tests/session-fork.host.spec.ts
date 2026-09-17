@@ -1,15 +1,15 @@
 /** Session Controller fork boundaries, lineage, and inherited model routing. */
 
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry, { agentEvents } from '@deepseek-ai/dsh-agent'
-import type { Agent, AgentHandle, CreateAgentOptions } from '@deepseek-ai/dsh-agent'
-import { createUserMessage, ReasoningEffortId } from '@deepseek-ai/dsh-llm'
-import type { LlmCallConfig } from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionLogOffset, SessionSeq } from '@deepseek-ai/dsh-session'
-import type { Session, SessionEvent, SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import type { Workspace } from '@deepseek-ai/dsh-workspace'
+import { Context } from '@workspacealberta/cordis'
+import AgentRegistry, { agentEvents } from '@workspacealberta/wa-agent'
+import type { Agent, AgentHandle, CreateAgentOptions } from '@workspacealberta/wa-agent'
+import { createUserMessage, ReasoningEffortId } from '@workspacealberta/wa-llm'
+import type { LlmCallConfig } from '@workspacealberta/wa-llm'
+import SessionStore, { SessionLogOffset, SessionSeq } from '@workspacealberta/wa-session'
+import type { Session, SessionEvent, SessionHeader, SessionId } from '@workspacealberta/wa-session'
+import SystemPrompt from '@workspacealberta/wa-system-prompt'
+import type { Workspace } from '@workspacealberta/wa-workspace'
 import {
   createSessionTestRemote, installSessionReadTestServices, testSessionPersistence,
 } from './test-remote.ts'

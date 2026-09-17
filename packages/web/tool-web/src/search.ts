@@ -5,11 +5,11 @@
  * never provider selection or network access.
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { defineTool } from '@deepseek-ai/dsh-tools'
-import type { GenericCallView, ToolResult, WebSearchResultView, WebSource } from '@deepseek-ai/dsh-tools'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
-import type { WebSearchResult, WebSearchSource } from '@deepseek-ai/dsh-web'
+import type { Context } from '@workspacealberta/cordis'
+import { defineTool } from '@workspacealberta/wa-tools'
+import type { GenericCallView, ToolResult, WebSearchResultView, WebSource } from '@workspacealberta/wa-tools'
+import type { JsonValue } from '@workspacealberta/wa-util-values'
+import type { WebSearchResult, WebSearchSource } from '@workspacealberta/wa-web'
 import { EXTERNAL_WEB_CONTENT_NOTICE } from './trust.ts'
 
 /**
@@ -301,7 +301,7 @@ function mergeSearchResults(
  *   request's `maxResults`.
  * @param maxQueries - the deployment's query cap enforced before provider calls.
  * @param timeoutMs - the cooperative tool-call budget (ms) attached as the tool's
- *   `ToolDefinition.timeoutMs` for `@deepseek-ai/dsh-tool-call-timeout-policy` to enforce.
+ *   `ToolDefinition.timeoutMs` for `@workspacealberta/wa-tool-call-timeout-policy` to enforce.
  * @param fetchEnabled - whether the same composition exposes `web_fetch`, which
  *   controls whether search guidance may recommend that follow-up tool.
  */

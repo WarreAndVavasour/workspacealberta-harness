@@ -29,7 +29,7 @@
 # The preset's own persona, shadowing the deployment default for this agent.
 # `{{model}}` and `{{cwd}}` resolve from the agent's own route and workspace.
 - id: persona
-  name: '@deepseek-ai/dsh-persona'
+  name: '@workspacealberta/wa-persona'
   config:
     text: >-
       You are a coding agent powered by the {{model}} model, running on the workspaceAlberta harness for Warre & Vavasour. Your working directory is {{cwd}}.
@@ -37,7 +37,7 @@
       workspaceAlberta personality — apply to every reply: strict output rule: never use emojis, emoticons, or decorative symbols of any kind — no exception for celebrations, warnings, or lists; express tone through wording alone; this rule overrides any user request that suggests festive or iconographic formatting. Lead with the outcome, then the supporting detail; no filler, no hedging, no restating the question back. Report failures and unknowns plainly; never fabricate results; say explicitly when something is unverified or assumed. These terminals serve executives: prefer clear plain language over jargon, and expand any acronym on first use.
 
 - id: agent-instructions
-  name: '@deepseek-ai/dsh-agent-instructions'
+  name: '@workspacealberta/wa-agent-instructions'
   config:
     maxBytes: 65536
 
@@ -51,11 +51,11 @@
 # registry from here; their executors (`bash-sandbox`/`pwsh-sandbox`) are
 # host-plane too.
 - id: tool-bash
-  name: '@deepseek-ai/dsh-tool-bash'
+  name: '@workspacealberta/wa-tool-bash'
   disabled: !!js process.platform === 'win32'
 
 - id: tool-pwsh
-  name: '@deepseek-ai/dsh-tool-pwsh'
+  name: '@workspacealberta/wa-tool-pwsh'
   disabled: !!js process.platform !== 'win32'
 
 # ── filesystem ──────────────────────────────────────────────────────────────
@@ -63,10 +63,10 @@
 # Both register into the host `tools` registry and provide nothing, so
 # they need no realm. The `fs` service and its policy stay in the host.
 - id: tool-fs
-  name: '@deepseek-ai/dsh-tool-fs'
+  name: '@workspacealberta/wa-tool-fs'
 
 - id: tool-fs-search
-  name: '@deepseek-ai/dsh-tool-fs-search'
+  name: '@workspacealberta/wa-tool-fs-search'
   config:
     sampleOverCapGlobResults: false
 
@@ -80,7 +80,7 @@
 # owning agent anyway, so one host instance serves every session. What a preset
 # chooses is whether its agent can collect and stop background work at all.
 - id: tool-jobs
-  name: '@deepseek-ai/dsh-tool-jobs'
+  name: '@workspacealberta/wa-tool-jobs'
 
 # ── skills ──────────────────────────────────────────────────────────────────
 
@@ -90,10 +90,10 @@
 # `tool-skill` gives them the catalog and loader; the merged catalog also
 # carries whatever the deployment registered globally (repository plugins).
 - id: skill-filesystem
-  name: '@deepseek-ai/dsh-skill-filesystem'
+  name: '@workspacealberta/wa-skill-filesystem'
 
 - id: tool-skill
-  name: '@deepseek-ai/dsh-tool-skill'
+  name: '@workspacealberta/wa-tool-skill'
 
 # ── goals ───────────────────────────────────────────────────────────────────
 
@@ -101,10 +101,10 @@
 # can resolve them. The human command and model-facing tool register into this
 # preset's scoped layers.
 - id: command-goal
-  name: '@deepseek-ai/dsh-command-goal'
+  name: '@workspacealberta/wa-command-goal'
 
 - id: tool-goal
-  name: '@deepseek-ai/dsh-tool-goal'
+  name: '@workspacealberta/wa-tool-goal'
 
 # ── plan mode ───────────────────────────────────────────────────────────────
 
@@ -117,7 +117,7 @@
     planMode: true
   config:
     - id: plan-mode
-      name: '@deepseek-ai/dsh-plan-mode'
+      name: '@workspacealberta/wa-plan-mode'
       config:
         section: |
               You are in plan mode. Stay in plan mode until exit_plan_mode succeeds or the user switches the session mode. Imperative language to implement changes means plan the implementation, not execute it. A user's conversational agreement — including an answer confirming something you asked — approves nothing and does not end plan mode; fold the confirmed decision into the plan and submit it through exit_plan_mode.
@@ -151,13 +151,13 @@
     toolResultPruner: true
   config:
     - id: compaction-basic
-      name: '@deepseek-ai/dsh-compaction-basic'
+      name: '@workspacealberta/wa-compaction-basic'
 
     - id: command-compact
-      name: '@deepseek-ai/dsh-command-compact'
+      name: '@workspacealberta/wa-command-compact'
 
     - id: tool-result-pruner
-      name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+      name: '@workspacealberta/wa-compaction-tool-result-pruner'
       config:
         thresholdChars: 8192
         headChars: 4096
@@ -181,13 +181,13 @@
     workflowEngine: true
   config:
     - id: tool-subagent-control
-      name: '@deepseek-ai/dsh-tool-subagent-control'
+      name: '@workspacealberta/wa-tool-subagent-control'
 
     - id: tool-subagent-list-agents
-      name: '@deepseek-ai/dsh-tool-subagent-control/list-agents'
+      name: '@workspacealberta/wa-tool-subagent-control/list-agents'
 
     - id: tool-subagent
-      name: '@deepseek-ai/dsh-tool-subagent'
+      name: '@workspacealberta/wa-tool-subagent'
       config:
         provider: spawn
         toolName: subagent
@@ -199,7 +199,7 @@
     # keeps fork continuable; parent and child inherit the same messaging tool,
     # while the parent id and return guidance follow the inherited history.
     - id: tool-subagent-fork
-      name: '@deepseek-ai/dsh-tool-subagent'
+      name: '@workspacealberta/wa-tool-subagent'
       config:
         provider: fork
         toolName: subagent_fork
@@ -210,7 +210,7 @@
     # preset and remove `disabled` from the matching tool row. Host availability
     # alone grants no tool.
     - id: tool-subagent-codex
-      name: '@deepseek-ai/dsh-tool-subagent'
+      name: '@workspacealberta/wa-tool-subagent'
       disabled: true
       config:
         provider: codex
@@ -219,7 +219,7 @@
         maxDepth: provider-managed
 
     - id: tool-subagent-claude-code
-      name: '@deepseek-ai/dsh-tool-subagent'
+      name: '@workspacealberta/wa-tool-subagent'
       disabled: true
       config:
         provider: claude-code
@@ -228,18 +228,18 @@
         maxDepth: provider-managed
 
     - id: workflow-worker-thread
-      name: '@deepseek-ai/dsh-workflow-worker-thread'
+      name: '@workspacealberta/wa-workflow-worker-thread'
       config:
         provider: spawn
 
     - id: tool-workflow
-      name: '@deepseek-ai/dsh-tool-workflow'
+      name: '@workspacealberta/wa-tool-workflow'
       # Keep the engine above for `ralph`, but do not publish a second
       # model-authored orchestration surface beside `run_code` in PTC mode.
       disabled: true
 
     - id: tool-ralph
-      name: '@deepseek-ai/dsh-tool-ralph'
+      name: '@workspacealberta/wa-tool-ralph'
       config:
         subagentProvider: spawn
         maxRounds: 64
@@ -247,10 +247,10 @@
 # ── remaining model-facing rows ─────────────────────────────────────────────
 
 - id: tool-ask-user
-  name: '@deepseek-ai/dsh-tool-ask-user'
+  name: '@workspacealberta/wa-tool-ask-user'
 
 - id: tool-todo
-  name: '@deepseek-ai/dsh-tool-todo'
+  name: '@workspacealberta/wa-tool-todo'
   config:
     allowParallelInProgress: true
 
@@ -260,7 +260,7 @@
 # Cohere tool-use search provider and the anonymous HTTP fetch provider, so
 # both model-facing web tools mount with fetch enabled.
 - id: tool-web
-  name: '@deepseek-ai/dsh-tool-web'
+  name: '@workspacealberta/wa-tool-web'
   config:
     fetch: true
     searchTimeoutMs: 60000
@@ -271,6 +271,6 @@
 # rather than assuming it: a deployment that composes no TypeScript runtime
 # fails this preset at mount, naming this id, instead of at the first request.
 - id: tool-presentation
-  name: '@deepseek-ai/dsh-agent-tool-presentation'
+  name: '@workspacealberta/wa-agent-tool-presentation'
   config:
     mode: ptc

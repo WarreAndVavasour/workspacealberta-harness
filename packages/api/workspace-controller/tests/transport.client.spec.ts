@@ -1,14 +1,14 @@
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@workspacealberta/cordis'
 import { describe, expect, it, vi } from 'vitest'
 import {
   RemoteStream,
   RemoteStreamCarrierError,
   type ClientRemote,
   type RemoteStreamOptions,
-} from '@deepseek-ai/dsh-api-gateway/client'
-import type { ConnectionHandle } from '@deepseek-ai/dsh-client-connection/client'
-import { SessionId } from '@deepseek-ai/dsh-session/types'
-import { RemoteError, type RemoteFailure, type RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+} from '@workspacealberta/wa-api-gateway/client'
+import type { ConnectionHandle } from '@workspacealberta/wa-client-connection/client'
+import { SessionId } from '@workspacealberta/wa-session/types'
+import { RemoteError, type RemoteFailure, type RemoteResult } from '@workspacealberta/wa-typert-protocol'
 import * as WorkspaceClientPlugin from '../src/client/index.ts'
 import {
   ClientWorkspaceModel,

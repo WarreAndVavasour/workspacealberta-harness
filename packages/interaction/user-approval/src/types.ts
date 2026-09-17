@@ -2,13 +2,13 @@
  * Wire-safe approval identifiers and outcome vocabulary, free of
  * cordis/service imports so browser type chains can
  * consume them without loading this package's Context augmentation.
- * @module @deepseek-ai/dsh-user-approval/types
+ * @module @workspacealberta/wa-user-approval/types
  */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
-import type { Scoped } from '@deepseek-ai/dsh-scope'
-import type { Agent } from '@deepseek-ai/dsh-agent/types'
-import type { ToolCallId } from '@deepseek-ai/dsh-llm/brand'
+import type { Branded } from '@workspacealberta/wa-brand'
+import type { Scoped } from '@workspacealberta/wa-scope'
+import type { Agent } from '@workspacealberta/wa-agent/types'
+import type { ToolCallId } from '@workspacealberta/wa-llm/brand'
 
 /**
  * Pairs one `approval/asked` audit event with its `approval/decided`.
@@ -31,7 +31,7 @@ export function ApprovalRequestId(id: string): ApprovalRequestId {
  */
 export type ApprovalOutcome = 'allowed-once' | 'rejected' | 'cancelled' | 'unavailable'
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@workspacealberta/wa-session/types' {
   interface SessionEventMap {
     /**
      * An approval question was put to the answerer chain — log-only audit
@@ -73,12 +73,12 @@ export interface ApprovalRequestEvent {
   readonly signal?: AbortSignal
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@workspacealberta/cordis' {
   interface Events {
     /**
      * Ask composed answerers for one decision. Return an outcome to claim the
      * request or call `next()` to delegate. Scope-filtered dispatch
-     * (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.
+     * (`@workspacealberta/wa-scope`): agent-scoped listeners receive only that agent.
      * @param req - pending approval request.
      * @mode waterfall
      */

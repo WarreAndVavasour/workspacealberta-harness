@@ -5,17 +5,17 @@
  * the registry itself while plugins can register additional, enumerable facts
  * with effect-scoped disposal.
  *
- * @module @deepseek-ai/dsh-shell-env
+ * @module @workspacealberta/wa-shell-env
  */
 
-import { Service, type Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { DSH_ENV_PREFIX } from '@deepseek-ai/dsh-shell'
-import type { DshEnvironment, DshEnvironmentKey } from '@deepseek-ai/dsh-shell'
-import { DSH_HOME_ENV, resolveDshHome } from '@deepseek-ai/dsh-home-paths'
-import type { ToolExecution } from '@deepseek-ai/dsh-tools'
+import { Service, type Context } from '@workspacealberta/cordis'
+import z from '@workspacealberta/schemastery'
+import { DSH_ENV_PREFIX } from '@workspacealberta/wa-shell'
+import type { DshEnvironment, DshEnvironmentKey } from '@workspacealberta/wa-shell'
+import { DSH_HOME_ENV, resolveDshHome } from '@workspacealberta/wa-home-paths'
+import type { ToolExecution } from '@workspacealberta/wa-tools'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@workspacealberta/cordis' {
   interface Context {
     shellEnv: ShellEnvRegistry
   }

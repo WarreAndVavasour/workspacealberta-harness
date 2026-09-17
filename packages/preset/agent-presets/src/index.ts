@@ -18,25 +18,25 @@
  * agent factory's `setup(agentCtx)` hook is the one supported call site,
  * because only there is the join installed while the agent is still
  * unpublished, so a rejected composition rolls the whole creation back.
- * @module @deepseek-ai/dsh-agent-presets
+ * @module @workspacealberta/wa-agent-presets
  */
 
 import { stat } from 'node:fs/promises'
-import { Context } from '@deepseek-ai/cordis'
-import { evaluate } from '@deepseek-ai/cordis-plugin-loader'
-import z from '@deepseek-ai/schemastery'
-import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
-import { bindScopeParent, createScope, scopeOf, type Scope, type ScopeKey, type ScopeParentBinding } from '@deepseek-ai/dsh-scope'
+import { Context } from '@workspacealberta/cordis'
+import { evaluate } from '@workspacealberta/cordis-plugin-loader'
+import z from '@workspacealberta/schemastery'
+import { Remote, RemoteError, TypertRemoteService } from '@workspacealberta/wa-typert-protocol'
+import { bindScopeParent, createScope, scopeOf, type Scope, type ScopeKey, type ScopeParentBinding } from '@workspacealberta/wa-scope'
 // Type-only: resolves the `agent/created` lifecycle event this service watches.
-import type {} from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
+import type {} from '@workspacealberta/wa-agent'
+import type { Agent } from '@workspacealberta/wa-agent'
 import type { AgentPresetDocument, AgentPresetRoster } from './types.ts'
-import type {} from '@deepseek-ai/dsh-session-projection'
+import type {} from '@workspacealberta/wa-session-projection'
 // Type-only: resolves the registry notification emitted after scope reparenting.
-import type {} from '@deepseek-ai/dsh-tools'
-import type SettingsService from '@deepseek-ai/dsh-settings'
-import type { SettingsScope } from '@deepseek-ai/dsh-settings'
-import { dshHomePath } from '@deepseek-ai/dsh-home-paths'
+import type {} from '@workspacealberta/wa-tools'
+import type SettingsService from '@workspacealberta/wa-settings'
+import type { SettingsScope } from '@workspacealberta/wa-settings'
+import { dshHomePath } from '@workspacealberta/wa-home-paths'
 import { discoverPresets, SHIPPED_PRESET_ROOT, USER_PRESET_DIR } from './discovery.ts'
 import { copyComposition, deleteComposition, presetExists, readComposition } from './authoring.ts'
 import { livePresetMounts, mountPreset, serviceForAgent, standingMountFor } from './mount.ts'
@@ -84,7 +84,7 @@ export { copyComposition, deleteComposition, readComposition, writableRoot } fro
 export { agentPresetProjectionDefinition } from './session.ts'
 export type { AgentPreset, Config, PresetRoot, PresetTrust } from './preset.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@workspacealberta/cordis' {
   interface Context {
     agentPresets: AgentPresets
   }

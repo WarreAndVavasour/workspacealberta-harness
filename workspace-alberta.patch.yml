@@ -54,7 +54,7 @@
     # insert needed here anymore.
 
     - id: mcp-workspace-alberta
-      name: '@deepseek-ai/dsh-mcp-client'
+      name: '@workspacealberta/wa-mcp-client'
       config:
         transport: streamable-http
         serverName: workspace_alberta

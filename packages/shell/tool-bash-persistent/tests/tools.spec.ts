@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import { Session, SessionId } from '@deepseek-ai/dsh-session'
-import AgentRegistry, { Inbox } from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import TerminalSessionService from '@deepseek-ai/dsh-terminal'
+import { Context } from '@workspacealberta/cordis'
+import { ToolCallId } from '@workspacealberta/wa-llm'
+import { Session, SessionId } from '@workspacealberta/wa-session'
+import AgentRegistry, { Inbox } from '@workspacealberta/wa-agent'
+import type { Agent } from '@workspacealberta/wa-agent'
+import TerminalSessionService from '@workspacealberta/wa-terminal'
 import type {
   TerminalBackend,
   TerminalBackendSession,
@@ -14,10 +14,10 @@ import type {
   TerminalSessionStatus,
   TerminalSignal,
   TerminalWaitReason,
-} from '@deepseek-ai/dsh-terminal'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import * as ToolBashPersistent from '@deepseek-ai/dsh-tool-bash-persistent'
+} from '@workspacealberta/wa-terminal'
+import SystemPrompt from '@workspacealberta/wa-system-prompt'
+import ToolRuntime from '@workspacealberta/wa-tools'
+import * as ToolBashPersistent from '@workspacealberta/wa-tool-bash-persistent'
 
 const contexts: Context[] = []
 let callNumber = 0

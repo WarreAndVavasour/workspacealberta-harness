@@ -2,15 +2,15 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render } from '@testing-library/react'
 
-import type { RunningToolCall, ToolResultNode } from '@deepseek-ai/dsh-client-ui-chat/client'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import { zh as commonZh } from '@deepseek-ai/dsh-client-locale/src/locales/zh.ts'
+import type { RunningToolCall, ToolResultNode } from '@workspacealberta/wa-client-ui-chat/client'
+import { makeTranslate } from '@workspacealberta/wa-client-test-runtime'
+import { zh as commonZh } from '@workspacealberta/wa-client-locale/src/locales/zh.ts'
 import {
   classifyTool, formatToolBody, resultText, toolRowModel,
 } from '../src/client/tool/models/tool-call-model.ts'
 import { ToolRow } from '../src/client/tool/components/ToolRow.tsx'
 import { GenericToolCard, type GenericToolCardProps } from '../src/client/tool/toolviews/GenericToolCard.tsx'
-import { zh } from '@deepseek-ai/dsh-client-ui-conversation/src/client/locales.ts'
+import { zh } from '@workspacealberta/wa-client-ui-conversation/src/client/locales.ts'
 
 afterEach(() => {
   cleanup()

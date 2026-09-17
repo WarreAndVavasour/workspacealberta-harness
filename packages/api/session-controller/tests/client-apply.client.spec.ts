@@ -1,16 +1,16 @@
-import { Context } from '@deepseek-ai/cordis'
-import type { Fiber } from '@deepseek-ai/cordis'
+import { Context } from '@workspacealberta/cordis'
+import type { Fiber } from '@workspacealberta/cordis'
 import type {
   ConnectionGeneration,
   ConnectionHandle,
-} from '@deepseek-ai/dsh-client-connection/client'
+} from '@workspacealberta/wa-client-connection/client'
 import {
   RemoteStreamCarrierError,
   RemoteStream,
   type RemoteStreamOptions,
-} from '@deepseek-ai/dsh-api-gateway/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
+} from '@workspacealberta/wa-api-gateway/client'
+import type { SessionId } from '@workspacealberta/wa-session/types'
+import TypertRegistry from '@workspacealberta/wa-typert-registry'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import * as SessionClient from '../src/client/index.ts'
 import { ClientSessions } from '../src/client/sessions/service.ts'

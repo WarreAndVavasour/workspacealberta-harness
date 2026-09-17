@@ -1,12 +1,12 @@
-/** Package-owned approval audit-stream invariants. @module @deepseek-ai/dsh-user-approval/invariant */
+/** Package-owned approval audit-stream invariants. @module @workspacealberta/wa-user-approval/invariant */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
-import type { InvariantFailure, InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@workspacealberta/cordis'
+import type { Session, SessionEvent } from '@workspacealberta/wa-session'
+import type { InvariantFailure, InvariantInstaller } from '@workspacealberta/wa-invariants'
 import type { ApprovalRequestId } from './index.ts'
 import { APPROVAL_POLICIES } from './index.ts'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-user-approval'
+const PACKAGE_NAME = '@workspacealberta/wa-user-approval'
 const APPROVAL_OUTCOMES = ['allowed-once', 'rejected', 'cancelled', 'unavailable'] as const
 
 /** Cordis companion plugin name. */

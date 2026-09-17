@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import InvariantRegistry from '@deepseek-ai/dsh-invariants'
-import * as AgentLoopInvariant from '@deepseek-ai/dsh-agent-loop/invariant'
-import { createUserMessage, markAgentLoopRequest, type GenerateOptions  } from '@deepseek-ai/dsh-llm'
+import { Context } from '@workspacealberta/cordis'
+import SessionStore, { SessionId } from '@workspacealberta/wa-session'
+import InvariantRegistry from '@workspacealberta/wa-invariants'
+import * as AgentLoopInvariant from '@workspacealberta/wa-agent-loop/invariant'
+import { createUserMessage, markAgentLoopRequest, type GenerateOptions  } from '@workspacealberta/wa-llm'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

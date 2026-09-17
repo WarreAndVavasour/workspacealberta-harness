@@ -1,15 +1,15 @@
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import { createUserMessage } from '@workspacealberta/wa-llm'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@deepseek-ai/dsh-tools'
-import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
+import { Context } from '@workspacealberta/cordis'
+import LlmRuntime from '@workspacealberta/wa-llm'
+import SessionStore, { SessionId } from '@workspacealberta/wa-session'
+import SystemPrompt from '@workspacealberta/wa-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@workspacealberta/wa-tools'
+import AgentRegistry, { type Agent } from '@workspacealberta/wa-agent'
 
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek'
+import AgentLoop from '@workspacealberta/wa-agent-loop'
+import SessionProjectionRegistry from '@workspacealberta/wa-session-projection'
+import * as LlmDeepSeek from '@workspacealberta/wa-llm-deepseek'
 
 /**
  * With-key proof that log-derived requests translate into real provider cache hits: a

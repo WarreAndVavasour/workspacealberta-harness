@@ -1,6 +1,6 @@
 /**
  * Browser-safe Workspace path and display helpers.
- * @module @deepseek-ai/dsh-util-workspace-path
+ * @module @workspacealberta/wa-util-workspace-path
  */
 
 /** Whether a path uses a Windows drive or UNC prefix. */

@@ -1,4 +1,4 @@
-/** Assembled keyless snapshot for the default `dsh web` browser handoff. */
+/** Assembled keyless snapshot for the default `wa web` browser handoff. */
 
 import { existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -67,7 +67,7 @@ describe.skipIf(!builtArtifactsExist)('dsh web browser-open assembled snapshot',
     const openLine = result.stdout.split('\n').find(line => line.startsWith('dsh browser-open: '))
     const opening = result.stdout.includes(openingMessage)
     if (readyUrl === undefined || openLine === undefined || !opening) {
-      throw new Error(`dsh web browser-open evidence missing\nstdout:\n${result.stdout}\nstderr:\n${result.stderr}`)
+      throw new Error(`wa web browser-open evidence missing\nstdout:\n${result.stdout}\nstderr:\n${result.stderr}`)
     }
     const opened = JSON.parse(openLine.slice('dsh browser-open: '.length)) as BrowserOpenRecord
 

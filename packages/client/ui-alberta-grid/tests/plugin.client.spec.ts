@@ -2,10 +2,10 @@
  * Alberta Grid browser half: registers conversation.view id alberta-grid and
  * removes it on teardown (HMR safety).
  */
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@workspacealberta/cordis'
 import { describe, expect, it } from 'vitest'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
+import { SlotRegistry } from '@workspacealberta/wa-client-ui-renderer/client'
+import { LocaleRuntime } from '@workspacealberta/wa-client-locale/client'
 import { AlbertaGridView } from '../src/client/AlbertaGridView.tsx'
 import { apply, inject } from '../src/client/index.ts'
 import { apply as nodeApply } from '../src/index.ts'

@@ -1,8 +1,8 @@
 /** workspaceAlberta occupants for the generic browser-brand slots. */
-import type { Context as ClientContext } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-client-ui-sidebar/client'
+import type { Context as ClientContext } from '@workspacealberta/cordis'
+import type {} from '@workspacealberta/wa-client-ui-conversation/client'
+import type {} from '@workspacealberta/wa-client-ui-renderer/client'
+import type {} from '@workspacealberta/wa-client-ui-sidebar/client'
 import { OfficialBrandMark, OfficialBrandName } from './Brand.tsx'
 
 /** Required service: the UI slot registry. */

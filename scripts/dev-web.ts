@@ -2,14 +2,14 @@
  * Watch-build for the web dev loop: rebuilds every artifact the browser reads
  * from a source edit. Reload signaling is not this script's business — the host
  * webserver stat-polls the bundles it serves and broadcasts `rebuilt` frames
- * itself (`dsh web`), so any process that rewrites `lib/client.js` files
+ * itself (`wa web`), so any process that rewrites `lib/client.js` files
  * triggers reloads; this script is merely the convenient way to keep them all
  * rebuilt on source change.
  *
  * Three stages, because the compile shell links built lib products rather than
  * sources: `tsc -b tsconfig.client.json` emits `lib/types` (the tsdown lib
  * entries are that emit, not `src`), tsdown bundles `lib/index.js` and
- * `lib/client.js`, and `vite build` rewrites `apps/web/dist`, which `dsh web`
+ * `lib/client.js`, and `vite build` rewrites `apps/web/dist`, which `wa web`
  * serves. A missing stage does not fail — it silently shows the previous
  * artifact, so an edit appears to do nothing.
  *
@@ -45,8 +45,8 @@ const repoRoot = fileURLToPath(new URL('..', import.meta.url))
 /** Client-face type emit feeding every tsdown lib entry in the watch set. */
 const CLIENT_TYPE_PROGRAM = 'tsconfig.client.json'
 
-/** Compile-shell workspace whose dist `dsh web` serves. */
-const SHELL_PACKAGE = '@deepseek-ai/dsh-web-frontend'
+/** Compile-shell workspace whose dist `wa web` serves. */
+const SHELL_PACKAGE = '@workspacealberta/wa-web-frontend'
 
 /**
  * Test infrastructure builds through the client preset but never enters the

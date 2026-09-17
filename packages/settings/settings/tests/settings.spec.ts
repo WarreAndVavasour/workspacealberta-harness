@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
+import { Context } from '@workspacealberta/cordis'
+import z from '@workspacealberta/schemastery'
 import { SettingsProvider, SettingsConflictError, type SettingsNamespace, type SettingsScope, type SettingsUpdateSource } from '../src/index.ts'
-import { deepEqualJson } from '@deepseek-ai/dsh-util-values'
+import { deepEqualJson } from '@workspacealberta/wa-util-values'
 import { MemorySettings } from './memory.ts'
 
 /** A provider implementing only the three primitives: the Service Definition owns initialization. */

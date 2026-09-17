@@ -1,22 +1,22 @@
 /**
  * Basic replay-aware compaction backend.
  *
- * @module @deepseek-ai/dsh-compaction-basic
+ * @module @workspacealberta/wa-compaction-basic
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { CompactionEngine, ManualCompactionError } from '@deepseek-ai/dsh-compaction'
-import type { CompactionResult, CompactionTrigger } from '@deepseek-ai/dsh-compaction'
-import type { TokenMeter } from '@deepseek-ai/dsh-token-meter'
-import type { Session, SessionSeq } from '@deepseek-ai/dsh-session'
-import { CONTEXT_WINDOW_EXCEEDED_CODE } from '@deepseek-ai/dsh-llm'
-import type { LlmCallConfig } from '@deepseek-ai/dsh-llm'
-import { assertNever } from '@deepseek-ai/dsh-util-values'
-import type { Agent, PreStepDecision } from '@deepseek-ai/dsh-agent'
-import type { CommandId } from '@deepseek-ai/dsh-commands/brand'
+import { Context } from '@workspacealberta/cordis'
+import z from '@workspacealberta/schemastery'
+import { CompactionEngine, ManualCompactionError } from '@workspacealberta/wa-compaction'
+import type { CompactionResult, CompactionTrigger } from '@workspacealberta/wa-compaction'
+import type { TokenMeter } from '@workspacealberta/wa-token-meter'
+import type { Session, SessionSeq } from '@workspacealberta/wa-session'
+import { CONTEXT_WINDOW_EXCEEDED_CODE } from '@workspacealberta/wa-llm'
+import type { LlmCallConfig } from '@workspacealberta/wa-llm'
+import { assertNever } from '@workspacealberta/wa-util-values'
+import type { Agent, PreStepDecision } from '@workspacealberta/wa-agent'
+import type { CommandId } from '@workspacealberta/wa-commands/brand'
 // Type-only: makes the optional sibling service available to `ctx.get()`.
-import type {} from '@deepseek-ai/dsh-compaction-tool-result-pruner'
+import type {} from '@workspacealberta/wa-compaction-tool-result-pruner'
 import {
   resolveCompactSpec,
   resolveConfig,

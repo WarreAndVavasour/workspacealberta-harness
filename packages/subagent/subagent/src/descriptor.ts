@@ -18,15 +18,15 @@
  * durable descriptor, so it neither restores the prior budget nor inherits
  * the parent's current one; the resumed route's defaults apply instead.
  *
- * @module @deepseek-ai/dsh-subagent/descriptor
+ * @module @workspacealberta/wa-subagent/descriptor
  */
 
-import { snapshotJsonValue } from '@deepseek-ai/dsh-util-values'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
-import type { ReasoningEffortId } from '@deepseek-ai/dsh-llm'
-import type { ToolRestriction } from '@deepseek-ai/dsh-tools'
+import { snapshotJsonValue } from '@workspacealberta/wa-util-values'
+import type { SessionEvent } from '@workspacealberta/wa-session'
+import type { ReasoningEffortId } from '@workspacealberta/wa-llm'
+import type { ToolRestriction } from '@workspacealberta/wa-tools'
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@workspacealberta/wa-session/types' {
   interface SessionEventMap {
     /**
      * Durable identity and lifecycle mode of a session-backed subagent child,

@@ -1,6 +1,6 @@
 /** Host-driven Cordis tree integration. */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@workspacealberta/cordis'
 import WebSocket, { type RawData } from 'ws'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { CordisTreeCollector } from '../src/shared/cordis/collector.ts'

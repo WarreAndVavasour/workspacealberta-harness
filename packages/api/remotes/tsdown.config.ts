@@ -1,7 +1,7 @@
 import { clientBundle } from '../../client/tsdown.client.ts'
 
 export default clientBundle(
-  '@deepseek-ai/dsh-api-remotes',
+  '@workspacealberta/wa-api-remotes',
   ['lib/types/index.js'],
   { hostPhase: true },
 )

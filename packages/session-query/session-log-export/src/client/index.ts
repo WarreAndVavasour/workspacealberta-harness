@@ -1,24 +1,24 @@
 /** Browser plugin owning Session export download state and its shared modal. */
 
-import type { Context as ClientContext } from '@deepseek-ai/cordis'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-commands/client'
-import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-client-ui-session/client'
+import type { Context as ClientContext } from '@workspacealberta/cordis'
+import type { SessionId } from '@workspacealberta/wa-session/types'
+import type {} from '@workspacealberta/wa-client-locale/client'
+import type {} from '@workspacealberta/wa-client-ui-commands/client'
+import type {} from '@workspacealberta/wa-client-ui-conversation/client'
+import type {} from '@workspacealberta/wa-client-ui-renderer/client'
+import type {} from '@workspacealberta/wa-client-ui-session/client'
 import { SessionLogDownloadController } from './controller.ts'
 import type { SessionLogDownloadDialogInjected } from './Dialog.tsx'
 import { SessionLogDownloadHeaderAction } from './HeaderAction.tsx'
 import { en, NS, zh, type SessionLogDownloadKey } from './locales.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@workspacealberta/cordis' {
   interface Context {
     sessionLogDownload: SessionLogDownloadController
   }
 }
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@workspacealberta/wa-client-ui-slots' {
   interface LocaleNamespaceMap {
     'session-log-download': SessionLogDownloadKey
   }

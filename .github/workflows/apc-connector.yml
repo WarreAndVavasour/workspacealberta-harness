@@ -1,0 +1,22 @@
+name: APC connector
+on:
+  push:
+    paths: ['integrations/apc/**', 'workspace-alberta-apc.patch.yml', '.github/workflows/apc-connector.yml']
+  pull_request:
+    paths: ['integrations/apc/**', 'workspace-alberta-apc.patch.yml', '.github/workflows/apc-connector.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-mcp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r integrations/apc/requirements.txt
+      - run: python -m playwright install --with-deps chromium
+      - run: python -m unittest discover -s integrations/apc -p test_connector.py
+      - run: python integrations/apc/example.py --check

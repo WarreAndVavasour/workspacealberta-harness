@@ -6,7 +6,7 @@ import type {
   SessionId, SessionSearchItem,
   SubagentCatalog, SubagentInterruptReceipt, SubagentPromptReceipt,
   WorkspaceId, WorkspaceView,
-} from '@deepseek-ai/dsh-api-remotes/client'
+} from '@workspacealberta/wa-api-remotes/client'
 import type {
   SessionAddress,
   SessionControlBaseline,
@@ -18,14 +18,14 @@ import type {
   SessionProjectionBaseline,
   SessionSelectModelRequest,
   SessionSelectModelValue,
-} from '@deepseek-ai/dsh-api-session-controller/types'
-import type { WorkspaceRemote } from '@deepseek-ai/dsh-api-workspace-controller/client'
-import type { WorkspaceFollowFrame } from '@deepseek-ai/dsh-api-workspace-controller/types'
-import type { RemoteFailure, RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+} from '@workspacealberta/wa-api-session-controller/types'
+import type { WorkspaceRemote } from '@workspacealberta/wa-api-workspace-controller/client'
+import type { WorkspaceFollowFrame } from '@workspacealberta/wa-api-workspace-controller/types'
+import type { RemoteFailure, RemoteResult } from '@workspacealberta/wa-typert-protocol'
 import {
   RemoteStream,
   type RemoteStreamOptions,
-} from '@deepseek-ai/dsh-api-gateway/client'
+} from '@workspacealberta/wa-api-gateway/client'
 import type { SessionRemotes } from '../src/client/sessions/remotes.ts'
 import { historyRecordLastSeq } from '../src/client/sessions/history-records.ts'
 

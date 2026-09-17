@@ -2,13 +2,13 @@
  * Browser Alberta Grid plugin contributing one entry to the conversation view
  * slot without defining a service.
  */
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@workspacealberta/cordis'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@deepseek-ai/dsh-client-locale/client'
+import type {} from '@workspacealberta/wa-client-locale/client'
 // Type-only: the 'conversation.view' SlotMap row must be in the program.
-import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type {} from '@workspacealberta/wa-client-ui-conversation/client'
 // Type-only: pulls the SlotRegistry Context merge (ctx.slots).
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type {} from '@workspacealberta/wa-client-ui-renderer/client'
 import { AlbertaGridView } from './AlbertaGridView.tsx'
 import { en, NS, zh } from './locales.ts'
 

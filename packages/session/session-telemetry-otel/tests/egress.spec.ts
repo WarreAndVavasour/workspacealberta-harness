@@ -4,9 +4,9 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { installProxyFromEnvironment } from '@deepseek-ai/dsh-http-proxy'
-import { Context } from '@deepseek-ai/cordis'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import { installProxyFromEnvironment } from '@workspacealberta/wa-http-proxy'
+import { Context } from '@workspacealberta/cordis'
+import SessionStore, { SessionId } from '@workspacealberta/wa-session'
 import OpenTelemetrySessionBackend, { SessionTelemetryMode } from '../src/index.ts'
 
 let seen: string[] = []

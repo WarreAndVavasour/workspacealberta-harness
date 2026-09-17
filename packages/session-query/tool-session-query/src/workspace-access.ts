@@ -1,23 +1,23 @@
 /**
  * Caller identity, workspace authorization, and visible lineage projection.
  *
- * @module @deepseek-ai/dsh-tool-session-query/workspace-access
+ * @module @workspacealberta/wa-tool-session-query/workspace-access
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { HarnessError } from '@deepseek-ai/dsh-llm'
+import type { Context } from '@workspacealberta/cordis'
+import { brandString } from '@workspacealberta/wa-brand'
+import { HarnessError } from '@workspacealberta/wa-llm'
 import {
   type SessionHeader,
   type SessionId as SessionIdValue,
-} from '@deepseek-ai/dsh-session'
-import type { TurnBoundaryProjection } from '@deepseek-ai/dsh-agent'
+} from '@workspacealberta/wa-session'
+import type { TurnBoundaryProjection } from '@workspacealberta/wa-agent'
 import type {
   SessionLineageNode,
   SessionRecord,
-} from '@deepseek-ai/dsh-session-query'
-import type { ToolRunContext } from '@deepseek-ai/dsh-tools'
-import type {} from '@deepseek-ai/dsh-session-projection'
+} from '@workspacealberta/wa-session-query'
+import type { ToolRunContext } from '@workspacealberta/wa-tools'
+import type {} from '@workspacealberta/wa-session-projection'
 import { serviceBoundary } from './service-boundary.ts'
 
 interface Caller {

@@ -8,20 +8,20 @@
  * anything, while an in-flight stream keeps the facts it started with. The
  * one registration-captured fact — the retry policy — re-registers the route
  * in place when it changes.
- * @module @deepseek-ai/dsh-llm-deepseek
+ * @module @workspacealberta/wa-llm-deepseek
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { assertUsableApiKey, LlmError, resolveImageAttachmentAccess, resolveRetryPolicy, RetryPolicySchema } from '@deepseek-ai/dsh-llm'
-import type { ModelModality, RetryPolicyConfig } from '@deepseek-ai/dsh-llm'
-import type {} from '@deepseek-ai/dsh-fs'
-import { credentialRef } from '@deepseek-ai/dsh-credentials'
-import { launchEnvironmentOf, type LaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
-import type {} from '@deepseek-ai/dsh-settings'
-import { MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
-import { deepEqualJson } from '@deepseek-ai/dsh-util-values'
-import { getOrCreateAnonymousUserId, type AnonymousUserId } from '@deepseek-ai/dsh-anonymous-user-id'
+import type { Context } from '@workspacealberta/cordis'
+import z from '@workspacealberta/schemastery'
+import { assertUsableApiKey, LlmError, resolveImageAttachmentAccess, resolveRetryPolicy, RetryPolicySchema } from '@workspacealberta/wa-llm'
+import type { ModelModality, RetryPolicyConfig } from '@workspacealberta/wa-llm'
+import type {} from '@workspacealberta/wa-fs'
+import { credentialRef } from '@workspacealberta/wa-credentials'
+import { launchEnvironmentOf, type LaunchEnvironmentSnapshot } from '@workspacealberta/wa-launch-environment'
+import type {} from '@workspacealberta/wa-settings'
+import { MAX_TIMER_DELAY_MS } from '@workspacealberta/wa-timeout'
+import { deepEqualJson } from '@workspacealberta/wa-util-values'
+import { getOrCreateAnonymousUserId, type AnonymousUserId } from '@workspacealberta/wa-anonymous-user-id'
 import {
   DEFAULT_CONTEXT_WINDOW,
   DEFAULT_FILE_EXPIRY_SECONDS,

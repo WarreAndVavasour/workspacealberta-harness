@@ -1,11 +1,11 @@
 import { createServer } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import { describe, expect, it } from 'vitest'
-import { Context, Service, symbols } from '@deepseek-ai/cordis'
+import { Context, Service, symbols } from '@workspacealberta/cordis'
 import { z } from 'zod'
-import { apply as applyConnection, inject as connectionInject } from '@deepseek-ai/dsh-client-connection'
-import type { HostConnectionHandle } from '@deepseek-ai/dsh-client-connection'
-import type { WebServer, WebRoute } from '@deepseek-ai/dsh-host-webserver'
+import { apply as applyConnection, inject as connectionInject } from '@workspacealberta/wa-client-connection'
+import type { HostConnectionHandle } from '@workspacealberta/wa-client-connection'
+import type { WebServer, WebRoute } from '@workspacealberta/wa-host-webserver'
 import {
   bindTypertRemote,
   Remote,
@@ -15,9 +15,9 @@ import {
   type TypertContext,
   type TypertLookup,
   type TypertLookupProvider,
-} from '@deepseek-ai/dsh-typert-protocol'
-import TypertRegistry, { type TypertContribution } from '@deepseek-ai/dsh-typert-registry'
-import TypertGatewayService, { TypertGatewayError } from '@deepseek-ai/dsh-api-gateway'
+} from '@workspacealberta/wa-typert-protocol'
+import TypertRegistry, { type TypertContribution } from '@workspacealberta/wa-typert-registry'
+import TypertGatewayService, { TypertGatewayError } from '@workspacealberta/wa-api-gateway'
 import { provideBrowserCredentials } from './browser-credentials.ts'
 
 interface FixtureAgent {
@@ -28,7 +28,7 @@ interface MarkedContext extends Context {
   readonly fixtureScope?: string
 }
 
-declare module '@deepseek-ai/dsh-typert-protocol' {
+declare module '@workspacealberta/wa-typert-protocol' {
   interface TypertLookupMap {
     gatewayFixture: TypertLookup<FixtureAgent, string>
     gatewayFixtureAlias: TypertLookup<FixtureAgent, string>

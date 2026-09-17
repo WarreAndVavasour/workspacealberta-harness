@@ -2,19 +2,19 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent } from '@testing-library/react'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import { createSnapshotStore } from '@workspacealberta/wa-client-store'
 import type {
   ChatSnapshot, RunningToolCall, ToolCallBlock, ToolResultNode,
-} from '@deepseek-ai/dsh-client-ui-chat/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { SlotTestRuntime, TestRemote, stubSettingsScope } from '@deepseek-ai/dsh-client-test-runtime'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import type { PropsRenderSlots } from '@deepseek-ai/dsh-client-ui-slots'
+} from '@workspacealberta/wa-client-ui-chat/client'
+import type { SessionId } from '@workspacealberta/wa-session/types'
+import { SlotTestRuntime, TestRemote, stubSettingsScope } from '@workspacealberta/wa-client-test-runtime'
+import { LocaleRuntime } from '@workspacealberta/wa-client-locale/client'
+import type { PropsRenderSlots } from '@workspacealberta/wa-client-ui-slots'
 import {
   ConversationEventRegistry, ConversationViewRegistry, type ConvViewOwnerProps,
-} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import { en as conversationEn, NS as CONVERSATION_NS, zh as conversationZh } from '@deepseek-ai/dsh-client-ui-conversation/src/client/locales.ts'
-import { apply as applyChat, inject as injectChat } from '@deepseek-ai/dsh-client-ui-chat/client'
+} from '@workspacealberta/wa-client-ui-conversation/client'
+import { en as conversationEn, NS as CONVERSATION_NS, zh as conversationZh } from '@workspacealberta/wa-client-ui-conversation/src/client/locales.ts'
+import { apply as applyChat, inject as injectChat } from '@workspacealberta/wa-client-ui-chat/client'
 import { apply as applyTool, inject as injectTool } from '../src/client/apply.ts'
 import { toolChatSnapshot } from './tool-details-render.client.tsx'
 

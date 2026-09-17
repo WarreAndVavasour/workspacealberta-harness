@@ -6,11 +6,11 @@
 
 import { describe, expect, it } from 'vitest'
 import fc from 'fast-check'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { StreamChunk } from '@deepseek-ai/dsh-llm'
-import { decodeStorageRecord, packChunkRuns, SessionSeq } from '@deepseek-ai/dsh-session'
-import { chunkRowLength, isChunkRow } from '@deepseek-ai/dsh-session/chunk-rows'
-import type { ChunkRow, SessionEvent, StorageRecord } from '@deepseek-ai/dsh-session'
+import { ToolCallId } from '@workspacealberta/wa-llm'
+import type { StreamChunk } from '@workspacealberta/wa-llm'
+import { decodeStorageRecord, packChunkRuns, SessionSeq } from '@workspacealberta/wa-session'
+import { chunkRowLength, isChunkRow } from '@workspacealberta/wa-session/chunk-rows'
+import type { ChunkRow, SessionEvent, StorageRecord } from '@workspacealberta/wa-session'
 
 /** Build an `assistant/chunk` event with the exact live-append shape. */
 function chunkEvent(seq: SessionSeq, time: number, chunk: StreamChunk, turn = 1, step = 1): SessionEvent {

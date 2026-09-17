@@ -2,7 +2,7 @@
  * Browser wire client. The plugin selects fixture or HTTP transport, provides
  * the shared API client, and lets API Gateway own the connection loop.
  */
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@workspacealberta/cordis'
 import {
   ConnectionController,
   type ConnectionConfig,
@@ -16,7 +16,7 @@ import { createWebConnectionRpc, type RpcFetch, type RpcStreamOpen } from './rpc
 import { isLoopbackHostname } from '../loopback-hostname.ts'
 import type { ClientConnectionRpc } from '../rpc.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@workspacealberta/cordis' {
   interface Events {
     /**
      * A connection generation was established. Wire-derived caches must

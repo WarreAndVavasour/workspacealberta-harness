@@ -5,11 +5,11 @@
  * restated: a browser consumer reads the very declaration the backend answers.
  */
 
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { WorkspaceId } from '@deepseek-ai/dsh-workspace/types'
+import type { SessionId } from '@workspacealberta/wa-session/types'
+import type { WorkspaceId } from '@workspacealberta/wa-workspace/types'
 
-export type { WorkspaceId } from '@deepseek-ai/dsh-workspace/types'
-export type { DirectoryEntry, DirectoryListing } from '@deepseek-ai/dsh-host-directory-picker/types'
+export type { WorkspaceId } from '@workspacealberta/wa-workspace/types'
+export type { DirectoryEntry, DirectoryListing } from '@workspacealberta/wa-host-directory-picker/types'
 
 /** One durable Workspace projected for browser consumers. */
 export interface WorkspaceView {
@@ -26,7 +26,7 @@ export interface WorkspaceView {
   readonly updatedAt: string
 }
 
-declare module '@deepseek-ai/dsh-typert-protocol' {
+declare module '@workspacealberta/wa-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /** The requested directory cannot back a Workspace. */
     'workspace/invalid-path': { readonly path: string }

@@ -1,31 +1,31 @@
 /** Host BFF entry and Loader shell for the Remote contribution assembly. */
 
 import { homedir } from 'node:os'
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@workspacealberta/cordis'
 import type {
   TypertRemoteEventDispatch,
   TypertRemoteEventInvocation,
   TypertRemoteEventOutcome,
   TypertRemoteEventSource,
-} from '@deepseek-ai/dsh-api-gateway'
-import { Deque } from '@deepseek-ai/dsh-deque'
-import { carrierKeyOf } from '@deepseek-ai/dsh-scope'
-import { isJsonValue, type JsonValue } from '@deepseek-ai/dsh-util-values'
+} from '@workspacealberta/wa-api-gateway'
+import { Deque } from '@workspacealberta/wa-deque'
+import { carrierKeyOf } from '@workspacealberta/wa-scope'
+import { isJsonValue, type JsonValue } from '@workspacealberta/wa-util-values'
 import { API_REMOTE_FORWARDED_EVENTS } from './remote-events.ts'
 
 // The owner packages' client-safe `./types` exports carry the cordis `Events`
 // declarations for every allowlisted event. Pulling them into this face is what
 // makes the shape assertion below judge real signatures rather than an empty
 // event vocabulary.
-import type {} from '@deepseek-ai/dsh-commands/types'
-import type {} from '@deepseek-ai/dsh-cordis-host-runner/types'
-import type {} from '@deepseek-ai/dsh-credentials/types'
-import type {} from '@deepseek-ai/dsh-llm/types'
-import type {} from '@deepseek-ai/dsh-agent-presets/types'
-import type {} from '@deepseek-ai/dsh-settings/types'
-import type {} from '@deepseek-ai/dsh-user-approval'
-import type {} from '@deepseek-ai/dsh-user-questions'
-export type {} from '@deepseek-ai/dsh-api-session-controller/types'
+import type {} from '@workspacealberta/wa-commands/types'
+import type {} from '@workspacealberta/wa-cordis-host-runner/types'
+import type {} from '@workspacealberta/wa-credentials/types'
+import type {} from '@workspacealberta/wa-llm/types'
+import type {} from '@workspacealberta/wa-agent-presets/types'
+import type {} from '@workspacealberta/wa-settings/types'
+import type {} from '@workspacealberta/wa-user-approval'
+import type {} from '@workspacealberta/wa-user-questions'
+export type {} from '@workspacealberta/wa-api-session-controller/types'
 
 export { API_REMOTE_FORWARDED_EVENTS } from './remote-events.ts'
 export type { ApiRemoteForwardedEvent } from './types.ts'

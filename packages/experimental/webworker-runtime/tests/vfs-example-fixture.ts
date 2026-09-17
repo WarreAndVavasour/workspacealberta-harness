@@ -9,11 +9,11 @@ import {
   type SessionHeader,
   type SessionLogOffset as SessionLogOffsetType,
   type SessionSeq as SessionSeqType,
-} from '@deepseek-ai/dsh-session'
+} from '@workspacealberta/wa-session'
 import {
   eventLines, projectKey, toHeaderLine,
-} from '@deepseek-ai/dsh-session-persistence-jsonl/src/format.ts'
-import { snapshotSubagentDescriptor } from '@deepseek-ai/dsh-subagent'
+} from '@workspacealberta/wa-session-persistence-jsonl/src/format.ts'
+import { snapshotSubagentDescriptor } from '@workspacealberta/wa-subagent'
 
 /** Root copied by the preview image's repository adapter. */
 export const VFS_EXAMPLE_ROOT = fileURLToPath(new URL('./fixtures/vfs-example', import.meta.url))

@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-experimental-agent-team-profile",
+  "name": "@workspacealberta/wa-experimental-agent-team-profile",
   "description": "Private profile bundle enabling Agent Teams over dsh-base",
   "version": "0.1.2-rc.1",
   "private": true,
@@ -32,15 +32,15 @@
     }
   },
   "dependencies": {
-    "@deepseek-ai/dsh-experimental-agent-team": "workspace:^",
-    "@deepseek-ai/dsh-experimental-tool-agent-team": "workspace:^"
+    "@workspacealberta/wa-experimental-agent-team": "workspace:^",
+    "@workspacealberta/wa-experimental-tool-agent-team": "workspace:^"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:^"
+    "@workspacealberta/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis-plugin-include": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^",
+    "@workspacealberta/cordis-plugin-include": "workspace:^",
+    "@workspacealberta/cordis": "workspace:^",
     "js-yaml": "^4.2.0"
   }
 }

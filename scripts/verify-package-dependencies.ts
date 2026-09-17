@@ -16,7 +16,7 @@ import {
 } from './verify-client-packages.ts'
 
 const GATE = 'verify-package-dependencies'
-const CORDIS = '@deepseek-ai/cordis'
+const CORDIS = '@workspacealberta/cordis'
 const WORKSPACE_RANGE = 'workspace:^'
 const RELEASE_MANIFEST_GLOB = 'packages/!(experimental)/*/package.json'
 const WORKSPACE_MANIFEST_GLOBS = [

@@ -10,39 +10,39 @@
  * @module dsh-permission-presets
  */
 
-import { Context, Service } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
+import { Context, Service } from '@workspacealberta/cordis'
+import z from '@workspacealberta/schemastery'
 import { z as zod } from 'zod'
-import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
-import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
-import { SANDBOX_MODES, setSandboxMode } from '@deepseek-ai/dsh-sandbox-policy'
+import type { Session, SessionEvent } from '@workspacealberta/wa-session'
+import type { SandboxMode } from '@workspacealberta/wa-sandbox'
+import { SANDBOX_MODES, setSandboxMode } from '@workspacealberta/wa-sandbox-policy'
 // Side-effect type import: declaration-merges `ctx.shell` (the capability fact
 // `sandboxMode` this service reads), without a value dependency on the seam.
-import type {} from '@deepseek-ai/dsh-shell'
-import type { ApprovalPolicy } from '@deepseek-ai/dsh-user-approval'
-import { APPROVAL_POLICIES, setApprovalPolicy } from '@deepseek-ai/dsh-user-approval'
-import type {} from '@deepseek-ai/dsh-settings'
+import type {} from '@workspacealberta/wa-shell'
+import type { ApprovalPolicy } from '@workspacealberta/wa-user-approval'
+import { APPROVAL_POLICIES, setApprovalPolicy } from '@workspacealberta/wa-user-approval'
+import type {} from '@workspacealberta/wa-settings'
 // Type-only: resolves the optional projection and command children.
-import type {} from '@deepseek-ai/dsh-session-projection'
-import type {} from '@deepseek-ai/dsh-commands'
+import type {} from '@workspacealberta/wa-session-projection'
+import type {} from '@workspacealberta/wa-commands'
 import type { PermissionSelect, PresetOption } from './types.ts'
 
 export type * from './types.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@workspacealberta/cordis' {
   interface Context {
     permissionPresets: PermissionPresetService
   }
 }
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@workspacealberta/wa-session-projection/types' {
   interface SessionProjectionStateMap {
     /** Latest logged permission overrides and constructor-seed provenance. */
     permissions: PermissionProjectionState
   }
 }
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@workspacealberta/wa-session/types' {
   interface SessionEventMap {
     /**
      * Records the selected preset as durable, log-only user intent. The knob

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
+import { Context } from '@workspacealberta/cordis'
+import z from '@workspacealberta/schemastery'
 import { redactSecrets } from '../src/index.ts'
 import { MemorySettings } from './memory.ts'
 

@@ -3,7 +3,7 @@ description: "Global send_message, interrupt_agent, and list_agents tools for us
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tool-subagent-control
+# @workspacealberta/wa-tool-subagent-control
 
 English | [中文](README.zh.md)
 
@@ -32,14 +32,14 @@ Mount this package in any composition with continuable children the model should
 Load the subagent service, a backend, the delegation tool, and this package. Adding the separate list plugin exposes all three tools:
 
 ```yaml
-- name: '@deepseek-ai/dsh-subagent'
-- name: '@deepseek-ai/dsh-subagent-spawn-in-process'
-- name: '@deepseek-ai/dsh-tool-subagent'
+- name: '@workspacealberta/wa-subagent'
+- name: '@workspacealberta/wa-subagent-spawn-in-process'
+- name: '@workspacealberta/wa-tool-subagent'
   config:
     provider: spawn
     backgroundMode: continuable
-- name: '@deepseek-ai/dsh-tool-subagent-control'
-- name: '@deepseek-ai/dsh-tool-subagent-control/list-agents'
+- name: '@workspacealberta/wa-tool-subagent-control'
+- name: '@workspacealberta/wa-tool-subagent-control/list-agents'
 ```
 
 This package takes no configuration: the root plugin provides `send_message` and `interrupt_agent`, and the list plugin provides `list_agents`.

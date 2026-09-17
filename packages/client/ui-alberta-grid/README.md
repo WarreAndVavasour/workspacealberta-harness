@@ -27,7 +27,7 @@ git checkout workspace-alberta
 git pull origin workspace-alberta
 pnpm install
 DSH_CLIENT_BUILD_PROFILE=official DSH_CLIENT_TITLE=workspaceAlberta pnpm run build
-DSH_TELEMETRY_DISABLED=1 pnpm dsh --profile web --patch workspace-alberta.patch.yml --host 127.0.0.1 --port 3081 --no-open
+DSH_TELEMETRY_DISABLED=1 pnpm wa --profile web --patch workspace-alberta.patch.yml --host 127.0.0.1 --port 3081 --no-open
 ```
 
 RaspberryPiBot / CLIbot should pull this branch (or `workspace-alberta` after merge), run the same build, then restart the existing :3081 `dsh` process. Open the **Grid** tab; add `?lite` to force the 2D-only path.

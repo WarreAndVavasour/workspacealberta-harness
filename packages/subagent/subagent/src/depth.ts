@@ -3,12 +3,12 @@
  * children. Kept apart from the service so composition helpers can read it
  * without importing the registry.
  *
- * @module @deepseek-ai/dsh-subagent/depth
+ * @module @workspacealberta/wa-subagent/depth
  */
 
-import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { Agent } from '@workspacealberta/wa-agent'
 
-declare module '@deepseek-ai/dsh-agent' {
+declare module '@workspacealberta/wa-agent' {
   interface AgentOptions {
     /** Delegation depth: zero for a top-level agent and parent depth + 1 for a child. */
     subagentDepth?: number

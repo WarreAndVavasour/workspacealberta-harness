@@ -16,7 +16,7 @@ kind: "package-bundle"
 ## Skeleton
 
 ```markdown
-# @deepseek-ai/dsh-<name>
+# @workspacealberta/wa-<name>
 
 English | [中文](README.zh.md)
 
@@ -43,8 +43,8 @@ Three to five sentences: what a profile gains from this layer, which profiles al
 The verified install path — run it against the current checkout before writing:
 
 ```text
-dsh plugin --profile <name> add @deepseek-ai/dsh-<name>
-dsh plugin --profile <name> remove @deepseek-ai/dsh-<name>
+dsh plugin --profile <name> add @workspacealberta/wa-<name>
+dsh plugin --profile <name> remove @workspacealberta/wa-<name>
 ```
 
 State where in-box bundles resolve from, what the reconcile step activates, and what fails when the patch declaration is missing.

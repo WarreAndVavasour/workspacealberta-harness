@@ -1,10 +1,10 @@
 /** Local submission echoes: synchronous insertion, observed/failed retirement, and settlement callbacks. */
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import type { ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
-import { SessionSeq, type SessionEvent, type SessionId } from '@deepseek-ai/dsh-session/types'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import { createUserMessage } from '@workspacealberta/wa-llm'
+import type { ImageAttachmentRef } from '@workspacealberta/wa-attachment'
+import { SessionSeq, type SessionEvent, type SessionId } from '@workspacealberta/wa-session/types'
+import { RemoteError } from '@workspacealberta/wa-typert-protocol'
 import { Session } from '../src/client/sessions/session.ts'
 import type { PendingSubmissionRetirement } from '../src/client/contract/session.ts'
 import type { SessionQueuedItem, SessionRequestId } from '../src/types.ts'

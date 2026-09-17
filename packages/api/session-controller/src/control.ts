@@ -1,13 +1,13 @@
 /** Live Session queue, jobs, and projection state with reconnect baselines. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { Deque } from '@deepseek-ai/dsh-deque'
-import type { JobSnapshot } from '@deepseek-ai/dsh-jobs'
+import type { Context } from '@workspacealberta/cordis'
+import type { Agent } from '@workspacealberta/wa-agent'
+import { Deque } from '@workspacealberta/wa-deque'
+import type { JobSnapshot } from '@workspacealberta/wa-jobs'
 import type {
   Session, SessionEvent, SessionEventMap, SessionId, UserMessage,
-} from '@deepseek-ai/dsh-session'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+} from '@workspacealberta/wa-session'
+import type { JsonValue } from '@workspacealberta/wa-util-values'
 import type {
   SessionControlBaseline,
   SessionControlFrame,

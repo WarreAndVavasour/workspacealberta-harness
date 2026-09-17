@@ -27,14 +27,14 @@ describe('BootPage', () => {
 
   it('lists failed entries de-scoped: npm scopes never reach the user', () => {
     const { el, page } = mount()
-    page.setState('@deepseek-ai/dsh-client-ui-layout', 'failed')
+    page.setState('@workspacealberta/wa-client-ui-layout', 'failed')
     page.setState('ok', 'active')
-    page.setState('@deepseek-ai/dsh-client-ui-tool', 'failed')
+    page.setState('@workspacealberta/wa-client-ui-tool', 'failed')
     expect(el.firstElementChild?.getAttribute('data-dsh-boot')).toBe('')
     expect(el.textContent).toContain('Failed to load plugins')
     expect(el.textContent).toContain('dsh-client-ui-layout')
     expect(el.textContent).toContain('dsh-client-ui-tool')
-    expect(el.textContent).not.toContain('@deepseek-ai')
+    expect(el.textContent).not.toContain('@workspacealberta')
     expect(el.textContent).not.toContain('ok')
     expect(el.textContent).not.toContain('Loading plugins…')
   })
@@ -50,9 +50,9 @@ describe('BootPage', () => {
 
   it('strips npm scopes from free-text failure reports', () => {
     const { el, page } = mount()
-    page.fail('web boot: 1 entry did not activate\n@deepseek-ai/dsh-client-runtime: import failed')
+    page.fail('web boot: 1 entry did not activate\n@workspacealberta/wa-client-runtime: import failed')
     expect(el.textContent).toContain('dsh-client-runtime: import failed')
-    expect(el.textContent).not.toContain('@deepseek-ai')
+    expect(el.textContent).not.toContain('@workspacealberta')
   })
 
   it('detaches on disposal', () => {

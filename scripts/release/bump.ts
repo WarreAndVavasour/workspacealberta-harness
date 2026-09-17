@@ -139,7 +139,7 @@ export function compareVersions(left: string, right: string): number {
 function nextSharedVersion(current: string, request: string): string {
   if (!RELEASE_TYPES.includes(request as typeof RELEASE_TYPES[number])) {
     if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(request)) {
-      throw new Error(`usage: release:dsh <major|minor|patch|x.y.z>, got ${request}`)
+      throw new Error(`usage: release:wa <major|minor|patch|x.y.z>, got ${request}`)
     }
     return request
   }
@@ -358,7 +358,7 @@ function main(): void {
     },
     allowPositionals: true,
   })
-  if (values.family === undefined) throw new Error('usage: bump.ts --family <dsh|vendor> [version]')
+  if (values.family === undefined) throw new Error('usage: bump.ts --family <wa|vendor> [version]')
 
   const family = releaseFamily(values.family)
   const root = process.cwd()
@@ -367,11 +367,11 @@ function main(): void {
 
   let planned: PlannedVersion[]
   let sharedVersion: string | undefined
-  if (family.id === 'dsh') {
+  if (family.id === 'wa') {
     const request = positionals[0]
-    if (request === undefined) throw new Error('usage: release:dsh <major|minor|patch|x.y.z>')
+    if (request === undefined) throw new Error('usage: release:wa <major|minor|patch|x.y.z>')
     if (values.prerelease !== undefined) {
-      throw new Error('release:dsh takes the prerelease in its version argument, as in 0.0.1-rc.1')
+      throw new Error('release:wa takes the prerelease in its version argument, as in 0.0.1-rc.1')
     }
     const shared = planShared(family, root, members, request)
     planned = shared.planned

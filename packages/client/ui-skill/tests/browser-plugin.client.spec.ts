@@ -13,14 +13,14 @@
  * projections. Direct driving is deliberate: this spec owns only the
  * source's own contract.
  */
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@workspacealberta/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { InputTriggerService } from '@deepseek-ai/dsh-client-ui-input-trigger/client'
-import { RemoteError, TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
-import type { RemoteFailure } from '@deepseek-ai/dsh-api-remotes/client'
-import type { ClientSessionContext, InputTriggerSource } from '@deepseek-ai/dsh-client-ui-input-trigger/client'
+import type { SessionId } from '@workspacealberta/wa-session/types'
+import { SlotRegistry } from '@workspacealberta/wa-client-ui-renderer/client'
+import { InputTriggerService } from '@workspacealberta/wa-client-ui-input-trigger/client'
+import { RemoteError, TestRemote } from '@workspacealberta/wa-client-test-runtime'
+import type { RemoteFailure } from '@workspacealberta/wa-api-remotes/client'
+import type { ClientSessionContext, InputTriggerSource } from '@workspacealberta/wa-client-ui-input-trigger/client'
 import { apply, inject } from '../src/client/index.ts'
 import { SkillRow as SkillToolRow } from '../src/client/SkillRow.tsx'
 

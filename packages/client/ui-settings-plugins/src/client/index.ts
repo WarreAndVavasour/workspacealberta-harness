@@ -10,16 +10,16 @@
  */
 
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@deepseek-ai/dsh-client-locale/client'
+import type {} from '@workspacealberta/wa-client-locale/client'
 // Type-only: the settings shell's SlotMap merge (the 'settings.section' entry)
 // and the ctx.settingsScope Context merge. Cross-plugin collaboration goes
 // through the service, never a value import (client bundle purity gate).
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type { Context as ClientContext } from '@deepseek-ai/cordis'
-import { resolveSlotLabel } from '@deepseek-ai/dsh-client-ui-slots'
+import type {} from '@workspacealberta/wa-client-ui-settings/client'
+import type {} from '@workspacealberta/wa-client-ui-renderer/client'
+import type { Context as ClientContext } from '@workspacealberta/cordis'
+import { resolveSlotLabel } from '@workspacealberta/wa-client-ui-slots'
 // Type-only: the ctx.remote Context merge and the forwarded-event key face.
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@workspacealberta/wa-api-remotes/client'
 import { AgentLoopCard } from './AgentLoopCard.tsx'
 import { BashCard } from './BashCard.tsx'
 import { ConfigurablePluginsTab } from './ConfigurablePluginsTab.tsx'

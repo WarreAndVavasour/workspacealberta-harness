@@ -5,25 +5,25 @@
  * Background policy is selected by this plugin's configuration: one-shot
  * calls own a plain Task, while continuable calls use
  * `ctx.subagents.startContinuable()`.
- * @module @deepseek-ai/dsh-tool-subagent
+ * @module @workspacealberta/wa-tool-subagent
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { scopeChainOf, scopeOf } from '@deepseek-ai/dsh-scope'
-import { defineTool } from '@deepseek-ai/dsh-tools'
-import type { Agent, AgentOptions } from '@deepseek-ai/dsh-agent'
-import { ReasoningEffortId } from '@deepseek-ai/dsh-llm'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
-import { SessionSeq } from '@deepseek-ai/dsh-session'
+import type { Context } from '@workspacealberta/cordis'
+import z from '@workspacealberta/schemastery'
+import { scopeChainOf, scopeOf } from '@workspacealberta/wa-scope'
+import { defineTool } from '@workspacealberta/wa-tools'
+import type { Agent, AgentOptions } from '@workspacealberta/wa-agent'
+import { ReasoningEffortId } from '@workspacealberta/wa-llm'
+import type { ContentBlock } from '@workspacealberta/wa-llm'
+import type { JsonValue } from '@workspacealberta/wa-util-values'
+import { SessionSeq } from '@workspacealberta/wa-session'
 import {
   assertSubagentMaxDepth,
   parentAgentOptionsForDelegation,
   settleRun,
-} from '@deepseek-ai/dsh-subagent'
-import type { SubagentProvider, SubagentResult, SubagentRun } from '@deepseek-ai/dsh-subagent'
-import type { JobOutcome } from '@deepseek-ai/dsh-jobs'
+} from '@workspacealberta/wa-subagent'
+import type { SubagentProvider, SubagentResult, SubagentRun } from '@workspacealberta/wa-subagent'
+import type { JobOutcome } from '@workspacealberta/wa-jobs'
 import {
   assertAllowedModelSelection,
   hasConfiguredLlmSelection,
@@ -530,7 +530,7 @@ export function apply(ctx: Context, config: Config): void {
             }
             const jobs = runtimeCtx.get('jobs')
             if (jobs === undefined) {
-              throw new Error('background jobs unavailable: load @deepseek-ai/dsh-jobs and @deepseek-ai/dsh-tool-jobs')
+              throw new Error('background jobs unavailable: load @workspacealberta/wa-jobs and @workspacealberta/wa-tool-jobs')
             }
             // One-shot background child: job preflight finishes before the
             // starter can spawn, and the task-owned signal covers startup.
@@ -607,7 +607,7 @@ export function apply(ctx: Context, config: Config): void {
   if (settings === undefined) {
     throw new Error(
       'tool-subagent: `modelSelectionSettings` requires '
-      + '@deepseek-ai/dsh-tool-subagent/model-selection-settings in the Host scope',
+      + '@workspacealberta/wa-tool-subagent/model-selection-settings in the Host scope',
     )
   }
   const compositionScope = scopeOf(ctx)

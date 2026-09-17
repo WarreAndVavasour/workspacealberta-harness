@@ -1,17 +1,17 @@
 /**
- * Package-owned invariant companion for `@deepseek-ai/dsh-client-ui-renderer`.
- * @module @deepseek-ai/dsh-client-ui-renderer/invariant
+ * Package-owned invariant companion for `@workspacealberta/wa-client-ui-renderer`.
+ * @module @workspacealberta/wa-client-ui-renderer/invariant
  */
 
 /* jscpd:ignore-start */
 /* oxlint-disable typescript/no-redundant-type-constituents --
  * `keyof SlotMap & string` is the declaration-merge key pattern: SlotMap is
  * empty in this compilation unit but consumers merge concrete keys into it. */
-import type { Context } from '@deepseek-ai/cordis'
-import type { SlotMap } from '@deepseek-ai/dsh-client-ui-slots'
-import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@workspacealberta/cordis'
+import type { SlotMap } from '@workspacealberta/wa-client-ui-slots'
+import type { InvariantInstaller } from '@workspacealberta/wa-invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-client-ui-renderer'
+const PACKAGE_NAME = '@workspacealberta/wa-client-ui-renderer'
 
 /** Cordis companion plugin name. */
 export const name = 'client-ui-renderer-invariant'

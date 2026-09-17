@@ -8,18 +8,18 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import SessionStore from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import type { TodoItem } from '@deepseek-ai/dsh-tool-todo'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import UserQuestionService from '@deepseek-ai/dsh-user-questions'
-import * as ToolTodo from '@deepseek-ai/dsh-tool-todo'
+import { Context } from '@workspacealberta/cordis'
+import AgentRegistry from '@workspacealberta/wa-agent'
+import type { Agent } from '@workspacealberta/wa-agent'
+import { createUserMessage } from '@workspacealberta/wa-llm'
+import SessionStore from '@workspacealberta/wa-session'
+import type { Session } from '@workspacealberta/wa-session'
+import type { TodoItem } from '@workspacealberta/wa-tool-todo'
+import SystemPrompt from '@workspacealberta/wa-system-prompt'
+import ToolRuntime from '@workspacealberta/wa-tools'
+import SessionProjectionRegistry from '@workspacealberta/wa-session-projection'
+import UserQuestionService from '@workspacealberta/wa-user-questions'
+import * as ToolTodo from '@workspacealberta/wa-tool-todo'
 
 interface Bench {
   ctx: Context

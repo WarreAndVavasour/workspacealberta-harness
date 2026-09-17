@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-experimental-agent-team-web-profile",
+  "name": "@workspacealberta/wa-experimental-agent-team-web-profile",
   "description": "Private Web profile layer for Agent Teams Remote and UI plugins",
   "version": "0.1.2-rc.1",
   "private": true,
@@ -32,14 +32,14 @@
     }
   },
   "dependencies": {
-    "@deepseek-ai/dsh-experimental-client-ui-agent-team": "workspace:^"
+    "@workspacealberta/wa-experimental-client-ui-agent-team": "workspace:^"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:^"
+    "@workspacealberta/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis-plugin-include": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^",
+    "@workspacealberta/cordis-plugin-include": "workspace:^",
+    "@workspacealberta/cordis": "workspace:^",
     "js-yaml": "^4.2.0"
   }
 }

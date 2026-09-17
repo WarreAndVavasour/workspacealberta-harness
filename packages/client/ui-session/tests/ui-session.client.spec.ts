@@ -1,15 +1,15 @@
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@workspacealberta/cordis'
 import type {
   AgentContext,
   ISessions,
   SessionBinding,
   SessionListState,
   SessionSnapshot,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import { MutableSessionEventSource } from '@deepseek-ai/dsh-api-session-controller/client'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { HostObservable } from '@deepseek-ai/dsh-client-ui-slots'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+} from '@workspacealberta/wa-api-session-controller/client'
+import { MutableSessionEventSource } from '@workspacealberta/wa-api-session-controller/client'
+import { createSnapshotStore } from '@workspacealberta/wa-client-store'
+import type { HostObservable } from '@workspacealberta/wa-client-ui-slots'
+import type { SessionId } from '@workspacealberta/wa-session/types'
 import { Fragment } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {

@@ -1,12 +1,12 @@
 /** Scoped model-facing tools for the opt-in Agent Teams runtime. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { TeamTaskId } from '@deepseek-ai/dsh-experimental-agent-team'
-import type { TeamMemberView } from '@deepseek-ai/dsh-experimental-agent-team'
-import { defineTool } from '@deepseek-ai/dsh-tools'
-import type { InferValue, ValueSchemaSpec } from '@deepseek-ai/dsh-tools'
+import type { Context } from '@workspacealberta/cordis'
+import z from '@workspacealberta/schemastery'
+import type { Agent } from '@workspacealberta/wa-agent'
+import { TeamTaskId } from '@workspacealberta/wa-experimental-agent-team'
+import type { TeamMemberView } from '@workspacealberta/wa-experimental-agent-team'
+import { defineTool } from '@workspacealberta/wa-tools'
+import type { InferValue, ValueSchemaSpec } from '@workspacealberta/wa-tools'
 
 /** Cordis plugin name. */
 export const name = 'tool-agent-team'

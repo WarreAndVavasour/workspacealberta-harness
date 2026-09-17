@@ -8,7 +8,7 @@ English | [中文](2026-07-28-user-settings-seam.zh.md)
 
 ## Problem
 
-User-editable configuration had no owner: `dsh web` read a cwd-anchored profile json through a static whitelist with no write path, the TUI read `$DSH_HOME/config.yaml` raw loader patches, and both froze at boot. A personal-settings page (web GUI) needs one cross-surface user layer with schema validation, a write path, and hot propagation — and peer products (Codex, Claude Code, Kimi, OpenCode, Pi) all converged on separating user preferences from extension composition. Loader-reactive config updates cannot carry this: `fiber.update` swaps entry config in place, so a plugin that read config at construction observes nothing and no callback tells it otherwise.
+User-editable configuration had no owner: `wa web` read a cwd-anchored profile json through a static whitelist with no write path, the TUI read `$DSH_HOME/config.yaml` raw loader patches, and both froze at boot. A personal-settings page (web GUI) needs one cross-surface user layer with schema validation, a write path, and hot propagation — and peer products (Codex, Claude Code, Kimi, OpenCode, Pi) all converged on separating user preferences from extension composition. Loader-reactive config updates cannot carry this: `fiber.update` swaps entry config in place, so a plugin that read config at construction observes nothing and no callback tells it otherwise.
 
 ## Decision
 

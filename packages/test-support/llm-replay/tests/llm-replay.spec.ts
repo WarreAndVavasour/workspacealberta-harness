@@ -2,12 +2,12 @@ import { existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { SessionSeq } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
-import { CompactionId } from '@deepseek-ai/dsh-compaction'
-import DeepSeekLlmApiExtensionRegistry from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
-import LlmRuntime, { ToolCallId, createUserMessage, GenerateOptions, LlmAdapter, StreamChunk } from '@deepseek-ai/dsh-llm'
+import { Context } from '@workspacealberta/cordis'
+import { SessionSeq } from '@workspacealberta/wa-session'
+import type { SessionEvent } from '@workspacealberta/wa-session'
+import { CompactionId } from '@workspacealberta/wa-compaction'
+import DeepSeekLlmApiExtensionRegistry from '@workspacealberta/wa-deepseek-llm-api-extensions'
+import LlmRuntime, { ToolCallId, createUserMessage, GenerateOptions, LlmAdapter, StreamChunk } from '@workspacealberta/wa-llm'
 import {
   type Config,
   type ReplayEntry,
@@ -24,7 +24,7 @@ import {
   resolveScriptedEntry,
 } from '../src/index.ts'
 
-declare module '@deepseek-ai/dsh-deepseek-llm-api-extensions/types' {
+declare module '@workspacealberta/wa-deepseek-llm-api-extensions/types' {
   interface DeepSeekLlmApiExtensionMap {
     test_replay: { readonly version: 1 }
   }
