@@ -1,6 +1,6 @@
 # Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write docs/cookbook/adding-an-llm-adapter.md
-adding-an-llm-adapter.md: ee96d623cda61233b1133cd7c3e220a1b33a2814
-adding-an-llm-adapter.zh.md: a9b255ad25fa1c07e60251c7d150b3f4828f1a3b
+#   pnpm run verify-translation-pairing --write packages/llm/llm-cohere/README.md
+README.md: 84dacd124c60efc304853625b35ff1e7286771a0
+README.zh.md: 80e16f07efd78c95ab760394023c49fecca33055

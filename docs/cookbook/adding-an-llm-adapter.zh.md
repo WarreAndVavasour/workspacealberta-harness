@@ -2,7 +2,7 @@
 
 [English](adding-an-llm-adapter.md) | 中文
 
-如何接入一个新的模型提供方。参考实现：`packages/llm/llm-deepseek`（直接 HTTP，SSE（Server-Sent Events）由 `eventsource-parser` 分帧）与 `packages/llm/llm-pi-ai`（封装 LLM 库）。请先阅读 `packages/llm/llm/src/types.ts` 中的 `StreamChunk` 文档——它记录了两个适配器都经过验证的协议约定。
+如何接入一个新的模型提供方。参考实现：`packages/llm/llm-deepseek`（直接 HTTP，SSE（Server-Sent Events）由 `eventsource-parser` 分帧）、`packages/llm/llm-cohere`（同一布局对接 Cohere v2 Chat）与 `packages/llm/llm-pi-ai`（封装 LLM 库）。请先阅读 `packages/llm/llm/src/types.ts` 中的 `StreamChunk` 文档——它记录了这些适配器都经过验证的协议约定。
 
 ## 基本形态
 

@@ -73,8 +73,9 @@
       name: '@workspacealberta/wa-llm-retry'
 
     # User-settings document (`$DSH_HOME/settings.yaml`, hot-reloaded): a
-    # `llm-deepseek:` or `llm-pi-ai:` section there overrides the adapter entries
-    # below without a restart, and is what the web Models page writes.
+    # `llm-deepseek:`, `llm-cohere:`, or `llm-pi-ai:` section there overrides
+    # the adapter entries below without a restart, and is what the web Models
+    # page writes.
     - id: settings
       name: '@workspacealberta/wa-settings-file'
 
@@ -450,3 +451,9 @@
     # choice.
     - id: llm-deepseek
       name: '@workspacealberta/wa-llm-deepseek'
+
+    # The native Cohere v2 Chat adapter. The Workspace Alberta overlay selects
+    # its `cohere-canada` route as the default model; this entry keeps the
+    # adapter mounted so settings can configure it without a composition change.
+    - id: llm-cohere
+      name: '@workspacealberta/wa-llm-cohere'

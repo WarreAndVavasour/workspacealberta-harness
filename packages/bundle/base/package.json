@@ -61,6 +61,7 @@
     "@workspacealberta/wa-goal-round-driver": "workspace:^",
     "@workspacealberta/wa-api-gateway": "workspace:^",
     "@workspacealberta/wa-llm": "workspace:^",
+    "@workspacealberta/wa-llm-cohere": "workspace:^",
     "@workspacealberta/wa-llm-deepseek": "workspace:^",
     "@workspacealberta/wa-llm-pi-ai": "workspace:^",
     "@workspacealberta/wa-llm-retry": "workspace:^",

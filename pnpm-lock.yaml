@@ -18,9 +18,6 @@ importers:
       '@agentclientprotocol/sdk':
         specifier: 0.25.1
         version: 0.25.1(zod@4.4.3)
-      '@workspacealberta/wa-tool-session-query':
-        specifier: workspace:^
-        version: link:packages/session-query/tool-session-query
       '@stylistic/eslint-plugin':
         specifier: ^5.10.0
         version: 5.10.0(eslint@10.5.0(jiti@2.7.0))
@@ -48,6 +45,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^4.1.8
         version: 4.1.8(vitest@4.1.8)
+      '@workspacealberta/wa-tool-session-query':
+        specifier: workspace:^
+        version: link:packages/session-query/tool-session-query
       '@yarnpkg/cli-dist':
         specifier: 4.17.1
         version: 4.17.1
@@ -313,6 +313,9 @@ importers:
         specifier: ^0.1.4
         version: 0.1.4
     devDependencies:
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
       '@workspacealberta/wa-agent':
         specifier: workspace:^
         version: link:../../packages/core/agent
@@ -349,15 +352,24 @@ importers:
       '@workspacealberta/wa-tools':
         specifier: workspace:^
         version: link:../../packages/core/tools
-      '@types/js-yaml':
-        specifier: ^4.0.9
-        version: 4.0.9
       execa:
         specifier: ^10.0.0
         version: 10.0.0
 
   apps/web:
     devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ~18.3.0
+        version: 18.3.7(@types/react@18.3.31)
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.3(@types/node@22.20.0)(jiti@2.7.0)(lightningcss@1.32.0)(tsx@4.22.4)(yaml@2.9.0))
       '@workspacealberta/cordis-plugin-group':
         specifier: workspace:^
         version: link:../../vendor/group
@@ -379,18 +391,6 @@ importers:
       '@workspacealberta/wa-pwsh-local':
         specifier: workspace:^
         version: link:../../packages/shell/pwsh-local
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ~18.3.0
-        version: 18.3.7(@types/react@18.3.31)
-      '@vitejs/plugin-react':
-        specifier: ^4.0.0
-        version: 4.7.0(vite@6.4.3(@types/node@22.20.0)(jiti@2.7.0)(lightningcss@1.32.0)(tsx@4.22.4)(yaml@2.9.0))
       fflate:
         specifier: ^0.8.2
         version: 0.8.3
@@ -523,6 +523,9 @@ importers:
       '@workspacealberta/wa-llm':
         specifier: workspace:*
         version: link:../packages/llm/llm
+      '@workspacealberta/wa-llm-cohere':
+        specifier: workspace:*
+        version: link:../packages/llm/llm-cohere
       '@workspacealberta/wa-llm-deepseek':
         specifier: workspace:*
         version: link:../packages/llm/llm-deepseek
@@ -751,12 +754,12 @@ importers:
 
   native/landlock-run:
     devDependencies:
-      '@workspacealberta/node-addon-landlock-run':
-        specifier: workspace:*
-        version: link:packages/entry
       '@types/node':
         specifier: ^26.0.1
         version: 26.1.2
+      '@workspacealberta/node-addon-landlock-run':
+        specifier: workspace:*
+        version: link:packages/entry
       tsx:
         specifier: ^4.20.6
         version: 4.22.4
@@ -943,6 +946,9 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0
     devDependencies:
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -973,9 +979,6 @@ importers:
       '@workspacealberta/wa-system-prompt':
         specifier: workspace:^
         version: link:../../core/system-prompt
-      '@types/js-yaml':
-        specifier: ^4.0.9
-        version: 4.0.9
 
   packages/boot/cmdline:
     devDependencies:
@@ -1066,6 +1069,9 @@ importers:
       '@workspacealberta/wa-llm':
         specifier: workspace:^
         version: link:../../llm/llm
+      '@workspacealberta/wa-llm-cohere':
+        specifier: workspace:^
+        version: link:../../llm/llm-cohere
       '@workspacealberta/wa-llm-deepseek':
         specifier: workspace:^
         version: link:../../llm/llm-deepseek
@@ -1244,15 +1250,15 @@ importers:
 
   packages/bundle/headless:
     dependencies:
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
       '@workspacealberta/wa-cmdline':
         specifier: workspace:^
         version: link:../../boot/cmdline
       '@workspacealberta/wa-code-runtime-worker-thread':
         specifier: workspace:^
         version: link:../../code-runtime/code-runtime-worker-thread
-      '@workspacealberta/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
       commander:
         specifier: ^15.0.0
         version: 15.0.0
@@ -1281,6 +1287,12 @@ importers:
 
   packages/bundle/web-app:
     dependencies:
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      '@workspacealberta/ui-alberta-grid':
+        specifier: workspace:^
+        version: link:../../client/ui-alberta-grid
       '@workspacealberta/wa-agent-presets':
         specifier: workspace:^
         version: link:../../preset/agent-presets
@@ -1479,12 +1491,6 @@ importers:
       '@workspacealberta/wa-workspace':
         specifier: workspace:^
         version: link:../../workspace/workspace
-      '@workspacealberta/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
-      '@workspacealberta/ui-alberta-grid':
-        specifier: workspace:^
-        version: link:../../client/ui-alberta-grid
       commander:
         specifier: ^15.0.0
         version: 15.0.0
@@ -1517,6 +1523,9 @@ importers:
         specifier: ^8.21.0
         version: 8.21.0
     devDependencies:
+      '@types/ws':
+        specifier: ^8.18.1
+        version: 8.18.1
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -1544,9 +1553,6 @@ importers:
       '@workspacealberta/wa-tools':
         specifier: workspace:^
         version: link:../../core/tools
-      '@types/ws':
-        specifier: ^8.18.1
-        version: 8.18.1
 
   packages/client/hmr:
     dependencies:
@@ -1576,6 +1582,9 @@ importers:
         specifier: link:../../../vendor/schemastery
         version: link:../../../vendor/schemastery
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -1606,9 +1615,6 @@ importers:
       '@workspacealberta/wa-settings':
         specifier: workspace:^
         version: link:../../settings/settings
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -1637,6 +1643,9 @@ importers:
         specifier: ~4.4.7
         version: 4.4.7(@types/react@18.3.31)(immer@10.2.0)(react@18.3.1)
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -1691,15 +1700,15 @@ importers:
       '@workspacealberta/wa-typert-registry':
         specifier: workspace:^
         version: link:../../typert/registry
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
 
   packages/client/ui-agent-preset:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -1733,9 +1742,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -1746,6 +1752,15 @@ importers:
         specifier: ^0.170.0
         version: 0.170.0
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ~18.3.0
+        version: 18.3.7(@types/react@18.3.31)
+      '@types/three':
+        specifier: ^0.170.0
+        version: 0.170.0
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -1767,15 +1782,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ~18.3.0
-        version: 18.3.7(@types/react@18.3.31)
-      '@types/three':
-        specifier: ^0.170.0
-        version: 0.170.0
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -1789,6 +1795,12 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ~18.3.0
+        version: 18.3.7(@types/react@18.3.31)
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -1810,12 +1822,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ~18.3.0
-        version: 18.3.7(@types/react@18.3.31)
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -1825,6 +1831,12 @@ importers:
 
   packages/client/ui-brand-official:
     devDependencies:
+      '@testing-library/react':
+        specifier: ^16.1.0
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -1843,12 +1855,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@testing-library/react':
-        specifier: ^16.1.0
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -1862,6 +1868,9 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -1898,9 +1907,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -1914,6 +1920,9 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -1995,15 +2004,15 @@ importers:
       '@workspacealberta/wa-tools':
         specifier: workspace:^
         version: link:../../core/tools
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
 
   packages/client/ui-deliverables:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2034,9 +2043,6 @@ importers:
       '@workspacealberta/wa-system-prompt':
         specifier: workspace:^
         version: link:../../core/system-prompt
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2047,6 +2053,12 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
     devDependencies:
+      '@testing-library/react':
+        specifier: ^16.1.0
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2071,12 +2083,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@testing-library/react':
-        specifier: ^16.1.0
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2086,6 +2092,12 @@ importers:
 
   packages/client/ui-directory-picker-native:
     devDependencies:
+      '@testing-library/react':
+        specifier: ^16.1.0
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2098,12 +2110,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@testing-library/react':
-        specifier: ^16.1.0
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2113,6 +2119,12 @@ importers:
 
   packages/client/ui-goal:
     devDependencies:
+      '@testing-library/react':
+        specifier: ^16.1.0
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2152,12 +2164,6 @@ importers:
       '@workspacealberta/wa-typert-protocol':
         specifier: workspace:^
         version: link:../../typert/protocol
-      '@testing-library/react':
-        specifier: ^16.1.0
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2171,6 +2177,9 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2195,15 +2204,15 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
 
   packages/client/ui-jobs:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2228,15 +2237,15 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
 
   packages/client/ui-layout:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2255,15 +2264,21 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
 
   packages/client/ui-message-feedback:
     devDependencies:
+      '@testing-library/react':
+        specifier: ^16.1.0
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ~18.3.0
+        version: 18.3.7(@types/react@18.3.31)
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2300,15 +2315,6 @@ importers:
       '@workspacealberta/wa-typert-protocol':
         specifier: workspace:^
         version: link:../../typert/protocol
-      '@testing-library/react':
-        specifier: ^16.1.0
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ~18.3.0
-        version: 18.3.7(@types/react@18.3.31)
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2322,6 +2328,9 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2358,15 +2367,15 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
 
   packages/client/ui-permission-presets:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2406,15 +2415,15 @@ importers:
       '@workspacealberta/wa-permission-presets':
         specifier: workspace:^
         version: link:../../interaction/permission-presets
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
 
   packages/client/ui-plan:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2445,9 +2454,6 @@ importers:
       '@workspacealberta/wa-plan-mode':
         specifier: workspace:^
         version: link:../../plan/plan-mode
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2515,18 +2521,18 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
     devDependencies:
-      '@workspacealberta/cordis':
-        specifier: workspace:^
-        version: link:../../../vendor/cordis
-      '@workspacealberta/wa-invariants':
-        specifier: workspace:^
-        version: link:../../runtime-diagnostics/invariants
       '@types/react':
         specifier: ~18.3.1
         version: 18.3.31
       '@types/react-dom':
         specifier: ~18.3.0
         version: 18.3.7(@types/react@18.3.31)
+      '@workspacealberta/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@workspacealberta/wa-invariants':
+        specifier: workspace:^
+        version: link:../../runtime-diagnostics/invariants
 
   packages/client/ui-reference:
     devDependencies:
@@ -2567,6 +2573,12 @@ importers:
         specifier: 1.2.0
         version: 1.2.0(react@18.3.1)
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ~18.3.0
+        version: 18.3.7(@types/react@18.3.31)
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2582,12 +2594,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ~18.3.0
-        version: 18.3.7(@types/react@18.3.31)
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2601,6 +2607,9 @@ importers:
         specifier: link:../../../vendor/schemastery
         version: link:../../../vendor/schemastery
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2625,9 +2634,6 @@ importers:
       '@workspacealberta/wa-settings':
         specifier: workspace:^
         version: link:../../settings/settings
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2641,6 +2647,9 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2677,15 +2686,15 @@ importers:
       '@workspacealberta/wa-settings':
         specifier: workspace:^
         version: link:../../settings/settings
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
 
   packages/client/ui-settings-models:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2716,15 +2725,18 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
 
   packages/client/ui-settings-plugin-inventory:
     devDependencies:
+      '@testing-library/react':
+        specifier: ^16.1.0
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2752,12 +2764,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@testing-library/react':
-        specifier: ^16.1.0
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2771,6 +2777,9 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2801,9 +2810,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2814,6 +2820,9 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2838,15 +2847,18 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
 
   packages/client/ui-skill:
     devDependencies:
+      '@testing-library/react':
+        specifier: ^16.1.0
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2880,12 +2892,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@testing-library/react':
-        specifier: ^16.1.0
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2895,18 +2901,21 @@ importers:
 
   packages/client/ui-slots:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
 
   packages/client/ui-subagent:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2940,9 +2949,6 @@ importers:
       '@workspacealberta/wa-token-meter':
         specifier: workspace:^
         version: link:../../llm/token-meter
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2956,6 +2962,9 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -2992,9 +3001,6 @@ importers:
       '@workspacealberta/wa-settings':
         specifier: workspace:^
         version: link:../../settings/settings
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -3005,6 +3011,12 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
     devDependencies:
+      '@testing-library/react':
+        specifier: ^16.1.0
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -3035,12 +3047,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@testing-library/react':
-        specifier: ^16.1.0
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -3057,6 +3063,12 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ~18.3.0
+        version: 18.3.7(@types/react@18.3.31)
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -3090,12 +3102,6 @@ importers:
       '@workspacealberta/wa-tools':
         specifier: workspace:^
         version: link:../../core/tools
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ~18.3.0
-        version: 18.3.7(@types/react@18.3.31)
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -3109,6 +3115,9 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -3148,15 +3157,15 @@ importers:
       '@workspacealberta/wa-user-questions':
         specifier: workspace:^
         version: link:../../interaction/user-questions
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
 
   packages/client/ui-workflow-run:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -3190,9 +3199,6 @@ importers:
       '@workspacealberta/wa-workflow':
         specifier: workspace:^
         version: link:../../workflow/workflow
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -3203,6 +3209,9 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -3233,15 +3242,18 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
 
   packages/client/web:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ~18.3.0
+        version: 18.3.7(@types/react@18.3.31)
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -3263,12 +3275,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ~18.3.0
-        version: 18.3.7(@types/react@18.3.31)
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -4020,6 +4026,9 @@ importers:
       '@workspacealberta/cordis-plugin-timer':
         specifier: workspace:^
         version: link:../../../vendor/timer
+      '@workspacealberta/node-addon-landlock-run':
+        specifier: workspace:^
+        version: link:../../../native/landlock-run/packages/entry
       '@workspacealberta/wa-agent':
         specifier: workspace:^
         version: link:../../core/agent
@@ -4116,9 +4125,6 @@ importers:
       '@workspacealberta/wa-tools':
         specifier: workspace:^
         version: link:../../core/tools
-      '@workspacealberta/node-addon-landlock-run':
-        specifier: workspace:^
-        version: link:../../../native/landlock-run/packages/entry
 
   packages/examples/jsonrpc-demo:
     dependencies:
@@ -4239,6 +4245,9 @@ importers:
 
   packages/extensions/cordis-client-runner:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -4263,9 +4272,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -4345,6 +4351,9 @@ importers:
 
   packages/extensions/ui-cordis:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -4381,9 +4390,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -4609,12 +4615,12 @@ importers:
 
   packages/fs/tool-fs-search:
     dependencies:
-      '@workspacealberta/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
       '@vscode/ripgrep':
         specifier: ^1.18.0
         version: 1.18.0
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
     devDependencies:
       '@workspacealberta/cordis':
         specifier: workspace:^
@@ -5000,6 +5006,9 @@ importers:
 
   packages/host/apiproxy:
     dependencies:
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
       '@workspacealberta/wa-agent':
         specifier: workspace:^
         version: link:../../core/agent
@@ -5075,9 +5084,6 @@ importers:
       '@workspacealberta/wa-workspace':
         specifier: workspace:^
         version: link:../../workspace/workspace
-      '@workspacealberta/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
       fflate:
         specifier: ^0.8.2
         version: 0.8.3
@@ -5154,12 +5160,12 @@ importers:
 
   packages/host/directory-picker-browse:
     dependencies:
-      '@workspacealberta/wa-host-directory-picker':
-        specifier: workspace:^
-        version: link:../directory-picker
       '@workspacealberta/schemastery':
         specifier: link:../../../vendor/schemastery
         version: link:../../../vendor/schemastery
+      '@workspacealberta/wa-host-directory-picker':
+        specifier: workspace:^
+        version: link:../directory-picker
     devDependencies:
       '@workspacealberta/cordis':
         specifier: workspace:^
@@ -5517,6 +5523,40 @@ importers:
         specifier: workspace:^
         version: link:../../util/timeout
 
+  packages/llm/llm-cohere:
+    dependencies:
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      eventsource-parser:
+        specifier: ^3.1.0
+        version: 3.1.0
+    devDependencies:
+      '@workspacealberta/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@workspacealberta/wa-anonymous-user-id':
+        specifier: workspace:^
+        version: link:../../identity/anonymous-user-id
+      '@workspacealberta/wa-credentials':
+        specifier: workspace:^
+        version: link:../../credentials/credentials
+      '@workspacealberta/wa-invariants':
+        specifier: workspace:^
+        version: link:../../runtime-diagnostics/invariants
+      '@workspacealberta/wa-launch-environment':
+        specifier: workspace:^
+        version: link:../../util/launch-environment
+      '@workspacealberta/wa-llm':
+        specifier: workspace:^
+        version: link:../llm
+      '@workspacealberta/wa-settings':
+        specifier: workspace:^
+        version: link:../../settings/settings
+      '@workspacealberta/wa-timeout':
+        specifier: workspace:^
+        version: link:../../util/timeout
+
   packages/llm/llm-deepseek:
     dependencies:
       '@workspacealberta/schemastery':
@@ -5556,12 +5596,12 @@ importers:
 
   packages/llm/llm-pi-ai:
     dependencies:
-      '@workspacealberta/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
       '@earendil-works/pi-ai':
         specifier: ^0.82.1
         version: 0.82.1(@modelcontextprotocol/sdk@1.29.0(zod@4.4.3))(ws@8.21.0)(zod@4.4.3)
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
     devDependencies:
       '@workspacealberta/cordis':
         specifier: workspace:^
@@ -5783,16 +5823,22 @@ importers:
 
   packages/mcp/mcp-client:
     dependencies:
-      '@workspacealberta/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
       '@modelcontextprotocol/sdk':
         specifier: ^1.12.0
         version: 1.29.0(zod@4.4.3)
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
       zod:
         specifier: ^4.4.3
         version: 4.4.3
     devDependencies:
+      '@modelcontextprotocol/server-everything':
+        specifier: ^2026.7.4
+        version: 2026.7.4
+      '@modelcontextprotocol/server-filesystem':
+        specifier: ^2026.7.4
+        version: 2026.7.10(zod@4.4.3)
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -5817,12 +5863,6 @@ importers:
       '@workspacealberta/wa-tools':
         specifier: workspace:^
         version: link:../../core/tools
-      '@modelcontextprotocol/server-everything':
-        specifier: ^2026.7.4
-        version: 2026.7.4
-      '@modelcontextprotocol/server-filesystem':
-        specifier: ^2026.7.4
-        version: 2026.7.10(zod@4.4.3)
 
   packages/plan/plan-mode:
     dependencies:
@@ -5968,15 +6008,15 @@ importers:
 
   packages/sandbox/sandbox-local:
     dependencies:
-      '@workspacealberta/wa-sandbox-windows-acl':
-        specifier: workspace:^
-        version: link:../sandbox-windows-acl
       '@workspacealberta/node-addon-landlock-run':
         specifier: workspace:^
         version: link:../../../native/landlock-run/packages/entry
       '@workspacealberta/schemastery':
         specifier: link:../../../vendor/schemastery
         version: link:../../../vendor/schemastery
+      '@workspacealberta/wa-sandbox-windows-acl':
+        specifier: workspace:^
+        version: link:../sandbox-windows-acl
     devDependencies:
       '@workspacealberta/cordis':
         specifier: workspace:^
@@ -6161,6 +6201,9 @@ importers:
 
   packages/session-query/session-log-export:
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -6197,9 +6240,6 @@ importers:
       '@workspacealberta/wa-session':
         specifier: workspace:^
         version: link:../../core/session
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -6510,9 +6550,6 @@ importers:
 
   packages/session/session-telemetry-otel:
     dependencies:
-      '@workspacealberta/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
       '@opentelemetry/api':
         specifier: ^1.9.1
         version: 1.9.1
@@ -6531,6 +6568,9 @@ importers:
       '@opentelemetry/sdk-logs':
         specifier: ^0.220.0
         version: 0.220.0(@opentelemetry/api@1.9.1)
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
     devDependencies:
       '@workspacealberta/cordis':
         specifier: workspace:^
@@ -6752,6 +6792,9 @@ importers:
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
+      '@workspacealberta/node-addon-landlock-run':
+        specifier: workspace:^
+        version: link:../../../native/landlock-run/packages/entry
       '@workspacealberta/wa-bash-local':
         specifier: workspace:^
         version: link:../bash-local
@@ -6773,9 +6816,6 @@ importers:
       '@workspacealberta/wa-subprocess-local':
         specifier: workspace:^
         version: link:../../subprocess/subprocess-local
-      '@workspacealberta/node-addon-landlock-run':
-        specifier: workspace:^
-        version: link:../../../native/landlock-run/packages/entry
 
   packages/shell/pwsh-local:
     dependencies:
@@ -7455,12 +7495,12 @@ importers:
       '@anthropic-ai/sdk':
         specifier: 0.93.0
         version: 0.93.0(zod@4.4.3)
-      '@workspacealberta/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
         version: 1.29.0(zod@4.4.3)
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
       zod:
         specifier: ^4.4.3
         version: 4.4.3
@@ -7498,15 +7538,15 @@ importers:
 
   packages/subagent/subagent-codex:
     dependencies:
-      '@workspacealberta/wa-sdk-protocol':
-        specifier: workspace:^
-        version: link:../../sdk/protocol
-      '@workspacealberta/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
       '@openai/codex':
         specifier: 0.147.0
         version: 0.147.0
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      '@workspacealberta/wa-sdk-protocol':
+        specifier: workspace:^
+        version: link:../../sdk/protocol
     devDependencies:
       '@workspacealberta/cordis':
         specifier: workspace:^
@@ -7925,12 +7965,12 @@ importers:
 
   packages/terminal/terminal-bash:
     dependencies:
-      '@workspacealberta/wa-pwsh-local':
-        specifier: workspace:^
-        version: link:../../shell/pwsh-local
       '@workspacealberta/schemastery':
         specifier: link:../../../vendor/schemastery
         version: link:../../../vendor/schemastery
+      '@workspacealberta/wa-pwsh-local':
+        specifier: workspace:^
+        version: link:../../shell/pwsh-local
     devDependencies:
       '@workspacealberta/cordis':
         specifier: workspace:^
@@ -8082,6 +8122,12 @@ importers:
         specifier: ^4.1.8
         version: 4.1.8(@opentelemetry/api@1.9.1)(@types/node@25.9.3)(@vitest/coverage-v8@4.1.8)(jsdom@29.1.1)(vite@8.0.16(@types/node@26.1.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))
     devDependencies:
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ~18.3.0
+        version: 18.3.7(@types/react@18.3.31)
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -8100,12 +8146,6 @@ importers:
       '@workspacealberta/wa-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ~18.3.0
-        version: 18.3.7(@types/react@18.3.31)
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -8354,16 +8394,19 @@ importers:
 
   packages/web/tool-web:
     dependencies:
-      '@workspacealberta/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
       '@joplin/turndown-plugin-gfm':
         specifier: ^1.0.67
         version: 1.0.67
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
       turndown:
         specifier: ^7.2.4
         version: 7.2.4
     devDependencies:
+      '@types/turndown':
+        specifier: ^5.0.6
+        version: 5.0.6
       '@workspacealberta/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis
@@ -8403,9 +8446,6 @@ importers:
       '@workspacealberta/wa-web-search-exa':
         specifier: workspace:^
         version: link:../web-search-exa
-      '@types/turndown':
-        specifier: ^5.0.6
-        version: 5.0.6
 
   packages/web/web:
     dependencies:
@@ -8752,6 +8792,9 @@ importers:
       '@workspacealberta/cosmokit':
         specifier: link:../../vendor/cosmokit
         version: link:../../vendor/cosmokit
+      '@workspacealberta/schemastery':
+        specifier: link:../../vendor/schemastery
+        version: link:../../vendor/schemastery
       '@workspacealberta/wa-acp':
         specifier: workspace:^
         version: link:../../packages/acp/acp
@@ -8860,6 +8903,9 @@ importers:
       '@workspacealberta/wa-llm':
         specifier: workspace:^
         version: link:../../packages/llm/llm
+      '@workspacealberta/wa-llm-cohere':
+        specifier: workspace:^
+        version: link:../../packages/llm/llm-cohere
       '@workspacealberta/wa-llm-deepseek':
         specifier: workspace:^
         version: link:../../packages/llm/llm-deepseek
@@ -9079,12 +9125,12 @@ importers:
       '@workspacealberta/wa-workflow-worker-thread':
         specifier: workspace:^
         version: link:../../packages/workflow/workflow-worker-thread
-      '@workspacealberta/schemastery':
-        specifier: link:../../vendor/schemastery
-        version: link:../../vendor/schemastery
 
   vendor/cordis:
     dependencies:
+      '@standard-schema/spec':
+        specifier: ^1.1.0
+        version: 1.1.0
       '@workspacealberta/cordis-plugin-include':
         specifier: workspace:^
         version: link:../include
@@ -9094,9 +9140,6 @@ importers:
       '@workspacealberta/cosmokit':
         specifier: link:../cosmokit
         version: link:../cosmokit
-      '@standard-schema/spec':
-        specifier: ^1.1.0
-        version: 1.1.0
 
   vendor/cosmokit: {}
 
@@ -9187,12 +9230,12 @@ importers:
 
   vendor/schemastery:
     dependencies:
-      '@workspacealberta/cosmokit':
-        specifier: link:../cosmokit
-        version: link:../cosmokit
       '@standard-schema/spec':
         specifier: ^1.1.0
         version: 1.1.0
+      '@workspacealberta/cosmokit':
+        specifier: link:../cosmokit
+        version: link:../cosmokit
 
   vendor/timer:
     dependencies:

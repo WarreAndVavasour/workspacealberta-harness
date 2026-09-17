@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-17-cohere-v2-chat-adapter.md
+2026-09-17-cohere-v2-chat-adapter.md: e9381b97bee3cbece099abdb22983a2de01e79ea
+2026-09-17-cohere-v2-chat-adapter.zh.md: 1f6019f67bf3c3af574aba0257bb2c8301e522ad
