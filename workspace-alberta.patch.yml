@@ -35,8 +35,11 @@
       cohere-canada:
         displayName: Cohere (Canada)
         apiKeyEnv: COHERE_API_KEY
-        api: openai-completions
-        baseURL: https://api.cohere.ai/compatibility/v1
+        # Native Cohere Chat API v2 (agent/tool-calling), not the
+        # OpenAI-compatibility shim. `baseURL` is the version root — the
+        # cohere-v2-chat adapter POSTs `{baseURL}/chat`.
+        api: cohere-v2-chat
+        baseURL: https://api.cohere.com/v2
         models:
           - id: command-a-plus-05-2026
             name: Command A+

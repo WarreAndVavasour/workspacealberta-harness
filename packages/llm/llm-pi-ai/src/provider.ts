@@ -24,6 +24,7 @@ import type { Api, ApiKeyAuth, Model, Provider, ProviderStreams } from '@earendi
 import { anthropicMessagesApi } from '@earendil-works/pi-ai/api/anthropic-messages.lazy'
 import { openAICompletionsApi } from '@earendil-works/pi-ai/api/openai-completions.lazy'
 import { openAIResponsesApi } from '@earendil-works/pi-ai/api/openai-responses.lazy'
+import { cohereV2ChatApi } from './cohere-v2-chat.ts'
 import { catalogProvider } from './catalog.ts'
 
 /**
@@ -48,6 +49,11 @@ const PROTOCOLS: Readonly<Record<string, () => ProviderStreams>> = {
   'openai-completions': openAICompletionsApi,
   'openai-responses': openAIResponsesApi,
   'anthropic-messages': anthropicMessagesApi,
+  // This package's own implementation, not pi-ai's: Cohere's agent/tool-calling
+  // Chat API v2 (POST {baseURL}/chat, `baseURL` the version root) has no
+  // upstream module, and the compatibility endpoint only approximates its tool
+  // surface. See ./cohere-v2-chat.ts.
+  'cohere-v2-chat': cohereV2ChatApi,
 }
 
 /**
