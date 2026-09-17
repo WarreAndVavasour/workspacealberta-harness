@@ -40,6 +40,7 @@
     "@workspacealberta/wa-invariants": "workspace:*",
     "@workspacealberta/wa-sdk-jsonrpc-server": "workspace:*",
     "@workspacealberta/wa-llm": "workspace:*",
+    "@workspacealberta/wa-llm-cohere": "workspace:*",
     "@workspacealberta/wa-llm-deepseek": "workspace:*",
     "@workspacealberta/wa-llm-pi-ai": "workspace:*",
     "@workspacealberta/wa-llm-replay": "workspace:*",
