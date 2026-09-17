@@ -25,6 +25,7 @@ import { anthropicMessagesApi } from '@earendil-works/pi-ai/api/anthropic-messag
 import { openAICompletionsApi } from '@earendil-works/pi-ai/api/openai-completions.lazy'
 import { openAIResponsesApi } from '@earendil-works/pi-ai/api/openai-responses.lazy'
 import { catalogProvider } from './catalog.ts'
+import { COHERE_V2_CHAT_API, cohereV2ChatApi } from './cohere-v2-chat.ts'
 
 /**
  * Wire protocols a configured route may name, mapped to pi-ai's lazily loaded
@@ -39,15 +40,18 @@ import { catalogProvider } from './catalog.ts'
  * credentials, Azure needs provider environment plus an api-version, and Codex
  * authenticates through OAuth — none of which this configuration shape can
  * express, so offering them would hand back a provider that cannot
- * authenticate. The remainder are absent for want of a consumer rather than a
- * blocker: each is one line here once a deployment needs it. Catalog routes
- * still reach every protocol through their own provider; only an explicit
+ * authenticate. The remainder of pi-ai's catalog protocols are absent for
+ * want of a consumer rather than a blocker. `cohere-v2-chat` is first-party
+ * here because pi-ai does not ship Cohere Chat API v2, and a key, endpoint,
+ * and headers still describe the route completely. Catalog routes still
+ * reach every pi-ai protocol through their own provider; only an explicit
  * override is refused.
  */
 const PROTOCOLS: Readonly<Record<string, () => ProviderStreams>> = {
   'openai-completions': openAICompletionsApi,
   'openai-responses': openAIResponsesApi,
   'anthropic-messages': anthropicMessagesApi,
+  [COHERE_V2_CHAT_API]: cohereV2ChatApi,
 }
 
 /**

@@ -1,9 +1,13 @@
 # workspaceAlberta / Warre & Vavasour deployment patch for the wa CLI.
 # Secrets are resolved from the process environment and are never stored here.
 #
-# Web tooling runs entirely on our side: the seam selects the Cohere v2
-# tool-use search provider (web-search-cohere) plus the anonymous local HTTP
-# fetch provider, and the DeepSeek-backed llm/web-search rows stay disabled.
+# The default model route speaks Cohere Chat API v2. The configured baseURL is
+# the prefix https://api.cohere.com/v2; llm-pi-ai appends /chat, so requests
+# go to POST https://api.cohere.com/v2/chat with Bearer COHERE_API_KEY. Do not
+# point this route at https://api.cohere.ai/compatibility/v1.
+#
+# Web search stays on Exa (searchProvider: exa, EXA_API_KEY). Do not register
+# Cohere search on this desk. Fetch is the anonymous local HTTP provider.
 # session-telemetry-otel is mounted (restored) but stays inert: mode defaults
 # to DISABLED unless DSH_TELEMETRY_MODE opts in, and no collector URL exists
 # in the environment, so nothing exports off-machine.
@@ -16,7 +20,7 @@
 
 - id: web
   config:
-    searchProvider: cohere
+    searchProvider: exa
     fetchProvider: http
 
 - id: tool-web
@@ -35,8 +39,8 @@
       cohere-canada:
         displayName: Cohere (Canada)
         apiKeyEnv: COHERE_API_KEY
-        api: openai-completions
-        baseURL: https://api.cohere.ai/compatibility/v1
+        api: cohere-v2-chat
+        baseURL: https://api.cohere.com/v2
         models:
           - id: command-a-plus-05-2026
             name: Command A+
@@ -45,10 +49,8 @@
             input: [text]
 
 - insert:
-    - id: web-search-cohere
-      name: '@workspacealberta/web-search-cohere'
-      config:
-        apiKeyEnv: COHERE_API_KEY
+    - id: web-search-exa
+      name: '@workspacealberta/wa-web-search-exa'
 
     - id: web-fetch-http
       name: '@workspacealberta/wa-web-fetch-http'
