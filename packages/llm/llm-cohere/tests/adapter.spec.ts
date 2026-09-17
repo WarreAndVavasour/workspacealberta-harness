@@ -31,9 +31,9 @@ beforeEach(() => {
 })
 
 afterEach(async () => {
+  vi.useRealTimers()
   await closeMockServers()
   vi.unstubAllEnvs()
-  vi.useRealTimers()
   rmSync(testHome, { recursive: true, force: true })
 })
 
@@ -479,6 +479,40 @@ describe('CohereAdapter against a mock server', () => {
     expect(result.finish).toMatchObject({ kind: 'error', failure: { code: 'TIMEOUT' } })
   })
 
+  it('keeps an idle provider read alive through SSE comments', async () => {
+    vi.useFakeTimers()
+    const encoder = new TextEncoder()
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockImplementation(() => {
+      const body = new ReadableStream<Uint8Array>({
+        start(controller) {
+          setTimeout(() => { controller.enqueue(encoder.encode(': keep-alive\n\n')) }, 75)
+          setTimeout(() => { controller.enqueue(encoder.encode(': keep-alive\n\n')) }, 150)
+          setTimeout(() => {
+            controller.enqueue(encoder.encode(textEvents.map(event => `data: ${event}\n\n`).join('')))
+            controller.close()
+          }, 225)
+        },
+      })
+      return Promise.resolve(new Response(body, { status: 200 }))
+    })
+    const adapter = adapterOf({ baseURL: 'https://example.invalid', streamIdleTimeoutMs: 100 })
+    try {
+      const chunks: string[] = []
+      const drainStream = (async () => {
+        for await (const chunk of adapter.stream({ provider: 'cohere-canada', model: 'm', messages: [] })) {
+          chunks.push(chunk.type)
+        }
+      })()
+      await vi.advanceTimersByTimeAsync(75)
+      await vi.advanceTimersByTimeAsync(75)
+      await vi.advanceTimersByTimeAsync(75)
+      await expect(drainStream).resolves.toBeUndefined()
+      expect(chunks).toEqual(['block-start', 'text-delta', 'block-end', 'usage', 'finish'])
+    } finally {
+      fetchSpy.mockRestore()
+    }
+  })
+
   it('lists catalog models and resolves exact-model metadata', async () => {
     const ctx = await harness('http://127.0.0.1:1', {
       models: [
@@ -519,6 +553,15 @@ describe('CohereAdapter against a mock server', () => {
     await fiber.dispose()
     expect(ctx.llm.listProviders()).toEqual([])
     expect(ctx.llm.listConfigurableProviders()).toEqual([])
+  })
+
+  it('treats an empty ambient variable as no key when no credentials seam is mounted', async () => {
+    vi.stubEnv('COHERE_API_KEY', '')
+    const ctx = new Context()
+    await ctx.plugin(LlmRuntime)
+    await ctx.plugin(LlmCohere, { baseURL: 'http://127.0.0.1:1' })
+    const result = await assemble(ctx, { model: 'command-a-plus-05-2026', messages: [] })
+    expect(result.finish).toMatchObject({ kind: 'error', failure: { code: 'MISSING_CREDENTIAL' } })
   })
 
   it('fails plugin load when composition config is invalid', async () => {

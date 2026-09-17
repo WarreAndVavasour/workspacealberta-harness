@@ -164,6 +164,8 @@ flowchart LR
   cfg --> plugin_dsh_base_fs_sandbox
   plugin_dsh_base_llm_deepseek["llm-deepseek<br/>@workspacealberta/wa-llm-deepseek"]
   cfg --> plugin_dsh_base_llm_deepseek
+  plugin_dsh_base_llm_cohere["llm-cohere<br/>@workspacealberta/wa-llm-cohere"]
+  cfg --> plugin_dsh_base_llm_cohere
 ```
 
 | Plugin id | Package / module |
@@ -246,6 +248,7 @@ flowchart LR
 | `agent-loop` | `@workspacealberta/wa-agent-loop` |
 | `fs-sandbox` | `@workspacealberta/wa-fs-sandbox` |
 | `llm-deepseek` | `@workspacealberta/wa-llm-deepseek` |
+| `llm-cohere` | `@workspacealberta/wa-llm-cohere` |
 
 Source config: [`packages/bundle/base/cordis.patch.yml`](../../packages/bundle/base/cordis.patch.yml).
 

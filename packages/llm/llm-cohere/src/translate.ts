@@ -205,7 +205,7 @@ export async function* translate(payloads: AsyncIterable<string>): AsyncGenerato
             }
             : reason,
         }
-        return
+        break
       }
       default:
         // message-start, content-end, tool-call-end, citation-*, debug.

@@ -148,6 +148,10 @@ describe('translate: finish and usage', () => {
     })
   })
 
+  it('counts zero tokens when usage carries neither tokens nor billed units', () => {
+    expect(mapUsage({})).toEqual({ inputTokens: 0, outputTokens: 0 })
+  })
+
   it('maps an empty COMPLETE into EMPTY_RESPONSE', async () => {
     const chunks = await collect(translate(feed(
       { type: 'citation-start' },
@@ -189,6 +193,19 @@ describe('translate: finish and usage', () => {
       { type: 'block-start', index: 0, blockType: 'tool-call' },
       { type: 'tool-call-delta', index: 0, id: '', argumentsDelta: '{}' },
       { type: 'block-end', index: 0, block: { type: 'tool-call', id: '', name: '', arguments: '{}' } },
+      { type: 'finish', reason: { kind: 'tool-calls' } },
+    ])
+  })
+
+  it('treats a tool-call delta without arguments as an empty fragment', async () => {
+    const chunks = await collect(translate(feed(
+      { type: 'tool-call-delta', index: 0, delta: { message: { tool_calls: { id: 'c2', function: { name: 'ping' } } } } },
+      { type: 'message-end', delta: { finish_reason: 'TOOL_CALL' } },
+    )))
+    expect(chunks).toEqual([
+      { type: 'block-start', index: 0, blockType: 'tool-call' },
+      { type: 'tool-call-delta', index: 0, id: 'c2', name: 'ping', argumentsDelta: '' },
+      { type: 'block-end', index: 0, block: { type: 'tool-call', id: 'c2', name: 'ping', arguments: '' } },
       { type: 'finish', reason: { kind: 'tool-calls' } },
     ])
   })

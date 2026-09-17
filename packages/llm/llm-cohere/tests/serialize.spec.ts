@@ -29,6 +29,17 @@ describe('serializeMessages', () => {
     expect(wire).toEqual([{ role: 'system', content: 'be brief' }])
   })
 
+  it('maps assistant text without reasoning to string content', () => {
+    const wire = serializeMessages([
+      createMessage({
+        role: 'assistant',
+        content: [{ type: 'text', text: 'answer' }],
+        source: { kind: 'plugin', plugin: 'test' },
+      }),
+    ])
+    expect(wire).toEqual([{ role: 'assistant', content: 'answer' }])
+  })
+
   it('replays thinking content on tool-call-free turns', () => {
     const wire = serializeMessages([
       createMessage({
