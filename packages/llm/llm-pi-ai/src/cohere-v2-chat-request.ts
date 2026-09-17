@@ -203,7 +203,7 @@ export function serializeCohereV2ChatRequest(
     type: 'function',
     function: {
       name: tool.name,
-      ...tool.description === undefined ? {} : { description: tool.description },
+      description: tool.description,
       parameters: tool.parameters,
     },
   }))

@@ -8,10 +8,12 @@
  * @module dsh-llm-pi-ai/cohere-v2-chat
  */
 
+import { lazyStream } from '@earendil-works/pi-ai'
 import type {
   Api,
   AssistantMessage,
   AssistantMessageEvent,
+  AssistantMessageEventStream,
   Context,
   Model,
   ProviderStreams,
@@ -84,7 +86,10 @@ function numberOf(value: unknown): number | undefined {
   return typeof value === 'number' && Number.isFinite(value) ? value : undefined
 }
 
-function stopReasonOf(finish: unknown): AssistantMessage['stopReason'] {
+/** Finish reasons Cohere v2 `message-end` can produce. `aborted` is a caller cancel, not a wire finish. */
+type CohereV2StopReason = Extract<AssistantMessage['stopReason'], 'stop' | 'length' | 'toolUse' | 'error'>
+
+function stopReasonOf(finish: unknown): CohereV2StopReason {
   switch (finish) {
     case 'COMPLETE':
     case 'STOP_SEQUENCE':
@@ -415,7 +420,8 @@ export async function* translateCohereSse(
           }
           return
         }
-        yield { type: 'done', reason: stopReason, message: snapshot(stopReason) }
+        const doneReason: Extract<CohereV2StopReason, 'stop' | 'length' | 'toolUse'> = stopReason
+        yield { type: 'done', reason: doneReason, message: snapshot(doneReason) }
         return
       }
       case 'citation-start':
@@ -436,7 +442,7 @@ export async function* translateCohereSse(
   }
 }
 
-async function* streamCohereV2Chat(
+async function* streamCohereV2ChatEvents(
   model: Model<Api>,
   context: Context,
   options: SimpleStreamOptions = {},
@@ -471,7 +477,7 @@ async function* streamCohereV2Chat(
       method: 'POST',
       headers,
       body: JSON.stringify(serializeCohereV2ChatRequest(model.id, context, options)),
-      signal: options.signal,
+      ...options.signal === undefined ? {} : { signal: options.signal },
     })
   } catch (error: unknown) {
     if (options.signal?.aborted) {
@@ -510,6 +516,14 @@ async function* streamCohereV2Chat(
  * The lazily constructed streams object `createProvider` registers for this protocol.
  * @returns a `ProviderStreams` whose `stream` talks Chat API v2.
  */
+function streamCohereV2Chat(
+  model: Model<Api>,
+  context: Context,
+  options: SimpleStreamOptions = {},
+): AssistantMessageEventStream {
+  return lazyStream(model, async () => streamCohereV2ChatEvents(model, context, options))
+}
+
 export function cohereV2ChatApi(): ProviderStreams {
   return {
     stream: streamCohereV2Chat,

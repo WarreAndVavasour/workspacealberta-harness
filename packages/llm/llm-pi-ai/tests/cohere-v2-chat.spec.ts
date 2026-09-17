@@ -190,10 +190,10 @@ describe('serializeCohereV2ChatRequest', () => {
   it('omits tools and thinking unless configured, and disables thinking for off', () => {
     expect(serializeCohereV2ChatRequest('m', context({ tools: [] }))).not.toHaveProperty('tools')
     expect(serializeCohereV2ChatRequest('m', context({
-      tools: [{ name: 'lookup', parameters: { type: 'object', properties: {} } }],
+      tools: [{ name: 'lookup', description: 'Look up', parameters: { type: 'object', properties: {} } }],
     })).tools).toEqual([{
       type: 'function',
-      function: { name: 'lookup', parameters: { type: 'object', properties: {} } },
+      function: { name: 'lookup', description: 'Look up', parameters: { type: 'object', properties: {} } },
     }])
     expect(serializeCohereV2ChatRequest('m', context(), { reasoning: 'off' }).thinking).toEqual({ type: 'disabled' })
     expect(serializeCohereV2ChatRequest('m', context())).not.toHaveProperty('thinking')
