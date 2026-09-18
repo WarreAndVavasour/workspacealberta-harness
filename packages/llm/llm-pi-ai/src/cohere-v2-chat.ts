@@ -135,7 +135,7 @@ function assistantOf(
   return {
     role: 'assistant',
     content,
-    api: COHERE_V2_CHAT_API as Api,
+    api: COHERE_V2_CHAT_API,
     provider: model.provider,
     model: model.id,
     ...extras.responseId === undefined ? {} : { responseId: extras.responseId },
@@ -217,7 +217,7 @@ function messageDelta(body: {
   delta?: { message?: Record<string, unknown>; error?: unknown; finish_reason?: unknown; usage?: unknown }
 }): Record<string, unknown> {
   const message = body.delta?.message
-  return typeof message === 'object' && message !== null ? message : {}
+  return message ?? {}
 }
 
 /**
@@ -306,7 +306,7 @@ export async function* translateCohereSse(
             partial: snapshot(),
           }
         } else if (typeof text.text === 'string') {
-          const index = content.findLastIndex(block => block?.type === 'text')
+          const index = content.findLastIndex(block => block.type === 'text')
           const block = index >= 0 ? content[index] : undefined
           if (block?.type === 'text') {
             block.text += text.text
@@ -320,7 +320,7 @@ export async function* translateCohereSse(
           yield* closeThinking()
           break
         }
-        const index = content.findLastIndex(block => block?.type === 'text')
+        const index = content.findLastIndex(block => block.type === 'text')
         const block = index >= 0 ? content[index] : undefined
         if (block?.type === 'text') {
           yield { type: 'text_end', contentIndex: index, content: block.text, partial: snapshot() }
@@ -476,7 +476,16 @@ async function* streamCohereV2ChatEvents(
     response = await fetch(cohereV2ChatUrl(model.baseUrl), {
       method: 'POST',
       headers,
-      body: JSON.stringify(serializeCohereV2ChatRequest(model.id, context, options)),
+      body: JSON.stringify(serializeCohereV2ChatRequest(model.id, context, {
+        ...options,
+        // Cohere's strict_tools rejects the composition keywords (`oneOf`,
+        // `anyOf`, `allOf`) harness tool schemas carry, so strict mode rides
+        // the model's own compat opt-in (`supportsStrictMode`), never a
+        // default. pi-ai types `compat` per known protocol; a hand-declared
+        // route's block is read structurally here.
+        strictTools: (model.compat as { supportsStrictMode?: boolean } | undefined)
+          ?.supportsStrictMode === true,
+      })),
       ...options.signal === undefined ? {} : { signal: options.signal },
     })
   } catch (error: unknown) {
@@ -521,7 +530,7 @@ function streamCohereV2Chat(
   context: Context,
   options: SimpleStreamOptions = {},
 ): AssistantMessageEventStream {
-  return lazyStream(model, async () => streamCohereV2ChatEvents(model, context, options))
+  return lazyStream(model, () => Promise.resolve(streamCohereV2ChatEvents(model, context, options)))
 }
 
 export function cohereV2ChatApi(): ProviderStreams {

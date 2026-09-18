@@ -46,7 +46,6 @@ export type CohereV2Message =
   | {
     role: 'assistant'
     content?: string | CohereV2ContentPart[]
-    tool_plan?: string
     tool_calls?: CohereV2ToolCall[]
   }
   | { role: 'tool'; tool_call_id: string; content: string }
@@ -74,6 +73,16 @@ export interface CohereV2ChatRequestOptions {
    * level sends `{type: enabled}`; omission leaves Cohere's model default.
    */
   reasoning?: string
+  /**
+   * Send `strict_tools: true`, making the endpoint enforce the declared
+   * parameter schemas on generated calls. Strict mode rejects the JSON-schema
+   * composition keywords (`oneOf`, `anyOf`, `allOf`) the harness's own tool
+   * schemas legitimately use, so it is opt-in per model compat
+   * (`supportsStrictMode`), never a default: a forced `true` fails every turn
+   * whose tool set carries such a schema (endpoint 400, verified live
+   * 2026-09-18).
+   */
+  strictTools?: boolean
 }
 
 /**
@@ -134,25 +143,16 @@ function assistantMessage(message: Extract<Message, { role: 'assistant' }>): Coh
   const text = texts.join('')
   const plan = thinking.join('')
   const wire: CohereV2Message = { role: 'assistant' }
-  if (toolCalls.length > 0) {
-    // Cohere records tool-turn chain-of-thought as `tool_plan`, not thinking content.
-    if (plan.length > 0) wire.tool_plan = plan
-    if (text.length > 0) wire.content = text
-    wire.tool_calls = toolCalls
-    return wire
-  }
-  if (plan.length > 0 && text.length > 0) {
-    wire.content = [
-      { type: 'thinking', thinking: plan },
-      { type: 'text', text },
-    ]
-    return wire
-  }
-  if (plan.length > 0) {
-    wire.content = [{ type: 'thinking', thinking: plan }]
-    return wire
-  }
-  wire.content = text
+  // The plan rides as a `thinking` content block: the endpoint rejects
+  // `tool_plan` on replay for Command A-class models ("tool plan cannot be
+  // used with this model", verified live 2026-09-18) while accepting thinking
+  // blocks beside tool_calls.
+  const content: CohereV2ContentPart[] = []
+  if (plan.length > 0) content.push({ type: 'thinking', thinking: plan })
+  if (text.length > 0) content.push({ type: 'text', text })
+  if (content.length > 0) wire.content = content
+  if (toolCalls.length > 0) wire.tool_calls = toolCalls
+  if (content.length === 0 && toolCalls.length === 0) wire.content = ''
   return wire
 }
 
@@ -214,8 +214,7 @@ export function serializeCohereV2ChatRequest(
   }
   if (tools !== undefined && tools.length > 0) {
     request.tools = tools
-    // Force tool calls to match the declared schema; required for Command A agent turns.
-    request.strict_tools = true
+    if (options.strictTools === true) request.strict_tools = true
   }
   if (options.temperature !== undefined) request.temperature = options.temperature
   if (options.maxTokens !== undefined) request.max_tokens = options.maxTokens

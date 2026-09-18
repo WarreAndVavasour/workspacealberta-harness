@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@workspacealberta/cordis'
-import LlmRuntime, { CallId, createMessage, createUserMessage } from '@workspacealberta/wa-llm'
+import LlmRuntime, { ToolCallId, createMessage, createUserMessage } from '@workspacealberta/wa-llm'
 import type { Message } from '@workspacealberta/wa-llm'
 import type { Api, Context as PiContext, Model } from '@earendil-works/pi-ai'
 import * as LlmPiAi from '@workspacealberta/wa-llm-pi-ai'
@@ -29,7 +29,7 @@ function model(baseUrl: string): Model<Api> {
   return {
     id: 'command-a-plus-05-2026',
     name: 'Command A+',
-    api: COHERE_V2_CHAT_API as Api,
+    api: COHERE_V2_CHAT_API,
     provider: 'cohere-canada',
     baseUrl,
     input: ['text'],
@@ -160,7 +160,7 @@ describe('cohere-v2-chat protocol selection', () => {
 })
 
 describe('serializeCohereV2ChatRequest', () => {
-  it('sends system, tools, strict_tools, and sampling fields', () => {
+  it('sends system, tools, and sampling fields, leaving strict_tools off by default', () => {
     const request = serializeCohereV2ChatRequest('command-a-plus-05-2026', context({
       systemPrompt: 'be brief',
       tools: [{ name: 'lookup', description: 'Look up', parameters: { type: 'object', properties: {} } }],
@@ -169,6 +169,7 @@ describe('serializeCohereV2ChatRequest', () => {
       maxTokens: 64,
       reasoning: 'high',
     })
+    expect(request).not.toHaveProperty('strict_tools')
     expect(request).toEqual({
       stream: true,
       model: 'command-a-plus-05-2026',
@@ -180,7 +181,6 @@ describe('serializeCohereV2ChatRequest', () => {
         type: 'function',
         function: { name: 'lookup', description: 'Look up', parameters: { type: 'object', properties: {} } },
       }],
-      strict_tools: true,
       temperature: 0.2,
       max_tokens: 64,
       thinking: { type: 'enabled' },
@@ -220,7 +220,7 @@ describe('serializeCohereV2ChatRequest', () => {
             { type: 'text', text: 'calling' },
             { type: 'toolCall', id: 'call-1', name: 'lookup', arguments: { q: 'x' } },
           ],
-          api: COHERE_V2_CHAT_API as Api,
+          api: COHERE_V2_CHAT_API,
           provider: 'cohere-canada',
           model: 'm',
           usage: ZERO_USAGE,
@@ -241,7 +241,7 @@ describe('serializeCohereV2ChatRequest', () => {
             { type: 'thinking', thinking: 'mull' },
             { type: 'text', text: 'done' },
           ],
-          api: COHERE_V2_CHAT_API as Api,
+          api: COHERE_V2_CHAT_API,
           provider: 'cohere-canada',
           model: 'm',
           usage: ZERO_USAGE,
@@ -251,7 +251,7 @@ describe('serializeCohereV2ChatRequest', () => {
         {
           role: 'assistant',
           content: [{ type: 'thinking', thinking: 'only' }],
-          api: COHERE_V2_CHAT_API as Api,
+          api: COHERE_V2_CHAT_API,
           provider: 'cohere-canada',
           model: 'm',
           usage: ZERO_USAGE,
@@ -261,7 +261,7 @@ describe('serializeCohereV2ChatRequest', () => {
         {
           role: 'assistant',
           content: [{ type: 'text', text: 'plain' }],
-          api: COHERE_V2_CHAT_API as Api,
+          api: COHERE_V2_CHAT_API,
           provider: 'cohere-canada',
           model: 'm',
           usage: ZERO_USAGE,
@@ -271,7 +271,7 @@ describe('serializeCohereV2ChatRequest', () => {
         {
           role: 'assistant',
           content: [{ type: 'toolCall', id: 'c2', name: 'f', arguments: {} }],
-          api: COHERE_V2_CHAT_API as Api,
+          api: COHERE_V2_CHAT_API,
           provider: 'cohere-canada',
           model: 'm',
           usage: ZERO_USAGE,
@@ -298,8 +298,10 @@ describe('serializeCohereV2ChatRequest', () => {
       },
       {
         role: 'assistant',
-        tool_plan: 'plan',
-        content: 'calling',
+        content: [
+          { type: 'thinking', thinking: 'plan' },
+          { type: 'text', text: 'calling' },
+        ],
         tool_calls: [{ id: 'call-1', type: 'function', function: { name: 'lookup', arguments: '{"q":"x"}' } }],
       },
       { role: 'tool', tool_call_id: 'call-1', content: '(no output)' },
@@ -311,7 +313,7 @@ describe('serializeCohereV2ChatRequest', () => {
         ],
       },
       { role: 'assistant', content: [{ type: 'thinking', thinking: 'only' }] },
-      { role: 'assistant', content: 'plain' },
+      { role: 'assistant', content: [{ type: 'text', text: 'plain' }] },
       {
         role: 'assistant',
         tool_calls: [{ id: 'c2', type: 'function', function: { name: 'f', arguments: '{}' } }],
@@ -584,7 +586,7 @@ describe('cohereV2ChatApi stream', () => {
     })
     expect(result.message.content).toEqual([{ type: 'text', text: 'hello' }])
     expect(result.finish).toEqual({ kind: 'stop' })
-    expect(result.usage).toEqual({ inputTokens: 3, outputTokens: 1 })
+    expect(result.usage).toEqual({ inputTokens: 3, outputTokens: 1, totalTokens: 4 })
   })
 
   it('round-trips a tool call and the following tool result', async () => {
@@ -610,7 +612,7 @@ describe('cohereV2ChatApi stream', () => {
           role: 'user',
           content: [{
             type: 'tool-result',
-            toolCallId: CallId('call-1'),
+            toolCallId: ToolCallId('call-1'),
             content: [{ type: 'text', text: 'value=1' }],
           }],
           source: { kind: 'plugin', plugin: 'test' },
@@ -621,14 +623,14 @@ describe('cohereV2ChatApi stream', () => {
     expect(followup.message.content).toEqual([{ type: 'text', text: 'hello' }])
     expect(server.requests[0]).toMatchObject({
       tools: [{ type: 'function', function: { name: 'lookup' } }],
-      strict_tools: true,
     })
+    expect(server.requests[0]).not.toHaveProperty('strict_tools')
     expect(server.requests[1]).toMatchObject({
       messages: [
         { role: 'user', content: 'look up x' },
         {
           role: 'assistant',
-          tool_plan: 'I will look it up.',
+          content: [{ type: 'thinking', thinking: 'I will look it up.' }],
           tool_calls: [{ id: 'call-1', type: 'function', function: { name: 'lookup', arguments: '{"q":"x"}' } }],
         },
         { role: 'tool', tool_call_id: 'call-1', content: 'value=1' },
