@@ -24,8 +24,8 @@ import type { Api, ApiKeyAuth, Model, Provider, ProviderStreams } from '@earendi
 import { anthropicMessagesApi } from '@earendil-works/pi-ai/api/anthropic-messages.lazy'
 import { openAICompletionsApi } from '@earendil-works/pi-ai/api/openai-completions.lazy'
 import { openAIResponsesApi } from '@earendil-works/pi-ai/api/openai-responses.lazy'
-import { cohereV2ChatApi } from './cohere-v2-chat.ts'
 import { catalogProvider } from './catalog.ts'
+import { COHERE_V2_CHAT_API, cohereV2ChatApi } from './cohere-v2-chat.ts'
 
 /**
  * Wire protocols a configured route may name, mapped to pi-ai's lazily loaded
@@ -34,26 +34,24 @@ import { catalogProvider } from './catalog.ts'
  * catalog route would.
  *
  * The table is deliberately narrow: the protocols a hand-declared route
- * actually reads, each completely describable with a key, an
+ * actually reaches for today, each completely describable with a key, an
  * endpoint, and headers. Bedrock signs with SigV4 over AWS credentials and a
  * region, Vertex needs a project, a location, and application-default
  * credentials, Azure needs provider environment plus an api-version, and Codex
  * authenticates through OAuth — none of which this configuration shape can
  * express, so offering them would hand back a provider that cannot
- * authenticate. The remainder are absent for want of a consumer rather than a
- * blocker: each is one line here once a deployment needs it. Catalog routes
- * still reach every protocol through their own provider; only an explicit
+ * authenticate. The remainder of pi-ai's catalog protocols are absent for
+ * want of a consumer rather than a blocker. `cohere-v2-chat` is first-party
+ * here because pi-ai does not ship Cohere Chat API v2, and a key, endpoint,
+ * and headers still describe the route completely. Catalog routes still
+ * reach every pi-ai protocol through their own provider; only an explicit
  * override is refused.
  */
 const PROTOCOLS: Readonly<Record<string, () => ProviderStreams>> = {
   'openai-completions': openAICompletionsApi,
   'openai-responses': openAIResponsesApi,
   'anthropic-messages': anthropicMessagesApi,
-  // This package's own implementation, not pi-ai's: Cohere's agent/tool-calling
-  // Chat API v2 (POST {baseURL}/chat, `baseURL` the version root) has no
-  // upstream module, and the compatibility endpoint only approximates its tool
-  // surface. See ./cohere-v2-chat.ts.
-  'cohere-v2-chat': cohereV2ChatApi,
+  [COHERE_V2_CHAT_API]: cohereV2ChatApi,
 }
 
 /**

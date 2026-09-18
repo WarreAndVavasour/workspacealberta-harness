@@ -116,7 +116,7 @@
     "@workspacealberta/wa-web": "workspace:^",
     "@workspacealberta/wa-web-fetch-http": "workspace:^",
     "@workspacealberta/wa-web-search-deepseek": "workspace:^",
-    "@workspacealberta/web-search-cohere": "workspace:^",
+    "@workspacealberta/wa-web-search-exa": "workspace:^",
     "@workspacealberta/wa-web-fetch-http": "workspace:^",
     "@workspacealberta/wa-workflow-worker-thread": "workspace:^",
     "@workspacealberta/wa-agent-instructions": "workspace:^"
