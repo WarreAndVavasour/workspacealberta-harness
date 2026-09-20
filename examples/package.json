@@ -115,6 +115,7 @@
     "@workspacealberta/wa-web": "workspace:*",
     "@workspacealberta/wa-web-fetch-http": "workspace:*",
     "@workspacealberta/wa-workflow-worker-thread": "workspace:*",
-    "@workspacealberta/wa-agent-instructions": "workspace:*"
+    "@workspacealberta/wa-agent-instructions": "workspace:*",
+    "@workspacealberta/wa-experimental-workspace-router": "workspace:*"
   }
 }

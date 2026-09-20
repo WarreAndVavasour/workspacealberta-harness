@@ -997,6 +997,17 @@ export type SessionEvent<T extends SessionEventType = SessionEventType> = {
 
 ### `web/*`
 
+<a id="webcohere-search-llm-request--log-only"></a>
+
+#### `web/cohere-search-llm-request` — log-only
+
+```ts persistence-catalog
+/** Secret-free auxiliary Cohere search request recorded before dispatch. */
+'web/cohere-search-llm-request': CohereSearchLlmRequest
+```
+
+来源： [`packages/web/web-search-cohere/src/provider.ts:71`](../packages/web/web-search-cohere/src/provider.ts)
+
 <a id="webdeepseek-search-llm-request--log-only"></a>
 
 #### `web/deepseek-search-llm-request` — log-only
@@ -1007,3 +1018,16 @@ export type SessionEvent<T extends SessionEventType = SessionEventType> = {
 ```
 
 来源：[`packages/web/web-search-deepseek/src/provider.ts:83`](../packages/web/web-search-deepseek/src/provider.ts)
+
+### `workspace/*`
+
+<a id="workspaceroute--log-only"></a>
+
+#### `workspace/route` — log-only
+
+```ts persistence-catalog
+/** Auxiliary Jev inference and routed execution, correlated to a logged tool call. */
+'workspace/route': WorkspaceRouterEvent
+```
+
+来源： [`packages/experimental/workspace-router/src/types.ts:18`](../packages/experimental/workspace-router/src/types.ts)

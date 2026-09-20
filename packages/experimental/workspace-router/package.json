@@ -1,0 +1,52 @@
+{
+  "name": "@workspacealberta/wa-experimental-workspace-router",
+  "version": "0.1.0-rc.8",
+  "description": "Jev decision tree for WorkspaceAlberta procurement tools",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./invariant": {
+      "types": "./lib/types/invariant.d.ts",
+      "default": "./lib/invariant.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/invariant.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@workspacealberta/schemastery": "workspace:^",
+    "@typesafe-ai/sdk": "^0.6.0",
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@workspacealberta/cordis": "workspace:^",
+    "@workspacealberta/wa-agent": "workspace:^",
+    "@workspacealberta/wa-credentials": "workspace:^",
+    "@workspacealberta/wa-invariants": "workspace:^",
+    "@workspacealberta/wa-llm": "workspace:^",
+    "@workspacealberta/wa-session": "workspace:^",
+    "@workspacealberta/wa-tools": "workspace:^"
+  },
+  "devDependencies": {
+    "@workspacealberta/cordis": "workspace:^",
+    "@workspacealberta/wa-agent": "workspace:^",
+    "@workspacealberta/wa-credentials": "workspace:^",
+    "@workspacealberta/wa-invariants": "workspace:^",
+    "@workspacealberta/wa-llm": "workspace:^",
+    "@workspacealberta/wa-session": "workspace:^",
+    "@workspacealberta/wa-system-prompt": "workspace:^",
+    "@workspacealberta/wa-tools": "workspace:^",
+    "@workspacealberta/wa-agent-loop": "workspace:^"
+  }
+}

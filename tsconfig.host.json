@@ -306,6 +306,7 @@
     { "path": "./packages/lsp/lsp" },
     { "path": "./packages/lsp/lsp-stdio" },
     { "path": "./packages/lsp/tool-lsp" },
+    { "path": "./packages/experimental/workspace-router" },
     { "path": "./apps/cli" }
   ]
 }

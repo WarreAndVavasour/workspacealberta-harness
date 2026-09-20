@@ -95,6 +95,10 @@ function runTurn(sessionId: string): void {
     return
   }
   event(sessionId, 'turn/start', { turn: 0 })
+  if (env.FAKE_WORKSPACE_ROUTE !== undefined) {
+    event(sessionId, 'workspace/route', { callId: 'workspace-fixture', phase: 'decision',
+      value: { decision: { kind: 'clarify', reason: 'missing_profile' } } })
+  }
   event(sessionId, 'assistant/chunk', { turn: 0, step: 0, chunk: { type: 'text-delta', index: 0, text } })
   if (env.FAKE_MALFORMED_MESSAGE !== undefined) {
     event(sessionId, 'assistant/message', {

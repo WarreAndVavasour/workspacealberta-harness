@@ -60,6 +60,8 @@ import * as ToolSessionQuery from '@workspacealberta/wa-tool-session-query'
 import * as ToolTasks from '@workspacealberta/wa-tool-jobs'
 import type TeamService from '@workspacealberta/wa-experimental-agent-team'
 import * as ToolTeam from '@workspacealberta/wa-experimental-tool-agent-team'
+import * as WorkspaceRouter from '@workspacealberta/wa-experimental-workspace-router'
+import { CredentialProvider } from '@workspacealberta/wa-credentials'
 import * as ToolTodo from '@workspacealberta/wa-tool-todo'
 import * as ToolSubagent from '@workspacealberta/wa-tool-subagent'
 import * as ToolWeb from '@workspacealberta/wa-tool-web'
@@ -94,6 +96,14 @@ class CatalogAttachmentStore extends AttachmentStore {
 
 const root = resolve(import.meta.dirname, '..')
 const OUT = 'docs/tool-catalog.md'
+
+/** Non-secret activation credential; schema harvesting never sends an inference request. */
+class CatalogCredentialProvider extends CredentialProvider {
+  resolve() { return Promise.resolve({ value: 'catalog-placeholder', source: 'catalog' }) }
+  describe() { return Promise.resolve({ configured: true, writable: false }) }
+  set(): Promise<void> { return Promise.reject(new Error('Catalog credentials are read-only')) }
+  unset(): Promise<void> { return Promise.reject(new Error('Catalog credentials are read-only')) }
+}
 
 /**
  * Register the descriptor needed to mount schema-producing consumers. Declares
@@ -560,6 +570,23 @@ const TOOL_PACKAGES: ToolPackage[] = [
     scope: ctx => catalogChildScopes.get(ctx) as Agent,
     note:
       'All ten tools are scoped to implicit Team Leads and durable teammates. The shipped dsh-base bundle keeps the package disabled; the documented Agent Teams profile patch enables it while disabling the legacy continuable-child control names.',
+  },
+  {
+    pkg: '@workspacealberta/wa-experimental-workspace-router',
+    dir: 'workspace-router',
+    source: 'packages/experimental/workspace-router/src/index.ts',
+    requires: ['ctx.tools', 'ctx.credentials', 'a session-backed Agent', 'configured WorkspaceAlberta MCP tools'],
+    writes: ['tool/call', 'workspace/route', 'tool/result'],
+    async mount(ctx) {
+      await ctx.plugin(CatalogCredentialProvider)
+      await ctx.plugin(WorkspaceRouter, WorkspaceRouter.Config({
+        tools: { search: 'search', match: 'match', details: 'details', deadlines: 'deadlines', bid_room: 'bid_room' },
+        minConfidence: { search: 1, match: 1, details: 1, deadlines: 1, bid_room: 1 },
+        referenceConfidence: 1,
+      }))
+    },
+    note: 'Private opt-in Jev routing tool. Recommendation is the default; execution uses guarded tool dispatch. '
+      + 'Confidence thresholds are required deployment settings; catalog placeholders only allow schema harvesting.',
   },
   {
     pkg: '@workspacealberta/wa-tool-todo',

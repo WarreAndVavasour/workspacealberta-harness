@@ -1,0 +1,27 @@
+- id: base
+  name: '@workspacealberta/cordis-plugin-include'
+  config:
+    path: ./cordis.yml
+- id: procurement
+  name: '@workspacealberta/wa-mcp-client'
+  config:
+    serverName: procurement
+    transport: streamable-http
+    url: !!js process.env.WORKSPACEALBERTA_MCP_URL
+    failOnStartupError: true
+- id: workspace-router
+  name: '@workspacealberta/wa-experimental-workspace-router'
+  config:
+    mode: recommend
+    minConfidence: !!js JSON.parse(process.env.WORKSPACE_ROUTER_THRESHOLDS ?? '{}')
+    referenceConfidence: !!js Number(process.env.WORKSPACE_ROUTER_REFERENCE_CONFIDENCE)
+    tools:
+      search: mcp__procurement__search_opportunities
+      match: mcp__procurement__find_matching_opportunities
+      details: mcp__procurement__get_opportunity_details
+      deadlines: mcp__procurement__list_deadlines
+      bid_room: mcp__procurement__process_bid_room
+- id: router-invariants
+  name: '@workspacealberta/wa-invariants'
+- id: workspace-router-invariant
+  name: '@workspacealberta/wa-experimental-workspace-router/invariant'

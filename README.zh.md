@@ -8,6 +8,14 @@
 
 面向 CEO、为实际工作构建与交付而定制的企业级 AI 终端。Workspace Alberta 是 Warre & Vavasour 产品。操作员 CLI 为 `wa`；软件包使用 `@workspacealberta` 作用域。启动说明见 [WORKSPACE_ALBERTA.md](WORKSPACE_ALBERTA.md)。继承的 MIT 源码与声明见 [LICENSE](LICENSE) 和 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 
+## 从经营证据到行动
+
+![WorkspaceAlberta 与 Jev 架构概念：文档、Stripe、电子邮件和社交媒体证据经过类型化判断，形成有证据支撑的商业计划。](docs/assets/jev-business-evidence.png)
+
+*此架构概念对应[商业规划工作流提案](.agents/notes/proposed/feature/2026-09-19-jev-business-planning.md)。* 连接企业经营证据，识别能够交付的机会，并制定包含来源、假设、预算和可衡量行动的 90 天计划。Jev 选择并核验证据；推理模型编写计划；代码计算数值。
+
+[实验性 Jev 路由器](packages/experimental/workspace-router/README.md)提供采购工具决策。上图的连接器到商业计划工作流是提案，尚非已部署的集成。
+
 ## 给“要是能这样就好了……”一个地方
 
 通过 [本地 APC 连接器](integrations/apc/README.md)，可在 Cohere harness 中连接供应商账户并下载招标文件。

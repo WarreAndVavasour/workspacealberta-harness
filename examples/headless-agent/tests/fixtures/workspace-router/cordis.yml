@@ -1,0 +1,57 @@
+- id: llm
+  name: '@workspacealberta/wa-llm'
+- id: sessions
+  name: '@workspacealberta/wa-session'
+- id: system-prompt
+  name: '@workspacealberta/wa-system-prompt'
+  config:
+    includeHarnessIdentity: false
+    includeRuntimeContext: false
+- id: tools
+  name: '@workspacealberta/wa-tools'
+- id: agents
+  name: '@workspacealberta/wa-agent'
+- id: credentials
+  name: '@workspacealberta/wa-credentials-local'
+- id: fixture-model
+  name: './model.ts'
+- id: loop
+  name: '@workspacealberta/wa-agent-loop'
+  config:
+    agents:
+      - id: main
+        provider: workspace-fixture
+        model: fixture
+        cwd: !!js process.cwd()
+- id: procurement
+  name: '@workspacealberta/wa-mcp-client'
+  config:
+    serverName: procurement
+    transport: streamable-http
+    url: !!js process.env.WORKSPACE_FIXTURE_URL + '/mcp'
+    failOnStartupError: true
+- id: router
+  name: '@workspacealberta/wa-experimental-workspace-router'
+  config:
+    apiKeyRef: TYPESAFE_FIXTURE_KEY
+    baseURL: !!js process.env.WORKSPACE_FIXTURE_URL
+    model: jev-fixture
+    mode: execute
+    maxEvidenceAgeMs: 9007199254740991
+    minConfidence:
+      search: 0.8
+      match: 0.8
+      details: 0.8
+      deadlines: 0.8
+      bid_room: 0.95
+    referenceConfidence: 0.9
+    tools:
+      search: mcp__procurement__search_opportunities
+      match: mcp__procurement__find_matching_opportunities
+      details: mcp__procurement__get_opportunity_details
+      deadlines: mcp__procurement__list_deadlines
+      bid_room: mcp__procurement__process_bid_room
+- id: invariants
+  name: '@workspacealberta/wa-invariants'
+- id: router-invariant
+  name: '@workspacealberta/wa-experimental-workspace-router/invariant'

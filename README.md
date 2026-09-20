@@ -8,6 +8,14 @@
 
 A custom, CEO-focused, enterprise-grade AI terminal for building and delivering real work. Workspace Alberta is a Warre & Vavasour product. The operator CLI is `wa`; packages ship under `@workspacealberta`. Launch instructions live in [WORKSPACE_ALBERTA.md](WORKSPACE_ALBERTA.md). Inherited MIT source and notices are recorded in [LICENSE](LICENSE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
+## From business evidence to action
+
+![WorkspaceAlberta and Jev architecture concept: documents, Stripe, email and social evidence feed typed judgments and an evidence-backed business plan.](docs/assets/jev-business-evidence.png)
+
+*Architecture concept for the [proposed business-planning workflow](.agents/notes/proposed/feature/2026-09-19-jev-business-planning.md).* Connect the evidence behind your business, identify opportunities you can deliver, and build a 90-day plan with sources, assumptions, budgets and measurable actions. Jev selects and verifies evidence; the reasoning model develops the plan; code calculates the numbers.
+
+The [experimental Jev router](packages/experimental/workspace-router/README.md) provides procurement-tool decisions. The connector-to-plan workflow pictured above is a proposal, not a deployed integration.
+
 ## A place for “Wouldn't it be great if…”
 
 Connect a supplier account and retrieve tender documents through the Cohere harness with the [local APC connector](integrations/apc/README.md).

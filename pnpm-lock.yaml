@@ -490,6 +490,9 @@ importers:
       '@workspacealberta/wa-experimental-tool-agent-team':
         specifier: workspace:*
         version: link:../packages/experimental/tool-agent-team
+      '@workspacealberta/wa-experimental-workspace-router':
+        specifier: workspace:*
+        version: link:../packages/experimental/workspace-router
       '@workspacealberta/wa-fs-e2b':
         specifier: workspace:*
         version: link:../packages/e2b/fs-e2b
@@ -4233,6 +4236,46 @@ importers:
       '@workspacealberta/wa-tool-subagent-control':
         specifier: workspace:^
         version: link:../../subagent/tool-subagent-control
+      '@workspacealberta/wa-tools':
+        specifier: workspace:^
+        version: link:../../core/tools
+
+  packages/experimental/workspace-router:
+    dependencies:
+      '@typesafe-ai/sdk':
+        specifier: ^0.6.0
+        version: 0.6.0
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@workspacealberta/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@workspacealberta/wa-agent':
+        specifier: workspace:^
+        version: link:../../core/agent
+      '@workspacealberta/wa-agent-loop':
+        specifier: workspace:^
+        version: link:../../core/agent-loop
+      '@workspacealberta/wa-credentials':
+        specifier: workspace:^
+        version: link:../../credentials/credentials
+      '@workspacealberta/wa-invariants':
+        specifier: workspace:^
+        version: link:../../runtime-diagnostics/invariants
+      '@workspacealberta/wa-llm':
+        specifier: workspace:^
+        version: link:../../llm/llm
+      '@workspacealberta/wa-session':
+        specifier: workspace:^
+        version: link:../../core/session
+      '@workspacealberta/wa-system-prompt':
+        specifier: workspace:^
+        version: link:../../core/system-prompt
       '@workspacealberta/wa-tools':
         specifier: workspace:^
         version: link:../../core/tools
@@ -11811,6 +11854,10 @@ packages:
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
 
+  '@typesafe-ai/sdk@0.6.0':
+    resolution: {integrity: sha512-IddX+Q0XM+VagOUZFeP7wZjaO4SHMdvnh2zEBdrZZnXedWI3BNK1lKhMx3ayrkFWvVLbVcUHJy6AVZlY+e6Jaw==}
+    engines: {node: '>=20'}
+
   '@typescript-eslint/types@8.61.0':
     resolution: {integrity: sha512-9QTQpZ5Iin4CdIodfbDQFSeiSJKidgYJYug1P9CC2xWgUTvlmixViqDZNciMjwLBZyJnG4tGmPl97rVAFb1AJg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -16991,6 +17038,8 @@ snapshots:
   '@types/ws@8.18.1':
     dependencies:
       '@types/node': 22.20.0
+
+  '@typesafe-ai/sdk@0.6.0': {}
 
   '@typescript-eslint/types@8.61.0': {}
 
