@@ -19,6 +19,8 @@ type CredentialRef = Branded<'CredentialRef'>
 
 `resolve(ref)` 返回值及提供该值的来源层（由提供方定义）；未配置期间返回 `undefined`。消费方在每个操作中重新解析，绝不跨操作缓存——这种按操作进行的读取正是热更新机制。
 
+`allowAmbientAuthentication` 告诉消费方是否允许提供者原生的环境或凭据文件发现。默认值为 `true`；[只读 1Password 来源](../../packages/credentials/credentials-local/README.zh.md) 返回 `false`，因此消费方必须通过本服务解析凭据，并拒绝内联身份验证配置。
+
 ```ts type-equiv
 /** One resolved credential value and the source layer that supplied it. */
 interface ResolvedCredential {

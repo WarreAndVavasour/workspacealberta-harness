@@ -95,6 +95,9 @@ export const WEB_SEARCH_COHERE_SETTINGS_NAMESPACE = 'web-search-cohere'
  * @returns options for one search.
  */
 function resolveOptions(ctx: Context, config: Config): CohereSearchProviderOptions {
+  if (ctx.get('credentials')?.allowAmbientAuthentication === false && config.apiKey) {
+    throw new Error('Cohere search requires a credential reference when 1Password is active')
+  }
   const apiKeyEnv = credentialRef(config.apiKeyEnv ?? DEFAULT_API_KEY_ENV)
   const literalApiKey = config.apiKey !== undefined && config.apiKey.length > 0
     ? config.apiKey
@@ -129,6 +132,11 @@ function resolveOptions(ctx: Context, config: Config): CohereSearchProviderOptio
 export function apply(ctx: Context, config: Config): void {
   let current: () => Config = () => config
   ctx.settings.installSection(ctx, WEB_SEARCH_COHERE_SETTINGS_NAMESPACE, Config, config, {
+    validate: (value) => {
+      if (ctx.get('credentials')?.allowAmbientAuthentication === false && value.apiKey) {
+        throw new Error('Cohere search requires a credential reference when 1Password is active')
+      }
+    },
     setSource: (source) => {
       current = source
     },

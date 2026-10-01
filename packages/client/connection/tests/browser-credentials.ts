@@ -3,6 +3,7 @@ import type { CredentialProvider, CredentialRecord } from '@workspacealberta/wa-
 
 /** Mutable credential-record double for Connection authentication tests. */
 export class RecordCredentials {
+  readonly allowAmbientAuthentication = true
   record: CredentialRecord | undefined
   discardWrites = false
   reads = 0

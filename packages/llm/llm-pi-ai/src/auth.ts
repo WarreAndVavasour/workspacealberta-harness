@@ -203,17 +203,18 @@ export function credentialStoreFrom(ctx: Context): CredentialStore {
 export function authContextFrom(ctx: Context): AuthContext {
   return {
     async env(name) {
+      const credentials = ctx.get('credentials')
       // pi-ai asks about arbitrary provider-declared names; one that is not a
       // POSIX identifier can never have been stored as a reference, and asking
       // the seam would throw instead of answering "not set".
       if (isCredentialRefName(name)) {
-        const credentials = ctx.get('credentials')
         const hit = await credentials?.resolve(credentialRef(name))
         if (hit !== undefined) return hit.value
       }
-      return launchEnvironmentOf(ctx).get(name)?.value
+      return credentials?.allowAmbientAuthentication === false ? undefined : launchEnvironmentOf(ctx).get(name)?.value
     },
     async fileExists(path) {
+      if (ctx.get('credentials')?.allowAmbientAuthentication === false) return false
       const expanded = path.startsWith('~/') || path === '~'
         ? resolvePath(homedir(), path.slice(1).replace(/^\//, ''))
         : path

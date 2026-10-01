@@ -19,6 +19,7 @@ import { dshHomePath, resolveDshHome } from '@workspacealberta/wa-home-paths'
 import { createLaunchEnvironmentSnapshot, type LaunchEnvironmentSnapshot } from '@workspacealberta/wa-launch-environment'
 import type {} from '@workspacealberta/cordis-plugin-hmr'
 import type {} from '@workspacealberta/wa-system-prompt'
+import { redactConfigDump } from './config-dump-redaction.ts'
 
 declare module '@workspacealberta/cordis' {
   interface Context {
@@ -356,8 +357,8 @@ function parsePatchList(
   let parsed: unknown
   try {
     parsed = yaml.load(content, { schema: userPatchesSchema })
-  } catch (error) {
-    throw new Error(`${binName}: failed to parse ${label} ${file}: ${String(error)}`)
+  } catch {
+    throw new Error(`${binName}: failed to parse ${label} ${file}: invalid YAML; source details concealed`)
   }
   if (!Array.isArray(parsed)) {
     throw new Error(`${binName}: ${label} ${file} must be a top-level YAML array of loader patch entries`)
@@ -424,8 +425,8 @@ export function renderConfigDump(
   let parsed: unknown
   try {
     parsed = yaml.load(content, { schema: entryListSchema })
-  } catch (error) {
-    throw new Error(`${binName}: failed to parse config ${absoluteConfigPath}: ${String(error)}`)
+  } catch {
+    throw new Error(`${binName}: failed to parse config ${absoluteConfigPath}: invalid YAML; source details concealed`)
   }
   if (!Array.isArray(parsed)) {
     throw new Error(`${binName}: config ${absoluteConfigPath} must be a top-level YAML array of entries`)
@@ -485,7 +486,7 @@ function groupedDump(
   const flush = (): void => {
     if (currentLabel === undefined || group.length === 0) return
     lines.push(`# == ${currentLabel}`)
-    lines.push(yaml.dump(group, { schema: entryListSchema, noRefs: true }).trimEnd())
+    lines.push(yaml.dump(redactConfigDump(group), { schema: entryListSchema, noRefs: true }).trimEnd())
     group = []
   }
   for (let index = 0; index < composed.length; index += 1) {

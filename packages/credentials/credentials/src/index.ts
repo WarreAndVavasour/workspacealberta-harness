@@ -172,6 +172,9 @@ export abstract class CredentialProvider extends Service {
     super(ctx, 'credentials')
   }
 
+  /** Whether consumers may discover credentials outside this provider, including host credential files. */
+  get allowAmbientAuthentication(): boolean { return true }
+
   /**
    * Resolve one reference to its current value. Resolution is per call:
    * consumers re-resolve at each operation and must not cache across

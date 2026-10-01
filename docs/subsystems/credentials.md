@@ -17,7 +17,9 @@ type CredentialRef = Branded<'CredentialRef'>
 
 ## Resolution
 
-`resolve(ref)` returns the value with the provider-defined source layer that supplied it, or `undefined` while unconfigured. Consumers re-resolve at each operation and never cache across operations — that per-operation read is the hot-update mechanism.
+`resolve(ref)` returns the value with the provider-defined source layer that supplied it, or `undefined` while unconfigured. Consumers re-resolve at each operation and never cache across operations - that per-operation read is the hot-update mechanism.
+
+`allowAmbientAuthentication` tells consumers whether provider-native environment or credential-file discovery is permitted. Its default is `true`; the [read-only 1Password source](../../packages/credentials/credentials-local/README.md) returns `false`, so consumers must resolve credentials through this service and reject inline authentication configuration.
 
 ```ts type-equiv
 /** One resolved credential value and the source layer that supplied it. */

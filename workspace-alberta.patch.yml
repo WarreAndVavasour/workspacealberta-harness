@@ -8,6 +8,14 @@
 # to DISABLED unless DSH_TELEMETRY_MODE opts in, and no collector URL exists
 # in the environment, so nothing exports off-machine.
 
+- id: credentials
+  config:
+    onePassword:
+      refs:
+        COHERE_API_KEY: op://workspaceAlberta/Cohere/api-key
+      records:
+        client-connection/browser-session: op://workspaceAlberta/Harness/browser-session-record
+
 - id: llm-deepseek
   disabled: true
 
