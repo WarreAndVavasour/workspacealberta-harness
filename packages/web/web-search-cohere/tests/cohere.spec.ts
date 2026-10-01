@@ -1,6 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@workspacealberta/cordis'
 import WebRuntime from '@workspacealberta/wa-web'
+import SettingsFile from '@workspacealberta/wa-settings-file'
+import { mkdtemp, readFile, rm } from 'node:fs/promises'
+import type { CredentialProvider } from '@workspacealberta/wa-credentials'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 import {
   CohereSearchProvider,
   COHERE_PROVIDER_ID,
@@ -52,6 +57,30 @@ const DDG_HTML = `
 
 afterEach(() => {
   vi.unstubAllGlobals()
+})
+
+it('rejects literal-key settings before persistence when the credential source is read-only', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'wa-cohere-readonly-'))
+  const ctx = new Context()
+  try {
+    ctx.provide('credentials', { allowAmbientAuthentication: false } as CredentialProvider)
+    await ctx.plugin(WebRuntime)
+    const path = join(dir, 'settings.yaml')
+    await ctx.plugin(SettingsFile, { path, watch: false })
+    const plugin = await import('../src/index.ts')
+    await ctx.plugin(plugin, {})
+    await expect(ctx.settings.update('web-search-cohere', { apiKey: 'synthetic-settings-key' }))
+      .rejects.toThrow('requires a credential reference')
+    const stored = await readFile(path, 'utf8').catch((error: NodeJS.ErrnoException) => {
+      if (error.code === 'ENOENT') return ''
+      throw error
+    })
+    expect(stored).not.toContain('synthetic-settings-key')
+    await expect(ctx.settings.update('web-search-cohere', { apiKeyEnv: 'COHERE_API_KEY' })).resolves.toBeUndefined()
+  } finally {
+    await ctx.fiber.dispose()
+    await rm(dir, { recursive: true, force: true })
+  }
 })
 
 describe('unwrapDuckDuckGoHref', () => {
@@ -268,12 +297,19 @@ describe('plugin registration', () => {
     vi.stubGlobal('fetch', vi.fn(async (): Promise<Response> => { throw new Error('offline test') }))
     const ctx = new Context()
     await ctx.plugin(WebRuntime, {})
-    const plugin = await import('@workspacealberta/web-search-cohere')
+    const dir = await mkdtemp(join(tmpdir(), 'wa-cohere-settings-'))
+    await ctx.plugin(SettingsFile, { path: join(dir, 'settings.yaml'), watch: false })
+    const plugin = await import('../src/index.ts')
     const pluginFiber = ctx.plugin(plugin, { apiKey: 'co-key' })
     await pluginFiber.await()
     // Selection resolves the sole registered provider; the offline fetch maps
     // to the provider error the seam's callers route on.
-    await expect(ctx.web.search({ query: 'unused' })).rejects.toMatchObject({ code: 'WEB_PROVIDER_ERROR' })
-    expect(COHERE_PROVIDER_ID).toBe('cohere')
+    try {
+      await expect(ctx.web.search({ query: 'unused' })).rejects.toMatchObject({ code: 'WEB_PROVIDER_ERROR' })
+      expect(COHERE_PROVIDER_ID).toBe('cohere')
+    } finally {
+      await ctx.fiber.dispose()
+      await rm(dir, { recursive: true, force: true })
+    }
   })
 })
