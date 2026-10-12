@@ -1,0 +1,10 @@
+[Unit]
+Description=workspaceAlberta procurement improver, weekdays 07:00 Edmonton
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 07:00:00 America/Edmonton
+Persistent=false
+Unit=wa-improver.service
+
+[Install]
+WantedBy=timers.target

@@ -1,6 +1,15 @@
 # AGENTS.md
 
-DeepSeek Harness is an all-plugin Cordis agent harness. Read [docs/architecture.md](docs/architecture.md) before changing `packages/`; follow [docs/AGENTS.md](docs/AGENTS.md) for documentation.
+workspaceAlberta is the Warre & Vavasour Ltd. (W&V, Canmore, Alberta) agent terminal for Canadian industrial and procurement work, built on the all-plugin Cordis agent harness inherited from the MIT-licensed DeepSeek Harness (see `LICENSE`, `THIRD_PARTY_NOTICES.md`). Read [docs/architecture.md](docs/architecture.md) before changing `packages/`; follow [docs/AGENTS.md](docs/AGENTS.md) for documentation.
+
+## workspaceAlberta deployment
+
+- **Product.** The harness runs on a customer's Raspberry Pi 5 desk terminal, leased at C$10,800/month, supported by W&V over Tailscale. The CLI is `wa`; internal `dsh` names, `DSH_*` variables and `dsh-*` package names are inherited and stay until a deliberate rename.
+- **Cohere only.** `workspace-alberta.patch.yml` selects the `cohere-canada` route (`command-a-plus-05-2026`), disables the DeepSeek model and web-search adapters and session telemetry. Never re-enable them or add another model route in the deployment patch. Customer data stays in Canada.
+- **Secrets.** `COHERE_API_KEY` resolves from 1Password through the patch or the process environment. No keys belong in this repository.
+- **Procurement.** Skills `wa-procurement-base` (task clock) and `wa-procurement-improver` (maintenance clock, `disable-model-invocation`) are in `.agents/skills/`. The improver job is in [ops/improver](ops/improver/README.md); never load it as task instructions.
+- **Deployed desks.** A push does not update a desk. The desk checkout must pull and rebuild with `bash scripts/wa-desk-rebuild.sh`. Run and operate per [docs/ops/RUNBOOK.md](docs/ops/RUNBOOK.md) and [WORKSPACE_ALBERTA.md](WORKSPACE_ALBERTA.md).
+- **Brand.** Customer-facing surfaces say workspaceAlberta, plain and literal; no DeepSeek name or wordmark. W&V rules: `wvsetup/CLAUDE.md`.
 
 ## Pre-release stance: foundation over blast radius
 
@@ -16,7 +25,7 @@ packages/    @workspacealberta/wa-<pkg> workspaces at packages/<group>/<pkg>/
   core/        product API spine: session, system-prompt, tools, agent, agent-loop
   api/         Remote BFF assembly and Typert RPC gateway
   typert/      type graph generator, loader, and runtime registry
-  llm/         LLM capability: Service Definition/Consumer + DeepSeek providers
+  llm/         LLM capability: Service Definition/Consumer + providers (DeepSeek inherited, disabled in the W&V patch)
   e2b/         E2B POC: sandbox + FS/subprocess adapters
   shell/        bash capability: Service Definition + local/pwsh providers + shell Consumers
   subprocess/  subprocess capability + local process-tree provider + shared Win32 library
@@ -78,7 +87,7 @@ pnpm run check:windows-wine  # ONLY when diagnosing a known Windows failure (nee
 pnpm run doc-sync       # all documentation gates; leaf list in scripts/run-gates.ts
 pnpm run test:docs      # quick documentation checks (no build; doc-quick aggregate)
 pnpm run website:build  # VitePress build (doubles as dead-link check)
-pnpm dsh --profile headless "task"  # run one task from source (needs DEEPSEEK_API_KEY)
+pnpm wa --profile headless --patch workspace-alberta.patch.yml "task"  # run one task (needs COHERE_API_KEY)
 pnpm run demo:ptc -- "task"  # headless PTC mode run (needs key)
 ```
 
@@ -96,7 +105,7 @@ Run checks before pushes via [dsh-pre-push-checks](.agents/skills/dsh-pre-push-c
 
 ## Secrets / .env
 
-Real-API tests and demos read `DEEPSEEK_API_KEY`, optional `DEEPSEEK_BASE_URL`, and root `.env`. cordis.yml allows `!!js` (never `!js`) under plugin `config` and entry `disabled`; other metadata stays literal, so conditional composition also uses overlays ([primer](docs/cordis-primer.md#loader-configuration)). Never commit credentials. CI e2e skips without a key; [testing.md](docs/testing.md) owns key policy.
+Upstream real-API tests and demos read `DEEPSEEK_API_KEY` (unused in W&V deployments), optional `DEEPSEEK_BASE_URL`, and root `.env`. cordis.yml allows `!!js` (never `!js`) under plugin `config` and entry `disabled`; other metadata stays literal, so conditional composition also uses overlays ([primer](docs/cordis-primer.md#loader-configuration)). Never commit credentials. CI e2e skips without a key; [testing.md](docs/testing.md) owns key policy.
 
 ## Conventions
 

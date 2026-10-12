@@ -1,0 +1,9 @@
+[Unit]
+Description=workspaceAlberta procurement improver (one PR at most)
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/Projects/WorkspaceAlberta-Harness
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=%h/Projects/WorkspaceAlberta-Harness/ops/improver/run.sh
+TimeoutStartSec=45min
