@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 # Weekday maintenance run for the wa-procurement-improver skill.
 # Owns the scan cursor and run receipts; the skill owns the proposal. At most one PR per run.
+#
+# Cursor: ~/.workspaceAlberta/improver/cursor.json, advanced only after a recorded OUTCOME of
+# "proposed" or "no edit". Receipts: receipts/. Runs are serialized with a lock and use a fresh
+# worktree of origin/workspace-alberta through the Cohere route (wa --profile headless).
+# Refuses to run without WA_IMPROVER_GH_TOKEN (a bot token with no merge or protection-bypass
+# rights, so the human merge gate holds). Settings: ~/.config/wv/improver.env
+# (WA_IMPROVER_GH_TOKEN, COHERE_API_KEY); never commit it.
+# Install: copy wa-improver.service and wa-improver.timer to ~/.config/systemd/user/, adjust
+# WorkingDirectory and ExecStart to the harness checkout, then
+# `systemctl --user enable --now wa-improver.timer` (weekdays 07:00 America/Edmonton).
+# A merge reaches a desk only after that checkout updates; a push does not update the fleet.
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"

@@ -7,7 +7,7 @@ workspaceAlberta is the Warre & Vavasour Ltd. (W&V, Canmore, Alberta) agent term
 - **Product.** The harness runs on a customer's Raspberry Pi 5 desk terminal, leased at C$10,800/month, supported by W&V over Tailscale. The CLI is `wa`; internal `dsh` names, `DSH_*` variables and `dsh-*` package names are inherited and stay until a deliberate rename.
 - **Cohere only.** `workspace-alberta.patch.yml` selects the `cohere-canada` route (`command-a-plus-05-2026`), disables the DeepSeek model and web-search adapters and session telemetry. Never re-enable them or add another model route in the deployment patch. Customer data stays in Canada.
 - **Secrets.** `COHERE_API_KEY` resolves from 1Password through the patch or the process environment. No keys belong in this repository.
-- **Procurement.** Skills `wa-procurement-base` (task clock) and `wa-procurement-improver` (maintenance clock, `disable-model-invocation`) are in `.agents/skills/`. The improver job is in [ops/improver](ops/improver/README.md); never load it as task instructions.
+- **Procurement.** Skills `wa-procurement-base` (task clock) and `wa-procurement-improver` (maintenance clock, `disable-model-invocation`) are in `.agents/skills/`. The improver job is in `ops/improver`; never load it as task instructions.
 - **Deployed desks.** A push does not update a desk. The desk checkout must pull and rebuild with `bash scripts/wa-desk-rebuild.sh`. Run and operate per [docs/ops/RUNBOOK.md](docs/ops/RUNBOOK.md) and [WORKSPACE_ALBERTA.md](WORKSPACE_ALBERTA.md).
 - **Brand.** Customer-facing surfaces say workspaceAlberta, plain and literal; no DeepSeek name or wordmark. W&V rules: `wvsetup/CLAUDE.md`.
 
