@@ -77,6 +77,12 @@
     - id: session-turn-outline
       name: '@workspacealberta/wa-session-turn-outline'
 
+    # Per-requirement episode trajectories (the episodeRecorder projection
+    # key): tool calls, approvals and classify_tender manifests folded into
+    # wa.episode.v1-shaped training data. Host-only — no client view.
+    - id: session-episode-recorder
+      name: '@workspacealberta/wa-session-episode-recorder'
+
     # Resolve bind host, SSH launch, and display once at boot, then mount the
     # matching dual-face directory picker. Mount -native or -browse directly in
     # an overlay to pin the interaction.

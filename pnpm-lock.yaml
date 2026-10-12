@@ -1642,6 +1642,9 @@ importers:
       '@workspacealberta/wa-message-feedback':
         specifier: workspace:^
         version: link:../../feedback/message-feedback
+      '@workspacealberta/wa-session-episode-recorder':
+        specifier: workspace:^
+        version: link:../../session/session-episode-recorder
       '@workspacealberta/wa-session-log-export':
         specifier: workspace:^
         version: link:../../session-query/session-log-export
@@ -7131,6 +7134,34 @@ importers:
         specifier: workspace:^
         version: link:../../core/tools
 
+  packages/session/session-episode-recorder:
+    dependencies:
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@workspacealberta/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@workspacealberta/cordis-plugin-include':
+        specifier: workspace:^
+        version: link:../../../vendor/include
+      '@workspacealberta/cordis-plugin-loader':
+        specifier: workspace:^
+        version: link:../../../vendor/loader
+      '@workspacealberta/wa-llm':
+        specifier: workspace:^
+        version: link:../../llm/llm
+      '@workspacealberta/wa-session':
+        specifier: workspace:^
+        version: link:../../core/session
+      '@workspacealberta/wa-session-projection':
+        specifier: workspace:^
+        version: link:../session-projection
+      '@workspacealberta/wa-user-approval':
+        specifier: workspace:^
+        version: link:../../interaction/user-approval
+
   packages/session/session-log-deepseek:
     dependencies:
       '@workspacealberta/schemastery':
@@ -11752,10 +11783,12 @@ packages:
 
   '@modelcontextprotocol/server-everything@2026.7.4':
     resolution: {integrity: sha512-ydMW/M6rk9tK23b+U38trsNLHhd5eF+ntiv2Vr+RPMDhbiKY/IKrZU25ukvSXVPUBvy7TxTPWpeV4KcYcXg72w==}
+    deprecated: 'Date-based versions are no longer published. This package has resumed semantic versioning at 1.0.0: install the latest version.'
     hasBin: true
 
   '@modelcontextprotocol/server-filesystem@2026.7.10':
     resolution: {integrity: sha512-Mmjg4anFBD5OzbPnGJOA0jPPN8645ERhQk38HQLpSenx1ox9bfdPkmAzUnNjeQtqQGFLtKe13J20RtLBmUKMZA==}
+    deprecated: 'Date-based versions are no longer published. This package has resumed semantic versioning at 1.0.0: install the latest version.'
     hasBin: true
 
   '@napi-rs/wasm-runtime@1.1.5':
