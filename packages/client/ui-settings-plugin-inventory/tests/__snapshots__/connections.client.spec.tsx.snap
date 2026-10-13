@@ -1,0 +1,70 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Connections Settings > adds a remote OAuth server from the form and shows the supported management actions 1`] = `
+<div>
+  <section
+    aria-label="Connections"
+    class="section"
+  >
+    <h2>
+      Connections
+    </h2>
+    <p>
+      Add MCP servers, sign in when needed, and manage the tools this terminal can use.
+    </p>
+    <button
+      type="button"
+    >
+      Add connection
+    </button>
+    <ul
+      class="list"
+    >
+      <li
+        class="card"
+      >
+        <strong>
+          Business tools
+        </strong>
+        <p>
+          https://mcp.example.test/mcp
+        </p>
+        <p
+          role="status"
+        >
+          Sign-in required
+        </p>
+        <div
+          class="actions"
+        >
+          <button
+            type="button"
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+          >
+            Disable
+          </button>
+          <button
+            type="button"
+          >
+            Reconnect
+          </button>
+          <button
+            type="button"
+          >
+            Sign in
+          </button>
+          <button
+            type="button"
+          >
+            Remove
+          </button>
+        </div>
+      </li>
+    </ul>
+  </section>
+</div>
+`;

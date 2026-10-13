@@ -16,6 +16,7 @@
  */
 
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
+import type { OAuthClientProvider } from '@modelcontextprotocol/sdk/client/auth.js'
 import { ToolListChangedNotificationSchema } from '@modelcontextprotocol/sdk/types.js'
 import type { Context } from '@workspacealberta/cordis'
 import { MAX_TIMER_DELAY_MS } from '@workspacealberta/wa-timeout'
@@ -97,6 +98,8 @@ export interface ConnectionOutcome {
 
 /** Handle for one plugin instance's supervised connection. */
 export interface ConnectionHandle {
+  /** Current supervisor state, including outages after the first successful connection. */
+  readonly status: 'connecting' | 'connected' | 'failed' | 'closed'
   /**
    * Settles when the first connection attempt completes (success or failure).
    * The supervisor enters its reconnect loop regardless; the caller decides
@@ -118,9 +121,13 @@ export interface ConnectionHandle {
  * @param ctx - Cordis context providing the `tools` registry and logger.
  * @param config - Resolved plugin config selecting the transport and server identity.
  * @param policy - Resolved reconnect policy from {@link resolveReconnectPolicy}.
+ * @param authProvider - Optional host-owned OAuth adapter for HTTP servers; never serialized.
+ * @param fetchFn - Optional host-owned HTTP fetch implementation, including lifecycle cancellation.
  * @returns Handle with a `ready` promise for startup-await and a `dispose` for teardown.
  */
-export function startConnection(ctx: Context, config: Config, policy: ResolvedReconnectPolicy): ConnectionHandle {
+export function startConnection(
+  ctx: Context, config: Config, policy: ResolvedReconnectPolicy, authProvider?: OAuthClientProvider, fetchFn?: typeof fetch,
+): ConnectionHandle {
   const label = `mcp-client(${config.serverName})`
   const opts: ToolBridgeOptions = {
     registrationFailure: 'contain',
@@ -264,12 +271,12 @@ export function startConnection(ctx: Context, config: Config, policy: ResolvedRe
         } catch (error) {
           // Fetch-phase failure: the previous generation is still registered
           // and `disposers` still owns it — keep serving the last good list.
-          if (!disposed) ctx.logger.error(`${label}: tool re-sync failed: ${String(error)}`)
+          if (!disposed) ctx.logger.error(`${label}: tool re-sync failed: ${authProvider ? 'protected MCP request failed' : String(error)}`)
         }
       },
     )
     try {
-      await generation.connect(createTransport(config))
+      await generation.connect(createTransport(config, authProvider, fetchFn))
       if (hasClosed()) {
         attemptSettled = true
         generationDown(generation)
@@ -277,10 +284,10 @@ export function startConnection(ctx: Context, config: Config, policy: ResolvedRe
       }
       await enqueueSync(generation, startup ? startupOpts : opts)
     } catch (error) {
-      if (firstAttemptError === undefined) firstAttemptError = error
+      if (firstAttemptError === undefined) firstAttemptError = authProvider ? new Error('Protected MCP connection failed') : error
       // Disposal clears current ownership before it closes the generation, so
       // only a live supervisor reports an attempt failure.
-      if (isCurrent(generation)) ctx.logger.warn(`${label}: connection attempt failed: ${String(error)}`)
+      if (isCurrent(generation)) ctx.logger.warn(`${label}: connection attempt failed: ${authProvider ? 'protected MCP request failed' : String(error)}`)
       try { await generation.close() } catch { /* transport already gone */ }
       const quiesced = hasClosed() || await waitForClose(closed.promise)
       attemptSettled = true
@@ -324,6 +331,12 @@ export function startConnection(ctx: Context, config: Config, policy: ResolvedRe
 
   return {
     ready,
+    get status() {
+      if (disposed) return 'closed'
+      if (client !== undefined && connectedAt !== undefined) return 'connected'
+      if (reconnectTimer !== undefined || client !== undefined) return 'connecting'
+      return 'failed'
+    },
     async dispose(): Promise<void> {
       disposed = true
       if (reconnectTimer !== undefined) {

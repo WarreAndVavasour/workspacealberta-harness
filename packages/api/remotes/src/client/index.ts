@@ -1,3 +1,5 @@
+import mcpConnectionsRemote from '@workspacealberta/wa-mcp-connections/remote'
+export type {} from '@workspacealberta/wa-mcp-connections/remote'
 /** Platform-neutral assembly of generated Host Remote contributions. */
 
 import type { Context } from '@workspacealberta/cordis'
@@ -146,7 +148,7 @@ export async function apply(ctx: Context): Promise<() => Promise<void>> {
     for (const contribution of [
       agentPresetsRemote, commandsRemote, settingsControllerRemote, goalsRemote, llmRemote, dynamicRemote,
       pluginInventoryRemote, messageFeedbackRemote, sessionReferencesRemote,
-      subagentsRemote, sessionRemote, workspaceRemote,
+      subagentsRemote, sessionRemote, workspaceRemote, mcpConnectionsRemote,
     ]) {
       disposers.push(await ctx.remote.$mount(contribution))
     }

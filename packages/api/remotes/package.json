@@ -52,7 +52,8 @@
   "dependencies": {
     "@workspacealberta/wa-deque": "workspace:^",
     "@workspacealberta/wa-session": "workspace:^",
-    "@workspacealberta/wa-util-values": "workspace:^"
+    "@workspacealberta/wa-util-values": "workspace:^",
+    "@workspacealberta/wa-mcp-connections": "workspace:^"
   },
   "peerDependencies": {
     "@workspacealberta/cordis": "workspace:^",

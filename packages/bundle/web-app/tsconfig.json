@@ -8,6 +8,7 @@
     "src"
   ],
   "references": [
+    {"path": "../../mcp/mcp-connections"},
     {
       "path": "../../../vendor/cordis"
     },

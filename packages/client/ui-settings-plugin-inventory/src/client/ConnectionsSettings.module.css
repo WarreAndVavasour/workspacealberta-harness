@@ -1,0 +1,12 @@
+.section { display: grid; gap: 14px; max-width: 780px; color: var(--dsw-alias-label-primary); }
+.form, .card { padding: 18px; border: 1px solid var(--dsw-alias-border-l3); border-radius: 8px; }
+.form { display: grid; gap: 14px; }
+.form label { display: grid; gap: 6px; }
+.form input, .form textarea, .form select { padding: 8px; color: inherit; background: transparent; border: 1px solid var(--dsw-alias-border-l3); border-radius: 4px; }
+.form input[type=checkbox] { width: auto; justify-self: start; }
+.list { display: grid; gap: 12px; list-style: none; padding: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.error { color: var(--dsw-alias-state-error-primary); }
+.card p { overflow-wrap: anywhere; }
+.actions button, .section > button { padding: 6px 12px; border: 1px solid var(--dsw-alias-border-l3); border-radius: 6px; color: inherit; background: transparent; cursor: pointer; }
+.actions button:disabled { opacity: .5; cursor: default; }
