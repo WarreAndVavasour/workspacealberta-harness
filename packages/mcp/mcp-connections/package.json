@@ -45,7 +45,7 @@
   "license": "MIT",
   "dependencies": {
     "zod": "^4.4.3",
-    "@modelcontextprotocol/sdk": "^1.12.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@workspacealberta/schemastery": "workspace:^"
   },
   "peerDependencies": {

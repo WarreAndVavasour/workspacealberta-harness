@@ -6513,7 +6513,7 @@ importers:
   packages/mcp/mcp-client:
     dependencies:
       '@modelcontextprotocol/sdk':
-        specifier: ^1.12.0
+        specifier: ^1.29.0
         version: 1.29.0(zod@4.4.3)
       '@workspacealberta/schemastery':
         specifier: link:../../../vendor/schemastery
@@ -6559,7 +6559,7 @@ importers:
   packages/mcp/mcp-connections:
     dependencies:
       '@modelcontextprotocol/sdk':
-        specifier: ^1.12.0
+        specifier: ^1.29.0
         version: 1.29.0(zod@4.4.3)
       '@workspacealberta/schemastery':
         specifier: link:../../../vendor/schemastery
