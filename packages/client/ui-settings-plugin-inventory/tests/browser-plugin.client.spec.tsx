@@ -12,7 +12,7 @@ import type { PluginInventorySettingsTabInjected } from '../src/client/PluginInv
 import { apply as hostApply } from '../src/index.ts'
 
 usePinnedBrowserLanguages('zh-CN')
-afterEach(cleanup)
+afterEach(() => { cleanup(); vi.restoreAllMocks() })
 
 const EMPTY = { entries: [] }
 type ListResult =
@@ -33,13 +33,18 @@ async function bench() {
   const list = vi.fn<() => Promise<ListResult>>()
     .mockResolvedValue({ ok: true, value: EMPTY })
   ctx.provide('remote.pluginInventory', { list })
-  return { ctx, slots: ctx.get('slots') as SlotRegistry, locale, list }
+  const completeAuthorization = vi.fn().mockResolvedValue({ ok: true, value: undefined })
+  ctx.provide('remote.mcpConnections', { list: vi.fn().mockResolvedValue({ ok: true, value: [] }), completeAuthorization })
+  return { ctx, slots: ctx.get('slots') as SlotRegistry, locale, list, completeAuthorization }
 }
 
 function declare(slots: SlotRegistry): () => void {
   return slots.register({
     name: 'root',
-    children: { 'settings.plugins.tab': { kind: 'list', scope: 'root' } },
+    children: {
+      'settings.plugins.tab': { kind: 'list', scope: 'root' },
+      'settings.section': { kind: 'list', scope: 'root' },
+    },
   } as never, () => null)
 }
 
@@ -49,7 +54,7 @@ describe('ui-settings-plugin-inventory browser plugin', () => {
   })
 
   it('declares only the services used by the Settings Remote contribution', () => {
-    expect(inject).toEqual(['slots', 'locale', 'remote', 'remote.pluginInventory'])
+    expect(inject).toEqual(['slots', 'locale', 'remote', 'remote.pluginInventory', 'remote.mcpConnections'])
   })
 
   it('registers a localized tab without reading the Remote eagerly', async () => {
@@ -101,4 +106,24 @@ describe('ui-settings-plugin-inventory browser plugin', () => {
     expect(() => b.locale.register(NS, 'zh', {})).not.toThrow()
     await b.ctx.fiber.dispose()
   })
+  it('clears temporary OAuth query parameters before completing sign-in through the authenticated Remote', async () => {
+    const original = window.location.href
+    const b = await bench()
+    const alert = vi.spyOn(window, 'alert').mockImplementation(() => {})
+    window.history.replaceState(null, '', '/?mcp_oauth_callback=1&state=owned-state&code=temporary-code')
+    try {
+      declare(b.slots)
+      await b.ctx.plugin({ inject: [...inject], apply }).await()
+      await vi.waitFor(() => {
+        expect(b.completeAuthorization).toHaveBeenCalledWith({ state: 'owned-state', code: 'temporary-code', error: '' })
+      })
+      expect(window.location.search).toBe('')
+      await vi.waitFor(() => { expect(alert).toHaveBeenCalledOnce() })
+      expect(b.slots.entries('settings.section')[0]?.options.id).toBe('connections')
+    } finally {
+      await b.ctx.fiber.dispose()
+      window.history.replaceState(null, '', original)
+    }
+  })
+
 })

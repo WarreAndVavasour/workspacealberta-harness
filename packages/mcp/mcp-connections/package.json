@@ -1,0 +1,80 @@
+{
+  "name": "@workspacealberta/wa-mcp-connections",
+  "description": "Native MCP connection management and OAuth for WorkspaceAlberta",
+  "version": "0.1.2-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WarreAndVavasour/workspacealberta-harness.git",
+    "directory": "packages/mcp/mcp-connections"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./typert": {
+      "types": "./lib/typert.host.d.ts",
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "types": "./lib/typert.remote-client.d.ts",
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts",
+    "lib/typert.host.js",
+    "lib/typert.host.d.ts",
+    "lib/typert.remote-client.js",
+    "lib/typert.remote-client.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "zod": "^4.4.3",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@workspacealberta/schemastery": "workspace:^"
+  },
+  "peerDependencies": {
+    "@workspacealberta/cordis": "workspace:^",
+    "@workspacealberta/wa-credentials": "workspace:^",
+    "@workspacealberta/wa-settings": "workspace:^",
+    "@workspacealberta/wa-client-connection": "workspace:^",
+    "@workspacealberta/wa-typert-protocol": "workspace:^",
+    "@workspacealberta/wa-home-paths": "workspace:^",
+    "@workspacealberta/wa-atomic-write": "workspace:^",
+    "@workspacealberta/wa-mcp-client": "workspace:^",
+    "@workspacealberta/wa-tools": "workspace:^"
+  },
+  "devDependencies": {
+    "@workspacealberta/cordis": "workspace:^",
+    "@workspacealberta/wa-credentials": "workspace:^",
+    "@workspacealberta/wa-settings": "workspace:^",
+    "@workspacealberta/wa-client-connection": "workspace:^",
+    "@workspacealberta/wa-typert-protocol": "workspace:^",
+    "@workspacealberta/wa-home-paths": "workspace:^",
+    "@workspacealberta/wa-atomic-write": "workspace:^",
+    "@workspacealberta/wa-mcp-client": "workspace:^",
+    "@workspacealberta/wa-tools": "workspace:^",
+    "@workspacealberta/wa-client-test-runtime": "workspace:^",
+    "@workspacealberta/wa-settings-file": "workspace:^",
+    "@workspacealberta/wa-credentials-local": "workspace:^",
+    "@workspacealberta/wa-llm": "workspace:^",
+    "@workspacealberta/wa-system-prompt": "workspace:^",
+    "@workspacealberta/cordis-plugin-loader": "workspace:^",
+    "@workspacealberta/cordis-plugin-include": "workspace:^"
+  }
+}

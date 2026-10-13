@@ -118,6 +118,7 @@
     "scripts/client-bundle-purity.spec.ts"
   ],
   "references": [
+    {"path": "packages/mcp/mcp-connections"},
     { "path": "./vendor/cosmokit" },
     { "path": "./vendor/schemastery" },
     { "path": "./vendor/cordis" },

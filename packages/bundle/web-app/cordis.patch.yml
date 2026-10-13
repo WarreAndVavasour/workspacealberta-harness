@@ -442,3 +442,8 @@
       name: '@workspacealberta/wa-agent-presets'
       config:
         default: standard
+
+# Native connection settings; OAuth credentials remain host-only.
+- insert:
+    - id: mcp-connections
+      name: '@workspacealberta/wa-mcp-connections'

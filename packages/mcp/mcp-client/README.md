@@ -11,6 +11,8 @@ English | [中文](README.zh.md)
 
 `dsh-mcp-client` attaches external Model Context Protocol (MCP) servers to the harness so their tools work like any native tool. With one configuration entry per server, the model can call that server's tools — a filesystem, GitHub, database, or memory server — under stable names such as `mcp__github__create_issue`. Add it when the model should work with an external tool server; nothing ships enabled, so you opt in. The main cost is the tokens those tool definitions add to every request, and a slow or crashed server can delay startup or leave its tools failing until it recovers. Only tools are bridged: MCP resources and prompts are not supported.
 
+
+For user-managed servers and native OAuth sign-in, use [mcp-connections](../mcp-connections/README.md). Its host-only OAuth adapter is supplied to the transport in memory and is not part of serialized MCP configuration.
 ## Table of Contents
 
 - [Use this package](#use-this-package)
