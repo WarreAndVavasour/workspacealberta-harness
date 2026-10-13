@@ -10,7 +10,7 @@ Business owners need to connect tools from their harness interface. Requiring a 
 
 ## Decision
 
-[Native MCP connections](../../../../packages/mcp/mcp-connections/README.md) own durable connection metadata, local encrypted OAuth grants, and an authenticated Remote used by Settings. The maintained MCP SDK owns standard authorization; the existing MCP client contributes discovered tools to the harness. The Web bundle mounts the service and the Settings plugin contributes its Connections section.
+[Native MCP connections](../../../../packages/mcp/mcp-connections/README.md) own durable connection metadata, local encrypted OAuth grants, and an authenticated Remote used by Settings. The maintained MCP SDK owns standard authorization; the existing MCP client contributes discovered tools to the harness. The Web bundle mounts the service and the Settings plugin contributes its Connections section. Settings notifications compare the current document with last applied metadata, so a delayed callback cannot restore an older server configuration.
 
 ## Alternatives considered
 

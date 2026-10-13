@@ -10,7 +10,7 @@ Status: implemented
 
 ## 决定
 
-[原生 MCP 连接](../../../../packages/mcp/mcp-connections/README.zh.md) 负责持久连接元数据、本地加密 OAuth 授权，以及设置使用的经过身份验证的 Remote。维护中的 MCP SDK 负责标准授权；现有 MCP 客户端向 Harness 贡献发现的工具。Web bundle 挂载服务，设置插件贡献连接分区。
+[原生 MCP 连接](../../../../packages/mcp/mcp-connections/README.zh.md) 负责持久连接元数据、本地加密 OAuth 授权，以及设置使用的经过身份验证的 Remote。维护中的 MCP SDK 负责标准授权；现有 MCP 客户端向 Harness 贡献发现的工具。Web bundle 挂载服务，设置插件贡献连接分区。 设置通知将当前文档与最后应用的元数据比较，因此延迟的回调无法恢复较旧的服务器配置。
 
 ## 考虑过的替代方案
 

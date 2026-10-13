@@ -33,7 +33,7 @@ const connectionSchema = s.object({
 })
 interface SavedConnections { connections: ConnectionInput[] }
 const savedSchema: s<SavedConnections> = s.object({ connections: s.array(connectionSchema).default([]) })
-interface LiveConnection { signature: string; handle?: ConnectionHandle; provider?: NativeOAuth; status: ConnectionView['status'] }
+interface LiveConnection { handle?: ConnectionHandle; provider?: NativeOAuth; status: ConnectionView['status'] }
 interface LoginAttempt { id: string; identity: string; provider: NativeOAuth; expiresAt: number }
 
 /** Validate user-owned connection metadata before it becomes durable. */
@@ -62,6 +62,7 @@ export class McpConnections extends TypertRemoteService {
   private scope!: SettingsScope<SavedConnections>
   private vault!: OAuthVault
   private readonly live = new Map<string, LiveConnection>()
+  private readonly applied = new Map<string, ConnectionInput>()
   private readonly attempts = new Map<string, LoginAttempt>()
   private readonly origins: Set<string>
   private tail: Promise<void> = Promise.resolve()
@@ -101,25 +102,11 @@ export class McpConnections extends TypertRemoteService {
       return this.tail.then(async () => {
         await Promise.all([...this.live.values()].map(value => this.stop(value)))
         this.live.clear()
+        this.applied.clear()
       })
     }, 'mcp-connections.close')
     await this.reconcile()
-    this.ctx.effect(() => this.scope.watch((next, previous) => this.serial(async () => {
-      for (const row of previous.connections) {
-        const replacement = next.connections.find(value => value.id === row.id)
-        if (JSON.stringify(row) === JSON.stringify(replacement) || (replacement && this.live.get(row.id ?? '')?.signature === this.signature(replacement))) continue
-        await this.cancelAttempts(row.id ?? '')
-        await this.stop(this.live.get(row.id ?? ''))
-        this.live.delete(row.id ?? '')
-        if (!replacement || this.identity(row) !== this.identity(replacement) || row.oauth !== replacement.oauth) {
-          await this.vault.remove(this.identity(row))
-        }
-      }
-      for (const row of next.connections) {
-        const before = previous.connections.find(value => value.id === row.id)
-        if (row.enabled && JSON.stringify(before) !== JSON.stringify(row) && this.live.get(row.id ?? '')?.signature !== this.signature(row)) await this.restart(row)
-      }
-    })), 'mcp-connections.settings-watch')
+    this.ctx.effect(() => this.scope.watch(() => this.serial(() => this.reconcile())), 'mcp-connections.settings-watch')
   }
   /** List user-owned connections, including disabled and failed servers. */
   @Remote('list')
@@ -144,13 +131,7 @@ export class McpConnections extends TypertRemoteService {
       if (input.id !== undefined && !rows.some(row => row.id === input.id)) throw new Error('Connection no longer exists')
       const next = { ...input, name: input.name.trim(), id: input.id ?? randomUUID() }
       await this.scope.replace({ connections: [...rows.filter(row => row.id !== next.id), next] })
-      await this.cancelAttempts(next.id)
-      const previous = rows.find(row => row.id === next.id)
-      await this.stop(this.live.get(next.id))
-      if (previous && (this.identity(previous) !== this.identity(next) || previous.oauth !== next.oauth)) {
-        await this.vault.remove(this.identity(previous))
-      }
-      await this.restart(next)
+      await this.reconcile()
     })
   }
   /** Remove metadata, registered tools, pending sign-in and local OAuth authorization. */
@@ -159,15 +140,15 @@ export class McpConnections extends TypertRemoteService {
     await this.serial(async () => {
       const row = this.row(id)
       await this.scope.replace({ connections: this.scope.get().connections.filter(value => value.id !== id) })
-      await this.cancelAttempts(id)
-      await this.stop(this.live.get(id))
-      this.live.delete(id)
+      await this.reconcile()
       await this.vault.remove(this.identity(row))
     })
   }
   /** Reconnect a saved server and refresh its discovered tools. */
   @Remote('reconnect')
-  async reconnect(id: string): Promise<void> { await this.serial(() => this.restart(this.row(id))) }
+  async reconnect(id: string): Promise<void> {
+    await this.serial(async () => { await this.reconcile(); await this.restart(this.row(id)) })
+  }
   /** Forget this terminal's OAuth grant. This does not revoke access at the provider. */
   @Remote('disconnect')
   async disconnect(id: string): Promise<void> {
@@ -180,12 +161,14 @@ export class McpConnections extends TypertRemoteService {
       await this.scope.replace({
         connections: this.scope.get().connections.map(value => value.id === id ? { ...value, enabled: false } : value),
       })
+      await this.reconcile()
     })
   }
   /** Begin standard MCP OAuth from an approved browser origin. */
   @Remote('signIn')
   async signIn(request: SignInRequest): Promise<SignInResult> {
     return this.serial(async () => {
+      await this.reconcile()
       const row = this.row(request.id)
       if (!row.enabled || row.transport !== 'streamable-http' || !row.oauth) {
         throw new Error('Enable OAuth on an HTTP connection before signing in')
@@ -201,6 +184,10 @@ export class McpConnections extends TypertRemoteService {
       this.attempts.set(state, { id: request.id, identity: this.identity(row), provider, expiresAt: Date.now() + 10 * 60_000 })
       try {
         const result = await auth(provider, { serverUrl: row.url, fetchFn: this.oauthFetch(provider) })
+        if (this.signature(this.row(request.id)) !== this.signature(row)) {
+          await provider.close(); await this.vault.remove(this.identity(row))
+          throw new Error('Connection changed during sign-in')
+        }
         if (result === 'AUTHORIZED') { this.attempts.delete(state); await provider.close(); await this.restart(row); return { authorizationUrl: null } }
         return { authorizationUrl: provider.authorizationUrl() }
       } catch { this.attempts.delete(state); await provider.close(); throw new Error('MCP sign-in could not start; check the server supports MCP OAuth') }
@@ -221,6 +208,10 @@ export class McpConnections extends TypertRemoteService {
           serverUrl: row.url, authorizationCode: callback.code, fetchFn: this.oauthFetch(attempt.provider),
         })
         if (result !== 'AUTHORIZED') throw new Error('Authorization not completed')
+        if (this.signature(this.row(attempt.id)) !== this.signature(row)) {
+          await attempt.provider.close(); await this.vault.remove(attempt.identity)
+          throw new Error('Connection changed during sign-in')
+        }
         await attempt.provider.close()
         await this.restart(row)
       } catch { throw new Error('MCP sign-in failed; start again from Connections') }
@@ -264,16 +255,32 @@ export class McpConnections extends TypertRemoteService {
     return pending
   }
   private async reconcile(): Promise<void> {
-    for (const value of this.live.values()) await this.stop(value)
-    this.live.clear()
-    for (const row of this.scope.get().connections) if (row.enabled) await this.restart(row)
+    // Watch notifications can arrive behind a newer Remote write. Reconcile the live document, never an old notification.
+    const current = this.scope.get().connections
+    for (const [id, previous] of this.applied) {
+      const next = current.find(row => row.id === id)
+      if (next && this.signature(previous) === this.signature(next)) continue
+      await this.cancelAttempts(id)
+      await this.stop(this.live.get(id))
+      this.live.delete(id)
+      if (!next || this.identity(previous) !== this.identity(next) || previous.oauth !== next.oauth) {
+        await this.vault.remove(this.identity(previous))
+      }
+      this.applied.delete(id)
+    }
+    for (const row of current) {
+      const id = row.id ?? ''
+      if (this.applied.has(id)) continue
+      await this.restart(row)
+      this.applied.set(id, row)
+    }
   }
   private async restart(row: ConnectionInput): Promise<void> {
     const id = row.id ?? ''
     await this.stop(this.live.get(id))
     this.live.delete(id)
     if (!row.enabled || this.closed) return
-    const live: LiveConnection = { signature: this.signature(row), status: 'connecting' }
+    const live: LiveConnection = { status: 'connecting' }
     this.live.set(id, live)
     try {
       const common = { serverName: 'user_' + Buffer.from(id.replaceAll('-', ''), 'hex').toString('base64url'), toolCallTimeoutMs: 60_000, failOnStartupError: false }

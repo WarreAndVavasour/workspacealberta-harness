@@ -13,7 +13,7 @@ export interface HttpMcpFixture {
 }
 
 /** Start a local stateless MCP endpoint exposing one `ping` tool. */
-export async function startHttpMcpFixture(): Promise<HttpMcpFixture> {
+export async function startHttpMcpFixture(reply = 'pong'): Promise<HttpMcpFixture> {
   const authorization: Array<string | undefined> = []
   const handleRequest = async (request: IncomingMessage, response: ServerResponse): Promise<void> => {
     authorization.push(request.headers.authorization)
@@ -22,7 +22,7 @@ export async function startHttpMcpFixture(): Promise<HttpMcpFixture> {
       { capabilities: { tools: {} } },
     )
     mcp.registerTool('ping', { description: 'Replies pong.', inputSchema: {} }, async () => ({
-      content: [{ type: 'text', text: 'pong' }],
+      content: [{ type: 'text', text: reply }],
     }))
     const transport = new StreamableHTTPServerTransport({})
     response.on('close', () => {

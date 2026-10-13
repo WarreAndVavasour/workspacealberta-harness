@@ -14,12 +14,16 @@ import LocalCredentialProvider from '@workspacealberta/wa-credentials-local'
 import { credentialKey } from '@workspacealberta/wa-credentials'
 import { ToolCallId } from '@workspacealberta/wa-llm'
 import { startOAuthFixture } from './oauth-http-fixture.ts'
+import * as supervisor from '@workspacealberta/wa-mcp-client/src/connection.ts'
 import McpConnections, { validateConnection } from '../src/index.ts'
 import type { ConnectionInput } from '../src/types.ts'
 import { startHttpMcpFixture } from '../../mcp-client/tests/http-fixture.ts'
 
 const cleanup: Array<() => Promise<void>> = []
-afterEach(async () => { while (cleanup.length) await cleanup.pop()!() })
+afterEach(async () => {
+  while (cleanup.length) await cleanup.pop()!()
+  vi.restoreAllMocks()
+})
 const remote: ConnectionInput = { name: 'Business tools', transport: 'streamable-http', url: 'https://mcp.example.test/mcp', command: '', args: [], envRefs: {}, enabled: true, oauth: false }
 class FixtureConnection extends Service { constructor(ctx: Context) { super(ctx, 'connection') } }
 async function boot(root: string) {
@@ -77,6 +81,25 @@ describe('native Connections in the harness', () => {
     expect((await restored.mcpConnections.list())[0]).toMatchObject({ id: row.id, enabled: false, status: 'disabled' })
     await restored.mcpConnections.remove(row.id)
     expect(await restored.mcpConnections.list()).toEqual([])
+  })
+  it('keeps the latest server after two queued edits instead of replaying an older settings notification', async () => {
+    const first = await startHttpMcpFixture('first server'); cleanup.push(() => first.close())
+    const second = await startHttpMcpFixture('latest server'); cleanup.push(() => second.close())
+    const ctx = await boot(await rootDir())
+    const starts = vi.spyOn(supervisor, 'startConnection')
+    await ctx.mcpConnections.save({ ...remote, enabled: false })
+    const row = (await ctx.mcpConnections.list())[0]!
+    await Promise.all([
+      ctx.mcpConnections.save({ ...row, enabled: true, url: first.url }),
+      ctx.mcpConnections.save({ ...row, enabled: true, url: second.url }),
+    ])
+    await vi.waitFor(async () => {
+      expect((await ctx.mcpConnections.list())[0]).toMatchObject({ url: second.url, status: 'connected' })
+      const name = 'mcp__user_' + Buffer.from(row.id.replaceAll('-', ''), 'hex').toString('base64url') + '__ping'
+      const result = await ctx.tools.execute({ signal: new AbortController().signal, callId: ToolCallId('latest-call'), name, arguments: {} })
+      expect(result.content).toEqual([{ type: 'text', text: 'latest server' }])
+      expect(starts.mock.calls.filter(([, config]) => config.transport === 'streamable-http' && config.url === first.url)).toHaveLength(1)
+    })
   })
   it('isolates a missing local credential and keeps the next remote server working', async () => {
     const fixture = await startHttpMcpFixture(); cleanup.push(() => fixture.close())
