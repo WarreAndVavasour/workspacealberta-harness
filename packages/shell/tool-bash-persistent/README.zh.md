@@ -100,7 +100,7 @@ kind: "package-reference"
 - [terminal-bash 后端](../../terminal/terminal-bash/README.zh.md)——默认的 `shell` 后端。
 - [tool-terminal](../../terminal/tool-terminal/README.zh.md)——面向交互工作的六个模型侧 terminal 工具。
 - [持久 PTY 会话 Agent Note](../../../.agents/notes/implemented/feature/2026-07-16-persistent-pty-sessions.zh.md)——按所有者会话的设计及其理由。
-- [生成的工具目录](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-bash-persistent)——`bash` 参数 schema 的确切内容。
+- [生成的工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-bash-persistent)——`bash` 参数 schema 的确切内容。
 - [生成的配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-bash-persistent)——每个受支持配置字段及其源声明。
 
 -----
@@ -112,7 +112,7 @@ kind: "package-reference"
 
 #### 模型看到什么
 
-生成的 [`bash` schema](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-bash-persistent)，包括配置的 `description`。本插件不贡献独立的系统提示词区段；人设与环境指引由部署方负责。
+生成的 [`bash` schema](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-bash-persistent)，包括配置的 `description`。本插件不贡献独立的系统提示词区段；人设与环境指引由部署方负责。
 
 #### Token 影响
 

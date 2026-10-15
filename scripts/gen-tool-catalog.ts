@@ -61,6 +61,9 @@ import * as ToolTasks from '@workspacealberta/wa-tool-jobs'
 import type TeamService from '@workspacealberta/wa-experimental-agent-team'
 import * as ToolTeam from '@workspacealberta/wa-experimental-tool-agent-team'
 import * as ToolTodo from '@workspacealberta/wa-tool-todo'
+import ProjectFileSystem from '@workspacealberta/wa-fs-local'
+import * as ProjectTools from '@workspacealberta/wa-project-tools'
+import LocalCredentials from '@workspacealberta/wa-credentials-local'
 import * as ToolSubagent from '@workspacealberta/wa-tool-subagent'
 import { registerListSubagentModels } from '../packages/subagent/tool-subagent/src/list-models.ts'
 import * as ToolWeb from '@workspacealberta/wa-tool-web'
@@ -187,6 +190,20 @@ export interface ToolPackage {
  * guard proves it is exhaustive against the on-disk glob.
  */
 const TOOL_PACKAGES: ToolPackage[] = [
+  {
+    pkg: '@workspacealberta/wa-project-tools',
+    dir: 'project-tools',
+    source: 'packages/workspace/project-tools/src/index.ts',
+    requires: ['ctx.tools', 'ctx.sessions', 'ctx.credentials'],
+    writes: ['workspace/project', 'workspace/intake', 'tool/call', 'tool/result'],
+    async mount(ctx) {
+      await ctx.plugin(SessionStore)
+      await ctx.plugin(LocalCredentials)
+      await ctx.plugin(ProjectFileSystem)
+      await ctx.plugin(ProjectTools, ProjectTools.Config({ minConfidence: 0.9 }))
+    },
+    note: 'Optional conversation-scoped business project tools. The schema harvest threshold is a fixture value, not a production calibration.',
+  },
   {
     pkg: '@workspacealberta/wa-tool-ask-user',
     dir: 'tool-ask-user',
@@ -745,7 +762,11 @@ export function render(catalog: ToolCatalog): string {
     '',
   ]
   for (const entry of catalog) {
-    lines.push(`<a id="${githubSlug(entry.pkg)}"></a>`, '', `## \`${entry.pkg}\``, '')
+    // Keep existing document links working after the corporate package rename.
+    const previous = entry.pkg.replace('@workspacealberta/wa-', '@deepseek-ai/dsh-')
+    const anchor = `<a id="${githubSlug(entry.pkg)}"></a>`
+      + (previous === entry.pkg ? '' : `<a id="${githubSlug(previous)}"></a>`)
+    lines.push(anchor, '', `## \`${entry.pkg}\``, '')
     for (const schema of entry.schemas) {
       // Collection validated that every harvested schema has a source.
       const source = entry.sources[schema.name] as string

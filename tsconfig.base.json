@@ -28,6 +28,7 @@
     // not declaration path aliases, keep each package/vendor source compiled
     // under its own tsconfig boundary.
     "paths": {
+      "@workspacealberta/wa-project-tools": ["./packages/workspace/project-tools/src/index.ts"],
       "@workspacealberta/cordis": ["./vendor/cordis/src"],
       "@workspacealberta/cosmokit": ["./vendor/cosmokit/src"],
       "@workspacealberta/schemastery": ["./vendor/schemastery/src"],

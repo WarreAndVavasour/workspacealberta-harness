@@ -36,3 +36,9 @@ The scheduler owns the last completed scan cursor, unaddressed signal IDs, and o
 Use a dedicated automation identity without merge or target-branch write privileges when enforcing the human gate. A skill instruction cannot restrict an owner's GitHub credentials. Keep the base/resources under human review, and do not grant the improver permission to alter its own instructions or protections. An approved merge becomes active in a new task only after that terminal updates its checkout; git push does not update the Pi fleet.
 
 The task model remains the deployment's configured Cohere route. A separate Codex/gpt-6 maintenance job uses its own explicitly configured model and processing route; these skills do not change provider settings or claim a gpt-6 API model ID exists. Roll back procedure changes by reverting the merge and updating deployed checkouts. Pause the maintenance job separately if needed.
+
+## Continuing project delivery
+
+The deployment uses native Cohere Chat v2 at `https://api.cohere.com/v2`. See the [project delivery guide](docs/user/workspace-projects.md) for enabled Jev 1.14 text/image intake, optional longer context and conversation-scoped plans. Preserve the persistent harness home across rebuilds; a GitHub push alone does not update a Pi.
+
+For devices using environment keys instead of 1Password, set `WA_CREDENTIALS_MODE=env` in the service environment. Keep both provider keys in the service environment or protected `.env`; the existing local credential provider resolves them.

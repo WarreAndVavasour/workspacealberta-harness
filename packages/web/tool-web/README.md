@@ -129,7 +129,7 @@ Read these pages when the package-level contract is not enough. They move from t
 - [Web subsystem](../../../docs/subsystems/web.md) — the exhaustive search/fetch requests and results, provider availability, and error codes.
 - [Web package map](../README.md) — the six-package family and each role.
 - [dsh-web](../web/README.md) — the web service the tools execute through.
-- [Generated tool catalog](../../../docs/tool-catalog.md#deepseek-aidsh-tool-web) — the exact `web_search` and `web_fetch` schemas.
+- [Generated tool catalog](../../../docs/tool-catalog.md#workspacealbertawa-tool-web) — the exact `web_search` and `web_fetch` schemas.
 - [dsh-tool-call-timeout-policy](../../guard/timeout-policy/README.md) — the deployment policy that enforces each tool's timeout budget.
 - [Generated configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-web) — every accepted config field and its source declaration.
 - [Web capability seam decision](../../../.agents/notes/implemented/architecture/2026-06-24-web-capability-seam.md) — why search and fetch share one provider-selection service.
@@ -175,7 +175,7 @@ Prefix-stable while enabled tools, scope, and guidance text are unchanged. Confi
 
 #### What the model sees
 
-The model sees the generated [`web_search` and `web_fetch` schemas](../../../docs/tool-catalog.md#deepseek-aidsh-tool-web). Result-count and timeout budgets are deployment settings, not model arguments.
+The model sees the generated [`web_search` and `web_fetch` schemas](../../../docs/tool-catalog.md#workspacealbertawa-tool-web). Result-count and timeout budgets are deployment settings, not model arguments.
 
 #### Token effect
 

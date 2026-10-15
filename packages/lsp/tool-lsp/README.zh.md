@@ -121,7 +121,7 @@ Use search/read for ordinary navigation. Use lsp when textual matches are ambigu
 
 #### 模型看到什么
 
-模型会看到生成的 [`lsp` schema](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-lsp)。
+模型会看到生成的 [`lsp` schema](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-lsp)。
 
 #### Token 影响
 

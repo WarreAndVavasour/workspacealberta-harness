@@ -106,7 +106,7 @@ kind: "package-reference"
 - [jobs 组映射](../README.zh.md)——同级组页面及其包表格。
 - [注册表约定](../jobs/README.zh.md)——工具背后的抽象 `ctx.jobs` 服务。
 - [进程本地注册表](../jobs-local/README.zh.md)——任务在本进程中的运行位置。
-- [生成的工具目录](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-jobs)——`job_output`、`job_list` 与 `job_kill` 的确切 schema。
+- [生成的工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-jobs)——`job_output`、`job_list` 与 `job_kill` 的确切 schema。
 - [生成的配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-jobs)——每个受支持配置字段及其源声明。
 - [任务注册表 seam Agent Note](../../../.agents/notes/implemented/architecture/2026-07-26-job-registry-seam.zh.md)——按所有者隔离的注册表约定及其理由。
 
@@ -139,7 +139,7 @@ Track every background job id you start. You are notified in-session when a job 
 
 #### 模型看到什么
 
-该工具集可见时，会看到生成的 [`job_output`、`job_list` 和 `job_kill` schema](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-jobs)。
+该工具集可见时，会看到生成的 [`job_output`、`job_list` 和 `job_kill` schema](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-jobs)。
 
 #### Token 影响
 

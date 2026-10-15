@@ -27,6 +27,8 @@ kind: "package-reference"
 
 当组合需要通过 pi-ai 的提供方目录、或通过 pi-ai 已安装目录未描述的网关路由模型请求时挂载本插件。`providers` 字典就是整个配置面：每个键都是请求用 `GenerateOptions.provider` 选择的提供方路由名。
 
+`cohere-v2-chat` 协议调用原生 `POST {baseURL}/chat`；WorkspaceAlberta 覆盖配置使用 `https://api.cohere.com/v2`。它通过现有循环传递流式工具调用和工具结果历史，并在失败中保留 HTTP 状态。此协议不支持模型发现；请显式声明模型。严格工具模式通过模型的 `compat.supportsStrictMode` 启用；harness 工具包含 JSON Schema 组合时请保持关闭。流中的引用会被读取，但不投影为引用卡片。
+
 ### 何时选择
 
 当同一组合服务多个提供方、某条路由需要 pi-ai 目录默认值并修正少数字段、或必须通过自有端点与协议到达手工声明网关时，选择本适配器。当部署不需要其他提供方时，选择 `dsh-llm-deepseek` 直连 DeepSeek 路由。两个适配器可以同时挂载，因为它们的路由名不冲突；注册其他适配器已拥有的路由会导致插件加载失败。

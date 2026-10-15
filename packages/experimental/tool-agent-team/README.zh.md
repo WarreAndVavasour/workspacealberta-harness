@@ -113,7 +113,7 @@ member scope 上的一个 `team:policy` 段落教每个成员自己的角色与�
 
 - [agent-team 包](../agent-team/README.zh.md)——这些工具背后的 `ctx.agentTeams` 领域服务。
 - [Agent Teams 子系统](../../../docs/subsystems/agent-team.zh.md)——持久 Team 类型与服务 API。
-- [生成的工具目录](../../../docs/tool-catalog.zh.md#deepseek-aidsh-experimental-tool-agent-team)——模型接收的每个工具 schema。
+- [生成的工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-experimental-tool-agent-team)——模型接收的每个工具 schema。
 - [Agent Teams Agent Note](../../../.agents/notes/implemented/feature/2026-08-05-agent-teams.zh.md)——模型侧、scoping 与隔离决策。
 
 -----

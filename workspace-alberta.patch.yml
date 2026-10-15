@@ -10,11 +10,17 @@
 
 - id: credentials
   config:
-    onePassword:
-      refs:
-        COHERE_API_KEY: op://workspaceAlberta/Cohere/api-key
-      records:
-        client-connection/browser-session: op://workspaceAlberta/Harness/browser-session-record
+    # Explicit local mode for a service whose EnvironmentFile supplies both keys.
+    onePassword: !!js |
+      process.env.WA_CREDENTIALS_MODE === 'env' ? undefined : ({
+        refs: {
+          COHERE_API_KEY: 'op://workspaceAlberta/Cohere/api-key',
+          TYPESAFE_API_KEY: 'op://fgfcolfslsxo52ixowb647ohhy/uknc57xudh6vpov6zevz2pupne/credential'
+        },
+        records: {
+          'client-connection/browser-session': 'op://workspaceAlberta/Harness/browser-session-record'
+        }
+      })
 
 - id: llm-deepseek
   disabled: true
@@ -43,8 +49,8 @@
       cohere-canada:
         displayName: Cohere (Canada)
         apiKeyEnv: COHERE_API_KEY
-        api: openai-completions
-        baseURL: https://api.cohere.ai/compatibility/v1
+        api: cohere-v2-chat
+        baseURL: https://api.cohere.com/v2
         models:
           - id: command-a-plus-05-2026
             name: Command A+
@@ -53,12 +59,21 @@
             input: [text]
 
 - insert:
+    - id: workspace-project-tools
+      name: '@workspacealberta/wa-project-tools'
+      config:
+        model: jev-1.14.0
+        enableImages: true
+        enableLongContext: true
+        # Provisional review threshold; classifications never authorize actions.
+        minConfidence: 0.9
+
     - id: web-search-cohere
       name: '@workspacealberta/web-search-cohere'
       config:
         apiKeyEnv: COHERE_API_KEY
 
-    # web-fetch-http ships in the upstream base bundle as of 0.1.2 — no
+    # web-fetch-http ships in the upstream base bundle as of 0.1.2 â€” no
     # insert needed here anymore.
 
     - id: mcp-workspace-alberta

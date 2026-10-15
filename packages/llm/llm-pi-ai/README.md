@@ -27,6 +27,8 @@ English | [中文](README.zh.md)
 
 Mount this plugin when a composition routes model requests through pi-ai's provider catalogs or through gateways that pi-ai's installed catalog does not describe. The `providers` dictionary is the whole configuration surface: each key is the provider route name a request selects with `GenerateOptions.provider`.
 
+The `cohere-v2-chat` protocol calls native `POST {baseURL}/chat`; the WorkspaceAlberta overlay uses `https://api.cohere.com/v2`. It carries streamed tool calls and tool-result history through the existing loop and preserves HTTP status in failures. Model discovery for this protocol is not supported; declare models explicitly. Strict tool schemas are opt-in through model `compat.supportsStrictMode`; leave them off for harness tools with JSON Schema compositions. Citations are consumed from the stream but are not projected into citation cards.
+
 ### When to choose it
 
 Choose this adapter when the same composition serves several providers, when a route needs pi-ai's catalog defaults with a few fields corrected, or when a hand-declared gateway must be reached through its own endpoint and protocol. Choose `dsh-llm-deepseek` for the direct DeepSeek route when the deployment needs no other provider. Both adapters can be mounted together because their route names do not collide; registering a route another adapter already owns fails plugin loading.

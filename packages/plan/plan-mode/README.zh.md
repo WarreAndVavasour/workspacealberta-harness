@@ -116,7 +116,7 @@ agent 完成计划后，会以 markdown 形式、从标题开头书写计划并�
 
 - [计划模式子系统参考](../../../docs/subsystems/plan.zh.md)——计划模式的行为、配置与退出工具的约定。
 - [plan/ 包映射](../README.zh.md)——本组及其唯一的包。
-- [`exit_plan_mode` 工具目录条目](../../../docs/tool-catalog.zh.md#deepseek-aidsh-plan-mode)——模型收到的确切 schema。
+- [`exit_plan_mode` 工具目录条目](../../../docs/tool-catalog.zh.md#workspacealbertawa-plan-mode)——模型收到的确切 schema。
 - [生成的配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-plan-mode)——每个受支持配置字段及其含义。
 - [plan 专用协作状态](../../../.agents/notes/implemented/simplification/2026-07-22-plan-specific-collaboration-state.zh.md)——计划模式背后的设计决策。
 
@@ -163,7 +163,7 @@ You are in plan mode. Explore and design before presenting the complete plan thr
 
 #### 模型看到什么
 
-[`exit_plan_mode` schema](../../../docs/tool-catalog.zh.md#deepseek-aidsh-plan-mode) 在两种状态下均可用；在计划模式之外执行会失败，而计划模式内经批准的评审返回规范的 `{ approved: true }` 值，并渲染既有的确认文本。拒绝仍是携带评审反馈的失败调用，放弃评审则是一次指明用户接手的失败调用。
+[`exit_plan_mode` schema](../../../docs/tool-catalog.zh.md#workspacealbertawa-plan-mode) 在两种状态下均可用；在计划模式之外执行会失败，而计划模式内经批准的评审返回规范的 `{ approved: true }` 值，并渲染既有的确认文本。拒绝仍是携带评审反馈的失败调用，放弃评审则是一次指明用户接手的失败调用。
 
 #### Token 影响
 

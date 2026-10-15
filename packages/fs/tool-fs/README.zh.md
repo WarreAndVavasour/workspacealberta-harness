@@ -122,7 +122,7 @@ kind: "package-reference"
 - [fs-local](../fs-local/README.zh.md)——这些工具运行于其上的宿主文件系统后端。
 - [fs-sandbox](../fs-sandbox/README.zh.md)——添加升权字段的沙箱强制后端。
 - [fs-observation-policy](../fs-observation-policy/README.zh.md)——通过 `fs/*` 事件防护变更的策略插件。
-- [生成工具目录](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-fs)——本包注册的穷尽式 schema。
+- [生成工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-fs)——本包注册的穷尽式 schema。
 
 -----
 
@@ -165,7 +165,7 @@ Use the edit tool for targeted changes to existing UTF-8 text files. It replaces
 
 #### 模型看到的内容
 
-模型会看到已生成的 [`read`、`read_image`、`write` 和 `edit` schema](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-fs)，参数使用 snake_case。图片工具只在持久附件存储已挂载时出现；schema 本身与路由无关，严格门禁在执行时拒绝。作用域工具限制可以为某个 agent 移除任一定义。
+模型会看到已生成的 [`read`、`read_image`、`write` 和 `edit` schema](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-fs)，参数使用 snake_case。图片工具只在持久附件存储已挂载时出现；schema 本身与路由无关，严格门禁在执行时拒绝。作用域工具限制可以为某个 agent 移除任一定义。
 
 #### Token 影响
 

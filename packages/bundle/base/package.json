@@ -117,9 +117,9 @@
     "@workspacealberta/wa-web-fetch-http": "workspace:^",
     "@workspacealberta/wa-web-search-deepseek": "workspace:^",
     "@workspacealberta/web-search-cohere": "workspace:^",
-    "@workspacealberta/wa-web-fetch-http": "workspace:^",
     "@workspacealberta/wa-workflow-worker-thread": "workspace:^",
-    "@workspacealberta/wa-agent-instructions": "workspace:^"
+    "@workspacealberta/wa-agent-instructions": "workspace:^",
+    "@workspacealberta/wa-project-tools": "workspace:^"
   },
   "peerDependencies": {
     "@workspacealberta/cordis": "workspace:^"

@@ -101,6 +101,7 @@ export interface CohereSearchProviderOptions {
  * The client-side function tool offered to the model, matching the v2 shape
  * from Cohere's tool-use documentation (`type: "function"`, JSON-Schema
  * `parameters`, name the model plans against).
+ * @returns the native v2 web-search function definition.
  */
 export function buildWebSearchToolDefinition(): CohereToolDefinition {
   return {
@@ -221,15 +222,9 @@ export function parseToolCallQuery(argumentsText: string): string | undefined {
 }
 
 /**
- * Map the final v2 assistant message onto a normalized search result.
- * Citations reference document ids (`<tool_call_id>:<index>`); cited sources
- * lead in citation order, uncited acquisitions follow in acquisition order,
- * and the message's prose becomes the result's optional answer content. The
- * web service owns the final `maxResults` truncation, so `truncated` is
- * always `false` here.
+ * Extract nonempty text from a final assistant message.
  * @param message - the final assistant message.
- * @param acquisitions - document id → acquired source, in dispatch order.
- * @returns the normalized result.
+ * @returns trimmed text, or undefined when the message has no prose.
  */
 export function assistantText(message: CohereResponseMessage): string | undefined {
   const content = message.content
@@ -242,6 +237,12 @@ export function assistantText(message: CohereResponseMessage): string | undefine
   return prose.length > 0 ? prose : undefined
 }
 
+/**
+ * Map citations to acquired document IDs; cited sources lead and uncited sources follow.
+ * @param message - the final v2 assistant message.
+ * @param acquisitions - acquired sources keyed by document ID in dispatch order.
+ * @returns normalized sources and optional answer; the web service applies the final result cap.
+ */
 export function mapCohereFinalResponse(
   message: CohereResponseMessage,
   acquisitions: ReadonlyMap<string, WebSearchSource>,
@@ -407,9 +408,8 @@ export class CohereSearchProvider implements WebSearchProvider {
       try {
         const parsed = await response.json() as CohereError
         const detail = parsed.message
-          ?? (typeof parsed.detail === 'string' ? parsed.detail : undefined)
-          ?? (Array.isArray(parsed.detail) ? parsed.detail[0]?.message : undefined)
-        if (detail !== undefined && detail.length > 0) message = detail
+          ?? (typeof parsed.detail === 'string' ? parsed.detail : parsed.detail?.[0]?.message)
+        if (typeof detail === 'string' && detail.length > 0) message = detail
       } catch (error: unknown) {
         // An abort fired mid-body must surface as WEB_ABORTED, not be swallowed
         // into a generic HTTP-error message — cancellation is not a provider

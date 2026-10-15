@@ -2,7 +2,7 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { inspectDshPackageLicenses } from './verify-wa-package-licenses.ts'
+import { inspectDshPackageLicenses } from './verify-dsh-package-licenses.ts'
 
 const roots: string[] = []
 

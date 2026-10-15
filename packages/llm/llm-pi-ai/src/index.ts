@@ -86,6 +86,7 @@ export type {
 } from './config.ts'
 export { recordKeyFor } from './auth.ts'
 export { supportedProtocols } from './provider.ts'
+export { COHERE_V2_CHAT_API, cohereV2ChatApi } from './cohere-v2-chat.ts'
 
 export const name = 'llm-pi-ai'
 export const inject = ['llm']
