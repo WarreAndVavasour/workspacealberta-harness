@@ -1102,3 +1102,12 @@ Types: [ToolCallId](subsystems/core.zh.md)
 ```
 
 来源： [`packages/workspace/project-tools/src/state.ts:26`](../packages/workspace/project-tools/src/state.ts)
+
+#### `workspace/route` — log-only
+
+```ts persistence-catalog
+/** Auxiliary Jev inference and routed execution, correlated to a logged tool call. */
+'workspace/route': WorkspaceRouterEvent
+```
+
+Source: [`packages/workspace/workspace-router/src/types.ts:18`](../packages/workspace/workspace-router/src/types.ts)

@@ -19,6 +19,7 @@
 
 | 工具包 | 模型可见名称 | 依赖 | 写入／影响 | 随产品发布的别名 | 部署说明 |
 | --- | --- | --- | --- | --- | --- |
+| `@workspacealberta/wa-workspace-router` | `workspace_route` | `ctx.tools`, `ctx.credentials` | `workspace/route`, `tool/call`, `tool/result` | - | Bounded Jev procurement routing. Catalog thresholds and credentials are fixture values, not production calibration. |
 | `@workspacealberta/wa-project-tools` | `project_checkpoint`, `project_classify_sections`, `project_inspect_image`, `project_read` | `ctx.tools`, `ctx.sessions`, `ctx.credentials` | `workspace/project`, `workspace/intake`, `tool/call`, `tool/result` | - | 对话级企业项目工具；模式采集阈值是夹具值，不是生产校准。 |
 | `@workspacealberta/wa-tool-ask-user` | `ask_user_question` | `ctx.tools`、`ctx.userQuestions` | `tool/call`、`tool/result after a UI/provider answers the question` | - | ask_user_question 会暂停工具调用，直到当前 UI 提供方返回人类答案。 |
 | `@workspacealberta/wa-tools` | `run_code` | `ctx.tools`、`ctx.codeRuntime (execution time)`、`ctx.systemPrompt` | `tool/call`、`one tool/code-dispatch-start + tool/code-dispatch pair per bridged sub-call`、`tool/result` | - | 在 `mode: ptc`／`mode: both` 下，它由工具注册表所有，作为可过滤能力层之外的保留传输机制（参见 PTC mode Agent Note）。在 `ptc` 下，它是注册表对协议格式（wire format）的唯一贡献；其他可见能力在使用已加载运行时语言生成的 SDK 章节中声明。程序通过 binding 调用这些能力，调用按照原生并发约定调度：启动顺序和策略遵循提交顺序，并发安全的函数体最多重叠执行 `maxParallelSubCalls` 个。调用会重新进入完整且受守卫保护的工具流水线，并将每个嵌套执行关联到此外层结果。 |
@@ -45,6 +46,95 @@
 | `@workspacealberta/wa-tool-todo` | `todo_write` | `ctx.tools`、`owning Agent session` | `tool/call`、`todo/write`、`tool/result` | - | todo_write 是会话所有的状态；UI 将最新的 todo/write 事件渲染为检查清单。`allowParallelInProgress` 是没有默认值的必填项，因此本目录明确选择 `true`，对应描述允许同时存在多个 `in_progress` 项。选择 `false` 的部署会获得同一工具，但描述会要求只能有 1 个活动任务。 |
 | `@workspacealberta/wa-tool-workflow` | `workflow` | `ctx.tools`、`ctx.workflowEngine`、`ctx.systemPrompt`、`a calling Agent (exec.agent parents the script children)` | `tool/call`、`tool/result` | - | - |
 | `@workspacealberta/wa-tool-web` | `web_fetch`、`web_search` | `ctx.tools`、`ctx.web`、`ctx.systemPrompt` | `tool/call`、`tool/result` | - | web_search 和 web_fetch 将提供方选择置于 ctx.web 之后，使模型可见 schema 在更换后端时保持稳定。 |
+
+<a id="workspacealbertawa-workspace-router"></a><a id="deepseek-aidsh-workspace-router"></a>
+
+## `@workspacealberta/wa-workspace-router`
+
+### `workspace_route`
+
+Choose a WorkspaceAlberta procurement operation from a user request. Supply exact keywords, business facts and known tender references; do not invent missing inputs. The result states whether an operation was recommended, executed, needs clarification, or needs general reasoning. Do not repeat an executed operation.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "request": {
+      "type": "string",
+      "description": "The user request to route."
+    },
+    "keywords": {
+      "type": "string",
+      "description": "Explicit search keywords, when known."
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "company_name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "description"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "all",
+        "federal",
+        "alberta"
+      ]
+    },
+    "days": {
+      "type": "number",
+      "description": "Explicit deadline or matching horizon, 1â€“365 days."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Explicit result limit, 1â€“30."
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "observedAt": {
+            "type": "number",
+            "description": "Time this reference was retrieved, Unix milliseconds."
+          }
+        },
+        "required": [
+          "reference",
+          "title",
+          "observedAt"
+        ]
+      }
+    }
+  },
+  "required": [
+    "request"
+  ]
+}
+```
+
+Source: [`packages/workspace/workspace-router/src/index.ts`](../packages/workspace/workspace-router/src/index.ts)
+
+Bounded Jev procurement routing. Catalog thresholds and credentials are fixture values, not production calibration.
 
 <a id="workspacealbertawa-project-tools"></a><a id="deepseek-aidsh-project-tools"></a>
 

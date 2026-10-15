@@ -119,7 +119,8 @@
     "@workspacealberta/web-search-cohere": "workspace:^",
     "@workspacealberta/wa-workflow-worker-thread": "workspace:^",
     "@workspacealberta/wa-agent-instructions": "workspace:^",
-    "@workspacealberta/wa-project-tools": "workspace:^"
+    "@workspacealberta/wa-project-tools": "workspace:^",
+    "@workspacealberta/wa-workspace-router": "workspace:^"
   },
   "peerDependencies": {
     "@workspacealberta/cordis": "workspace:^"

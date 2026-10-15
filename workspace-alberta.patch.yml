@@ -59,6 +59,26 @@
             input: [text]
 
 - insert:
+    - id: workspace-router
+      name: '@workspacealberta/wa-workspace-router'
+      config:
+        mode: recommend
+        model: jev-1.14.0
+        # Provisional review thresholds; recommendations do not authorize actions.
+        minConfidence:
+          search: 0.9
+          match: 0.9
+          details: 0.9
+          deadlines: 0.9
+          bid_room: 0.9
+        referenceConfidence: 0.9
+        tools:
+          search: mcp__workspace_alberta__search_opportunities
+          match: mcp__workspace_alberta__find_matching_opportunities
+          details: mcp__workspace_alberta__get_opportunity_details
+          deadlines: mcp__workspace_alberta__list_deadlines
+          bid_room: mcp__workspace_alberta__process_bid_room
+
     - id: workspace-project-tools
       name: '@workspacealberta/wa-project-tools'
       config:

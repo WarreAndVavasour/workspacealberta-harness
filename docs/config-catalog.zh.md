@@ -3384,6 +3384,51 @@ export interface Config {
 
 来源： [`packages/workflow/workflow-worker-thread/src/index.ts:32`](../packages/workflow/workflow-worker-thread/src/index.ts)
 
+<a id="workspacealbertawa-workspace-router"></a><a id="deepseek-aidsh-workspace-router"></a>
+
+## `@workspacealberta/wa-workspace-router`
+
+Requires: `tools` · `credentials`
+
+```ts config-catalog
+/** Resolved plugin configuration; thresholds are explicit deployment choices. */
+export interface Config extends DecisionPolicy {
+  /** Credential reference; the value never enters tool arguments or logs. */
+  apiKeyRef: string
+  /** TypeSafe API root, also configurable for a local test server. */
+  baseURL: string
+  /** Jev model ID or alias. */
+  model: string
+  /** Maximum time for the single inference attempt. */
+  timeoutMs: number
+  /** Complete serialized Jev request byte limit. */
+  maxRequestBytes: number
+  /** Complete serialized returned router result byte limit. */
+  maxResultBytes: number
+  /** Maximum supplied candidate references. */
+  maxReferences: number
+}
+
+/** Configured execution names and acceptance thresholds, resolved before use. */
+export interface DecisionPolicy {
+  /** Whether accepted decisions may dispatch a tool. */
+  mode: 'recommend' | 'execute'
+  /** Exact discovered harness tool names. */
+  tools: Record<Operation, string>
+  /** Per-operation minimum Choice confidence, calibrated by the deployment. */
+  minConfidence: Record<Operation, number>
+  /** Minimum confidence when selecting a tender reference. */
+  referenceConfidence: number
+  /** Maximum age of a selected reference in milliseconds. */
+  maxEvidenceAgeMs: number
+}
+
+/** Executable procurement operation. */
+export type Operation = typeof operations[number]
+```
+
+Source: [`packages/workspace/workspace-router/src/index.ts:22`](../packages/workspace/workspace-router/src/index.ts)
+
 <a id="workspacealbertaweb-search-cohere"></a>
 
 ## `@workspacealberta/web-search-cohere`

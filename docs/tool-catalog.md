@@ -15,6 +15,7 @@ This table connects model-visible tool names to the plugin package and service s
 
 | Tool package | Model-visible names | Requires | Writes / affects | Shipped aliases | Deployment note |
 | --- | --- | --- | --- | --- | --- |
+| `@workspacealberta/wa-workspace-router` | `workspace_route` | `ctx.tools`, `ctx.credentials` | `workspace/route`, `tool/call`, `tool/result` | - | Bounded Jev procurement routing. Catalog thresholds and credentials are fixture values, not production calibration. |
 | `@workspacealberta/wa-project-tools` | `project_checkpoint`, `project_classify_sections`, `project_inspect_image`, `project_read` | `ctx.tools`, `ctx.sessions`, `ctx.credentials` | `workspace/project`, `workspace/intake`, `tool/call`, `tool/result` | - | Optional conversation-scoped business project tools. The schema harvest threshold is a fixture value, not a production calibration. |
 | `@workspacealberta/wa-tool-ask-user` | `ask_user_question` | `ctx.tools`, `ctx.userQuestions` | `tool/call`, `tool/result after a UI/provider answers the question` | - | ask_user_question pauses the tool call until the active UI provider returns a human answer. |
 | `@workspacealberta/wa-tools` | `run_code` | `ctx.tools`, `ctx.codeRuntime (execution time)`, `ctx.systemPrompt` | `tool/call`, `one tool/code-dispatch-start + tool/code-dispatch pair per bridged sub-call`, `tool/result` | - | Owned by the tool registry as a reserved transport outside filterable capability layers under `mode: ptc` / `mode: both` (see the PTC mode Agent Note). Under `ptc` it is the registry's only wire contribution; the other visible capabilities are declared in a generated SDK section in the loaded runtime's language, and a program calls them through bindings scheduled under the native concurrency contract (submission-ordered starts and policy; concurrency-safe bodies overlap up to `maxParallelSubCalls`) that re-enter the complete guarded tool pipeline and link each nested execution to this outer result. |
@@ -41,6 +42,95 @@ This table connects model-visible tool names to the plugin package and service s
 | `@workspacealberta/wa-tool-todo` | `todo_write` | `ctx.tools`, `owning Agent session` | `tool/call`, `todo/write`, `tool/result` | - | todo_write is session-owned state; UIs render the latest todo/write event as a checklist. `allowParallelInProgress` is required with no default, so the catalog states its choice: `true`, whose description invites several `in_progress` items. A deployment choosing `false` receives the same tool with a description asking for exactly one active task. |
 | `@workspacealberta/wa-tool-workflow` | `workflow` | `ctx.tools`, `ctx.workflowEngine`, `ctx.systemPrompt`, `a calling Agent (exec.agent parents the script children)` | `tool/call`, `tool/result` | - | - |
 | `@workspacealberta/wa-tool-web` | `web_fetch`, `web_search` | `ctx.tools`, `ctx.web`, `ctx.systemPrompt` | `tool/call`, `tool/result` | - | web_search and web_fetch keep provider selection behind ctx.web so model-visible schemas stay stable across backend swaps. |
+
+<a id="workspacealbertawa-workspace-router"></a><a id="deepseek-aidsh-workspace-router"></a>
+
+## `@workspacealberta/wa-workspace-router`
+
+### `workspace_route`
+
+Choose a WorkspaceAlberta procurement operation from a user request. Supply exact keywords, business facts and known tender references; do not invent missing inputs. The result states whether an operation was recommended, executed, needs clarification, or needs general reasoning. Do not repeat an executed operation.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "request": {
+      "type": "string",
+      "description": "The user request to route."
+    },
+    "keywords": {
+      "type": "string",
+      "description": "Explicit search keywords, when known."
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "company_name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "description"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "all",
+        "federal",
+        "alberta"
+      ]
+    },
+    "days": {
+      "type": "number",
+      "description": "Explicit deadline or matching horizon, 1â€“365 days."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Explicit result limit, 1â€“30."
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "observedAt": {
+            "type": "number",
+            "description": "Time this reference was retrieved, Unix milliseconds."
+          }
+        },
+        "required": [
+          "reference",
+          "title",
+          "observedAt"
+        ]
+      }
+    }
+  },
+  "required": [
+    "request"
+  ]
+}
+```
+
+Source: [`packages/workspace/workspace-router/src/index.ts`](../packages/workspace/workspace-router/src/index.ts)
+
+Bounded Jev procurement routing. Catalog thresholds and credentials are fixture values, not production calibration.
 
 <a id="workspacealbertawa-project-tools"></a><a id="deepseek-aidsh-project-tools"></a>
 

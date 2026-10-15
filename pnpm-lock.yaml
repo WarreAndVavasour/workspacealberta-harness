@@ -1296,6 +1296,9 @@ importers:
       '@workspacealberta/wa-workflow-worker-thread':
         specifier: workspace:^
         version: link:../../workflow/workflow-worker-thread
+      '@workspacealberta/wa-workspace-router':
+        specifier: workspace:^
+        version: link:../../workspace/workspace-router
       '@workspacealberta/web-search-cohere':
         specifier: workspace:^
         version: link:../../web/web-search-cohere
@@ -9857,6 +9860,55 @@ importers:
       '@workspacealberta/wa-typert-protocol':
         specifier: workspace:^
         version: link:../../typert/protocol
+
+  packages/workspace/workspace-router:
+    dependencies:
+      '@typesafe-ai/sdk':
+        specifier: ^0.7.0
+        version: 0.7.0
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      '@workspacealberta/wa-util-values':
+        specifier: workspace:^
+        version: link:../../util/values
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@workspacealberta/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@workspacealberta/wa-agent':
+        specifier: workspace:^
+        version: link:../../core/agent
+      '@workspacealberta/wa-agent-loop':
+        specifier: workspace:^
+        version: link:../../core/agent-loop
+      '@workspacealberta/wa-credentials':
+        specifier: workspace:^
+        version: link:../../credentials/credentials
+      '@workspacealberta/wa-invariants':
+        specifier: workspace:^
+        version: link:../../runtime-diagnostics/invariants
+      '@workspacealberta/wa-llm':
+        specifier: workspace:^
+        version: link:../../llm/llm
+      '@workspacealberta/wa-llm-pi-ai':
+        specifier: workspace:^
+        version: link:../../llm/llm-pi-ai
+      '@workspacealberta/wa-session':
+        specifier: workspace:^
+        version: link:../../core/session
+      '@workspacealberta/wa-session-projection':
+        specifier: workspace:^
+        version: link:../../session/session-projection
+      '@workspacealberta/wa-system-prompt':
+        specifier: workspace:^
+        version: link:../../core/system-prompt
+      '@workspacealberta/wa-tools':
+        specifier: workspace:^
+        version: link:../../core/tools
 
   python/sdk-runtime:
     dependencies:

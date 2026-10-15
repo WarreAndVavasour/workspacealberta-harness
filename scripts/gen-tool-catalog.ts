@@ -63,6 +63,8 @@ import * as ToolTeam from '@workspacealberta/wa-experimental-tool-agent-team'
 import * as ToolTodo from '@workspacealberta/wa-tool-todo'
 import ProjectFileSystem from '@workspacealberta/wa-fs-local'
 import * as ProjectTools from '@workspacealberta/wa-project-tools'
+import * as WorkspaceRouter from '@workspacealberta/wa-workspace-router'
+import { CredentialProvider } from '@workspacealberta/wa-credentials'
 import LocalCredentials from '@workspacealberta/wa-credentials-local'
 import * as ToolSubagent from '@workspacealberta/wa-tool-subagent'
 import { registerListSubagentModels } from '../packages/subagent/tool-subagent/src/list-models.ts'
@@ -189,7 +191,35 @@ export interface ToolPackage {
  * `packages/`). Ordered by package name (the render order); the completeness
  * guard proves it is exhaustive against the on-disk glob.
  */
+class RouterCatalogCredentials extends CredentialProvider {
+  resolve() { return Promise.resolve({ value: 'catalog-fixture-key', source: 'catalog' }) }
+  describe() { return Promise.resolve({ configured: true, writable: false }) }
+  set(): Promise<never> { return Promise.reject(new Error('read only')) }
+  unset(): Promise<never> { return Promise.reject(new Error('read only')) }
+  readRecord() { return Promise.resolve(undefined) }
+  describeRecord() { return Promise.resolve({ configured: false, writable: false }) }
+  listRecords() { return Promise.resolve([]) }
+  modifyRecord(): Promise<never> { return Promise.reject(new Error('read only')) }
+  deleteRecord(): Promise<never> { return Promise.reject(new Error('read only')) }
+}
+
 const TOOL_PACKAGES: ToolPackage[] = [
+  {
+    pkg: '@workspacealberta/wa-workspace-router',
+    dir: 'workspace-router',
+    source: 'packages/workspace/workspace-router/src/index.ts',
+    requires: ['ctx.tools', 'ctx.credentials'],
+    writes: ['workspace/route', 'tool/call', 'tool/result'],
+    async mount(ctx) {
+      await ctx.plugin(RouterCatalogCredentials)
+      await ctx.plugin(WorkspaceRouter, WorkspaceRouter.Config({
+        tools: { search: 'search', match: 'match', details: 'details', deadlines: 'deadlines', bid_room: 'bid_room' },
+        minConfidence: { search: 0.9, match: 0.9, details: 0.9, deadlines: 0.9, bid_room: 0.9 },
+        referenceConfidence: 0.9,
+      }))
+    },
+    note: 'Bounded Jev procurement routing. Catalog thresholds and credentials are fixture values, not production calibration.',
+  },
   {
     pkg: '@workspacealberta/wa-project-tools',
     dir: 'project-tools',

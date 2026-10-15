@@ -26,12 +26,14 @@ The workspace group provides persistent directory projects and conversation-scop
 |---|---|---|
 | [`workspace`](workspace/README.md) | Provides named, ordered projects with the sessions that ran in each directory | `ctx.workspaceRegistry` |
 | [`project-tools`](project-tools/README.md) | Saves conversation project plans and classifies cited document sections with Jev | tools only |
+| [`workspace-router`](workspace-router/README.md) | Recommends or guards one existing procurement operation using Jev | tools only |
 
 -----
 
 <a id="related-documentation"></a>
 ## Related documentation
 
+- [Procurement routing](../../docs/subsystems/workspace-router.md) — bounded Jev judgments and guarded execution.
 - [Workspace subsystem](../../docs/subsystems/workspace.md) — the authoritative feature contract for projects and their sessions.
 - [domain KV storage Agent Note](../../.agents/notes/proposed/architecture/2026-07-24-domain-kv-storage-and-workspace.md) — the storage design behind project records.
 - [Workspace UI product-flow Agent Note](../../.agents/notes/implemented/feature/2026-07-25-workspace-ui-product-flow.md) — how the first start builds projects from session history and how the GUI orders them.

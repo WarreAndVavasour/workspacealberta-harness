@@ -1,0 +1,24 @@
+- insert:
+    - id: workspace-router-fixture
+      name: ./fixture.mjs
+
+- id: llm-deepseek
+  disabled: true
+
+- id: llm-pi-ai
+  disabled: true
+
+- id: plugin-package-inventory-deepseek
+  disabled: true
+
+- insert:
+    - id: llm-replay
+      name: '@workspacealberta/wa-llm-replay'
+      config:
+        providers:
+          - id: cohere-canada
+            name: Cohere
+            models:
+              - id: command-a-plus-05-2026
+                contextWindow: 256000
+                defaultMaxTokens: 4096

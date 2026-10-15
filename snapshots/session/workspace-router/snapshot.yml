@@ -1,0 +1,8 @@
+version: 1
+scenario: workspace-router
+profile: headless
+composition: workspace-router
+recording: live
+header:
+  class: workspace-router
+  pin: true

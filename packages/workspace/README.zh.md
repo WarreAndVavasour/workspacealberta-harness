@@ -26,12 +26,14 @@ workspace 组提供持久目录项目与对话级交付计划。`workspace` 将�
 |---|---|---|
 | [`workspace`](workspace/README.zh.md) | 提供命名且有序的项目，并在每个目录下聚合其会话 | `ctx.workspaceRegistry` |
 | [`project-tools`](project-tools/README.zh.md) | 保存对话项目计划，并用 Jev 分类带引用文档章节 | 仅工具 |
+| [`workspace-router`](workspace-router/README.zh.md) | 使用 Jev 建议或受保护地执行一个现有采购操作 | 仅工具 |
 
 -----
 
 <a id="related-documentation"></a>
 ## 相关文档
 
+- [采购路由](../../docs/subsystems/workspace-router.zh.md) — 受限 Jev 判断与受保护执行。
 - [Workspace 子系统](../../docs/subsystems/workspace.zh.md)——项目及其会话的权威功能约定。
 - [领域 KV 存储 Agent Note](../../.agents/notes/proposed/architecture/2026-07-24-domain-kv-storage-and-workspace.zh.md)——项目记录背后的存储设计。
 - [Workspace UI 产品流 Agent Note](../../.agents/notes/implemented/feature/2026-07-25-workspace-ui-product-flow.zh.md)——首次启动如何从会话历史构建项目，以及 GUI 如何排序。
