@@ -41,7 +41,7 @@
     "@workspacealberta/wa-brand": "workspace:^",
     "@workspacealberta/wa-util-values": "workspace:^",
     "@workspacealberta/schemastery": "workspace:^",
-    "@earendil-works/pi-ai": "^0.84.2"
+    "@earendil-works/pi-ai": "^0.84.4"
   },
   "devDependencies": {
     "@workspacealberta/cordis": "workspace:^",
