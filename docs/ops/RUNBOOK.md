@@ -2,7 +2,7 @@
 
 English | [中文](RUNBOOK.zh.md)
 
-The deployment's single host runs the harness as a supervised user service with an encrypted nightly backup. Secrets live in `.env` (gitignored) and the profile's credential references; nothing durable lives outside `~/.workspaceAlberta`.
+The deployment's single host runs the harness as a supervised user service with an encrypted nightly backup. The product overlay requires [1Password credential setup](ONEPASSWORD.md) for provider keys and browser signing records. Harness state lives in `~/.workspaceAlberta`; service units and the backup passphrase have separate locations listed below.
 
 ## Service
 
@@ -21,8 +21,8 @@ RaspberryPiBot / Litter-style remote support rebuilds a customer desk checkout w
 |---|---|
 | `sessions/` | Session logs (JSONL+zstd), grouped by workspace path |
 | `storages/` | Workspace registry, message-feedback sidecar, projections |
-| `profiles/web/` | Profile patch layer (MCP inserts — keys via env, never literals) |
-| `.credentials.yaml` | Credential store (backed up; rotate on exposure) |
+| `profiles/web/` | Profile patch layer (MCP inserts; nonsecret credential references only) |
+| `.credentials.yaml` | Legacy local credential store; ignored by the product's 1Password mode; migrate and retire with approval |
 
 ## Backups
 
@@ -42,9 +42,9 @@ RaspberryPiBot / Litter-style remote support rebuilds a customer desk checkout w
 
 ## Secrets
 
-- `.env` (repo root, gitignored): `COHERE_API_KEY` (Chat API v2 model route at prefix `https://api.cohere.com/v2`) and `EXA_API_KEY` (web search). The service loads them via `EnvironmentFile`. Composio is intentionally absent: it is the WorkspaceAlberta connection layer elsewhere, never a harness tool surface — do not re-add an `mcp-composio` row to the profile.
-- Rotation: replace the value in `.env`, then `systemctl --user restart workspacealberta-harness`.
-- Search stays on Exa. Do not register Cohere search on this desk or reuse `COHERE_API_KEY` as the search credential.
+- Follow [1Password setup and rotation](ONEPASSWORD.md) for approved vault access and service cutover. The source refuses local credential writes and environment fallback. Remove secret-bearing `EnvironmentFile` instructions only after migration is verified.
+- For approved search/model key separation, add a `COHERE_SEARCH_API_KEY` field mapping in `onePassword.refs` and set the search row's `apiKeyEnv` to that name. Provision its value in 1Password.
+- Composio is the WorkspaceAlberta connection layer elsewhere; do not add an `mcp-composio` row to the harness profile.
 
 ## Known gaps (tracked)
 

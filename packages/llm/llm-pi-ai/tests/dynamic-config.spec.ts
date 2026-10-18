@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@workspacealberta/cordis'
-import { mkdtemp, rm, writeFile } from 'node:fs/promises'
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import LlmRuntime, { LlmAdapter } from '@workspacealberta/wa-llm'
@@ -35,6 +35,29 @@ async function home(): Promise<string> {
   cleanups.push(() => rm(dir, { recursive: true, force: true }))
   return dir
 }
+
+it('refuses profile headers before writing settings in read-only 1Password mode', async () => {
+  const dir = await home()
+  const ctx = new Context()
+  cleanups.push(async () => { await ctx.fiber.dispose() })
+  await ctx.plugin(LlmRuntime)
+  const path = join(dir, 'settings.yaml')
+  await ctx.plugin(FileSettingsProvider, { path, watch: false })
+  await ctx.plugin(LocalCredentialProvider, { onePassword: { refs: {}, command: [process.execPath] } })
+  await ctx.plugin(AuthorizationService)
+  await ctx.plugin(LlmPiAi, {})
+  expect(ctx.authorization.describe(LlmPiAi.recordKeyFor('openai-codex'))).toBeUndefined()
+  await expect(ctx.settings.update(NS, { providers: { openai: {
+    apiKeyEnv: 'OPENAI_API_KEY', headers: { Authorization: 'synthetic-profile-header' },
+  } } })).rejects.toThrow('custom profile headers are unavailable')
+  const stored = await readFile(path, 'utf8').catch((error: NodeJS.ErrnoException) => {
+    if (error.code === 'ENOENT') return ''
+    throw error
+  })
+  expect(stored).not.toContain('synthetic-profile-header')
+  await expect(ctx.settings.update(NS, { providers: { openai: { apiKeyEnv: 'OPENAI_API_KEY' } } }))
+    .resolves.toBeUndefined()
+})
 
 async function boot(
   dir: string,

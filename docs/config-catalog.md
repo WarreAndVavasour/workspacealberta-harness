@@ -484,6 +484,8 @@ Source: [`packages/extensions/cordis-host-runner/src/index.ts:88`](../packages/e
 ```ts config-catalog
 /** Plugin config: file location and hot-reload behavior. */
 export interface Config {
+  /** Read-only 1Password source; disables local storage, environment fallbacks, and credential writes. */
+  onePassword?: OnePasswordConfig | undefined
   /** Credentials document path; defaults to `.credentials.yaml` under the harness home. */
   path?: string
   /** Harness home used when `path` is omitted; defaults to `$DSH_HOME` or `~/.dsh`. */
@@ -493,9 +495,21 @@ export interface Config {
   /** Watcher write-settle window in milliseconds; defaults to 100. */
   debounceMs?: number
 }
+
+/** Nonsecret addresses for a deployment's references and JSON credential records. */
+export interface OnePasswordConfig {
+  /** Environment-style reference names mapped to 1Password field URIs. */
+  refs: Record<string, string>
+  /** Plugin record addresses mapped to fields containing tagged JSON records. */
+  records?: Record<string, string>
+  /** CLI executable and optional wrapper arguments; defaults to `['op']`. */
+  command?: string[]
+  /** Maximum duration of a CLI read in milliseconds; defaults to 10000. */
+  timeoutMs?: number
+}
 ```
 
-Source: [`packages/credentials/credentials-local/src/index.ts:64`](../packages/credentials/credentials-local/src/index.ts)
+Source: [`packages/credentials/credentials-local/src/index.ts:65`](../packages/credentials/credentials-local/src/index.ts)
 
 <a id="deepseek-aidsh-e2b"></a>
 

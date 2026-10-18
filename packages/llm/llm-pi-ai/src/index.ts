@@ -142,6 +142,14 @@ function directoryEntries(
 
 /** Register one generic pi-ai adapter for all configured provider routes. */
 export function apply(ctx: Context, config: Config): void {
+  const validateAuthentication = (value: Config): void => {
+    if (ctx.get('credentials')?.allowAmbientAuthentication === false
+      && Object.values(value.providers ?? {}).some(profile => Object.keys(profile.headers ?? {}).length > 0)) {
+      throw new Error('llm-pi-ai: custom profile headers are unavailable with the read-only 1Password source')
+    }
+  }
+  const validate = (value: Config): void => { validateAuthentication(value); assertServiceable(value) }
+  validate(config)
   let current: () => Config = () => config
   let lastRaw: Config | undefined
   let memoized: ReadonlyMap<string, ResolvedPiAiProviderProfile> | undefined
@@ -158,6 +166,7 @@ export function apply(ctx: Context, config: Config): void {
    */
   const profiles = (): ReadonlyMap<string, ResolvedPiAiProviderProfile> => {
     const raw = current()
+    validateAuthentication(raw)
     if (raw === lastRaw && memoized !== undefined) return memoized
     const next = resolveProfiles(raw.providers)
     lastRaw = raw
@@ -217,7 +226,10 @@ export function apply(ctx: Context, config: Config): void {
   // Scoped to the authorization seam rather than injected outright, because a
   // composition without it (headless, ACP) simply has no surface to sign in
   // from, while everything else this plugin does still works.
-  ctx.inject(['authorization'], (authorized) => { registerPiAiFlows(authorized, auth) })
+  ctx.inject(['authorization'], (authorized) => {
+    if (authorized.get('credentials')?.allowAmbientAuthentication === false) return
+    registerPiAiFlows(authorized, auth)
+  })
   // The full installed catalog is configurable from the moment the plugin
   // mounts — dormant or not — so configuration surfaces can offer every
   // pi-ai provider before any route exists. Hand-declared routes join it as
@@ -298,7 +310,7 @@ export function apply(ctx: Context, config: Config): void {
       // Refuse an unserviceable section where it is written: without this a
       // schema-valid profile the adapter cannot serve would be stored and then
       // silently disable every route in this namespace.
-      validate: assertServiceable,
+      validate,
       setSource: (source) => {
         current = source
       },

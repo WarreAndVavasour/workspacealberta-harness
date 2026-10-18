@@ -2,34 +2,34 @@
 
 [English](RUNBOOK.md) | 中文
 
-该部署的单一主机以受监督的用户服务运行 harness，并带加密的夜间备份。密钥放在 `.env`（已 gitignore）与 profile 的凭据引用中；`~/.workspaceAlberta` 之外不存放任何持久数据。
+部署的单个主机以受监督的用户服务运行 harness，并使用加密的每夜备份。产品配置为提供方密钥和浏览器签名记录要求 [1Password 凭据设置](ONEPASSWORD.zh.md)。Harness 状态位于 `~/.workspaceAlberta`；服务单元和备份口令使用下文列出的独立位置。
 
 ## 服务
 
-- 单元：`~/.config/systemd/user/workspacealberta-harness.service`（`systemctl --user {status|restart|stop} workspacealberta-harness`）
-- 绑定 `127.0.0.1:3081`；`Restart=always`，`RestartSec=5`；跨注销／重启保持 linger（`loginctl show-user christian | grep Linger` 必须保持 `yes`）。
-- 单元设置 `DSH_HOME=~/.workspaceAlberta`，且这是该 fork 的内置默认（`packages/util/home-paths` 中的 `DSH_HOME_DIR_NAME`），因此任何启动路径——服务或手工——都解析到同一 home。
+- 单元：`~/.config/systemd/user/workspacealberta-harness.service` （`systemctl --user {status|restart|stop} workspacealberta-harness`）
+- 绑定 `127.0.0.1:3081`；`Restart=always`、`RestartSec=5`；注销或重启后继续运行 （`loginctl show-user christian | grep Linger` 必须保持 `yes`）。
+- 单元设置 `DSH_HOME=~/.workspaceAlberta`，该值也是本分支的内置 默认值（`packages/util/home-paths` 的 `DSH_HOME_DIR_NAME`），因此服务或手动启动 都解析到相同的主目录。
 - 日志：`journalctl --user -u workspacealberta-harness -f`。
 
-## 远程支持／桌面重建
+## 远程支持与桌面重建
 
-RaspberryPiBot／Litter 风格的远程支持从仓库根目录用 `bash scripts/wa-desk-rebuild.sh` 重建客户桌面 checkout（不内联 `pnpm install`）。
+RaspberryPiBot 或 Litter 风格的远程支持使用仓库根目录中的 `bash scripts/wa-desk-rebuild.sh` 重建客户的桌面工作目录（不内联 `pnpm install`）。
 
-## Home 布局（`~/.workspaceAlberta`）
+## 主目录布局（`~/.workspaceAlberta`）
 
-| Path | Contents |
+| 路径 | 内容 |
 |---|---|
-| `sessions/` | 会话日志（JSONL+zstd），按工作区路径分组 |
-| `storages/` | 工作区注册表、message-feedback sidecar、投影 |
-| `profiles/web/` | Profile 补丁层（MCP 插入——密钥走环境变量，从不写字面量） |
-| `.credentials.yaml` | 凭据存储（已备份；泄露时轮换） |
+| `sessions/` | 按工作区路径分组的会话日志（JSONL+zstd） |
+| `storages/` | 工作区注册表、消息反馈伴随数据和投影 |
+| `profiles/web/` | 配置叠加层（MCP 插入；仅使用非秘密凭据引用） |
+| `.credentials.yaml` | 遗留本地凭据存储；产品的 1Password 模式忽略它；经批准后迁移和清理 |
 
 ## 备份
 
-- restic 仓库：`/data/backups/workspacealberta-restic`；口令：`~/.config/workspacealberta/backup-passphrase`（0600）。仓库与口令同时丢失即丢失备份——把口令离线另存一份。
-- 每晚 03:00 由 `workspacealberta-backup.timer` 执行；保留策略 `--keep-daily 7 --keep-weekly 4 --keep-monthly 6`。
-- 手工备份：`systemctl --user start workspacealberta-backup.service`。
-- 已验证的恢复（每季度演练）：
+- restic 仓库：`/data/backups/workspacealberta-restic`；口令： `~/.config/workspacealberta/backup-passphrase`（0600）。同时丢失仓库 和口令就会失去备份；须在离线位置保存口令副本。
+- 每夜 03:00 由 `workspacealberta-backup.timer` 执行；保留策略为 `--keep-daily 7 --keep-weekly 4 --keep-monthly 6`。
+- 手动备份：`systemctl --user start workspacealberta-backup.service`。
+- 已规定的恢复验证（每季度演练）：
 
   ```sh
   export RESTIC_REPOSITORY=/data/backups/workspacealberta-restic
@@ -38,15 +38,15 @@ RaspberryPiBot／Litter 风格的远程支持从仓库根目录用 `bash scripts
   restic restore <id> --target /tmp/r  # then diff against the live home
   ```
 
-- 恢复到新主机：安装服务单元，从仓库恢复 `~/.workspaceAlberta`，在仓库 checkout 中执行 `pnpm install && pnpm build:lib:host && pnpm build:web`，然后 `systemctl --user enable --now workspacealberta-harness`。
+- 恢复到新主机：安装服务单元，从备份仓库恢复 `~/.workspaceAlberta`， 在代码工作目录执行 `pnpm install && pnpm build:lib:host && pnpm build:web`， 再执行 `systemctl --user enable --now workspacealberta-harness`。
 
-## 密钥
+## 秘密
 
-- `.env`（仓库根目录，已 gitignore）：`COHERE_API_KEY`（Chat API v2 模型路由，前缀 `https://api.cohere.com/v2`）与 `EXA_API_KEY`（web 搜索）。服务经 `EnvironmentFile` 加载它们。Composio 故意缺席：它是别处的 WorkspaceAlberta 连接层，绝不是 harness 工具面——不要把 `mcp-composio` 行加回 profile。
-- 轮换：替换 `.env` 中的值，然后 `systemctl --user restart workspacealberta-harness`。
-- 搜索留在 Exa。不要在此桌面注册 Cohere 搜索，也不要把 `COHERE_API_KEY` 复用为搜索凭据。
+- 按 [1Password 设置与轮换](ONEPASSWORD.zh.md) 完成获批保管库访问和服务切换。该来源拒绝本地凭据写入和环境回退。仅在验证迁移后才删除含秘密的 `EnvironmentFile` 指令。
+- 如需经批准地分离搜索与模型密钥，在 `onePassword.refs` 增加 `COHERE_SEARCH_API_KEY` 字段映射，并把搜索配置的 `apiKeyEnv` 设为该名称。在 1Password 配置其值。
+- Composio 是其他产品的 WorkspaceAlberta 连接层；不要在 harness 配置增加 `mcp-composio`。
 
-## 已知缺口（已跟踪）
+## 已记录的缺口
 
-- 推送时的 typecheck 已从 `lefthook.yml` 移除（并发 agent 构建下不稳定，约 3 分钟）；该门禁由 CI 负责——在依赖它之前先接上 CI。
-- 遗留的全局 `wa web`（npm install，端口 3080，PID 自 8 月 28 日起）仍期望旧的 `~/.dsh`；若被重启会重建该目录。方便时退役它：现在唯一受支持的启动器是 `systemctl --user`。
+- `lefthook.yml` 已移除推送时的类型检查（并发智能体构建时不稳定， 约需 3 分钟）；CI 拥有该检查，依赖它之前须配置 CI。
+- 遗留全局 `wa web`（npm 安装，端口 3080，自 8 月 28 日存在的进程）仍 使用旧的 `~/.dsh`；重启它会重新创建该目录。应在合适时清理它， 受支持的启动方式为 `systemctl --user`。

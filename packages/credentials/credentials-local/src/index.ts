@@ -56,12 +56,15 @@ import type {
   ResolvedCredential,
 } from '@workspacealberta/wa-credentials'
 import type { LaunchEnvironmentEntry } from '@workspacealberta/wa-launch-environment'
+import { OnePasswordSource, type OnePasswordConfig } from './onepassword.ts'
 
 /** Basename of the credentials document inside the harness home. */
 export const CREDENTIALS_FILENAME = '.credentials.yaml'
 
 /** Plugin config: file location and hot-reload behavior. */
 export interface Config {
+  /** Read-only 1Password source; disables local storage, environment fallbacks, and credential writes. */
+  onePassword?: OnePasswordConfig | undefined
   /** Credentials document path; defaults to `.credentials.yaml` under the harness home. */
   path?: string
   /** Harness home used when `path` is omitted; defaults to `$DSH_HOME` or `~/.dsh`. */
@@ -515,6 +518,12 @@ export class LocalCredentialProvider extends CredentialProvider {
      settings-file (prefer symmetry for parallel values); extracting the shared
      shape would couple the two providers' teardown semantics across packages. */
   static Config: z<Config> = z.object({
+    onePassword: z.union([z.const(undefined), z.object({
+      refs: z.dict(z.string()).required(),
+      records: z.dict(z.string()),
+      command: z.array(z.string()).default(['op']),
+      timeoutMs: z.number().min(1).step(1),
+    })]),
     path: z.string(),
     dshHome: z.string(),
     watch: z.boolean().default(true),
@@ -522,6 +531,7 @@ export class LocalCredentialProvider extends CredentialProvider {
   })
 
   private readonly spec: ResolvedSpec
+  private readonly onePassword: OnePasswordSource | undefined
   /**
    * Raw text of the last read or persisted document; `undefined` while the
    * file is absent. Watcher events whose content equals this cache are no-ops,
@@ -552,7 +562,10 @@ export class LocalCredentialProvider extends CredentialProvider {
     // Programmatic construction may bypass Schemastery normalization; resolve
     // the same defaults in one explicit step either way.
     this.spec = resolveSpec(config)
+    this.onePassword = config.onePassword === undefined ? undefined : new OnePasswordSource(config.onePassword)
   }
+
+  override get allowAmbientAuthentication(): boolean { return this.onePassword === undefined }
 
   /** The inherited-environment value for a reference, or `undefined` when empty or unset. */
   private inherited(ref: CredentialRef): string | undefined {
@@ -576,6 +589,11 @@ export class LocalCredentialProvider extends CredentialProvider {
       // completes only once storage is quiescent.
       this.closed = true
       await this.operations
+    }
+    if (this.onePassword !== undefined) {
+      for (const ref of Object.keys(this.onePassword.refs)) await this.resolve(credentialRef(ref))
+      for (const key of Object.keys(this.onePassword.records)) await this.readRecord(parseCredentialKey(key))
+      return
     }
     await this.loadInitial()
     if (!this.spec.watch) return
@@ -615,6 +633,15 @@ export class LocalCredentialProvider extends CredentialProvider {
   }
 
   override resolve(ref: CredentialRef): Promise<ResolvedCredential | undefined> {
+    if (this.onePassword !== undefined) {
+      const source = this.onePassword
+      const uri = source.refs[ref]
+      if (uri === undefined) return Promise.resolve(undefined)
+      return this.enqueue(async () => {
+        if (this.closed) throw new Error('1Password credential provider is disposed')
+        return { value: await source.read(uri), source: '1password' }
+      })
+    }
     const inherited = this.inherited(ref)
     if (inherited !== undefined) return Promise.resolve({ value: inherited, source: 'env' })
     const stored = this.values.get(ref)
@@ -625,6 +652,9 @@ export class LocalCredentialProvider extends CredentialProvider {
   }
 
   override describe(ref: CredentialRef): Promise<CredentialInfo> {
+    if (this.onePassword !== undefined) return this.resolve(ref).then(hit => ({
+      configured: hit !== undefined, ...hit === undefined ? {} : { source: hit.source }, writable: false,
+    }))
     // Only the inherited environment is unwritable: it is the one layer this
     // process cannot edit. A user `.env` value is writable in the sense that
     // matters — storing a key replaces it as the effective one.
@@ -639,6 +669,7 @@ export class LocalCredentialProvider extends CredentialProvider {
   }
 
   override async set(ref: CredentialRef, value: string): Promise<void> {
+    this.assertLocalWrite()
     if (value.length === 0) {
       throw new Error(`credentials-local: an empty value cannot be stored for "${ref}"; use unset`)
     }
@@ -646,14 +677,30 @@ export class LocalCredentialProvider extends CredentialProvider {
   }
 
   override async unset(ref: CredentialRef): Promise<void> {
+    this.assertLocalWrite()
     await this.write(ref, undefined)
   }
 
   override readRecord(key: CredentialKey): Promise<CredentialRecord | undefined> {
+    if (this.onePassword !== undefined) {
+      const source = this.onePassword
+      const uri = source.records[key]
+      if (uri === undefined) return Promise.resolve(undefined)
+      return this.enqueue(async () => {
+        if (this.closed) throw new Error('1Password credential provider is disposed')
+        const text = await source.read(uri)
+        try { return parseRecord(key, JSON.parse(text), '1Password') } catch {
+          throw new Error('1Password credential record must contain valid tagged JSON')
+        }
+      })
+    }
     return Promise.resolve(this.records.get(key))
   }
 
   override describeRecord(key: CredentialKey): Promise<CredentialRecordInfo> {
+    if (this.onePassword !== undefined) return this.readRecord(key).then(record => ({
+      configured: record !== undefined, ...record === undefined ? {} : { kind: record.kind }, writable: false,
+    }))
     const stored = this.records.get(key)
     // Presence is the whole fact here: no layer ranks above this document for
     // a record, so nothing can shadow one, and an api-key record carrying
@@ -664,6 +711,12 @@ export class LocalCredentialProvider extends CredentialProvider {
   }
 
   override listRecords(): Promise<readonly CredentialRecordEntry[]> {
+    if (this.onePassword !== undefined) return Promise.all(Object.keys(this.onePassword.records).map(async (name) => {
+      const key = parseCredentialKey(name)
+      const record = await this.readRecord(key)
+      if (record === undefined) throw new Error('1Password mapped record is unavailable')
+      return { key, kind: record.kind }
+    }))
     return Promise.resolve([...this.records].map(([key, record]) => ({
       // The parser has already proven every stored key addressable.
       key: parseCredentialKey(key),
@@ -675,6 +728,9 @@ export class LocalCredentialProvider extends CredentialProvider {
     key: CredentialKey,
     mutate: (current: CredentialRecord | undefined) => Promise<CredentialRecord | undefined>,
   ): Promise<CredentialRecord | undefined> {
+    if (this.onePassword !== undefined) {
+      this.assertLocalWrite()
+    }
     if (this.isClosed()) throw new Error(`credentials-local is disposed: cannot modify "${key}"`)
     return this.enqueue(async () => {
       if (this.isClosed()) {
@@ -707,6 +763,7 @@ export class LocalCredentialProvider extends CredentialProvider {
   }
 
   override async deleteRecord(key: CredentialKey): Promise<void> {
+    this.assertLocalWrite()
     if (this.isClosed()) throw new Error(`credentials-local is disposed: cannot delete "${key}"`)
     await this.enqueue(async () => {
       if (this.isClosed()) {
@@ -808,6 +865,10 @@ export class LocalCredentialProvider extends CredentialProvider {
    * upgraded in place first — a key stored by an earlier build must survive
    * the layout change without a hand edit.
    */
+  private assertLocalWrite(): void {
+    if (this.onePassword !== undefined) throw new Error('Credentials are read-only; update the field in 1Password')
+  }
+
   private async loadInitial(): Promise<void> {
     await assertOwnerOnly(this.spec.filename)
     let text: string

@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-credentials-local` is the product's default on-machine credential store: a private file under your harness home where API keys and other secrets live, written from a configuration UI and reloaded automatically when you edit the file yourself. The file is a versioned document with a `refs` section for key values and a `records` section for durable per-plugin credentials, so an authorization grant or provider environment survives restarts beside the keys. Keys come from four places in one fixed order: the environment you launch in wins, then the stored file, then your project's and your home `.env` files. A key you save takes effect immediately, even when an older key sits in a `.env`. Only your OS user can read the file, and the product never hands the agent the file's path.
+`dsh-credentials-local` supplies the generic composition's on-machine credential store: a private file under your harness home where API keys and plugin records live, written from a configuration UI and reloaded automatically when you edit the file yourself. Keys resolve from the inherited environment, the stored file, and the project and home `.env` files in that order. The workspaceAlberta deployment selects this provider's read-only 1Password mode instead; it resolves mapped fields on each operation and refuses local writes and fallback sources.
 
 ## Table of Contents
 
@@ -47,6 +47,10 @@ Use it as the default local store: the product's base composition loads it, and 
 | `debounceMs` | `100` | Wait this long after a change before reloading, in milliseconds |
 
 The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-credentials-local) is the exhaustive source for every accepted field and its JSDoc.
+
+### Read-only 1Password mode
+
+Configure `onePassword.refs` with reference-name to `op://` field mappings and `onePassword.records` with plugin-address to JSON-record field mappings. The provider preflights every mapping at activation, reads each operation through `op read`, and reports `source: '1password'` and `writable: false`. Missing CLI access, empty fields, or invalid records reject activation. No file watcher, migration, local write, environment fallback, or native credential-file discovery runs in this mode. Writes fail before a record mutation callback executes. Follow the [operator tutorial](../../../docs/ops/ONEPASSWORD.md) for CLI authorization, browser-record provisioning, and deployment cutover.
 
 ### Storing and removing keys
 
@@ -143,6 +147,7 @@ This section explains the design decisions behind the provider and points at the
 | File | Role |
 |---|---|
 | [`src/index.ts`](src/index.ts) | Provider: layer resolution, strict document parse, reference and record write paths under the writer lock, watcher lifecycle, permissions check |
+| [`src/onepassword.ts`](src/onepassword.ts) | Validated field mappings and bounded, uncached CLI reads with sanitized failures |
 | — | No runtime invariant companion is published; the Service Definition companion (`dsh-credentials/invariant`) owns the `credentials/reference-updated` lifecycle contract; this provider's file/environment layering is asynchronous I/O pinned by its unit suite. |
 
 ### Resolution and write paths
@@ -209,6 +214,6 @@ These limits define when the provider is a poor fit or needs special operational
 
 This Dev Note is working context for maintainers: open questions and undecided directions. It is explicitly non-authoritative — shipped behavior and limits live in the sections above and in the package code.
 
-An OS-keychain provider — a store the model's processes cannot read — is the deferred answer to the same-UID limitation and belongs beside this provider as a sibling package. The seam shape also leaves room for helper-command- and KMS-backed providers; none is shipped.
+An OS-keychain provider that isolates privileged reads from model tool processes remains deferred. The 1Password mode centralizes storage but relies on the operator's privileged host identity; it does not isolate arbitrary same-user programs. The seam also leaves room for KMS-backed providers.
 
 </details>

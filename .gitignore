@@ -1,5 +1,11 @@
 CLAUDE.local.md
 .env
+.env.*
+!.env.example
+!.env.*.example
+.credentials.yaml
+.credentials.yml
+*.secrets.json
 node_modules/
 lib/
 *.tsbuildinfo

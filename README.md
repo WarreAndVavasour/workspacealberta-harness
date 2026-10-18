@@ -20,7 +20,7 @@ Think of the **family doctor model of AI support**: someone who gets to know you
 
 It starts with the MCP: find real public work through CanadaBuys and Alberta Purchasing Connection. Then build on that first connection. A new product. A new service. A new line of business your people could deliver if the tools were finally there. We scope the work and the connections with you, and follow through.
 
-**The terminal is $4,800 CAD per month**: a leased physical workspace, installation and onboarding, ongoing support, updates, and help building agreed workflows. This is a place and a working relationship for turning ambition into new business.
+**The terminal is C$10,800/month**: a leased physical workspace, installation and onboarding, ongoing support, updates, and help building agreed workflows. This is a place and a working relationship for turning ambition into new business.
 
 ### Your projects. Your Pi. Help close at hand.
 

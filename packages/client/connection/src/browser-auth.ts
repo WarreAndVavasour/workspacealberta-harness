@@ -159,6 +159,11 @@ function decodeCookie(value: string, secret: Buffer): BrowserCookiePayload | und
 }
 
 async function initializeSecret(credentials: CredentialProvider): Promise<Buffer> {
+  if (!credentials.allowAmbientAuthentication) {
+    const existing = storedSecret(await credentials.readRecord(AUTH_RECORD_KEY))
+    if (existing === undefined) throw new Error('client-connection: provision the browser-session record in 1Password')
+    return existing
+  }
   const generated: StoredSecretPayload = {
     version: STORED_SECRET_VERSION,
     secret: encodeBase64Url(randomBytes(SECRET_BYTES)),

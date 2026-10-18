@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/ops/RUNBOOK.md
-RUNBOOK.md: 69dfa236a94c06d5ffc6888ed536f5b3d136b72c
-RUNBOOK.zh.md: be37c6a6f08084a690965281ead36eb6b0ff38f5
+RUNBOOK.md: e8f60c5f647c3fd3d3ff3380de38d92e81960529
+RUNBOOK.zh.md: 9a6cbdce071a98410abfddd2b107503c9c300c2c
