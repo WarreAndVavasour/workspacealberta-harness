@@ -52,8 +52,8 @@
     - id: web-search-exa
       name: '@workspacealberta/wa-web-search-exa'
 
-    - id: web-fetch-http
-      name: '@workspacealberta/wa-web-fetch-http'
+    # web-fetch-http ships in the base bundle as of 0.1.2 — do not re-insert
+    # (duplicate loader entry id: web-fetch-http).
 
     - id: mcp-workspace-alberta
       name: '@workspacealberta/wa-mcp-client'
