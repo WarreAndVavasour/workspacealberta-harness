@@ -1053,6 +1053,17 @@ Source: [`packages/core/session/src/types.ts:289`](../packages/core/session/src/
 
 ### `web/*`
 
+<a id="webcohere-search-llm-request--log-only"></a>
+
+#### `web/cohere-search-llm-request` — log-only
+
+```ts persistence-catalog
+/** Secret-free auxiliary Cohere search request recorded before dispatch. */
+'web/cohere-search-llm-request': CohereSearchLlmRequest
+```
+
+Source: [`packages/web/web-search-cohere/src/provider.ts:71`](../packages/web/web-search-cohere/src/provider.ts)
+
 <a id="webdeepseek-search-llm-request--log-only"></a>
 
 #### `web/deepseek-search-llm-request` — log-only
@@ -1063,3 +1074,40 @@ Source: [`packages/core/session/src/types.ts:289`](../packages/core/session/src/
 ```
 
 Source: [`packages/web/web-search-deepseek/src/provider.ts:83`](../packages/web/web-search-deepseek/src/provider.ts)
+
+### `workspace/*`
+
+<a id="workspaceintake--log-only"></a>
+
+#### `workspace/intake` — log-only
+
+```ts persistence-catalog
+/** Exact secret-free auxiliary inference request and response, associated with a document batch. */
+'workspace/intake': { callId: import('@workspacealberta/wa-llm').ToolCallId; phase: 'request' | 'response'; value: import('@workspacealberta/wa-util-values').JsonValue }
+```
+
+Types: [ToolCallId](subsystems/core.md)
+
+Source: [`packages/workspace/project-tools/src/state.ts:28`](../packages/workspace/project-tools/src/state.ts)
+
+<a id="workspaceproject--log-only"></a>
+
+#### `workspace/project` — log-only
+
+```ts persistence-catalog
+/** Complete project state; survives turns, compaction and session resume. Required for interpreting project revisions. */
+'workspace/project': { checkpoint: ProjectCheckpoint }
+```
+
+Source: [`packages/workspace/project-tools/src/state.ts:26`](../packages/workspace/project-tools/src/state.ts)
+
+<a id="workspaceroute--log-only"></a>
+
+#### `workspace/route` — log-only
+
+```ts persistence-catalog
+/** Auxiliary Jev inference and routed execution, correlated to a logged tool call. */
+'workspace/route': WorkspaceRouterEvent
+```
+
+Source: [`packages/workspace/workspace-router/src/types.ts:18`](../packages/workspace/workspace-router/src/types.ts)

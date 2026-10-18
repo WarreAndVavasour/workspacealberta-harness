@@ -1,0 +1,28 @@
+- insert:
+    - id: workspace-project-tools
+      name: '@workspacealberta/wa-project-tools'
+      config:
+        minConfidence: 0.9
+        enableImages: true
+        enableLongContext: true
+
+- id: llm-deepseek
+  disabled: true
+
+- id: llm-pi-ai
+  disabled: true
+
+- id: plugin-package-inventory-deepseek
+  disabled: true
+
+- insert:
+    - id: llm-replay
+      name: '@workspacealberta/wa-llm-replay'
+      config:
+        providers:
+          - id: cohere-canada
+            name: Cohere
+            models:
+              - id: command-a-plus-05-2026
+                contextWindow: 256000
+                defaultMaxTokens: 4096

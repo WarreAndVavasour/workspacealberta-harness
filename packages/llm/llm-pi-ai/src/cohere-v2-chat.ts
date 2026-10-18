@@ -106,16 +106,20 @@ function stopReasonOf(finish: unknown): CohereV2StopReason {
   }
 }
 
-function parseArguments(raw: string): Record<string, unknown> {
+function completeArguments(raw: string): Record<string, unknown> | undefined {
   try {
     const parsed: unknown = JSON.parse(raw)
     if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)) {
       return parsed as Record<string, unknown>
     }
   } catch (_invalidToolArguments) {
-    // Model JSON is not trusted; an unparsable argument string becomes {}.
+    // Partial streamed arguments are expected to be incomplete JSON.
   }
-  return {}
+  return undefined
+}
+
+function parseArguments(raw: string): Record<string, unknown> {
+  return completeArguments(raw) ?? {}
 }
 
 function argumentText(value: unknown): string {
@@ -390,7 +394,13 @@ export async function* translateCohereSse(
         const wireIndex = typeof body.index === 'number' ? body.index : 0
         const known = toolDrafts.get(wireIndex)
         if (known === undefined) break
-        const args = parseArguments(known.draft.arguments)
+        const args = known.draft.arguments.trim().length === 0 ? {} : completeArguments(known.draft.arguments)
+        if (args === undefined || !known.draft.id || !known.draft.name) {
+          yield { type: 'error', reason: 'error', error: snapshot('error', {
+            errorMessage: 'Cohere v2 chat invalid request: completed tool call has no ID, name or valid object arguments',
+          }) }
+          return
+        }
         content[known.index] = {
           type: 'toolCall',
           id: known.draft.id,
@@ -508,7 +518,7 @@ async function* streamCohereV2ChatEvents(
     }
     yield failed(
       'error',
-      readErrorText(detail, `Cohere v2 chat request failed with HTTP ${response.status}`),
+      `Cohere v2 chat HTTP ${response.status}: ${readErrorText(detail, response.statusText)}`,
     )
     return
   }
@@ -533,6 +543,10 @@ function streamCohereV2Chat(
   return lazyStream(model, () => Promise.resolve(streamCohereV2ChatEvents(model, context, options)))
 }
 
+/**
+ * Build the native Cohere v2 stream handlers registered by the pi-ai provider.
+ * @returns handlers for regular and simple streaming; model discovery is separate.
+ */
 export function cohereV2ChatApi(): ProviderStreams {
   return {
     stream: streamCohereV2Chat,

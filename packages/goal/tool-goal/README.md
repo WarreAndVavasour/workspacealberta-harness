@@ -97,7 +97,7 @@ The tools are the model-facing half of the goal surface; read these pages for th
 
 - [Goal service](../goal/README.md) — the goal state and lifecycle the tools mutate.
 - [Goal group map](../README.md) — the goal packages and how they compose.
-- [Generated tool catalog](../../../docs/tool-catalog.md#deepseek-aidsh-tool-goal) — the exact schemas the model receives.
+- [Generated tool catalog](../../../docs/tool-catalog.md#workspacealbertawa-tool-goal) — the exact schemas the model receives.
 - [Goal-tool Agent Note](../../../.agents/notes/implemented/feature/2026-07-19-model-facing-goal-tools.md) — the authority split and UX decisions.
 
 -----
@@ -129,7 +129,7 @@ Prefix-stable while the plugin scope, configured threshold, and guidance text ar
 
 #### What the model sees
 
-The generated [`get_goal`, `create_goal`, and `update_goal` schemas](../../../docs/tool-catalog.md#deepseek-aidsh-tool-goal). Successful results are compact JSON. A mutation appends the goal domain's durable `goal/change` event without queuing model context. `activation` in a result is a live observation and never becomes replay authority.
+The generated [`get_goal`, `create_goal`, and `update_goal` schemas](../../../docs/tool-catalog.md#workspacealbertawa-tool-goal). Successful results are compact JSON. A mutation appends the goal domain's durable `goal/change` event without queuing model context. `activation` in a result is a live observation and never becomes replay authority.
 
 #### Token effect
 

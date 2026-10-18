@@ -102,7 +102,7 @@ kind: "package-reference"
 - [terminal-bash 后端](../../terminal/terminal-bash/README.zh.md)——默认后端，配置 `shellDialect: pwsh`。
 - [pwsh 持久 PTY Agent Note](../../../.agents/notes/implemented/architecture/2026-08-11-pwsh-persistent-pty.zh.md)——pwsh 侧会话设计及其理由。
 - [持久 PTY 会话 Agent Note](../../../.agents/notes/implemented/feature/2026-07-16-persistent-pty-sessions.zh.md)——按所有者会话的设计及其理由。
-- [生成的工具目录](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-pwsh-persistent)——`pwsh` 参数 schema 的确切内容。
+- [生成的工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-pwsh-persistent)——`pwsh` 参数 schema 的确切内容。
 - [生成的配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-pwsh-persistent)——每个受支持配置字段及其源声明。
 
 -----
@@ -114,7 +114,7 @@ kind: "package-reference"
 
 #### 模型看到什么
 
-生成的 [`pwsh` schema](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-pwsh-persistent)，包括配置的 `description`。本插件不贡献独立的系统提示词区段；人设与环境指引由部署方负责。
+生成的 [`pwsh` schema](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-pwsh-persistent)，包括配置的 `description`。本插件不贡献独立的系统提示词区段；人设与环境指引由部署方负责。
 
 #### Token 影响
 

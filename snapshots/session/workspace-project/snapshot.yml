@@ -1,0 +1,8 @@
+version: 1
+scenario: workspace-project
+profile: headless
+composition: workspace-project
+recording: live
+header:
+  class: workspace-project
+  pin: true

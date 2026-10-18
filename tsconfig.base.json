@@ -28,6 +28,7 @@
     // not declaration path aliases, keep each package/vendor source compiled
     // under its own tsconfig boundary.
     "paths": {
+      "@workspacealberta/wa-project-tools": ["./packages/workspace/project-tools/src/index.ts"],
       "@workspacealberta/cordis": ["./vendor/cordis/src"],
       "@workspacealberta/cosmokit": ["./vendor/cosmokit/src"],
       "@workspacealberta/schemastery": ["./vendor/schemastery/src"],
@@ -423,7 +424,9 @@
       "@workspacealberta/wa-workflow/invariant": ["./packages/workflow/workflow/src/invariant.ts"],
       "@workspacealberta/wa-workflow-worker-thread": ["./packages/workflow/workflow-worker-thread/src"],
       "@workspacealberta/wa-workspace": ["./packages/workspace/workspace/src"],
-      "@workspacealberta/wa-workspace/invariant": ["./packages/workspace/workspace/src/invariant.ts"]
+      "@workspacealberta/wa-workspace/invariant": ["./packages/workspace/workspace/src/invariant.ts"],
+      "@workspacealberta/wa-workspace-router": ["./packages/workspace/workspace-router/src"],
+      "@workspacealberta/wa-workspace-router/invariant": ["./packages/workspace/workspace-router/src/invariant.ts"]
       // END generated package aliases
     }
   }

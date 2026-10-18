@@ -330,6 +330,15 @@ export abstract class ReleaseFamily {
   abstract tagPrefixFor(member: ReleaseMember): string
 
   /**
+   * Keep prereleases off npm's stable distribution tag.
+   * @param version - validated package version.
+   * @returns the prerelease tag, or undefined for npm's latest default.
+   */
+  distTagForVersion(version: string): string | undefined {
+    return version.split('+', 1)[0]?.includes('-') === true ? 'next' : undefined
+  }
+
+  /**
    * The tag a member publishes from.
    * @param member - the member being published.
    * @returns The full tag name, without `refs/tags/`.

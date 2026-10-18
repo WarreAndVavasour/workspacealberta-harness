@@ -58,18 +58,18 @@ function styleInjectionModule(
  * Everything else under @workspacealberta/* is either a module-table entry
  * (external) or a leak the purity gate rejects.
  */
-export const INLINE_SAFE = /^(?:@workspacealberta\/wa-(?:file-reference|session|llm|tools|brand|deque|typert-protocol|util-crypto|util-values|util-workspace-path)(?:\/|$)|@workspacealberta\/wa-token-meter\/client$|@workspacealberta\/wa-agent-presets\/display$|@deepseek-ai\/dsh-(?:file-reference|session|llm|tools|brand|deque|typert-protocol|util-crypto|util-values|util-workspace-path)(?:\/|$)|@deepseek-ai\/dsh-token-meter\/client$|@deepseek-ai\/dsh-agent-presets\/display$)/
+export const INLINE_SAFE = /^(?:@workspacealberta\/wa-(?:file-reference|session|llm|tools|brand|deque|typert-protocol|util-crypto|util-values|util-workspace-path)(?:\/|$)|@workspacealberta\/wa-token-meter\/client$|@workspacealberta\/wa-agent-presets\/display$)/
 
 /**
- * Vendored framework libraries: rescoped into @deepseek-ai, so the gate below
+ * Vendored framework libraries: rescoped into @workspacealberta, so the gate below
  * would read them as plugin packages. They carry no cross-plugin runtime
  * identity to share — the framework itself is a requested module-table row
  * (external), while these are ordinary libraries a browser bundle inlines.
  */
-const VENDORED_LIBRARY = /^(?:@workspacealberta|@deepseek-ai)\/(cosmokit|schemastery)(\/|$)/
+const VENDORED_LIBRARY = /^@workspacealberta\/(cosmokit|schemastery)(\/|$)/
 
 /** Generated descriptor/codec contribution with no shared runtime identity. */
-const GENERATED_REMOTE = /^(?:@workspacealberta\/wa-|@deepseek-ai\/dsh-)[a-z0-9]+(?:-[a-z0-9]+)*\/remote$/
+const GENERATED_REMOTE = /^@workspacealberta\/wa-[a-z0-9]+(?:-[a-z0-9]+)*\/remote$/
 
 /**
  * Workspace mode replaces an empty config array with the root defaults. A
@@ -482,7 +482,7 @@ function clientConfig(id: string, entry: string): UserConfig {
     plugins: [{
       // Bundle purity gate (build-time mirror of the module-edge rules): the
       // baseline and package-specific requests stay external, inline-safe wire layers
-      // inline, and every other @deepseek-ai value import is a build error — a
+      // inline, and every other @workspacealberta value import is a build error — a
       // cross-plugin value import either inlines a duplicate runtime instance
       // or requires a specifier the module table cannot answer for this package.
       // Cross-plugin collaboration goes through cordis services instead.

@@ -1,0 +1,62 @@
+{
+  "name": "@workspacealberta/wa-workspace-router",
+  "version": "0.1.2-rc.1",
+  "description": "Jev decision tree for WorkspaceAlberta procurement tools",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./invariant": {
+      "types": "./lib/types/invariant.d.ts",
+      "default": "./lib/invariant.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/invariant.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@workspacealberta/schemastery": "workspace:^",
+    "@typesafe-ai/sdk": "^0.7.0",
+    "zod": "^4.4.3",
+    "@workspacealberta/wa-util-values": "workspace:^"
+  },
+  "peerDependencies": {
+    "@workspacealberta/cordis": "workspace:^",
+    "@workspacealberta/wa-agent": "workspace:^",
+    "@workspacealberta/wa-credentials": "workspace:^",
+    "@workspacealberta/wa-invariants": "workspace:^",
+    "@workspacealberta/wa-llm": "workspace:^",
+    "@workspacealberta/wa-session": "workspace:^",
+    "@workspacealberta/wa-tools": "workspace:^"
+  },
+  "devDependencies": {
+    "@workspacealberta/cordis": "workspace:^",
+    "@workspacealberta/wa-agent": "workspace:^",
+    "@workspacealberta/wa-credentials": "workspace:^",
+    "@workspacealberta/wa-invariants": "workspace:^",
+    "@workspacealberta/wa-llm": "workspace:^",
+    "@workspacealberta/wa-session": "workspace:^",
+    "@workspacealberta/wa-system-prompt": "workspace:^",
+    "@workspacealberta/wa-tools": "workspace:^",
+    "@workspacealberta/wa-agent-loop": "workspace:^",
+    "@workspacealberta/wa-session-projection": "workspace:^",
+    "@workspacealberta/wa-llm-pi-ai": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WarreAndVavasour/workspacealberta-harness.git",
+    "directory": "packages/workspace/workspace-router"
+  }
+}

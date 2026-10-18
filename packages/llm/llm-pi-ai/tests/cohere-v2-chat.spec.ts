@@ -160,6 +160,17 @@ describe('cohere-v2-chat protocol selection', () => {
 })
 
 describe('serializeCohereV2ChatRequest', () => {
+  it('retains composed plugin parameters without enabling the strict mode that rejected Pi chats', () => {
+    const parameters = { type: 'object', properties: { plugin: { oneOf: [
+      { type: 'string' }, { type: 'object', properties: { name: { type: 'string' } } },
+    ] } } }
+    const request = serializeCohereV2ChatRequest('command-a-plus-05-2026', context({
+      tools: [{ name: 'inspect_plugin', description: 'Inspect a plugin', parameters }],
+    }))
+    expect(request).not.toHaveProperty('strict_tools')
+    expect(request.tools?.[0]?.function.parameters).toEqual(parameters)
+  })
+
   it('sends system, tools, and sampling fields, leaving strict_tools off by default', () => {
     const request = serializeCohereV2ChatRequest('command-a-plus-05-2026', context({
       systemPrompt: 'be brief',
@@ -503,8 +514,8 @@ describe('translateCohereSse', () => {
       yield { event: '', data: JSON.stringify({ type: 'tool-call-end' }) }
       yield { event: '', data: JSON.stringify({ type: 'message-end', delta: { finish_reason: 'COMPLETE' } }) }
     })()))
-    const end = unusable.find(event => event.type === 'toolcall_end')
-    expect(end).toMatchObject({ toolCall: { arguments: {} } })
+    expect(unusable.some(event => event.type === 'toolcall_end')).toBe(false)
+    expect(unusable.at(-1)).toMatchObject({ type: 'error', error: { errorMessage: /completed tool call/ } })
   })
 
   it('falls through empty error objects, invalid usage numbers, and missing tool arguments', async () => {
@@ -569,6 +580,24 @@ describe('translateCohereSse', () => {
 })
 
 describe('cohereV2ChatApi stream', () => {
+  it('accepts an empty argument stream for a no-argument tool without accepting malformed JSON', async () => {
+    const events = await collect(translateCohereSse(model('https://example'), (async function* () {
+      yield { event: '', data: JSON.stringify({ type: 'tool-call-start', index: 0,
+        delta: { message: { tool_calls: { id: 'read-project', function: { name: 'project_read', arguments: '' } } } } }) }
+      yield { event: '', data: JSON.stringify({ type: 'tool-call-end', index: 0 }) }
+      yield { event: '', data: JSON.stringify({ type: 'message-end', delta: { finish_reason: 'TOOL_CALL' } }) }
+    })()))
+    expect(events.find(event => event.type === 'toolcall_end')).toMatchObject({ toolCall: { id: 'read-project', name: 'project_read', arguments: {} } })
+    expect(events.at(-1)).toMatchObject({ type: 'done', reason: 'toolUse' })
+  })
+  it.each([[401, 'AUTH'], [429, 'RATE_LIMIT'], [503, 'SERVER']])('preserves HTTP %s classification through the harness runtime', async (status, code) => {
+    const server = await mockServer([{ status, body: '{"message":"Request refused"}' }])
+    const ctx = await harness(server.url)
+    try {
+      const result = await assemble(ctx, { provider: 'cohere-canada', model: 'command-a-plus-05-2026', messages: [user('hi')] })
+      expect(result.finish).toMatchObject({ kind: 'error', failure: { code } })
+    } finally { await ctx.fiber.dispose() }
+  })
   it('POSTs /v2/chat with bearer auth and streams a text turn', async () => {
     const server = await mockServer([{ events: textEvents }])
     const ctx = await harness(`${server.url}/v2`)
@@ -644,7 +673,7 @@ describe('cohereV2ChatApi stream', () => {
     const unauthorized = await collect(api.stream(model(http.url), context(), { apiKey: 'k' }))
     expect(unauthorized.at(-1)).toMatchObject({
       type: 'error',
-      error: { errorMessage: 'bad key' },
+      error: { errorMessage: 'Cohere v2 chat HTTP 401: bad key' },
     })
 
     const plain = await mockServer([{ status: 503, body: 'nope' }])
@@ -724,14 +753,14 @@ describe('cohereV2ChatApi stream', () => {
     const rejected = await collect(api.stream(model(http.url), context(), { apiKey: 'k' }))
     expect(rejected.at(-1)).toMatchObject({
       type: 'error',
-      error: { errorMessage: 'schema rejected' },
+      error: { errorMessage: 'Cohere v2 chat HTTP 400: schema rejected' },
     })
 
     const stringError = await mockServer([{ status: 400, body: '{"error":"quota"}' }])
     const quota = await collect(api.stream(model(stringError.url), context(), { apiKey: 'k' }))
     expect(quota.at(-1)).toMatchObject({
       type: 'error',
-      error: { errorMessage: 'quota' },
+      error: { errorMessage: 'Cohere v2 chat HTTP 400: quota' },
     })
   })
 })

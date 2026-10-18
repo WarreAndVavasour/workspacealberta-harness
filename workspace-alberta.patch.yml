@@ -1,24 +1,26 @@
-# workspaceAlberta / Warre & Vavasour deployment patch for the wa CLI.
+# workspaceAlberta / Warre & Vavasour deployment layer for official dsh.
 # Secrets are resolved from the process environment and are never stored here.
 #
-# The default model route speaks Cohere Chat API v2. The configured baseURL is
-# the prefix https://api.cohere.com/v2; llm-pi-ai appends /chat, so requests
-# go to POST https://api.cohere.com/v2/chat with Bearer COHERE_API_KEY. Do not
-# point this route at https://api.cohere.ai/compatibility/v1.
-#
-# Web search stays on Exa (searchProvider: exa, EXA_API_KEY). Do not register
-# Cohere search on this desk. Fetch is the anonymous local HTTP provider.
+# Web tooling runs entirely on our side: the seam selects the Cohere v2
+# tool-use search provider (web-search-cohere) plus the anonymous local HTTP
+# fetch provider, and the DeepSeek-backed llm/web-search rows stay disabled.
 # session-telemetry-otel is mounted (restored) but stays inert: mode defaults
 # to DISABLED unless DSH_TELEMETRY_MODE opts in, and no collector URL exists
 # in the environment, so nothing exports off-machine.
 
 - id: credentials
   config:
-    onePassword:
-      refs:
-        COHERE_API_KEY: op://workspaceAlberta/Cohere/api-key
-      records:
-        client-connection/browser-session: op://workspaceAlberta/Harness/browser-session-record
+    # Explicit local mode for a service whose EnvironmentFile supplies both keys.
+    onePassword: !!js |
+      process.env.WA_CREDENTIALS_MODE === 'env' ? undefined : ({
+        refs: {
+          COHERE_API_KEY: 'op://workspaceAlberta/Cohere/api-key',
+          TYPESAFE_API_KEY: 'op://fgfcolfslsxo52ixowb647ohhy/uknc57xudh6vpov6zevz2pupne/credential'
+        },
+        records: {
+          'client-connection/browser-session': 'op://workspaceAlberta/Harness/browser-session-record'
+        }
+      })
 
 - id: llm-deepseek
   disabled: true
@@ -28,7 +30,7 @@
 
 - id: web
   config:
-    searchProvider: exa
+    searchProvider: cohere
     fetchProvider: http
 
 - id: tool-web
@@ -57,11 +59,42 @@
             input: [text]
 
 - insert:
-    - id: web-search-exa
-      name: '@workspacealberta/wa-web-search-exa'
+    - id: workspace-router
+      name: '@workspacealberta/wa-workspace-router'
+      config:
+        mode: recommend
+        model: jev-1.14.0
+        # Provisional review thresholds; recommendations do not authorize actions.
+        minConfidence:
+          search: 0.9
+          match: 0.9
+          details: 0.9
+          deadlines: 0.9
+          bid_room: 0.9
+        referenceConfidence: 0.9
+        tools:
+          search: mcp__workspace_alberta__search_opportunities
+          match: mcp__workspace_alberta__find_matching_opportunities
+          details: mcp__workspace_alberta__get_opportunity_details
+          deadlines: mcp__workspace_alberta__list_deadlines
+          bid_room: mcp__workspace_alberta__process_bid_room
 
-    # web-fetch-http ships in the base bundle as of 0.1.2 — do not re-insert
-    # (duplicate loader entry id: web-fetch-http).
+    - id: workspace-project-tools
+      name: '@workspacealberta/wa-project-tools'
+      config:
+        model: jev-1.14.0
+        enableImages: true
+        enableLongContext: true
+        # Provisional review threshold; classifications never authorize actions.
+        minConfidence: 0.9
+
+    - id: web-search-cohere
+      name: '@workspacealberta/web-search-cohere'
+      config:
+        apiKeyEnv: COHERE_API_KEY
+
+    # web-fetch-http ships in the upstream base bundle as of 0.1.2 â€” no
+    # insert needed here anymore.
 
     - id: mcp-workspace-alberta
       name: '@workspacealberta/wa-mcp-client'

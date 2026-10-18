@@ -43,6 +43,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^4.1.8
         version: 4.1.8(vitest@4.1.8)
+      '@workspacealberta/wa-llm-replay':
+        specifier: workspace:^
+        version: link:packages/test-support/llm-replay
       '@workspacealberta/wa-tool-session-query':
         specifier: workspace:^
         version: link:packages/session-query/tool-session-query
@@ -1128,6 +1131,9 @@ importers:
       '@workspacealberta/wa-plugin-package-inventory-deepseek':
         specifier: workspace:^
         version: link:../../llm/plugin-package-inventory-deepseek
+      '@workspacealberta/wa-project-tools':
+        specifier: workspace:^
+        version: link:../../workspace/project-tools
       '@workspacealberta/wa-pwsh-sandbox':
         specifier: workspace:^
         version: link:../../shell/pwsh-sandbox
@@ -1287,12 +1293,15 @@ importers:
       '@workspacealberta/wa-web-search-deepseek':
         specifier: workspace:^
         version: link:../../web/web-search-deepseek
-      '@workspacealberta/wa-web-search-exa':
-        specifier: workspace:^
-        version: link:../../web/web-search-exa
       '@workspacealberta/wa-workflow-worker-thread':
         specifier: workspace:^
         version: link:../../workflow/workflow-worker-thread
+      '@workspacealberta/wa-workspace-router':
+        specifier: workspace:^
+        version: link:../../workspace/workspace-router
+      '@workspacealberta/web-search-cohere':
+        specifier: workspace:^
+        version: link:../../web/web-search-cohere
     devDependencies:
       '@workspacealberta/cordis':
         specifier: workspace:^
@@ -9812,6 +9821,46 @@ importers:
         specifier: ^4.19.2
         version: 4.22.4
 
+  packages/workspace/project-tools:
+    dependencies:
+      '@typesafe-ai/sdk':
+        specifier: ^0.7.0
+        version: 0.7.0
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      '@workspacealberta/wa-util-values':
+        specifier: workspace:^
+        version: link:../../util/values
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@workspacealberta/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@workspacealberta/wa-agent':
+        specifier: workspace:^
+        version: link:../../core/agent
+      '@workspacealberta/wa-credentials':
+        specifier: workspace:^
+        version: link:../../credentials/credentials
+      '@workspacealberta/wa-fs':
+        specifier: workspace:^
+        version: link:../../fs/fs
+      '@workspacealberta/wa-fs-local':
+        specifier: workspace:^
+        version: link:../../fs/fs-local
+      '@workspacealberta/wa-llm':
+        specifier: workspace:^
+        version: link:../../llm/llm
+      '@workspacealberta/wa-session':
+        specifier: workspace:^
+        version: link:../../core/session
+      '@workspacealberta/wa-tools':
+        specifier: workspace:^
+        version: link:../../core/tools
+
   packages/workspace/workspace:
     dependencies:
       '@workspacealberta/wa-brand':
@@ -9842,6 +9891,55 @@ importers:
       '@workspacealberta/wa-typert-protocol':
         specifier: workspace:^
         version: link:../../typert/protocol
+
+  packages/workspace/workspace-router:
+    dependencies:
+      '@typesafe-ai/sdk':
+        specifier: ^0.7.0
+        version: 0.7.0
+      '@workspacealberta/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      '@workspacealberta/wa-util-values':
+        specifier: workspace:^
+        version: link:../../util/values
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@workspacealberta/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@workspacealberta/wa-agent':
+        specifier: workspace:^
+        version: link:../../core/agent
+      '@workspacealberta/wa-agent-loop':
+        specifier: workspace:^
+        version: link:../../core/agent-loop
+      '@workspacealberta/wa-credentials':
+        specifier: workspace:^
+        version: link:../../credentials/credentials
+      '@workspacealberta/wa-invariants':
+        specifier: workspace:^
+        version: link:../../runtime-diagnostics/invariants
+      '@workspacealberta/wa-llm':
+        specifier: workspace:^
+        version: link:../../llm/llm
+      '@workspacealberta/wa-llm-pi-ai':
+        specifier: workspace:^
+        version: link:../../llm/llm-pi-ai
+      '@workspacealberta/wa-session':
+        specifier: workspace:^
+        version: link:../../core/session
+      '@workspacealberta/wa-session-projection':
+        specifier: workspace:^
+        version: link:../../session/session-projection
+      '@workspacealberta/wa-system-prompt':
+        specifier: workspace:^
+        version: link:../../core/system-prompt
+      '@workspacealberta/wa-tools':
+        specifier: workspace:^
+        version: link:../../core/tools
 
   python/sdk-runtime:
     dependencies:
@@ -12986,6 +13084,10 @@ packages:
 
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
+
+  '@typesafe-ai/sdk@0.7.0':
+    resolution: {integrity: sha512-Yg3OZArCQMJx98ut8QVkhx3rFo9ON7pz8Hjzv8c3FGz69Sk8jYftLOlz+Wf6kq6jol/1m08aBnjRAzJr2x3GoQ==}
+    engines: {node: '>=22'}
 
   '@typescript-eslint/types@8.61.0':
     resolution: {integrity: sha512-9QTQpZ5Iin4CdIodfbDQFSeiSJKidgYJYug1P9CC2xWgUTvlmixViqDZNciMjwLBZyJnG4tGmPl97rVAFb1AJg==}
@@ -18664,6 +18766,8 @@ snapshots:
   '@types/ws@8.18.1':
     dependencies:
       '@types/node': 22.20.0
+
+  '@typesafe-ai/sdk@0.7.0': {}
 
   '@typescript-eslint/types@8.61.0': {}
 

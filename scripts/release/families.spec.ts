@@ -1,6 +1,6 @@
 /** Release family discovery, publish order, tag naming, and the bump judgements. */
 
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -21,6 +21,13 @@ function member(directory: string, name: string, manifest: Record<string, unknow
 
 const roots: string[] = []
 
+it('publishes prereleases to next without promoting build metadata or stable versions', () => {
+  const family = releaseFamily('wa')
+  expect(family.distTagForVersion('0.2.0-rc.1')).toBe('next')
+  expect(family.distTagForVersion('0.2.0')).toBeUndefined()
+  expect(family.distTagForVersion('0.2.0+build-with-hyphens')).toBeUndefined()
+})
+
 function write(path: string, content: string): void {
   mkdirSync(dirname(path), { recursive: true })
   writeFileSync(path, content)
@@ -29,6 +36,7 @@ function write(path: string, content: string): void {
 function buildFixture(environment: Record<string, string>): string {
   const root = mkdtempSync(join(tmpdir(), 'dsh-release-build-'))
   roots.push(root)
+  write(join(root, 'package.json'), readFileSync(resolve(import.meta.dirname, '../../package.json'), 'utf8'))
   write(join(root, 'apps/web/dist/index.html'), '<main></main>')
   write(join(root, 'packages/client/example/lib/client.js'), 'module.exports = {}\n')
   writeClientBuildRecord(root, environment)
@@ -106,6 +114,7 @@ describe('release families', () => {
     vi.stubEnv('DSH_CLIENT_COMMIT_HASH', officialEnvironment.DSH_CLIENT_COMMIT_HASH)
     const official = buildFixture(officialEnvironment)
     const defaultBuild = buildFixture({})
+    write(join(defaultBuild, 'missing/package.json'), readFileSync(resolve(import.meta.dirname, '../../package.json'), 'utf8'))
 
     expect(() => { dsh.verifyBuildArtifacts(official) }).not.toThrow()
     expect(() => { dsh.verifyBuildArtifacts(defaultBuild) }).toThrow(/DSH_CLIENT_TITLE/)
@@ -261,7 +270,7 @@ describe('release families', () => {
     expect(plan.order).toHaveLength(members.length)
     const position = new Map(plan.order.map((entry, index) => [entry.name, index]))
     const remotes = position.get('@workspacealberta/wa-api-remotes')
-    const host = position.get('@workspacealberta/wa-host-apiproxy')
+    const host = position.get('@workspacealberta/wa-web-app')
     expect(remotes).toBeTypeOf('number')
     expect(host).toBeTypeOf('number')
     if (remotes === undefined || host === undefined) return

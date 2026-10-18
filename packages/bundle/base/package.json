@@ -116,10 +116,11 @@
     "@workspacealberta/wa-web": "workspace:^",
     "@workspacealberta/wa-web-fetch-http": "workspace:^",
     "@workspacealberta/wa-web-search-deepseek": "workspace:^",
-    "@workspacealberta/wa-web-search-exa": "workspace:^",
-    "@workspacealberta/wa-web-fetch-http": "workspace:^",
+    "@workspacealberta/web-search-cohere": "workspace:^",
     "@workspacealberta/wa-workflow-worker-thread": "workspace:^",
-    "@workspacealberta/wa-agent-instructions": "workspace:^"
+    "@workspacealberta/wa-agent-instructions": "workspace:^",
+    "@workspacealberta/wa-project-tools": "workspace:^",
+    "@workspacealberta/wa-workspace-router": "workspace:^"
   },
   "peerDependencies": {
     "@workspacealberta/cordis": "workspace:^"

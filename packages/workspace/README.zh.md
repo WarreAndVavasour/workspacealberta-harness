@@ -9,7 +9,7 @@ kind: "package-group"
 
 ## 概述
 
-workspace 组提供宿主 UI 背后的持久项目列表：一个产品包 `workspace`，把用户目录命名为项目、保持稳定顺序，并把每个项目的会话归入其下。借助它，UI 可以显示带会话的项目侧边栏、把会话从分组中隐藏而不删除它，以及移除项目——移除绝不会删除文件夹或会话历史，它们只会变成 Ungrouped。本组只面向宿主侧：没有工具、提示词或会话事件，因此模型与 agent loop 永远不会看到它。当产品展示持久 workspace 或项目界面时使用它；它需要会话存储与持久化后端一并挂载。
+workspace 组提供持久目录项目与对话级交付计划。`workspace` 将会话归入命名目录，移除目录项目时不会删除会话历史。`project-tools` 为主模型提供持久项目检查点与有界 Jev 文档分类。按需选择目录导航、持续企业工作或两者；各自状态归属不同组件。
 
 ## 目录
 
@@ -25,12 +25,15 @@ workspace 组提供宿主 UI 背后的持久项目列表：一个产品包 `work
 | 包 | 职责 | ctx 键 |
 |---|---|---|
 | [`workspace`](workspace/README.zh.md) | 提供命名且有序的项目，并在每个目录下聚合其会话 | `ctx.workspaceRegistry` |
+| [`project-tools`](project-tools/README.zh.md) | 保存对话项目计划，并用 Jev 分类带引用文档章节 | 仅工具 |
+| [`workspace-router`](workspace-router/README.zh.md) | 使用 Jev 建议或受保护地执行一个现有采购操作 | 仅工具 |
 
 -----
 
 <a id="related-documentation"></a>
 ## 相关文档
 
+- [采购路由](../../docs/subsystems/workspace-router.zh.md) — 受限 Jev 判断与受保护执行。
 - [Workspace 子系统](../../docs/subsystems/workspace.zh.md)——项目及其会话的权威功能约定。
 - [领域 KV 存储 Agent Note](../../.agents/notes/proposed/architecture/2026-07-24-domain-kv-storage-and-workspace.zh.md)——项目记录背后的存储设计。
 - [Workspace UI 产品流 Agent Note](../../.agents/notes/implemented/feature/2026-07-25-workspace-ui-product-flow.zh.md)——首次启动如何从会话历史构建项目，以及 GUI 如何排序。

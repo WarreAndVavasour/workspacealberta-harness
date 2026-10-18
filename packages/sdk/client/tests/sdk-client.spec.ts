@@ -63,6 +63,15 @@ async function tempDir(prefix: string): Promise<string> {
 }
 
 describe('DeepSeekHarness', () => {
+  it('preserves auxiliary Workspace router evidence without changing the final response', async () => {
+    const harness = harnessWith({ FAKE_WORKSPACE_ROUTE: '1', FAKE_TEXT: 'Please provide a business profile.' })
+    const result = await harness.run('Find suitable procurement work')
+    expect(result.events.find(event => event.type === 'workspace/route')).toMatchObject({
+      type: 'workspace/route', data: { callId: 'workspace-fixture', phase: 'decision',
+        value: { decision: { kind: 'clarify', reason: 'missing_profile' } } },
+    })
+    expect(result.finalResponse).toBe('Please provide a business profile.')
+  })
   it('ignores notifications that precede the submitted message receipt', async () => {
     const notifications = [
       { method: 'session.status', params: { sessionId: 'owned', status: 'running' } },

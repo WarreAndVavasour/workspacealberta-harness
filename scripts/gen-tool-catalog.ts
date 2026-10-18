@@ -61,6 +61,11 @@ import * as ToolTasks from '@workspacealberta/wa-tool-jobs'
 import type TeamService from '@workspacealberta/wa-experimental-agent-team'
 import * as ToolTeam from '@workspacealberta/wa-experimental-tool-agent-team'
 import * as ToolTodo from '@workspacealberta/wa-tool-todo'
+import ProjectFileSystem from '@workspacealberta/wa-fs-local'
+import * as ProjectTools from '@workspacealberta/wa-project-tools'
+import * as WorkspaceRouter from '@workspacealberta/wa-workspace-router'
+import { CredentialProvider } from '@workspacealberta/wa-credentials'
+import LocalCredentials from '@workspacealberta/wa-credentials-local'
 import * as ToolSubagent from '@workspacealberta/wa-tool-subagent'
 import { registerListSubagentModels } from '../packages/subagent/tool-subagent/src/list-models.ts'
 import * as ToolWeb from '@workspacealberta/wa-tool-web'
@@ -186,7 +191,49 @@ export interface ToolPackage {
  * `packages/`). Ordered by package name (the render order); the completeness
  * guard proves it is exhaustive against the on-disk glob.
  */
+class RouterCatalogCredentials extends CredentialProvider {
+  resolve() { return Promise.resolve({ value: 'catalog-fixture-key', source: 'catalog' }) }
+  describe() { return Promise.resolve({ configured: true, writable: false }) }
+  set(): Promise<never> { return Promise.reject(new Error('read only')) }
+  unset(): Promise<never> { return Promise.reject(new Error('read only')) }
+  readRecord() { return Promise.resolve(undefined) }
+  describeRecord() { return Promise.resolve({ configured: false, writable: false }) }
+  listRecords() { return Promise.resolve([]) }
+  modifyRecord(): Promise<never> { return Promise.reject(new Error('read only')) }
+  deleteRecord(): Promise<never> { return Promise.reject(new Error('read only')) }
+}
+
 const TOOL_PACKAGES: ToolPackage[] = [
+  {
+    pkg: '@workspacealberta/wa-workspace-router',
+    dir: 'workspace-router',
+    source: 'packages/workspace/workspace-router/src/index.ts',
+    requires: ['ctx.tools', 'ctx.credentials'],
+    writes: ['workspace/route', 'tool/call', 'tool/result'],
+    async mount(ctx) {
+      await ctx.plugin(RouterCatalogCredentials)
+      await ctx.plugin(WorkspaceRouter, WorkspaceRouter.Config({
+        tools: { search: 'search', match: 'match', details: 'details', deadlines: 'deadlines', bid_room: 'bid_room' },
+        minConfidence: { search: 0.9, match: 0.9, details: 0.9, deadlines: 0.9, bid_room: 0.9 },
+        referenceConfidence: 0.9,
+      }))
+    },
+    note: 'Bounded Jev procurement routing. Catalog thresholds and credentials are fixture values, not production calibration.',
+  },
+  {
+    pkg: '@workspacealberta/wa-project-tools',
+    dir: 'project-tools',
+    source: 'packages/workspace/project-tools/src/index.ts',
+    requires: ['ctx.tools', 'ctx.sessions', 'ctx.credentials'],
+    writes: ['workspace/project', 'workspace/intake', 'tool/call', 'tool/result'],
+    async mount(ctx) {
+      await ctx.plugin(SessionStore)
+      await ctx.plugin(LocalCredentials)
+      await ctx.plugin(ProjectFileSystem)
+      await ctx.plugin(ProjectTools, ProjectTools.Config({ minConfidence: 0.9 }))
+    },
+    note: 'Optional conversation-scoped business project tools. The schema harvest threshold is a fixture value, not a production calibration.',
+  },
   {
     pkg: '@workspacealberta/wa-tool-ask-user',
     dir: 'tool-ask-user',
@@ -745,7 +792,11 @@ export function render(catalog: ToolCatalog): string {
     '',
   ]
   for (const entry of catalog) {
-    lines.push(`<a id="${githubSlug(entry.pkg)}"></a>`, '', `## \`${entry.pkg}\``, '')
+    // Keep existing document links working after the corporate package rename.
+    const previous = entry.pkg.replace('@workspacealberta/wa-', '@deepseek-ai/dsh-')
+    const anchor = `<a id="${githubSlug(entry.pkg)}"></a>`
+      + (previous === entry.pkg ? '' : `<a id="${githubSlug(previous)}"></a>`)
+    lines.push(anchor, '', `## \`${entry.pkg}\``, '')
     for (const schema of entry.schemas) {
       // Collection validated that every harvested schema has a source.
       const source = entry.sources[schema.name] as string

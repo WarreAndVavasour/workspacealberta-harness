@@ -788,7 +788,11 @@ function refLink(ref: TypeRef, byName: Map<string, CatalogEntry>): string {
 
 /** Render one configurable plugin's section. */
 function renderConfigEntry(entry: CatalogEntry, byName: Map<string, CatalogEntry>): string[] {
-  const out = [`<a id="${githubSlug(entry.pkg)}"></a>`, '', `## \`${entry.pkg}\``, '']
+  // Preserve published fragment links when a package receives the corporate namespace.
+  const previous = entry.pkg.replace('@workspacealberta/wa-', '@deepseek-ai/dsh-')
+  const anchor = `<a id="${githubSlug(entry.pkg)}"></a>`
+    + (previous === entry.pkg ? '' : `<a id="${githubSlug(previous)}"></a>`)
+  const out = [anchor, '', `## \`${entry.pkg}\``, '']
   const requires = requiresLine(entry.inject)
   if (requires) out.push(requires, '')
   out.push('```' + FENCE, ...(entry.pastes ?? []).map(p => p.text).join('\n\n').split('\n'), '```', '')

@@ -1,0 +1,19 @@
+- insert:
+    - id: workspace-router-fixture
+      name: ./fixture.mjs
+
+- id: llm-deepseek
+  disabled: true
+
+- id: llm-pi-ai
+  config:
+    providers:
+      cohere-canada:
+        displayName: Cohere
+        apiKeyEnv: COHERE_API_KEY
+        api: cohere-v2-chat
+        baseURL: https://api.cohere.com/v2
+        models:
+          - id: command-a-plus-05-2026
+            contextWindow: 256000
+            maxTokens: 4096
