@@ -103,6 +103,7 @@
     "@workspacealberta/wa-session-reference": "workspace:^",
     "@workspacealberta/wa-session-log-export": "workspace:^",
     "@workspacealberta/wa-session-stats": "workspace:^",
+    "@workspacealberta/wa-session-episode-recorder": "workspace:^",
     "@workspacealberta/wa-session-turn-outline": "workspace:^",
     "@workspacealberta/wa-api-session-controller": "workspace:^",
     "@workspacealberta/wa-api-settings-controller": "workspace:^",

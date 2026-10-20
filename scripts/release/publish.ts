@@ -169,7 +169,7 @@ async function main(): Promise<void> {
     // Space out the writes: the gap belongs between publishes, so a run that
     // only skips does not wait at all.
     if (published > 0) await sleep(PUBLISH_SPACING_MS)
-    await publishTarball(tarball, name, version, family.distTagForVersion(version))
+    await publishTarball(tarball, name, version, undefined)
     console.log(`release publish: ${progress} ${name}@${version} published`)
     published += 1
   }
