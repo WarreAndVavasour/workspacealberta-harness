@@ -4,7 +4,7 @@ English | [中文](CONTRIBUTING.zh.md)
 
 Thank you for your interest in contributing to Workspace Alberta.
 
-This repository is the Warre & Vavasour Workspace Alberta product. Issues and pull requests belong on [HarleyCoops/workspacealberta-harness](https://github.com/HarleyCoops/workspacealberta-harness). The operator CLI is `wa`; first-party packages use the `@workspacealberta` npm scope.
+This repository is the Warre & Vavasour Workspace Alberta product. Issues and pull requests belong on [WarreAndVavasour/workspacealberta-harness](https://github.com/WarreAndVavasour/workspacealberta-harness). The operator CLI is `wa`; first-party packages use the `@workspacealberta` npm scope.
 
 - Report bugs and product gaps on GitHub Issues for this repository.
 - Procurement skill feedback uses the `wa-feedback` path described in [WORKSPACE_ALBERTA.md](WORKSPACE_ALBERTA.md).
