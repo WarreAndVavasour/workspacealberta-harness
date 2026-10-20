@@ -4,7 +4,7 @@
 
 感谢你愿意为 Workspace Alberta 作出贡献。
 
-本仓库是 Warre & Vavasour 的 Workspace Alberta 产品。议题与拉取请求应提交到 [HarleyCoops/workspacealberta-harness](https://github.com/HarleyCoops/workspacealberta-harness)。操作员 CLI 为 `wa`；第一方软件包使用 `@workspacealberta` npm 作用域。
+本仓库是 Warre & Vavasour 的 Workspace Alberta 产品。议题与拉取请求应提交到 [WarreAndVavasour/workspacealberta-harness](https://github.com/WarreAndVavasour/workspacealberta-harness)。操作员 CLI 为 `wa`；第一方软件包使用 `@workspacealberta` npm 作用域。
 
 - 在本仓库的 GitHub Issues 中报告缺陷和产品缺口。
 - 采购技能反馈遵循 [WORKSPACE_ALBERTA.md](WORKSPACE_ALBERTA.md) 中的 `wa-feedback` 路径。

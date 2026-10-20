@@ -29,7 +29,7 @@ Verify installation by finding `wa-procurement-base` in the skill catalog and co
 
 ### Maintenance clock
 
-Configure a separate scheduler job for weekdays at 07:00 **America/Edmonton**, with non-overlapping runs. Load only the improver as operating instructions; it may inspect the base as an editable document. Supply repository `HarleyCoops/workspacealberta-harness`, target branch `workspace-alberta`, and `wa-feedback` issues/PRs as authorized feedback sources. GitHub CLI authentication must allow reading comments and creating branches and PRs. Private harness feedback requires an explicitly supplied export; this deployment does not scrape customer sessions.
+Configure a separate scheduler job for weekdays at 07:00 **America/Edmonton**, with non-overlapping runs. Load only the improver as operating instructions; it may inspect the base as an editable document. Supply repository `WarreAndVavasour/workspacealberta-harness`, target branch `workspace-alberta`, and `wa-feedback` issues/PRs as authorized feedback sources. GitHub CLI authentication must allow reading comments and creating branches and PRs. Private harness feedback requires an explicitly supplied export; this deployment does not scrape customer sessions.
 
 The scheduler owns the last completed scan cursor, unaddressed signal IDs, and outcome receipts. If it cannot persist that metadata, the improver uses its documented seven-day overlap and PR deduplication fallback. Temporary signal summaries stay outside versioned files. A failure does not advance the cursor. A threshold trigger such as three new comments requires an external collector; it is not installed by the skill files.
 

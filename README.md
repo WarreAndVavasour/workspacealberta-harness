@@ -44,7 +44,7 @@ We don't cut corners. We don't cut people. We build. This is an investment in do
 
 The proof will be economic activity: a delivered solution, new work, paid invoices, Canadian dollars earned. You account for your income. We account for ours. We each meet our applicable tax obligations. If we can build something valuable together, let's earn our part of it.
 
-[Bring us your idea](mailto:hello@warreandvavasour.com?subject=Our%20million-dollar%20problem). The [offer and delivery terms](https://github.com/HarleyCoops/WorkspaceAlberta/blob/main/docs/terminal-offer.md) spell out the 60-day boundary and what we agree before starting, including how new revenue is attributed and how long the share runs.
+[Bring us your idea](mailto:hello@warreandvavasour.com?subject=Our%20million-dollar%20problem). The [offer and delivery terms](https://github.com/WarreAndVavasour/WorkspaceAlberta/blob/main/docs/terminal-offer.md) spell out the 60-day boundary and what we agree before starting, including how new revenue is attributed and how long the share runs.
 
 If we cannot deliver within the agreed period, no terminal fee or success fee is due. The million-dollar problem is an ambition, not a revenue guarantee.
 
@@ -58,9 +58,9 @@ The conviction behind the work is simple: **AGI is here. Let's build everything.
 
 ## Three repositories, one working relationship
 
-- [WorkspaceAlberta](https://github.com/HarleyCoops/WorkspaceAlberta): the procurement MCP connection and shared tools.
+- [WorkspaceAlberta](https://github.com/WarreAndVavasour/WorkspaceAlberta): the procurement MCP connection and shared tools.
 - [workspaceAlbertaSetup](https://github.com/HarleyCoops/workspaceAlbertaSetup): installation, the physical workspace and support runbooks.
-- [workspacealberta-harness](https://github.com/HarleyCoops/workspacealberta-harness): the working session, tool execution, artifacts and reviewed refinements.
+- [workspacealberta-harness](https://github.com/WarreAndVavasour/workspacealberta-harness): the working session, tool execution, artifacts and reviewed refinements.
 
 The CEO brings the idea. Setup makes a place for it. The MCP connects it to real work. The harness helps carry it through. Warre & Vavasour stays alongside the business.
 

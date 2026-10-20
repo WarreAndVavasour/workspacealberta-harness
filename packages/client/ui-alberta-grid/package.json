@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HarleyCoops/workspacealberta-harness.git",
+    "url": "git+https://github.com/WarreAndVavasour/workspacealberta-harness.git",
     "directory": "packages/client/ui-alberta-grid"
   },
   "type": "module",
