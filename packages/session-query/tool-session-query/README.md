@@ -38,7 +38,7 @@ Choose it when a deployment wants model-driven retrieval of prior work — for e
 | `maxSearchResults` | `100` | Maximum authorized hits returned by one search call |
 | `searchTimeoutMs` | `30000` | Cooperative deadline attached to both full-text search tools |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-session-query) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-session-query) is the exhaustive source for every accepted field and its JSDoc.
 
 ### What the model can do
 

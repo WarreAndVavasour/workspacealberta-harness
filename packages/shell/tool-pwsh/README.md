@@ -47,7 +47,7 @@ The single config field toggles background support.
 |---|---|---|
 | `enableRunInBackground` | `true` | Expose `run_in_background`; when `false`, forced background calls are rejected |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-pwsh) is the exhaustive source for every accepted field and its JSDoc; the generated [tool catalog](../../../docs/tool-catalog.md#workspacealbertawa-tool-pwsh) carries the full argument schema.
+The generated [configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-pwsh) is the exhaustive source for every accepted field and its JSDoc; the generated [tool catalog](../../../docs/tool-catalog.md#workspacealbertawa-tool-pwsh) carries the full argument schema.
 
 ### Running a command
 
@@ -107,7 +107,7 @@ Read these pages when the package-level contract is not enough. They move from t
 - [pwsh tool and executor Agent Note](../../../.agents/notes/implemented/feature/2026-08-01-pwsh-tool-and-executor.md) — why the tool mirrors the bash tool and how the Windows sandbox gates its description.
 - [Windows ACL restricted-token sandbox Agent Note](../../../.agents/notes/implemented/feature/2026-08-08-windows-acl-restricted-token-sandbox.md) — the language-mode and named-pipe contracts.
 - [Generated tool catalog](../../../docs/tool-catalog.md#workspacealbertawa-tool-pwsh) — the exact `pwsh` argument schema.
-- [Generated configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-pwsh) — every accepted config field and its source declaration.
+- [Generated configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-pwsh) — every accepted config field and its source declaration.
 
 -----
 

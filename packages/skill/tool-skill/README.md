@@ -45,7 +45,7 @@ Load the plugin together with the skill registry and at least one provider. The 
 |---|---|---|
 | `catalogDescriptionMaxLength` | `500` | Maximum normalized description length rendered in the session catalog; minimum 3 |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-skill) is the exhaustive source for every accepted field.
+The generated [configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-skill) is the exhaustive source for every accepted field.
 
 ### What the model gets
 

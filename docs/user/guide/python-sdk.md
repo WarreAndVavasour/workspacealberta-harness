@@ -17,8 +17,8 @@ This tutorial installs the published Python SDK, runs the shipped standalone min
 ### Linux and macOS
 
 ```sh
-git clone https://github.com/deepseek-ai/deepseek-harness.git
-cd deepseek-harness
+git clone https://github.com/WarreAndVavasour/workspacealberta-harness.git
+cd workspacealberta-harness
 python -m venv .venv
 . .venv/bin/activate
 python -m pip install deepseek-harness-sdk
@@ -27,7 +27,7 @@ python -m pip install deepseek-harness-sdk
 ### Windows PowerShell
 
 ```powershell
-git clone https://github.com/deepseek-ai/deepseek-harness.git
+git clone https://github.com/WarreAndVavasour/workspacealberta-harness.git
 Set-Location deepseek-harness
 py -3.10 -m venv .venv
 .venv\Scripts\Activate.ps1

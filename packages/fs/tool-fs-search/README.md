@@ -66,7 +66,7 @@ Routine budgets stay out of the model-facing schema: a model that needs surround
 | `stderrMaxBytes` | `65536` | Diagnostic-tail budget for `rg` stderr |
 | `searchMetaMaxBytes` | `65536` | Max bytes of one search's serialized `presentationMeta`; trailing groups/paths drop past it |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-fs-search) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-fs-search) is the exhaustive source for every accepted field and its JSDoc.
 
 ### Deployment requirement
 

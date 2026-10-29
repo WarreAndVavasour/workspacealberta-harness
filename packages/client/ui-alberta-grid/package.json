@@ -1,7 +1,7 @@
 {
   "name": "@workspacealberta/ui-alberta-grid",
   "description": "Alberta Grid v2 Wilke-honest AESO conversation view (CSD + pool price)",
-  "version": "0.1.0-rc.8",
+  "version": "0.1.2-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -47,10 +47,7 @@
     "three": "^0.170.0"
   },
   "peerDependencies": {
-    "@workspacealberta/wa-client-locale": "workspace:^",
-    "@workspacealberta/wa-invariants": "workspace:^",
-    "@workspacealberta/cordis": "workspace:^",
-    "@workspacealberta/wa-client-ui-conversation": "workspace:^"
+    "@workspacealberta/cordis": "workspace:^"
   },
   "devDependencies": {
     "@workspacealberta/cordis": "workspace:^",

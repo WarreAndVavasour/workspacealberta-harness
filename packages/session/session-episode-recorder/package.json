@@ -1,13 +1,13 @@
 {
   "name": "@workspacealberta/wa-session-episode-recorder",
   "description": "Per-requirement episode recorder projection (episodeRecorder): folds tool calls, results, approvals and classify_tender manifests into wa.episode.v1-shaped trajectories for the DeepSeek Harness",
-  "version": "0.1.0",
+  "version": "0.1.2-rc.1",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/WarreAndVavasour/workspacealberta-harness.git",
     "directory": "packages/session/session-episode-recorder"
   },
   "type": "module",

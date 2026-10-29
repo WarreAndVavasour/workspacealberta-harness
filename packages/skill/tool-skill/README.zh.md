@@ -45,7 +45,7 @@ agent（智能体）可以在会话期间发现并加载 skill（技能）：在
 |---|---|---|
 | `catalogDescriptionMaxLength` | `500` | 会话目录中渲染的规范化描述最大长度；最小为 3 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-skill)是每个受支持字段的穷尽式真源。
+生成的[配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-tool-skill)是每个受支持字段的穷尽式真源。
 
 ### 模型得到什么
 

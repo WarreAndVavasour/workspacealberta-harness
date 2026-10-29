@@ -30,14 +30,15 @@ describe('gen-tool-catalog collectToolCatalog', () => {
       'cordis_inspect_query', 'cordis_inspect_self', 'cordis_run', 'cordis_stop',
       'cordis_undefine', 'create_goal', 'edit', 'exit_plan_mode', 'get_goal', 'glob', 'grep',
       'interrupt_agent', 'interrupt_agent', 'job_kill', 'job_list', 'job_output',
-      'list_agents', 'list_agents', 'list_subagent_models', 'lsp', 'pwsh', 'pwsh', 'ralph',
+      'list_agents', 'list_agents', 'list_subagent_models', 'lsp', 'project_checkpoint',
+      'project_classify_sections', 'project_inspect_image', 'project_read', 'pwsh', 'pwsh', 'ralph',
       'read', 'read_image', 'run_code', 'schedule_create', 'schedule_delete',
       'schedule_list', 'send_message', 'send_message', 'session_event_read', 'session_event_search',
       'session_event_trace', 'session_search', 'session_trace', 'skill', 'spawn_teammate',
       'str_replace_editor', 'subagent', 'team_task_create',
       'team_task_get', 'team_task_list', 'team_task_update', 'terminal_close', 'terminal_list',
       'terminal_open', 'terminal_read', 'terminal_send', 'terminal_signal', 'todo_write',
-      'update_goal', 'wait_agent', 'web_fetch', 'web_search', 'workflow', 'write',
+      'update_goal', 'wait_agent', 'web_fetch', 'web_search', 'workflow', 'workspace_route', 'write',
     ])
     // Every tool carries a JSON-Schema `parameters` object (what the model sees).
     for (const entry of catalog) {
@@ -124,7 +125,7 @@ describe('gen-tool-catalog assertToolsHarvested', () => {
     // The failure this guards is silent by construction: the package is in the
     // manifest, its plugin merely stays PENDING on an unmounted service, and the
     // catalog would ship without its tools while every gate stays green.
-    expect(() => { assertToolsHarvested(entry, 0) }).toThrow(/@deepseek-ai\/dsh-tool-demo booted without registering a single tool/)
+    expect(() => { assertToolsHarvested(entry, 0) }).toThrow(/@workspacealberta\/wa-tool-demo booted without registering a single tool/)
     expect(() => { assertToolsHarvested(entry, 0) }).toThrow(/ctx.somethingUnmounted/)
   })
 })

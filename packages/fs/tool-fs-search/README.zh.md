@@ -66,7 +66,7 @@ kind: "package-reference"
 | `stderrMaxBytes` | `65536` | `rg` stderr 的诊断尾部预算 |
 | `searchMetaMaxBytes` | `65536` | 一次搜索序列化 `presentationMeta` 的字节上限；超出部分丢弃尾部的组/路径 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-fs-search)是每个受支持字段及其 JSDoc 的穷尽式真源。
+生成的[配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-tool-fs-search)是每个受支持字段及其 JSDoc 的穷尽式真源。
 
 ### 部署要求
 

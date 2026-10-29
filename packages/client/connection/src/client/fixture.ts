@@ -531,17 +531,17 @@ const WEB_SEARCH_META = {
   answer: 'DeepSeek Harness is a plugin-based agent harness on vendored Cordis where **every capability is a plugin**.',
   sources: [
     {
-      url: 'https://github.com/deepseek-ai/deepseek-harness',
+      url: 'https://github.com/WarreAndVavasour/workspacealberta-harness',
       title: 'DeepSeek Harness — plugin-based agent harness',
       snippet: 'Everything is a plugin: session, tools, agent-loop, and LLM adapters all mount on the same Cordis context.',
       publishedAt: '2026-07-01',
     },
     {
-      url: 'https://www.deepseek.com/blog/harness-architecture',
+      url: 'https://example.com/blog/harness-architecture',
       snippet: 'The capability-seam pattern splits each capability into interface, implementation, and consumer packages.',
     },
     {
-      url: 'https://docs.deepseek.com/harness/plugins',
+      url: 'https://example.com/docs/plugins',
       title: 'Writing a harness plugin',
       publishedAt: '2026-06-15',
     },
@@ -551,7 +551,7 @@ const WEB_SEARCH_META = {
 
 /** The `web_fetch` result metadata for the web-fetch turn. */
 const WEB_FETCH_META = {
-  url: 'https://www.deepseek.com/blog/harness-architecture',
+  url: 'https://example.com/blog/harness-architecture',
   statusCode: 200,
   truncated: false,
 } satisfies JsonValue
@@ -889,7 +889,7 @@ function buildAlphaLog(): SessionEvent[] {
   toolTurn(
     71,
     'web_fetch',
-    '{"url":"https://www.deepseek.com/blog/harness-architecture"}',
+    '{"url":"https://example.com/blog/harness-architecture"}',
     '# Harness architecture\n\nEverything is a plugin.',
     WEB_FETCH_META,
   )

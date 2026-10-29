@@ -48,7 +48,7 @@ Call `get_goal` before `update_goal` and copy the exact `goal_id` and `revision`
     blockedAfterConsecutiveRounds: 3
 ```
 
-The value must be a positive safe integer. It supplies both the hard lower bound on model self-blocking and the number named in model guidance. The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-goal) is the exhaustive source for every accepted field.
+The value must be a positive safe integer. It supplies both the hard lower bound on model self-blocking and the number named in model guidance. The generated [configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-goal) is the exhaustive source for every accepted field.
 
 ### Authority rules
 

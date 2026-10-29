@@ -47,7 +47,7 @@ kind: "package-reference"
 |---|---|---|
 | `enableRunInBackground` | `true` | 暴露 `run_in_background`；为 `false` 时拒绝强制后台调用 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-bash)是每个受支持字段及其 JSDoc 的穷尽式真源；生成的[工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-bash)携带完整参数 schema。
+生成的[配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-tool-bash)是每个受支持字段及其 JSDoc 的穷尽式真源；生成的[工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-bash)携带完整参数 schema。
 
 ### 运行命令
 
@@ -115,7 +115,7 @@ kind: "package-reference"
 - [bash stdin/env Agent Note](../../../.agents/notes/implemented/architecture/2026-06-30-bash-stdin-env-trusted-plugin-api.zh.md)——为什么工具不暴露 stdin 或 env。
 - [沙箱 Agent Note](../../../.agents/notes/implemented/feature/2026-07-06-sandbox.zh.md)——升权与模式切换的理由。
 - [生成的工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-bash)——`bash` 参数 schema 的确切内容。
-- [生成的配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-bash)——每个受支持配置字段及其源声明。
+- [生成的配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-tool-bash)——每个受支持配置字段及其源声明。
 
 -----
 

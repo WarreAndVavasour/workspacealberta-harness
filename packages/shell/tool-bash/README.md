@@ -47,7 +47,7 @@ The single config field toggles background support.
 |---|---|---|
 | `enableRunInBackground` | `true` | Expose `run_in_background`; when `false`, forced background calls are rejected |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-bash) is the exhaustive source for every accepted field and its JSDoc; the generated [tool catalog](../../../docs/tool-catalog.md#workspacealbertawa-tool-bash) carries the full argument schema.
+The generated [configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-bash) is the exhaustive source for every accepted field and its JSDoc; the generated [tool catalog](../../../docs/tool-catalog.md#workspacealbertawa-tool-bash) carries the full argument schema.
 
 ### Running a command
 
@@ -115,7 +115,7 @@ Read these pages when the package-level contract is not enough. They move from t
 - [bash stdin/env Agent Note](../../../.agents/notes/implemented/architecture/2026-06-30-bash-stdin-env-trusted-plugin-api.md) — why the tool exposes no stdin or env.
 - [sandbox Agent Note](../../../.agents/notes/implemented/feature/2026-07-06-sandbox.md) — escalation and mode-switching rationale.
 - [Generated tool catalog](../../../docs/tool-catalog.md#workspacealbertawa-tool-bash) — the exact `bash` argument schema.
-- [Generated configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-bash) — every accepted config field and its source declaration.
+- [Generated configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-bash) — every accepted config field and its source declaration.
 
 -----
 
