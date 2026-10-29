@@ -6,7 +6,7 @@ permissions:
   contents: read
 
 env:
-  PRIMARY_NODE_VERSION: '24'
+  PRIMARY_NODE_VERSION: '24.22.2'
   # CI runs must never report to the production telemetry endpoint baked
   # into apps/cli/cordis.yml (AppCLIEntry disables the row when set).
   DSH_TELEMETRY_DISABLED: '1'
@@ -261,15 +261,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - node: '22.19'
-            name: node 22.19
+          - node: '22.23.4'
+            name: node 22.23.4
             runner: ubuntu-latest
             gate_concurrency: '1'
-          # Pinned inside 24.0-24.11.1: those releases carry the v1 internal
-          # loader while reporting major 24, and every other job tracks the
-          # latest 24, which is v2. A bare `24` here would retest that same v2.
-          - node: '24.9'
-            name: node 24.9
+          - node: '24.22.1'
+            name: node 24.22.1
             runner: ubuntu-latest
             gate_concurrency: '1'
           - node: 26
@@ -286,6 +283,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
+          check-latest: true
           cache: pnpm
 
       - name: Install (immutable)
@@ -295,6 +293,9 @@ jobs:
         env:
           DSH_BUILD_CLIENT_PROFILE: official
         run: pnpm run check:node-compat
+
+      - name: Check patched Node engine boundaries
+        run: pnpm run test:node-policy
 
       # Kept out of the gate aggregate: the shape a Node release carries only
       # changes with the Node version, so this belongs to the version matrix

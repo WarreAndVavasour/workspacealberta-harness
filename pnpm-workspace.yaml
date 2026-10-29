@@ -1,3 +1,6 @@
+# pnpm 11 reads engine enforcement here; .npmrc is auth/registry-only.
+engineStrict: true
+
 packages:
   - vendor/*
   - packages/*/*
