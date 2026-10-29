@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs'
+import { readdirSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import * as yaml from 'js-yaml'
 import { describe, expect, it } from 'vitest'
@@ -794,6 +794,62 @@ describe('Documentation site publication', () => {
   })
 })
 
+const BROTLI_ENGINES_NODE = '^22.23.4 || ^24.22.1 || >=26.12.1'
+
+describe('CVE-2026-111497 Node floor', () => {
+  it('advertises a patched engines.node range and refuses CI pins below it', () => {
+    expect(satisfiesBrotliNodeFloor('22.19')).toBe(false)
+    expect(satisfiesBrotliNodeFloor('22.19.0')).toBe(false)
+    expect(satisfiesBrotliNodeFloor('22.23.3')).toBe(false)
+    expect(satisfiesBrotliNodeFloor('22.23.4')).toBe(true)
+    expect(satisfiesBrotliNodeFloor('24.9')).toBe(false)
+    expect(satisfiesBrotliNodeFloor('24.22.0')).toBe(false)
+    expect(satisfiesBrotliNodeFloor('24.22.1')).toBe(true)
+    expect(satisfiesBrotliNodeFloor('25.0.0')).toBe(false)
+    expect(satisfiesBrotliNodeFloor('26.12.0')).toBe(false)
+    expect(satisfiesBrotliNodeFloor('26.12.1')).toBe(true)
+    expect(satisfiesBrotliNodeFloor('22')).toBe(false)
+    expect(satisfiesBrotliNodeFloor('24')).toBe(true)
+    expect(satisfiesBrotliNodeFloor('26')).toBe(true)
+
+    const rootPackage = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { engines?: { node?: unknown } }
+    expect(rootPackage.engines?.node).toBe(BROTLI_ENGINES_NODE)
+    for (const manifest of [
+      'native/landlock-run/packages/entry/package.json',
+      'native/landlock-run/packages/linux-arm64/package.json',
+      'native/landlock-run/packages/linux-x64/package.json',
+    ]) {
+      const pkg = JSON.parse(readFileSync(resolve(root, manifest), 'utf8')) as { engines?: { node?: unknown } }
+      expect(pkg.engines?.node, manifest).toBe(BROTLI_ENGINES_NODE)
+    }
+
+    const workflowDir = resolve(root, '.github/workflows')
+    const specs: string[] = []
+    for (const name of readdirSync(workflowDir)) {
+      if (!name.endsWith('.yml') && !name.endsWith('.yaml')) continue
+      specs.push(...setupNodeVersionSpecs(loadWorkflow(`.github/workflows/${name}`), name))
+    }
+    expect(specs.length).toBeGreaterThan(0)
+    for (const spec of specs) {
+      expect(satisfiesBrotliNodeFloor(spec), spec).toBe(true)
+    }
+
+    const ci = loadWorkflow('.github/workflows/ci.yml')
+    const nodeCompat = workflowJob(ci, 'node-compat')
+    const include = isRecord(nodeCompat.strategy) && isRecord(nodeCompat.strategy.matrix)
+      ? nodeCompat.strategy.matrix.include
+      : undefined
+    if (!Array.isArray(include)) throw new TypeError('node-compat must pin an include matrix')
+    const nodes = include.map((row) => {
+      if (!isRecord(row)) throw new TypeError('node-compat include row must be an object')
+      return String(row.node)
+    })
+    expect(nodes).toContain('22.23.4')
+    expect(nodes).toContain('24.22.1')
+    expect(nodes.every(spec => satisfiesBrotliNodeFloor(spec))).toBe(true)
+  })
+})
+
 describe('Git hooks', () => {
   it('leaves frozen Agent Note sidecars to the archive verifier', () => {
     const lefthook = loadWorkflow('lefthook.yml')
@@ -834,4 +890,58 @@ function workflowJob(workflow: Record<string, unknown>, job: string): Record<str
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+/** Concrete Node specs below the CVE-2026-111497 floors fail; bare 24 and 26 track current releases. */
+function satisfiesBrotliNodeFloor(spec: string): boolean {
+  if (spec === '24' || spec === '26') return true
+  const match = /^(\d+)\.(\d+)\.(\d+)$/.exec(spec)
+  if (match === null) return false
+  const major = Number(match[1])
+  const minor = Number(match[2])
+  const patch = Number(match[3])
+  if (major === 22) return minor > 23 || (minor === 23 && patch >= 4)
+  if (major === 24) return minor > 22 || (minor === 22 && patch >= 1)
+  if (major === 26) return minor > 12 || (minor === 12 && patch >= 1)
+  return major > 26
+}
+
+function setupNodeVersionSpecs(workflow: Record<string, unknown>, file: string): string[] {
+  const specs: string[] = []
+  const primary = isRecord(workflow.env) ? workflow.env.PRIMARY_NODE_VERSION : undefined
+  if (!isRecord(workflow.jobs)) return specs
+  for (const [jobName, job] of Object.entries(workflow.jobs)) {
+    if (!isRecord(job) || !Array.isArray(job.steps)) continue
+    for (const step of job.steps) {
+      if (!isRecord(step) || typeof step.uses !== 'string' || !step.uses.startsWith('actions/setup-node@')) continue
+      if (!isRecord(step.with)) throw new TypeError(`${file} ${jobName} setup-node is missing with`)
+      const raw = step.with['node-version']
+      if (raw === '${{ env.PRIMARY_NODE_VERSION }}') {
+        if (typeof primary !== 'string' && typeof primary !== 'number') {
+          throw new TypeError(`${file} ${jobName} uses PRIMARY_NODE_VERSION without defining it`)
+        }
+        specs.push(String(primary))
+        continue
+      }
+      if (raw === '${{ matrix.node }}') {
+        const matrix = isRecord(job.strategy) && isRecord(job.strategy.matrix) ? job.strategy.matrix : undefined
+        if (!matrix || !Array.isArray(matrix.include)) {
+          throw new TypeError(`${file} ${jobName} references matrix.node without an include list`)
+        }
+        for (const row of matrix.include) {
+          if (!isRecord(row) || (typeof row.node !== 'string' && typeof row.node !== 'number')) {
+            throw new TypeError(`${file} ${jobName} include row is missing node`)
+          }
+          specs.push(String(row.node))
+        }
+        continue
+      }
+      if (typeof raw === 'string' || typeof raw === 'number') {
+        specs.push(String(raw))
+        continue
+      }
+      throw new TypeError(`${file} ${jobName} has an unrecognized node-version`)
+    }
+  }
+  return specs
 }
