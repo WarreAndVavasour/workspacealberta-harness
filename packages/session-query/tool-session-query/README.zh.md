@@ -38,7 +38,7 @@ kind: "package-reference"
 | `maxSearchResults` | `100` | 一次搜索调用返回的最大已授权命中数 |
 | `searchTimeoutMs` | `30000` | 附加到两个全文搜索工具的协作式截止时间 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-session-query)是每个受支持字段及其 JSDoc 的穷尽式真源。
+生成的[配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-tool-session-query)是每个受支持字段及其 JSDoc 的穷尽式真源。
 
 ### 模型可以做什么
 

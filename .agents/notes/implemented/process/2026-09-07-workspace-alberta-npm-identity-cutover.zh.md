@@ -30,4 +30,4 @@ Status: implemented
 
 ## Consequences
 
-每个第一方导入、`package.json` 名称、tsconfig 路径和 `cordis.yml` 插件行都必须使用 `@workspacealberta`。`pnpm install` 和 `pnpm run build` 必须解析新名称。操作员输入 `wa`，而不是 `dsh`。`publishOrder` 按安装边排序，不依赖按包名 DFS 的访问顺序，因此像 `ui-alberta-grid` 这种排在 `wa-*` 前面的既有作用域包不能把 host-apiproxy → api-remotes 安装边反转。Issue policy 对话的是当前 GitHub 仓库（`GITHUB_REPOSITORY`），而不是写死的上游 owner/repo。若以后要重命名 `DSH_HOME` 或 `manifest.dsh`，需要单独的格式/版本决策和集群迁移。
+每个第一方导入、`package.json` 名称、tsconfig 路径和 `cordis.yml` 插件行都必须使用 `@workspacealberta`。`pnpm install` 和 `pnpm run build` 必须解析新名称。操作员输入 `wa`，而不是 `dsh`。`publishOrder` 按安装边排序，不依赖按包名 DFS 的访问顺序，因此像 `ui-alberta-grid` 这种排在 `wa-*` 前面的既有作用域包不能把 host-apiproxy → api-remotes 安装边反转。上游的 issue-policy 与 issue-lifecycle 工作流已删除（[切断上游关联 note](2026-10-29-cut-upstream-ties.zh.md)）。若以后要重命名 `DSH_HOME` 或 `manifest.dsh`，需要单独的格式/版本决策和集群迁移。

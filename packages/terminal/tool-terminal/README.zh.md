@@ -55,7 +55,7 @@ kind: "package-reference"
 | `enableRunInBackground` | `true` | 公开并接受 `run_in_background`；设为 `false` 时移除 schema 字段并拒绝该参数 |
 | `maxResultBytes` | `262144` | 每个完整终端结果的 UTF-8 上限（最小值 `64`）；在等待、会话、分页、截断与任务状态元数据全部加入后计算 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-terminal)与[工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-terminal)是配置字段与 schema 的穷尽式真源。
+生成的[配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-tool-terminal)与[工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-terminal)是配置字段与 schema 的穷尽式真源。
 
 ### 后台发送
 

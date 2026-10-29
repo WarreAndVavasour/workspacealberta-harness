@@ -11,7 +11,7 @@
 
 `Requires:` 行列出插件通过 `inject` 注入的服务键：其 `cordis.yml` 树还必须加载这些服务的提供者。范围限定为 harness 层级（`packages/`）；配置树还可能加载的 vendored cordis 插件（`hmr`、控制台日志记录器等）固定为上游源代码（参见 [vendoring policy](../vendor/README.md)），未收录于此目录。
 
-<a id="workspacealbertawa-acp"></a><a id="deepseek-aidsh-acp"></a>
+<a id="workspacealbertawa-acp"></a>
 
 ## `@workspacealberta/wa-acp`
 
@@ -35,7 +35,7 @@ Depends on: `Stream` (`@agentclientprotocol/sdk`)
 
 来源： [`packages/acp/acp/src/index.ts:75`](../packages/acp/acp/src/index.ts)
 
-<a id="workspacealbertawa-agent-default-model"></a><a id="deepseek-aidsh-agent-default-model"></a>
+<a id="workspacealbertawa-agent-default-model"></a>
 
 ## `@workspacealberta/wa-agent-default-model`
 
@@ -51,7 +51,7 @@ export interface Config {
 
 来源： [`packages/core/agent-default-model/src/index.ts:41`](../packages/core/agent-default-model/src/index.ts)
 
-<a id="workspacealbertawa-agent-instructions"></a><a id="deepseek-aidsh-agent-instructions"></a>
+<a id="workspacealbertawa-agent-instructions"></a>
 
 ## `@workspacealberta/wa-agent-instructions`
 
@@ -83,7 +83,7 @@ export interface Config {
 
 来源： [`packages/context/agent-instructions/src/config.ts:18`](../packages/context/agent-instructions/src/config.ts)
 
-<a id="workspacealbertawa-agent-loop"></a><a id="deepseek-aidsh-agent-loop"></a>
+<a id="workspacealbertawa-agent-loop"></a>
 
 ## `@workspacealberta/wa-agent-loop`
 
@@ -115,7 +115,7 @@ Depends on: [`AgentOptions`](subsystems/core.zh.md) · [`SessionId`](subsystems/
 
 来源： [`packages/core/agent-loop/src/index.ts:318`](../packages/core/agent-loop/src/index.ts)
 
-<a id="workspacealbertawa-agent-presets"></a><a id="deepseek-aidsh-agent-presets"></a>
+<a id="workspacealbertawa-agent-presets"></a>
 
 ## `@workspacealberta/wa-agent-presets`
 
@@ -161,7 +161,7 @@ export type PresetTrust = 'system' | 'user'
 
 来源： [`packages/preset/agent-presets/src/preset.ts:52`](../packages/preset/agent-presets/src/preset.ts)
 
-<a id="workspacealbertawa-agent-tool-presentation"></a><a id="deepseek-aidsh-agent-tool-presentation"></a>
+<a id="workspacealbertawa-agent-tool-presentation"></a>
 
 ## `@workspacealberta/wa-agent-tool-presentation`
 
@@ -185,7 +185,7 @@ Depends on: [`ToolPresentationMode`](subsystems/tools.zh.md)
 
 来源： [`packages/core/agent-tool-presentation/src/index.ts:38`](../packages/core/agent-tool-presentation/src/index.ts)
 
-<a id="workspacealbertawa-api-gateway"></a><a id="deepseek-aidsh-api-gateway"></a>
+<a id="workspacealbertawa-api-gateway"></a>
 
 ## `@workspacealberta/wa-api-gateway`
 
@@ -201,7 +201,7 @@ export interface Config {
 
 来源： [`packages/api/gateway/src/index.ts:119`](../packages/api/gateway/src/index.ts)
 
-<a id="workspacealbertawa-api-session-controller"></a><a id="deepseek-aidsh-api-session-controller"></a>
+<a id="workspacealbertawa-api-session-controller"></a>
 
 ## `@workspacealberta/wa-api-session-controller`
 
@@ -221,7 +221,7 @@ export interface Config {
 
 来源： [`packages/api/session-controller/src/index.ts:72`](../packages/api/session-controller/src/index.ts)
 
-<a id="workspacealbertawa-api-settings-controller"></a><a id="deepseek-aidsh-api-settings-controller"></a>
+<a id="workspacealbertawa-api-settings-controller"></a>
 
 ## `@workspacealberta/wa-api-settings-controller`
 
@@ -235,7 +235,7 @@ export interface Config {
 
 来源： [`packages/api/settings-controller/src/index.ts:36`](../packages/api/settings-controller/src/index.ts)
 
-<a id="workspacealbertawa-attachment-local"></a><a id="deepseek-aidsh-attachment-local"></a>
+<a id="workspacealbertawa-attachment-local"></a>
 
 ## `@workspacealberta/wa-attachment-local`
 
@@ -270,7 +270,7 @@ export interface Config {
 
 来源： [`packages/attachment/attachment-local/src/index.ts:55`](../packages/attachment/attachment-local/src/index.ts)
 
-<a id="workspacealbertawa-bash-local"></a><a id="deepseek-aidsh-bash-local"></a>
+<a id="workspacealbertawa-bash-local"></a>
 
 ## `@workspacealberta/wa-bash-local`
 
@@ -296,7 +296,7 @@ export interface Config {
 
 来源： [`packages/shell/bash-local/src/index.ts:41`](../packages/shell/bash-local/src/index.ts)
 
-<a id="workspacealbertawa-bash-sandbox"></a><a id="deepseek-aidsh-bash-sandbox"></a>
+<a id="workspacealbertawa-bash-sandbox"></a>
 
 ## `@workspacealberta/wa-bash-sandbox`
 
@@ -317,7 +317,7 @@ Depends on: [`LocalConfig`](#workspacealbertawa-bash-local)
 
 来源： [`packages/shell/bash-sandbox/src/index.ts:35`](../packages/shell/bash-sandbox/src/index.ts)
 
-<a id="workspacealbertawa-client-connection"></a><a id="deepseek-aidsh-client-connection"></a>
+<a id="workspacealbertawa-client-connection"></a>
 
 ## `@workspacealberta/wa-client-connection`
 
@@ -344,7 +344,7 @@ export interface ConnectionConfig {
 
 来源： [`packages/client/connection/src/index.ts:70`](../packages/client/connection/src/index.ts)
 
-<a id="workspacealbertawa-client-hmr"></a><a id="deepseek-aidsh-client-hmr"></a>
+<a id="workspacealbertawa-client-hmr"></a>
 
 ## `@workspacealberta/wa-client-hmr`
 
@@ -360,7 +360,7 @@ export interface Config {
 
 来源： [`packages/client/hmr/src/index.ts:31`](../packages/client/hmr/src/index.ts)
 
-<a id="workspacealbertawa-code-runtime-worker-thread"></a><a id="deepseek-aidsh-code-runtime-worker-thread"></a>
+<a id="workspacealbertawa-code-runtime-worker-thread"></a>
 
 ## `@workspacealberta/wa-code-runtime-worker-thread`
 
@@ -397,7 +397,7 @@ export interface Config {
 
 来源： [`packages/code-runtime/code-runtime-worker-thread/src/index.ts:25`](../packages/code-runtime/code-runtime-worker-thread/src/index.ts)
 
-<a id="workspacealbertawa-compaction-basic"></a><a id="deepseek-aidsh-compaction-basic"></a>
+<a id="workspacealbertawa-compaction-basic"></a>
 
 ## `@workspacealberta/wa-compaction-basic`
 
@@ -443,7 +443,7 @@ export interface ModelCompactPolicyConfig extends CompactionPolicyConfig {
 
 来源： [`packages/compaction/compaction-basic/src/types.ts:38`](../packages/compaction/compaction-basic/src/types.ts)
 
-<a id="workspacealbertawa-compaction-tool-result-pruner"></a><a id="deepseek-aidsh-compaction-tool-result-pruner"></a>
+<a id="workspacealbertawa-compaction-tool-result-pruner"></a>
 
 ## `@workspacealberta/wa-compaction-tool-result-pruner`
 
@@ -463,7 +463,7 @@ export interface ToolResultPruneConfig {
 
 来源： [`packages/compaction/compaction-tool-result-pruner/src/types.ts:5`](../packages/compaction/compaction-tool-result-pruner/src/types.ts)
 
-<a id="workspacealbertawa-cordis-host-runner"></a><a id="deepseek-aidsh-cordis-host-runner"></a>
+<a id="workspacealbertawa-cordis-host-runner"></a>
 
 ## `@workspacealberta/wa-cordis-host-runner`
 
@@ -479,7 +479,7 @@ export interface Config {
 
 来源： [`packages/extensions/cordis-host-runner/src/index.ts:88`](../packages/extensions/cordis-host-runner/src/index.ts)
 
-<a id="workspacealbertawa-credentials-local"></a><a id="deepseek-aidsh-credentials-local"></a>
+<a id="workspacealbertawa-credentials-local"></a>
 
 ## `@workspacealberta/wa-credentials-local`
 
@@ -513,7 +513,7 @@ export interface OnePasswordConfig {
 
 来源： [`packages/credentials/credentials-local/src/index.ts:65`](../packages/credentials/credentials-local/src/index.ts)
 
-<a id="workspacealbertawa-e2b"></a><a id="deepseek-aidsh-e2b"></a>
+<a id="workspacealbertawa-e2b"></a>
 
 ## `@workspacealberta/wa-e2b`
 
@@ -531,7 +531,7 @@ export interface Config {
 
 来源： [`packages/e2b/e2b/src/index.ts:45`](../packages/e2b/e2b/src/index.ts)
 
-<a id="workspacealbertawa-experimental-agent-team"></a><a id="deepseek-aidsh-experimental-agent-team"></a>
+<a id="workspacealbertawa-experimental-agent-team"></a>
 
 ## `@workspacealberta/wa-experimental-agent-team`
 
@@ -555,7 +555,7 @@ export interface Config {
 
 来源： [`packages/experimental/agent-team/src/types.ts:130`](../packages/experimental/agent-team/src/types.ts)
 
-<a id="workspacealbertawa-experimental-code-runtime-python"></a><a id="deepseek-aidsh-experimental-code-runtime-python"></a>
+<a id="workspacealbertawa-experimental-code-runtime-python"></a>
 
 ## `@workspacealberta/wa-experimental-code-runtime-python`
 
@@ -622,7 +622,7 @@ export interface Config {
 
 来源： [`packages/experimental/code-runtime-python/src/index.ts:42`](../packages/experimental/code-runtime-python/src/index.ts)
 
-<a id="workspacealbertawa-experimental-inspector"></a><a id="deepseek-aidsh-experimental-inspector"></a>
+<a id="workspacealbertawa-experimental-inspector"></a>
 
 ## `@workspacealberta/wa-experimental-inspector`
 
@@ -690,7 +690,7 @@ export interface InspectorOptions {
 
 来源： [`packages/experimental/inspector/src/index.ts:66`](../packages/experimental/inspector/src/index.ts)
 
-<a id="workspacealbertawa-experimental-tool-agent-team"></a><a id="deepseek-aidsh-experimental-tool-agent-team"></a>
+<a id="workspacealbertawa-experimental-tool-agent-team"></a>
 
 ## `@workspacealberta/wa-experimental-tool-agent-team`
 
@@ -708,7 +708,7 @@ export interface Config {
 
 来源： [`packages/experimental/tool-agent-team/src/index.ts:17`](../packages/experimental/tool-agent-team/src/index.ts)
 
-<a id="workspacealbertawa-file-reference-local"></a><a id="deepseek-aidsh-file-reference-local"></a>
+<a id="workspacealbertawa-file-reference-local"></a>
 
 ## `@workspacealberta/wa-file-reference-local`
 
@@ -728,7 +728,7 @@ export interface Config {
 
 来源： [`packages/context/file-reference-local/src/index.ts:34`](../packages/context/file-reference-local/src/index.ts)
 
-<a id="workspacealbertawa-fs-local"></a><a id="deepseek-aidsh-fs-local"></a>
+<a id="workspacealbertawa-fs-local"></a>
 
 ## `@workspacealberta/wa-fs-local`
 
@@ -747,7 +747,7 @@ export interface Config {
 
 来源： [`packages/fs/fs-local/src/index.ts:41`](../packages/fs/fs-local/src/index.ts)
 
-<a id="workspacealbertawa-fs-sandbox"></a><a id="deepseek-aidsh-fs-sandbox"></a>
+<a id="workspacealbertawa-fs-sandbox"></a>
 
 ## `@workspacealberta/wa-fs-sandbox`
 
@@ -767,7 +767,7 @@ Depends on: [`LocalConfig`](#workspacealbertawa-fs-local)
 
 来源： [`packages/fs/fs-sandbox/src/index.ts:45`](../packages/fs/fs-sandbox/src/index.ts)
 
-<a id="workspacealbertawa-goal"></a><a id="deepseek-aidsh-goal"></a>
+<a id="workspacealbertawa-goal"></a>
 
 ## `@workspacealberta/wa-goal`
 
@@ -783,7 +783,7 @@ export interface Config {
 
 来源： [`packages/goal/goal/src/index.ts:172`](../packages/goal/goal/src/index.ts)
 
-<a id="workspacealbertawa-headless"></a><a id="deepseek-aidsh-headless"></a>
+<a id="workspacealbertawa-headless"></a>
 
 ## `@workspacealberta/wa-headless`
 
@@ -799,7 +799,7 @@ export interface Config {
 
 来源： [`packages/bundle/headless/src/index.ts:34`](../packages/bundle/headless/src/index.ts)
 
-<a id="workspacealbertawa-hooks-claude-code"></a><a id="deepseek-aidsh-hooks-claude-code"></a>
+<a id="workspacealbertawa-hooks-claude-code"></a>
 
 ## `@workspacealberta/wa-hooks-claude-code`
 
@@ -837,7 +837,7 @@ export interface Config {
 
 来源： [`packages/hooks/hooks-claude-code/src/index.ts:45`](../packages/hooks/hooks-claude-code/src/index.ts)
 
-<a id="workspacealbertawa-hooks-codex"></a><a id="deepseek-aidsh-hooks-codex"></a>
+<a id="workspacealbertawa-hooks-codex"></a>
 
 ## `@workspacealberta/wa-hooks-codex`
 
@@ -864,7 +864,7 @@ export interface Config {
 
 来源： [`packages/hooks/hooks-codex/src/index.ts:44`](../packages/hooks/hooks-codex/src/index.ts)
 
-<a id="workspacealbertawa-host-directory-picker-browse"></a><a id="deepseek-aidsh-host-directory-picker-browse"></a>
+<a id="workspacealbertawa-host-directory-picker-browse"></a>
 
 ## `@workspacealberta/wa-host-directory-picker-browse`
 
@@ -878,7 +878,7 @@ export interface Config {
 
 来源： [`packages/host/directory-picker-browse/src/index.ts:181`](../packages/host/directory-picker-browse/src/index.ts)
 
-<a id="workspacealbertawa-host-frontend-static"></a><a id="deepseek-aidsh-host-frontend-static"></a>
+<a id="workspacealbertawa-host-frontend-static"></a>
 
 ## `@workspacealberta/wa-host-frontend-static`
 
@@ -894,7 +894,7 @@ export interface Config {
 
 来源： [`packages/host/frontend-static/src/index.ts:30`](../packages/host/frontend-static/src/index.ts)
 
-<a id="workspacealbertawa-host-webserver"></a><a id="deepseek-aidsh-host-webserver"></a>
+<a id="workspacealbertawa-host-webserver"></a>
 
 ## `@workspacealberta/wa-host-webserver`
 
@@ -916,7 +916,7 @@ export interface Config {
 
 来源： [`packages/host/webserver/src/index.ts:59`](../packages/host/webserver/src/index.ts)
 
-<a id="workspacealbertawa-invariants"></a><a id="deepseek-aidsh-invariants"></a>
+<a id="workspacealbertawa-invariants"></a>
 
 ## `@workspacealberta/wa-invariants`
 
@@ -934,7 +934,7 @@ export interface Config {
 
 来源： [`packages/runtime-diagnostics/invariants/src/index.ts:15`](../packages/runtime-diagnostics/invariants/src/index.ts)
 
-<a id="workspacealbertawa-jobs-local"></a><a id="deepseek-aidsh-jobs-local"></a>
+<a id="workspacealbertawa-jobs-local"></a>
 
 ## `@workspacealberta/wa-jobs-local`
 
@@ -951,7 +951,7 @@ export interface Config {
 
 来源： [`packages/jobs/jobs-local/src/index.ts:31`](../packages/jobs/jobs-local/src/index.ts)
 
-<a id="workspacealbertawa-llm-deepseek"></a><a id="deepseek-aidsh-llm-deepseek"></a>
+<a id="workspacealbertawa-llm-deepseek"></a>
 
 ## `@workspacealberta/wa-llm-deepseek`
 
@@ -1032,7 +1032,7 @@ Depends on: [`ModelModality`](../packages/llm/llm/src/index.ts) · [`RetryPolicy
 
 来源： [`packages/llm/llm-deepseek/src/index.ts:125`](../packages/llm/llm-deepseek/src/index.ts)
 
-<a id="workspacealbertawa-llm-pi-ai"></a><a id="deepseek-aidsh-llm-pi-ai"></a>
+<a id="workspacealbertawa-llm-pi-ai"></a>
 
 ## `@workspacealberta/wa-llm-pi-ai`
 
@@ -1298,7 +1298,7 @@ Depends on: `Api` (`@earendil-works/pi-ai`) · `CacheRetention` (`@earendil-work
 
 来源： [`packages/llm/llm-pi-ai/src/config.ts:216`](../packages/llm/llm-pi-ai/src/config.ts)
 
-<a id="workspacealbertawa-llm-replay"></a><a id="deepseek-aidsh-llm-replay"></a>
+<a id="workspacealbertawa-llm-replay"></a>
 
 ## `@workspacealberta/wa-llm-replay`
 
@@ -1375,7 +1375,7 @@ Depends on: [`ModelModality`](../packages/llm/llm/src/index.ts) · [`RetryPolicy
 
 来源： [`packages/test-support/llm-replay/src/index.ts:924`](../packages/test-support/llm-replay/src/index.ts)
 
-<a id="workspacealbertawa-llm-retry"></a><a id="deepseek-aidsh-llm-retry"></a>
+<a id="workspacealbertawa-llm-retry"></a>
 
 ## `@workspacealberta/wa-llm-retry`
 
@@ -1388,7 +1388,7 @@ export type Config = Readonly<Record<string, never>>
 
 来源： [`packages/llm/llm-retry/src/index.ts:25`](../packages/llm/llm-retry/src/index.ts)
 
-<a id="workspacealbertawa-lsp-stdio"></a><a id="deepseek-aidsh-lsp-stdio"></a>
+<a id="workspacealbertawa-lsp-stdio"></a>
 
 ## `@workspacealberta/wa-lsp-stdio`
 
@@ -1430,7 +1430,7 @@ export interface LspLocalServerConfig {
 
 来源： [`packages/lsp/lsp-stdio/src/index.ts:82`](../packages/lsp/lsp-stdio/src/index.ts)
 
-<a id="workspacealbertawa-mcp-client"></a><a id="deepseek-aidsh-mcp-client"></a>
+<a id="workspacealbertawa-mcp-client"></a>
 
 ## `@workspacealberta/wa-mcp-client`
 
@@ -1503,7 +1503,7 @@ export interface ReconnectConfig {
 
 来源： [`packages/mcp/mcp-client/src/index.ts:98`](../packages/mcp/mcp-client/src/index.ts)
 
-<a id="workspacealbertawa-message-feedback"></a><a id="deepseek-aidsh-message-feedback"></a>
+<a id="workspacealbertawa-message-feedback"></a>
 
 ## `@workspacealberta/wa-message-feedback`
 
@@ -1519,7 +1519,7 @@ export interface Config {
 
 来源： [`packages/feedback/message-feedback/src/index.ts:50`](../packages/feedback/message-feedback/src/index.ts)
 
-<a id="workspacealbertawa-permission-presets"></a><a id="deepseek-aidsh-permission-presets"></a>
+<a id="workspacealbertawa-permission-presets"></a>
 
 ## `@workspacealberta/wa-permission-presets`
 
@@ -1558,7 +1558,7 @@ Depends on: [`ApprovalPolicy`](subsystems/approval.zh.md) · [`SandboxMode`](sub
 
 来源： [`packages/interaction/permission-presets/src/index.ts:143`](../packages/interaction/permission-presets/src/index.ts)
 
-<a id="workspacealbertawa-persona"></a><a id="deepseek-aidsh-persona"></a>
+<a id="workspacealbertawa-persona"></a>
 
 ## `@workspacealberta/wa-persona`
 
@@ -1582,7 +1582,7 @@ export interface Config {
 
 来源： [`packages/preset/persona/src/index.ts:30`](../packages/preset/persona/src/index.ts)
 
-<a id="workspacealbertawa-plan-mode"></a><a id="deepseek-aidsh-plan-mode"></a>
+<a id="workspacealbertawa-plan-mode"></a>
 
 ## `@workspacealberta/wa-plan-mode`
 
@@ -1598,7 +1598,7 @@ export interface PlanModeConfig {
 
 来源： [`packages/plan/plan-mode/src/index.ts:63`](../packages/plan/plan-mode/src/index.ts)
 
-<a id="workspacealbertawa-plugin-package-inventory-deepseek"></a><a id="deepseek-aidsh-plugin-package-inventory-deepseek"></a>
+<a id="workspacealbertawa-plugin-package-inventory-deepseek"></a>
 
 ## `@workspacealberta/wa-plugin-package-inventory-deepseek`
 
@@ -1614,7 +1614,7 @@ export interface Config {
 
 来源： [`packages/llm/plugin-package-inventory-deepseek/src/index.ts:31`](../packages/llm/plugin-package-inventory-deepseek/src/index.ts)
 
-<a id="workspacealbertawa-project-tools"></a><a id="deepseek-aidsh-project-tools"></a>
+<a id="workspacealbertawa-project-tools"></a>
 
 ## `@workspacealberta/wa-project-tools`
 
@@ -1654,7 +1654,7 @@ export interface Config {
 
 来源： [`packages/workspace/project-tools/src/index.ts:20`](../packages/workspace/project-tools/src/index.ts)
 
-<a id="workspacealbertawa-pwsh-local"></a><a id="deepseek-aidsh-pwsh-local"></a>
+<a id="workspacealbertawa-pwsh-local"></a>
 
 ## `@workspacealberta/wa-pwsh-local`
 
@@ -1687,7 +1687,7 @@ export interface Config {
 
 来源： [`packages/shell/pwsh-local/src/index.ts:58`](../packages/shell/pwsh-local/src/index.ts)
 
-<a id="workspacealbertawa-pwsh-sandbox"></a><a id="deepseek-aidsh-pwsh-sandbox"></a>
+<a id="workspacealbertawa-pwsh-sandbox"></a>
 
 ## `@workspacealberta/wa-pwsh-sandbox`
 
@@ -1709,7 +1709,7 @@ Depends on: [`LocalConfig`](#workspacealbertawa-pwsh-local)
 
 来源： [`packages/shell/pwsh-sandbox/src/index.ts:40`](../packages/shell/pwsh-sandbox/src/index.ts)
 
-<a id="workspacealbertawa-repeat-tool-reminder"></a><a id="deepseek-aidsh-repeat-tool-reminder"></a>
+<a id="workspacealbertawa-repeat-tool-reminder"></a>
 
 ## `@workspacealberta/wa-repeat-tool-reminder`
 
@@ -1743,7 +1743,7 @@ export interface Config {
 
 来源： [`packages/guard/repeat-tool-reminder/src/index.ts:28`](../packages/guard/repeat-tool-reminder/src/index.ts)
 
-<a id="workspacealbertawa-sandbox-local"></a><a id="deepseek-aidsh-sandbox-local"></a>
+<a id="workspacealbertawa-sandbox-local"></a>
 
 ## `@workspacealberta/wa-sandbox-local`
 
@@ -1775,7 +1775,7 @@ export interface Config {
 
 来源： [`packages/sandbox/sandbox-local/src/index.ts:44`](../packages/sandbox/sandbox-local/src/index.ts)
 
-<a id="workspacealbertawa-sandbox-policy"></a><a id="deepseek-aidsh-sandbox-policy"></a>
+<a id="workspacealbertawa-sandbox-policy"></a>
 
 ## `@workspacealberta/wa-sandbox-policy`
 
@@ -1804,7 +1804,7 @@ Depends on: [`SandboxMode`](subsystems/sandbox.zh.md)
 
 来源： [`packages/sandbox/sandbox-policy/src/index.ts:70`](../packages/sandbox/sandbox-policy/src/index.ts)
 
-<a id="workspacealbertawa-sdk-app"></a><a id="deepseek-aidsh-sdk-app"></a>
+<a id="workspacealbertawa-sdk-app"></a>
 
 ## `@workspacealberta/wa-sdk-app`
 
@@ -1820,7 +1820,7 @@ export interface Config {
 
 来源： [`packages/bundle/sdk-app/src/index.ts:23`](../packages/bundle/sdk-app/src/index.ts)
 
-<a id="workspacealbertawa-sdk-jsonrpc-server"></a><a id="deepseek-aidsh-sdk-jsonrpc-server"></a>
+<a id="workspacealbertawa-sdk-jsonrpc-server"></a>
 
 ## `@workspacealberta/wa-sdk-jsonrpc-server`
 
@@ -1844,7 +1844,7 @@ Depends on: `Readable` (`node:stream`) · `Writable` (`node:stream`)
 
 来源： [`packages/sdk/server/src/index.ts:25`](../packages/sdk/server/src/index.ts)
 
-<a id="workspacealbertawa-session-log-deepseek"></a><a id="deepseek-aidsh-session-log-deepseek"></a>
+<a id="workspacealbertawa-session-log-deepseek"></a>
 
 ## `@workspacealberta/wa-session-log-deepseek`
 
@@ -1860,7 +1860,7 @@ export interface Config {
 
 来源： [`packages/session/session-log-deepseek/src/index.ts:36`](../packages/session/session-log-deepseek/src/index.ts)
 
-<a id="workspacealbertawa-session-log-export"></a><a id="deepseek-aidsh-session-log-export"></a>
+<a id="workspacealbertawa-session-log-export"></a>
 
 ## `@workspacealberta/wa-session-log-export`
 
@@ -1879,7 +1879,7 @@ export type SessionLogCompressionLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
 来源： [`packages/session-query/session-log-export/src/index.ts:45`](../packages/session-query/session-log-export/src/index.ts)
 
-<a id="workspacealbertawa-session-persistence-jsonl"></a><a id="deepseek-aidsh-session-persistence-jsonl"></a>
+<a id="workspacealbertawa-session-persistence-jsonl"></a>
 
 ## `@workspacealberta/wa-session-persistence-jsonl`
 
@@ -1912,7 +1912,7 @@ export type JsonlCompression = 'zstd' | 'none'
 
 来源： [`packages/session/session-persistence-jsonl/src/index.ts:73`](../packages/session/session-persistence-jsonl/src/index.ts)
 
-<a id="workspacealbertawa-session-projection-cache"></a><a id="deepseek-aidsh-session-projection-cache"></a>
+<a id="workspacealbertawa-session-projection-cache"></a>
 
 ## `@workspacealberta/wa-session-projection-cache`
 
@@ -1936,7 +1936,7 @@ export interface Config {
 
 来源： [`packages/session/session-projection-cache/src/index.ts:55`](../packages/session/session-projection-cache/src/index.ts)
 
-<a id="workspacealbertawa-session-query-sqlite"></a><a id="deepseek-aidsh-session-query-sqlite"></a>
+<a id="workspacealbertawa-session-query-sqlite"></a>
 
 ## `@workspacealberta/wa-session-query-sqlite`
 
@@ -1984,7 +1984,7 @@ Depends on: [`SessionQueryConfig`](../packages/session-query/session-query/src/i
 
 来源： [`packages/session-query/session-query-sqlite/src/index.ts:92`](../packages/session-query/session-query-sqlite/src/index.ts)
 
-<a id="workspacealbertawa-session-reference"></a><a id="deepseek-aidsh-session-reference"></a>
+<a id="workspacealbertawa-session-reference"></a>
 
 ## `@workspacealberta/wa-session-reference`
 
@@ -2004,7 +2004,7 @@ export interface Config {
 
 来源： [`packages/context/session-reference/src/config.ts:11`](../packages/context/session-reference/src/config.ts)
 
-<a id="workspacealbertawa-session-telemetry-otel"></a><a id="deepseek-aidsh-session-telemetry-otel"></a>
+<a id="workspacealbertawa-session-telemetry-otel"></a>
 
 ## `@workspacealberta/wa-session-telemetry-otel`
 
@@ -2050,7 +2050,7 @@ Depends on: `BatchLogRecordProcessorOptions` (`@opentelemetry/sdk-logs`) · `OTL
 
 来源： [`packages/session/session-telemetry-otel/src/index.ts:91`](../packages/session/session-telemetry-otel/src/index.ts)
 
-<a id="workspacealbertawa-session-title"></a><a id="deepseek-aidsh-session-title"></a>
+<a id="workspacealbertawa-session-title"></a>
 
 ## `@workspacealberta/wa-session-title`
 
@@ -2070,7 +2070,7 @@ export interface Config {
 
 来源： [`packages/session/session-title/src/index.ts:56`](../packages/session/session-title/src/index.ts)
 
-<a id="workspacealbertawa-session-title-all-prompts-llm"></a><a id="deepseek-aidsh-session-title-all-prompts-llm"></a>
+<a id="workspacealbertawa-session-title-all-prompts-llm"></a>
 
 ## `@workspacealberta/wa-session-title-all-prompts-llm`
 
@@ -2085,7 +2085,7 @@ Depends on: [`SessionTitleLlmConfig`](../packages/session/session-title-llm/src/
 
 来源： [`packages/session/session-title-all-prompts-llm/src/index.ts:15`](../packages/session/session-title-all-prompts-llm/src/index.ts)
 
-<a id="workspacealbertawa-session-title-first-prompt-llm"></a><a id="deepseek-aidsh-session-title-first-prompt-llm"></a>
+<a id="workspacealbertawa-session-title-first-prompt-llm"></a>
 
 ## `@workspacealberta/wa-session-title-first-prompt-llm`
 
@@ -2100,7 +2100,7 @@ Depends on: [`SessionTitleLlmConfig`](../packages/session/session-title-llm/src/
 
 来源： [`packages/session/session-title-first-prompt-llm/src/index.ts:15`](../packages/session/session-title-first-prompt-llm/src/index.ts)
 
-<a id="workspacealbertawa-settings-file"></a><a id="deepseek-aidsh-settings-file"></a>
+<a id="workspacealbertawa-settings-file"></a>
 
 ## `@workspacealberta/wa-settings-file`
 
@@ -2120,7 +2120,7 @@ export interface Config {
 
 来源： [`packages/settings/settings-file/src/index.ts:22`](../packages/settings/settings-file/src/index.ts)
 
-<a id="workspacealbertawa-shell-env"></a><a id="deepseek-aidsh-shell-env"></a>
+<a id="workspacealbertawa-shell-env"></a>
 
 ## `@workspacealberta/wa-shell-env`
 
@@ -2134,7 +2134,7 @@ export interface Config {
 
 来源： [`packages/shell/shell-env/src/index.ts:28`](../packages/shell/shell-env/src/index.ts)
 
-<a id="workspacealbertawa-skill"></a><a id="deepseek-aidsh-skill"></a>
+<a id="workspacealbertawa-skill"></a>
 
 ## `@workspacealberta/wa-skill`
 
@@ -2148,7 +2148,7 @@ export interface Config {
 
 来源： [`packages/skill/skill/src/index.ts:280`](../packages/skill/skill/src/index.ts)
 
-<a id="workspacealbertawa-skill-filesystem"></a><a id="deepseek-aidsh-skill-filesystem"></a>
+<a id="workspacealbertawa-skill-filesystem"></a>
 
 ## `@workspacealberta/wa-skill-filesystem`
 
@@ -2186,7 +2186,7 @@ export interface Config {
 
 来源： [`packages/skill/skill-filesystem/src/index.ts:49`](../packages/skill/skill-filesystem/src/index.ts)
 
-<a id="workspacealbertawa-spill-local"></a><a id="deepseek-aidsh-spill-local"></a>
+<a id="workspacealbertawa-spill-local"></a>
 
 ## `@workspacealberta/wa-spill-local`
 
@@ -2215,7 +2215,7 @@ export interface Config {
 
 来源： [`packages/spill/spill-local/src/index.ts:31`](../packages/spill/spill-local/src/index.ts)
 
-<a id="workspacealbertawa-spill-policy"></a><a id="deepseek-aidsh-spill-policy"></a>
+<a id="workspacealbertawa-spill-policy"></a>
 
 ## `@workspacealberta/wa-spill-policy`
 
@@ -2235,7 +2235,7 @@ export interface Config {
 
 来源： [`packages/spill/spill-policy/src/index.ts:60`](../packages/spill/spill-policy/src/index.ts)
 
-<a id="workspacealbertawa-storage-domain"></a><a id="deepseek-aidsh-storage-domain"></a>
+<a id="workspacealbertawa-storage-domain"></a>
 
 ## `@workspacealberta/wa-storage-domain`
 
@@ -2258,7 +2258,7 @@ export interface Config {
 
 来源： [`packages/storage/storage-domain/src/index.ts:52`](../packages/storage/storage-domain/src/index.ts)
 
-<a id="workspacealbertawa-storage-json"></a><a id="deepseek-aidsh-storage-json"></a>
+<a id="workspacealbertawa-storage-json"></a>
 
 ## `@workspacealberta/wa-storage-json`
 
@@ -2279,7 +2279,7 @@ export interface Config {
 
 来源： [`packages/storage/storage-json/src/index.ts:28`](../packages/storage/storage-json/src/index.ts)
 
-<a id="workspacealbertawa-storage-sqlite"></a><a id="deepseek-aidsh-storage-sqlite"></a>
+<a id="workspacealbertawa-storage-sqlite"></a>
 
 ## `@workspacealberta/wa-storage-sqlite`
 
@@ -2319,7 +2319,7 @@ export type JournalMode = 'wal' | 'delete' | 'truncate' | 'persist'
 
 来源： [`packages/storage/storage-sqlite/src/index.ts:24`](../packages/storage/storage-sqlite/src/index.ts)
 
-<a id="workspacealbertawa-subagent-acp"></a><a id="deepseek-aidsh-subagent-acp"></a>
+<a id="workspacealbertawa-subagent-acp"></a>
 
 ## `@workspacealberta/wa-subagent-acp`
 
@@ -2372,7 +2372,7 @@ export type PermissionPolicy = 'allow' | 'reject'
 
 来源： [`packages/subagent/subagent-acp/src/index.ts:27`](../packages/subagent/subagent-acp/src/index.ts)
 
-<a id="workspacealbertawa-subagent-claude-code"></a><a id="deepseek-aidsh-subagent-claude-code"></a>
+<a id="workspacealbertawa-subagent-claude-code"></a>
 
 ## `@workspacealberta/wa-subagent-claude-code`
 
@@ -2407,7 +2407,7 @@ export type ClaudeCodePermissionMode = typeof CLAUDE_CODE_PERMISSION_MODES[numbe
 
 来源： [`packages/subagent/subagent-claude-code/src/index.ts:38`](../packages/subagent/subagent-claude-code/src/index.ts)
 
-<a id="workspacealbertawa-subagent-codex"></a><a id="deepseek-aidsh-subagent-codex"></a>
+<a id="workspacealbertawa-subagent-codex"></a>
 
 ## `@workspacealberta/wa-subagent-codex`
 
@@ -2440,7 +2440,7 @@ export type CodexPermissionMode =
 
 来源： [`packages/subagent/subagent-codex/src/index.ts:36`](../packages/subagent/subagent-codex/src/index.ts)
 
-<a id="workspacealbertawa-subagent-dsh-sdk"></a><a id="deepseek-aidsh-subagent-dsh-sdk"></a>
+<a id="workspacealbertawa-subagent-dsh-sdk"></a>
 
 ## `@workspacealberta/wa-subagent-dsh-sdk`
 
@@ -2496,7 +2496,7 @@ export interface Config {
 
 来源： [`packages/subagent/subagent-dsh-sdk/src/index.ts:34`](../packages/subagent/subagent-dsh-sdk/src/index.ts)
 
-<a id="workspacealbertawa-subagent-fork-in-process"></a><a id="deepseek-aidsh-subagent-fork-in-process"></a>
+<a id="workspacealbertawa-subagent-fork-in-process"></a>
 
 ## `@workspacealberta/wa-subagent-fork-in-process`
 
@@ -2512,7 +2512,7 @@ export interface Config {
 
 来源： [`packages/subagent/subagent-fork-in-process/src/index.ts:31`](../packages/subagent/subagent-fork-in-process/src/index.ts)
 
-<a id="workspacealbertawa-subagent-spawn-in-process"></a><a id="deepseek-aidsh-subagent-spawn-in-process"></a>
+<a id="workspacealbertawa-subagent-spawn-in-process"></a>
 
 ## `@workspacealberta/wa-subagent-spawn-in-process`
 
@@ -2528,7 +2528,7 @@ export interface Config {
 
 来源： [`packages/subagent/subagent-spawn-in-process/src/index.ts:25`](../packages/subagent/subagent-spawn-in-process/src/index.ts)
 
-<a id="workspacealbertawa-subprocess-e2b"></a><a id="deepseek-aidsh-subprocess-e2b"></a>
+<a id="workspacealbertawa-subprocess-e2b"></a>
 
 ## `@workspacealberta/wa-subprocess-e2b`
 
@@ -2544,7 +2544,7 @@ export interface Config {
 
 来源： [`packages/e2b/subprocess-e2b/src/index.ts:25`](../packages/e2b/subprocess-e2b/src/index.ts)
 
-<a id="workspacealbertawa-system-prompt"></a><a id="deepseek-aidsh-system-prompt"></a>
+<a id="workspacealbertawa-system-prompt"></a>
 
 ## `@workspacealberta/wa-system-prompt`
 
@@ -2571,7 +2571,7 @@ export interface Config {
 
 来源： [`packages/core/system-prompt/src/index.ts:237`](../packages/core/system-prompt/src/index.ts)
 
-<a id="workspacealbertawa-terminal-bash"></a><a id="deepseek-aidsh-terminal-bash"></a>
+<a id="workspacealbertawa-terminal-bash"></a>
 
 ## `@workspacealberta/wa-terminal-bash`
 
@@ -2621,7 +2621,7 @@ export type ShellDialect = 'bash' | 'pwsh'
 
 来源： [`packages/terminal/terminal-bash/src/config.ts:10`](../packages/terminal/terminal-bash/src/config.ts)
 
-<a id="workspacealbertawa-time-context"></a><a id="deepseek-aidsh-time-context"></a>
+<a id="workspacealbertawa-time-context"></a>
 
 ## `@workspacealberta/wa-time-context`
 
@@ -2639,7 +2639,7 @@ export interface Config {
 
 来源： [`packages/context/time-context/src/index.ts:49`](../packages/context/time-context/src/index.ts)
 
-<a id="workspacealbertawa-tmux-context"></a><a id="deepseek-aidsh-tmux-context"></a>
+<a id="workspacealbertawa-tmux-context"></a>
 
 ## `@workspacealberta/wa-tmux-context`
 
@@ -2655,7 +2655,7 @@ export interface Config {
 
 来源： [`packages/context/tmux-context/src/index.ts:36`](../packages/context/tmux-context/src/index.ts)
 
-<a id="workspacealbertawa-token-meter"></a><a id="deepseek-aidsh-token-meter"></a>
+<a id="workspacealbertawa-token-meter"></a>
 
 ## `@workspacealberta/wa-token-meter`
 
@@ -2668,7 +2668,7 @@ export type TokenMeterConfig = Record<string, never>
 
 来源： [`packages/llm/token-meter/src/types.ts:13`](../packages/llm/token-meter/src/types.ts)
 
-<a id="workspacealbertawa-tool-bash"></a><a id="deepseek-aidsh-tool-bash"></a>
+<a id="workspacealbertawa-tool-bash"></a>
 
 ## `@workspacealberta/wa-tool-bash`
 
@@ -2684,7 +2684,7 @@ export interface Config {
 
 来源： [`packages/shell/tool-bash/src/index.ts:33`](../packages/shell/tool-bash/src/index.ts)
 
-<a id="workspacealbertawa-tool-bash-persistent"></a><a id="deepseek-aidsh-tool-bash-persistent"></a>
+<a id="workspacealbertawa-tool-bash-persistent"></a>
 
 ## `@workspacealberta/wa-tool-bash-persistent`
 
@@ -2706,7 +2706,7 @@ export interface Config {
 
 来源： [`packages/shell/tool-bash-persistent/src/index.ts:432`](../packages/shell/tool-bash-persistent/src/index.ts)
 
-<a id="workspacealbertawa-tool-fs"></a><a id="deepseek-aidsh-tool-fs"></a>
+<a id="workspacealbertawa-tool-fs"></a>
 
 ## `@workspacealberta/wa-tool-fs`
 
@@ -2728,7 +2728,7 @@ export interface Config {
 
 来源： [`packages/fs/tool-fs/src/index.ts:25`](../packages/fs/tool-fs/src/index.ts)
 
-<a id="workspacealbertawa-tool-fs-search"></a><a id="deepseek-aidsh-tool-fs-search"></a>
+<a id="workspacealbertawa-tool-fs-search"></a>
 
 ## `@workspacealberta/wa-tool-fs-search`
 
@@ -2763,7 +2763,7 @@ export interface Config {
 
 来源： [`packages/fs/tool-fs-search/src/index.ts:73`](../packages/fs/tool-fs-search/src/index.ts)
 
-<a id="workspacealbertawa-tool-goal"></a><a id="deepseek-aidsh-tool-goal"></a>
+<a id="workspacealbertawa-tool-goal"></a>
 
 ## `@workspacealberta/wa-tool-goal`
 
@@ -2779,7 +2779,7 @@ export interface Config {
 
 来源： [`packages/goal/tool-goal/src/index.ts:25`](../packages/goal/tool-goal/src/index.ts)
 
-<a id="workspacealbertawa-tool-jobs"></a><a id="deepseek-aidsh-tool-jobs"></a>
+<a id="workspacealbertawa-tool-jobs"></a>
 
 ## `@workspacealberta/wa-tool-jobs`
 
@@ -2813,7 +2813,7 @@ export type CompletionDelivery = 'quiet' | 'wakeup'
 
 来源： [`packages/jobs/tool-jobs/src/index.ts:31`](../packages/jobs/tool-jobs/src/index.ts)
 
-<a id="workspacealbertawa-tool-lsp"></a><a id="deepseek-aidsh-tool-lsp"></a>
+<a id="workspacealbertawa-tool-lsp"></a>
 
 ## `@workspacealberta/wa-tool-lsp`
 
@@ -2833,7 +2833,7 @@ export interface Config {
 
 来源： [`packages/lsp/tool-lsp/src/index.ts:57`](../packages/lsp/tool-lsp/src/index.ts)
 
-<a id="workspacealbertawa-tool-pwsh"></a><a id="deepseek-aidsh-tool-pwsh"></a>
+<a id="workspacealbertawa-tool-pwsh"></a>
 
 ## `@workspacealberta/wa-tool-pwsh`
 
@@ -2849,7 +2849,7 @@ export interface Config {
 
 来源： [`packages/shell/tool-pwsh/src/index.ts:51`](../packages/shell/tool-pwsh/src/index.ts)
 
-<a id="workspacealbertawa-tool-pwsh-persistent"></a><a id="deepseek-aidsh-tool-pwsh-persistent"></a>
+<a id="workspacealbertawa-tool-pwsh-persistent"></a>
 
 ## `@workspacealberta/wa-tool-pwsh-persistent`
 
@@ -2871,7 +2871,7 @@ export interface Config {
 
 来源： [`packages/shell/tool-pwsh-persistent/src/index.ts:472`](../packages/shell/tool-pwsh-persistent/src/index.ts)
 
-<a id="workspacealbertawa-tool-ralph"></a><a id="deepseek-aidsh-tool-ralph"></a>
+<a id="workspacealbertawa-tool-ralph"></a>
 
 ## `@workspacealberta/wa-tool-ralph`
 
@@ -2893,7 +2893,7 @@ export interface Config {
 
 来源： [`packages/workflow/tool-ralph/src/index.ts:21`](../packages/workflow/tool-ralph/src/index.ts)
 
-<a id="workspacealbertawa-tool-session-query"></a><a id="deepseek-aidsh-tool-session-query"></a>
+<a id="workspacealbertawa-tool-session-query"></a>
 
 ## `@workspacealberta/wa-tool-session-query`
 
@@ -2911,7 +2911,7 @@ export interface Config {
 
 来源： [`packages/session-query/tool-session-query/src/index.ts:28`](../packages/session-query/tool-session-query/src/index.ts)
 
-<a id="workspacealbertawa-tool-skill"></a><a id="deepseek-aidsh-tool-skill"></a>
+<a id="workspacealbertawa-tool-skill"></a>
 
 ## `@workspacealberta/wa-tool-skill`
 
@@ -2927,7 +2927,7 @@ export interface Config {
 
 来源： [`packages/skill/tool-skill/src/index.ts:61`](../packages/skill/tool-skill/src/index.ts)
 
-<a id="workspacealbertawa-tool-str-replace-editor"></a><a id="deepseek-aidsh-tool-str-replace-editor"></a>
+<a id="workspacealbertawa-tool-str-replace-editor"></a>
 
 ## `@workspacealberta/wa-tool-str-replace-editor`
 
@@ -2945,7 +2945,7 @@ export interface Config {
 
 来源： [`packages/fs/tool-str-replace-editor/src/index.ts:505`](../packages/fs/tool-str-replace-editor/src/index.ts)
 
-<a id="workspacealbertawa-tool-subagent"></a><a id="deepseek-aidsh-tool-subagent"></a>
+<a id="workspacealbertawa-tool-subagent"></a>
 
 ## `@workspacealberta/wa-tool-subagent`
 
@@ -3015,7 +3015,7 @@ Depends on: [`AgentOptions`](subsystems/core.zh.md)
 
 来源： [`packages/subagent/tool-subagent/src/index.ts:47`](../packages/subagent/tool-subagent/src/index.ts)
 
-<a id="workspacealbertawa-tool-terminal"></a><a id="deepseek-aidsh-tool-terminal"></a>
+<a id="workspacealbertawa-tool-terminal"></a>
 
 ## `@workspacealberta/wa-tool-terminal`
 
@@ -3033,7 +3033,7 @@ export interface Config {
 
 来源： [`packages/terminal/tool-terminal/src/index.ts:35`](../packages/terminal/tool-terminal/src/index.ts)
 
-<a id="workspacealbertawa-tool-todo"></a><a id="deepseek-aidsh-tool-todo"></a>
+<a id="workspacealbertawa-tool-todo"></a>
 
 ## `@workspacealberta/wa-tool-todo`
 
@@ -3055,7 +3055,7 @@ export interface Config {
 
 来源： [`packages/todo/tool-todo/src/index.ts:29`](../packages/todo/tool-todo/src/index.ts)
 
-<a id="workspacealbertawa-tool-web"></a><a id="deepseek-aidsh-tool-web"></a>
+<a id="workspacealbertawa-tool-web"></a>
 
 ## `@workspacealberta/wa-tool-web`
 
@@ -3083,7 +3083,7 @@ export interface Config {
 
 来源： [`packages/web/tool-web/src/index.ts:37`](../packages/web/tool-web/src/index.ts)
 
-<a id="workspacealbertawa-tool-workflow"></a><a id="deepseek-aidsh-tool-workflow"></a>
+<a id="workspacealbertawa-tool-workflow"></a>
 
 ## `@workspacealberta/wa-tool-workflow`
 
@@ -3101,7 +3101,7 @@ export interface Config {
 
 来源： [`packages/workflow/tool-workflow/src/index.ts:32`](../packages/workflow/tool-workflow/src/index.ts)
 
-<a id="workspacealbertawa-tools"></a><a id="deepseek-aidsh-tools"></a>
+<a id="workspacealbertawa-tools"></a>
 
 ## `@workspacealberta/wa-tools`
 
@@ -3137,7 +3137,7 @@ export type ToolPresentationMode = 'native' | 'ptc' | 'both'
 
 来源： [`packages/core/tools/src/index.ts:647`](../packages/core/tools/src/index.ts)
 
-<a id="workspacealbertawa-typert-loader"></a><a id="deepseek-aidsh-typert-loader"></a>
+<a id="workspacealbertawa-typert-loader"></a>
 
 ## `@workspacealberta/wa-typert-loader`
 
@@ -3153,7 +3153,7 @@ export interface Config {
 
 来源： [`packages/typert/loader/src/index.ts:47`](../packages/typert/loader/src/index.ts)
 
-<a id="workspacealbertawa-user-approval"></a><a id="deepseek-aidsh-user-approval"></a>
+<a id="workspacealbertawa-user-approval"></a>
 
 ## `@workspacealberta/wa-user-approval`
 
@@ -3184,7 +3184,7 @@ export type ApprovalPolicy = 'ask' | 'never'
 
 来源： [`packages/interaction/user-approval/src/index.ts:127`](../packages/interaction/user-approval/src/index.ts)
 
-<a id="workspacealbertawa-web"></a><a id="deepseek-aidsh-web"></a>
+<a id="workspacealbertawa-web"></a>
 
 ## `@workspacealberta/wa-web`
 
@@ -3205,7 +3205,7 @@ export interface WebRuntimeConfig {
 
 来源： [`packages/web/web/src/index.ts:55`](../packages/web/web/src/index.ts)
 
-<a id="workspacealbertawa-web-app"></a><a id="deepseek-aidsh-web-app"></a>
+<a id="workspacealbertawa-web-app"></a>
 
 ## `@workspacealberta/wa-web-app`
 
@@ -3232,7 +3232,7 @@ export interface Config {
 
 来源： [`packages/bundle/web-app/src/index.ts:44`](../packages/bundle/web-app/src/index.ts)
 
-<a id="workspacealbertawa-web-fetch-http"></a><a id="deepseek-aidsh-web-fetch-http"></a>
+<a id="workspacealbertawa-web-fetch-http"></a>
 
 ## `@workspacealberta/wa-web-fetch-http`
 
@@ -3256,7 +3256,7 @@ export interface Config {
 
 来源： [`packages/web/web-fetch-http/src/index.ts:32`](../packages/web/web-fetch-http/src/index.ts)
 
-<a id="workspacealbertawa-web-search-deepseek"></a><a id="deepseek-aidsh-web-search-deepseek"></a>
+<a id="workspacealbertawa-web-search-deepseek"></a>
 
 ## `@workspacealberta/wa-web-search-deepseek`
 
@@ -3284,7 +3284,7 @@ export interface Config {
 
 来源： [`packages/web/web-search-deepseek/src/index.ts:46`](../packages/web/web-search-deepseek/src/index.ts)
 
-<a id="workspacealbertawa-web-search-exa"></a><a id="deepseek-aidsh-web-search-exa"></a>
+<a id="workspacealbertawa-web-search-exa"></a>
 
 ## `@workspacealberta/wa-web-search-exa`
 
@@ -3308,7 +3308,7 @@ export interface Config {
 
 来源： [`packages/web/web-search-exa/src/index.ts:35`](../packages/web/web-search-exa/src/index.ts)
 
-<a id="workspacealbertawa-web-search-perplexity"></a><a id="deepseek-aidsh-web-search-perplexity"></a>
+<a id="workspacealbertawa-web-search-perplexity"></a>
 
 ## `@workspacealberta/wa-web-search-perplexity`
 
@@ -3332,7 +3332,7 @@ export interface Config {
 
 来源： [`packages/web/web-search-perplexity/src/index.ts:30`](../packages/web/web-search-perplexity/src/index.ts)
 
-<a id="workspacealbertawa-webhook-github"></a><a id="deepseek-aidsh-webhook-github"></a>
+<a id="workspacealbertawa-webhook-github"></a>
 
 ## `@workspacealberta/wa-webhook-github`
 
@@ -3354,7 +3354,7 @@ export interface Config {
 
 来源： [`packages/webhook/webhook-github/src/index.ts:17`](../packages/webhook/webhook-github/src/index.ts)
 
-<a id="workspacealbertawa-workflow-worker-thread"></a><a id="deepseek-aidsh-workflow-worker-thread"></a>
+<a id="workspacealbertawa-workflow-worker-thread"></a>
 
 ## `@workspacealberta/wa-workflow-worker-thread`
 
@@ -3384,7 +3384,7 @@ export interface Config {
 
 来源： [`packages/workflow/workflow-worker-thread/src/index.ts:32`](../packages/workflow/workflow-worker-thread/src/index.ts)
 
-<a id="workspacealbertawa-workspace-router"></a><a id="deepseek-aidsh-workspace-router"></a>
+<a id="workspacealbertawa-workspace-router"></a>
 
 ## `@workspacealberta/wa-workspace-router`
 
@@ -3524,6 +3524,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 - `@workspacealberta/wa-schedule` — requires `agents` · `sessions` · `tools` · `sessionPersistence` ([`packages/schedule/schedule/src/index.ts`](../packages/schedule/schedule/src/index.ts))
 - `@workspacealberta/wa-session` ([`packages/core/session/src/index.ts`](../packages/core/session/src/index.ts))
 - `@workspacealberta/wa-session-checkpoint-policy` — requires `llm` · `sessionPersistence` · `sessions` · `tools` ([`packages/session/session-checkpoint-policy/src/index.ts`](../packages/session/session-checkpoint-policy/src/index.ts))
+- `@workspacealberta/wa-session-episode-recorder` — requires `sessionProjections` ([`packages/session/session-episode-recorder/src/index.ts`](../packages/session/session-episode-recorder/src/index.ts))
 - `@workspacealberta/wa-session-projection` ([`packages/session/session-projection/src/index.ts`](../packages/session/session-projection/src/index.ts))
 - `@workspacealberta/wa-session-stats` — requires `sessionProjections` ([`packages/session/session-stats/src/index.ts`](../packages/session/session-stats/src/index.ts))
 - `@workspacealberta/wa-session-turn-outline` — requires `sessionProjections` ([`packages/session/session-turn-outline/src/index.ts`](../packages/session/session-turn-outline/src/index.ts))

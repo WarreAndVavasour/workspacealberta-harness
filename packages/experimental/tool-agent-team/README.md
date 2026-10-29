@@ -48,7 +48,7 @@ The smallest addition to an existing composition is the two-package fragment fro
 | `freshProvider` | `spawn` | Provider that starts fresh teammates |
 | `forkProvider` | `fork` | Provider that starts fork teammates |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-experimental-tool-agent-team) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-experimental-tool-agent-team) is the exhaustive source for every accepted field and its JSDoc.
 
 Try it by asking the Lead model: "create a teammate named reviewer to check the diff, then send reviewer the change summary". The model calls the creation tool and then the messaging tool.
 

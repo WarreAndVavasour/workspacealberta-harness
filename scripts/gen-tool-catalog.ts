@@ -792,10 +792,7 @@ export function render(catalog: ToolCatalog): string {
     '',
   ]
   for (const entry of catalog) {
-    // Keep existing document links working after the corporate package rename.
-    const previous = entry.pkg.replace('@workspacealberta/wa-', '@deepseek-ai/dsh-')
     const anchor = `<a id="${githubSlug(entry.pkg)}"></a>`
-      + (previous === entry.pkg ? '' : `<a id="${githubSlug(previous)}"></a>`)
     lines.push(anchor, '', `## \`${entry.pkg}\``, '')
     for (const schema of entry.schemas) {
       // Collection validated that every harvested schema has a source.

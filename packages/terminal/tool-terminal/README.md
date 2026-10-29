@@ -55,7 +55,7 @@ The tools need `ctx.terminals` — a backend must be mounted — and the system-
 | `enableRunInBackground` | `true` | Expose and accept `run_in_background`; `false` removes the schema field and rejects the argument |
 | `maxResultBytes` | `262144` | UTF-8 cap (minimum `64`) for each complete terminal result after wait, session, pagination, truncation, and job-status metadata |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-terminal) and [tool catalog](../../../docs/tool-catalog.md#workspacealbertawa-tool-terminal) are the exhaustive sources for config fields and schemas.
+The generated [configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-terminal) and [tool catalog](../../../docs/tool-catalog.md#workspacealbertawa-tool-terminal) are the exhaustive sources for config fields and schemas.
 
 ### Background sends
 

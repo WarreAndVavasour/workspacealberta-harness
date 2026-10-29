@@ -47,7 +47,7 @@ The only required configuration is the guidance text the agent follows while pla
 |---|---|---|
 | `section` | required | Guidance rendered as the `plan:policy` prompt section while plan mode is active |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-plan-mode) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-plan-mode) is the exhaustive source for every accepted field and its JSDoc.
 
 <a id="model-and-human-interactions"></a>
 ### Entering and leaving plan mode
@@ -117,7 +117,7 @@ Read these pages when the package-level contract is not enough. They move from t
 - [Plan mode subsystem reference](../../../docs/subsystems/plan.md) — how plan mode behaves, its configuration, and the exit tool's contract.
 - [plan/ package map](../README.md) — the group and its single package.
 - [exit_plan_mode tool catalog entry](../../../docs/tool-catalog.md#workspacealbertawa-plan-mode) — the exact schema the model receives.
-- [Generated configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-plan-mode) — every accepted config field and its meaning.
+- [Generated configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-plan-mode) — every accepted config field and its meaning.
 - [Plan-specific collaboration state](../../../.agents/notes/implemented/simplification/2026-07-22-plan-specific-collaboration-state.md) — the design decision behind plan mode.
 
 -----

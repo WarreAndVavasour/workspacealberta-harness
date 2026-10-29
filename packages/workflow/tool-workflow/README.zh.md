@@ -44,7 +44,7 @@ kind: "package-reference"
 | `toolName` | `workflow` | 要注册的面向模型工具名称。 |
 | `maxResultChars` | `50000` | 渲染结果上限；更长的 JSON 会被截断并附上提示。 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-workflow)是每个受支持字段的穷尽式真源。
+生成的[配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-tool-workflow)是每个受支持字段的穷尽式真源。
 
 -----
 

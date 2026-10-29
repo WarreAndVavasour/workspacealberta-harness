@@ -48,7 +48,7 @@ kind: "package-reference"
 | `freshProvider` | `spawn` | 启动 fresh teammate 的 provider |
 | `forkProvider` | `fork` | 启动 fork teammate 的 provider |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-experimental-tool-agent-team)是每个受支持字段及其 JSDoc 的穷尽式真源。
+生成的[配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-experimental-tool-agent-team)是每个受支持字段及其 JSDoc 的穷尽式真源。
 
 试试这样要求 Lead 模型：「创建一个名为 reviewer 的 teammate 检查 diff，再把变更摘要发给 reviewer」。模型会调用创建工具，然后调用消息工具。
 

@@ -52,7 +52,7 @@ kind: "package-reference"
 | `toolFilter` | — | 每个子 agent 独立的全局工具限制；要求提供方具备 `toolFilter` 能力 |
 | `maxDepth` | `3` | 绝对委派深度上限（`0` 禁止委派）；`'provider-managed'` 不向进程外提供方发送上限 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-subagent)是每个受支持字段及其 JSDoc 的穷尽式真源。
+生成的[配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-tool-subagent)是每个受支持字段及其 JSDoc 的穷尽式真源。
 
 ### 前台与后台模式
 
@@ -116,7 +116,7 @@ kind: "package-reference"
 - [Subagent 子系统](../../../docs/subsystems/subagent.zh.md)——提供方、一次性启动请求、可继续子 agent 与 Activation。
 - [dsh-tool-subagent-control](../tool-subagent-control/README.zh.md)——可继续子 agent 的消息、中断与列表工具。
 - [生成工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-subagent)——默认 schema 与各模式的措辞。
-- [生成配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-subagent)——每个受支持配置字段。
+- [生成配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-tool-subagent)——每个受支持配置字段。
 - [后台 subagent 任务](../../../.agents/notes/implemented/feature/2026-07-08-background-subagent-tasks.zh.md)——一次性后台路由。
 - [后台优先的可继续委派](../../../.agents/notes/implemented/feature/2026-08-11-background-first-continuable-delegation.zh.md)——可继续工作为何默认在后台运行。
 - [模型选择 subagent 路由](../../../.agents/notes/implemented/feature/2026-08-18-model-selected-subagent-routes.zh.md)——选择策略、继承、发现与 fork 限制。

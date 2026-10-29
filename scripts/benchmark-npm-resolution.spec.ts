@@ -128,7 +128,7 @@ describe('npm resolution benchmark', () => {
     const root = mkdtempSync(join(tmpdir(), 'dsh-hostile-npm-config-'))
     roots.push(root)
     const userConfig = join(root, 'user.npmrc')
-    writeFileSync(userConfig, '@deepseek-ai:registry=http://127.0.0.1:1/\nlegacy-peer-deps=true\nomit=peer\n')
+    writeFileSync(userConfig, '@workspacealberta:registry=http://127.0.0.1:1/\nlegacy-peer-deps=true\nomit=peer\n')
     const previous = {
       userConfig: process.env.npm_config_userconfig,
       legacyPeerDeps: process.env.npm_config_legacy_peer_deps,

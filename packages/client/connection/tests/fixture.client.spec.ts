@@ -720,10 +720,10 @@ describe('createFixtureApi', () => {
     const webSearch = results.find(event => event.data.turn === 70)
     expect(webSearch).toHaveProperty('data.meta.truncated', true)
     expect(webSearch).toHaveProperty('data.meta.sources', expect.arrayContaining([
-      expect.objectContaining({ url: 'https://github.com/deepseek-ai/deepseek-harness' }),
+      expect.objectContaining({ url: 'https://github.com/WarreAndVavasour/workspacealberta-harness' }),
     ]))
     expect(results.find(event => event.data.turn === 71)).toMatchObject({
-      data: { meta: { url: 'https://www.deepseek.com/blog/harness-architecture', statusCode: 200 } },
+      data: { meta: { url: 'https://example.com/blog/harness-architecture', statusCode: 200 } },
     })
     const terminal = results.find(event => event.data.turn === 66)
     expect(terminal).toHaveProperty('data.message.content.0.content.0.type', 'text')

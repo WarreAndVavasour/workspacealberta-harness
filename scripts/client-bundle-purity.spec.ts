@@ -108,7 +108,7 @@ describe('client bundle purity gate', () => {
     expect(() => resolveId('@workspacealberta/wa-goal/remote/nested')).toThrow(/purity/)
   })
 
-  it('throws on any other @deepseek-ai leak', () => {
+  it('throws on any other @workspacealberta leak', () => {
     expect(() => resolveId('@workspacealberta/wa-agent')).toThrow(/purity/)
     expect(() => resolveId('@workspacealberta/wa-client-web')).toThrow(/purity/)
   })

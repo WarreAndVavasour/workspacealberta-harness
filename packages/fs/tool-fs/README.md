@@ -61,7 +61,7 @@ All keys are optional; the defaults are the shipped read caps.
 | `readMaxBytes` | `51200` | Byte cap on one `read` call's selected lines; overflow ends the window with a capped footer |
 | `readStreamMinSize` | `10485760` | Files at or above this size (or of unknown size) stream instead of loading whole into memory |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-fs) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-fs) is the exhaustive source for every accepted field and its JSDoc.
 
 ### Policy and sandbox behavior
 

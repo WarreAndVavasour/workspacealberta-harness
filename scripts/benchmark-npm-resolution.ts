@@ -379,7 +379,7 @@ async function runNpm(
 ): Promise<{ durationMs: number; output: string; timedOut: boolean }> {
   const npmrc = join(cwd, '.npmrc')
   const globalNpmrc = join(cwd, '.npmrc-global')
-  writeFileSync(npmrc, `registry=${registry}\n@deepseek-ai:registry=${registry}\n`)
+  writeFileSync(npmrc, `registry=${registry}\n@workspacealberta:registry=${registry}\n`)
   writeFileSync(globalNpmrc, '')
   const inheritedEnvironment = Object.fromEntries(Object.entries(process.env)
     .filter(([name]) => !name.toLowerCase().startsWith('npm_config_')))

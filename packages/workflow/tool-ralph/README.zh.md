@@ -44,7 +44,7 @@ kind: "package-reference"
 | `maxHandoffChars` | `16384` | 一份 Round 报告序列化后的最大字符数。 |
 | `maxResultChars` | `16384` | 返回给父级的完整成功结果最大字符数。 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-ralph)是每个受支持字段的穷尽式真源。配置的提供方必须存在、支持结构化输出，并报告 `inheritsParentContext: false`；针对违反此要求的提供方的调用会在任何 Round 开始前响亮失败。
+生成的[配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-tool-ralph)是每个受支持字段的穷尽式真源。配置的提供方必须存在、支持结构化输出，并报告 `inheritsParentContext: false`；针对违反此要求的提供方的调用会在任何 Round 开始前响亮失败。
 
 -----
 

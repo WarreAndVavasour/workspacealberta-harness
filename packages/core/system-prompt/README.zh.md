@@ -47,7 +47,7 @@ kind: "package-reference"
 | `persona` | `''` | 全局部署 persona 提示词片段，渲染在顺序 `0` |
 | `toolOrder` | — | 显式面向模型工具顺序，含一个 `'<unlisted-tools>'` 其余项标记 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-system-prompt)是每个受支持字段的穷尽式真源。没有恰好一个其余项或存在重复项的 `toolOrder` 列表会在加载时失败；已列名称没有对应已注册工具会使每次 `assemble()` 被拒绝。
+生成的[配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-system-prompt)是每个受支持字段的穷尽式真源。没有恰好一个其余项或存在重复项的 `toolOrder` 列表会在加载时失败；已列名称没有对应已注册工具会使每次 `assemble()` 被拒绝。
 
 ### 贡献提示词段
 

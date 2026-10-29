@@ -47,7 +47,7 @@ kind: "package-reference"
 |---|---|---|
 | `enableRunInBackground` | `true` | 暴露 `run_in_background`；为 `false` 时拒绝强制后台调用 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-pwsh)是每个受支持字段及其 JSDoc 的穷尽式真源；生成的[工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-pwsh)携带完整参数 schema。
+生成的[配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-tool-pwsh)是每个受支持字段及其 JSDoc 的穷尽式真源；生成的[工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-pwsh)携带完整参数 schema。
 
 ### 运行命令
 
@@ -107,7 +107,7 @@ renderer 共享 bash 工具的结构与来自 `dsh-shell` 的 `parseExitStatus` 
 - [pwsh 工具与执行器 Agent Note](../../../.agents/notes/implemented/feature/2026-08-01-pwsh-tool-and-executor.zh.md)——为什么工具镜像 bash 工具，以及 Windows 沙箱如何门控其描述。
 - [Windows ACL 受限令牌沙箱 Agent Note](../../../.agents/notes/implemented/feature/2026-08-08-windows-acl-restricted-token-sandbox.zh.md)——语言模式与命名管道约定。
 - [生成的工具目录](../../../docs/tool-catalog.zh.md#workspacealbertawa-tool-pwsh)——`pwsh` 参数 schema 的确切内容。
-- [生成的配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-pwsh)——每个受支持配置字段及其源声明。
+- [生成的配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-tool-pwsh)——每个受支持配置字段及其源声明。
 
 -----
 

@@ -47,7 +47,7 @@ kind: "package-reference"
 |---|---|---|
 | `section` | 必填 | 计划模式激活时作为 `plan:policy` 提示词段落渲染的引导 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-plan-mode)是每个受支持字段及其 JSDoc 的穷尽式真源。
+生成的[配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-plan-mode)是每个受支持字段及其 JSDoc 的穷尽式真源。
 
 <a id="model-and-human-interactions"></a>
 ### 进入与离开计划模式
@@ -117,7 +117,7 @@ agent 完成计划后，会以 markdown 形式、从标题开头书写计划并�
 - [计划模式子系统参考](../../../docs/subsystems/plan.zh.md)——计划模式的行为、配置与退出工具的约定。
 - [plan/ 包映射](../README.zh.md)——本组及其唯一的包。
 - [`exit_plan_mode` 工具目录条目](../../../docs/tool-catalog.zh.md#workspacealbertawa-plan-mode)——模型收到的确切 schema。
-- [生成的配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-plan-mode)——每个受支持配置字段及其含义。
+- [生成的配置目录](../../../docs/config-catalog.zh.md#workspacealbertawa-plan-mode)——每个受支持配置字段及其含义。
 - [plan 专用协作状态](../../../.agents/notes/implemented/simplification/2026-07-22-plan-specific-collaboration-state.zh.md)——计划模式背后的设计决策。
 
 -----

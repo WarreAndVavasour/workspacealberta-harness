@@ -50,7 +50,7 @@ The default `shell` backend starts a PowerShell shell through a `dsh-terminal-ba
 | `maxOutputChars` | `16,000` | Maximum retained command-output characters; fixed diagnostics are added afterward |
 | `description` | `Run commands in a persistent PowerShell shell. State, including the current directory and exported environment variables, persists across calls for this agent.` | Model-facing environment contract; deployments may describe their environment |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-pwsh-persistent) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-pwsh-persistent) is the exhaustive source for every accepted field and its JSDoc.
 
 ### What the agent can rely on
 
@@ -103,7 +103,7 @@ Read these pages when the package-level contract is not enough. They move from t
 - [pwsh persistent PTY Agent Note](../../../.agents/notes/implemented/architecture/2026-08-11-pwsh-persistent-pty.md) — the pwsh-side session design and its rationale.
 - [Persistent PTY sessions Agent Note](../../../.agents/notes/implemented/feature/2026-07-16-persistent-pty-sessions.md) — the owner-scoped session design and its rationale.
 - [Generated tool catalog](../../../docs/tool-catalog.md#workspacealbertawa-tool-pwsh-persistent) — the exact `pwsh` argument schema.
-- [Generated configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-pwsh-persistent) — every accepted config field and its source declaration.
+- [Generated configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-pwsh-persistent) — every accepted config field and its source declaration.
 
 -----
 

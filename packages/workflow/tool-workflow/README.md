@@ -44,7 +44,7 @@ While the script runs, the parent turn waits: the tool starts the run, awaits it
 | `toolName` | `workflow` | The model-facing tool name to register. |
 | `maxResultChars` | `50000` | Rendered-result ceiling; longer JSON is truncated with a notice. |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-workflow) is the exhaustive source for every accepted field.
+The generated [configuration catalog](../../../docs/config-catalog.md#workspacealbertawa-tool-workflow) is the exhaustive source for every accepted field.
 
 -----
 

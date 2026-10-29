@@ -362,7 +362,7 @@ export abstract class ReleaseFamily {
 }
 
 /** Release packages and apps: one shared version across the whole family. */
-class DshFamily extends ReleaseFamily {
+class WaFamily extends ReleaseFamily {
   readonly id = 'wa'
   readonly patterns = ['packages/!(experimental)/*/package.json', 'apps/*/package.json'] as const
   readonly tagPrefix = 'wa-v'
@@ -453,7 +453,7 @@ class VendorFamily extends ReleaseFamily {
 
 /** Every release family this module owns, in workflow order. */
 function releaseFamilies(): readonly ReleaseFamily[] {
-  return [new DshFamily(), new VendorFamily()]
+  return [new WaFamily(), new VendorFamily()]
 }
 
 /**
