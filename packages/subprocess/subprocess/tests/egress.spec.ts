@@ -8,8 +8,8 @@ import { scrubbedParentEnv } from '../src/index.ts'
 
 /**
  * Whether this runtime honors `NODE_USE_ENV_PROXY`, which is how a child Node receives the policy.
- * Added in Node 24.0 and backported to 22.21; the engines range admits 22.19 and 22.20, where a
- * child stays direct.
+ * Added in Node 24.0 and backported to 22.21. Every version in engines.node has it;
+ * an older runtime still leaves the child direct.
  */
 function supportsEnvProxy(): boolean {
   const [major = 0, minor = 0] = process.versions.node.split('.').map(Number)

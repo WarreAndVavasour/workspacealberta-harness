@@ -61,7 +61,7 @@ Package groups: [packages/README.md](packages/README.md).
 ## Commands
 
 ```sh
-pnpm install            # pnpm workspaces, node ^22.19 || >=24
+pnpm install            # node ^22.23.4 || ^24.22.1 || >=26.12.1
 pnpm run clean           # remove build outputs and safe residue from deleted packages
 pnpm run test           # unit tests
 pnpm run test:coverage  # CI coverage gate: per-file 100% on packages/*/*/src

@@ -8,7 +8,7 @@ Status: implemented
 
 ## 问题
 
-[已归档的原生源码启动决策](../../archived/architecture/2026-07-28-dsh-native-typescript-source-launch.md)让 `apps/cli/src/bin.ts` 在 `node --experimental-transform-types` 下运行，配合一个只做解析的 paths loader，由 Node 负责 TypeScript 转换。Node 26.0.0 移除了 `--experimental-transform-types`（进程以 `bad option` 拒绝该 flag），只保留 strip 模式，而 strip 模式无法接受这个源码图必需的语法：vendor Cordis 中的参数属性（`constructor(private ctx: Context)`）、`vendor/hmr` 中的 `@Inject` 装饰器，以及遍布 `vendor/` 与 `packages/workflow` 的运行时 enum/namespace。仓库的 engines 范围（`^22.19.0 || >=24.0.0`）包含 Node 26，因此原生启动链在其上完全无法启动——且没有任何 CI 任务执行过真实启动向量，这一不兼容悄然发布。
+[已归档的原生源码启动决策](../../archived/architecture/2026-07-28-dsh-native-typescript-source-launch.md)让 `apps/cli/src/bin.ts` 在 `node --experimental-transform-types` 下运行，配合一个只做解析的 paths loader，由 Node 负责 TypeScript 转换。Node 26.0.0 移除了 `--experimental-transform-types`（进程以 `bad option` 拒绝该 flag），只保留 strip 模式，而 strip 模式无法接受这个源码图必需的语法：vendor Cordis 中的参数属性（`constructor(private ctx: Context)`）、`vendor/hmr` 中的 `@Inject` 装饰器，以及遍布 `vendor/` 与 `packages/workflow` 的运行时 enum/namespace。仓库的 engines 范围（`^22.23.4 || ^24.22.1 || >=26.12.1`）包含 Node 26.12.1 及更高版本，因此原生启动链在其上完全无法启动——且没有任何 CI 任务执行过真实启动向量，这一不兼容悄然发布。
 
 启动延迟同样是问题：off-thread 的 `module.register()` 钩子工作线程把每次解析都跨线程序列化（TUI 启动期间约 440ms 的 `makeSyncRequest` 等待），而完整的 tsx 默认形态（`--import tsx`）会因其 CJS 钩子放大解析开销而多花约 0.4s。
 
@@ -18,7 +18,7 @@ Status: implemented
 
 `scripts/tspath-loader.ts` 与 `apps/cli/src/tsconfig-paths-loader.ts` 已删除。随之消失的还有该 loader「仅为已声明运行时依赖映射 workspace import」的运行时规则——tsx 无条件应用 `paths` 映射。声明完整性现在仅由静态门禁保障：配置的裸插件走 `verify-cordis-config`，manifest（元数据清单）走 workspace constraints。（该运行时规则确实发现过真实缺陷：`dsh-plan-mode` 与 `dsh-tool-jobs` 导入 `@workspacealberta/wa-llm` 却只声明在 devDependencies；后已修复。）
 
-node-compat CI 矩阵（Node 22.19 与 26）新增 `dsh-source-launch-smoke`（`apps/cli/tests/source-launch.compat.spec.ts`）：以精确的生产运行时启动向量做 keyless 管道 stdio 启动，断言进程会因 TTY 拒绝而以非零状态退出。未来 Node 对模块钩子或 TypeScript 处理的任何改动都会让该门禁变红，而不是破坏开发者的 `pnpm wa`。
+node-compat CI 矩阵（Node 22.23.4、24.22.1 与 26）运行 `dsh-source-launch-smoke`（`apps/cli/tests/source-launch.compat.spec.ts`）：以精确的生产运行时启动向量做 keyless 管道 stdio 启动，断言进程会因 TTY 拒绝而以非零状态退出。未来 Node 对模块钩子或 TypeScript 处理的任何改动都会让该门禁变红，而不是破坏开发者的 `pnpm wa`。
 
 ## 备选方案
 

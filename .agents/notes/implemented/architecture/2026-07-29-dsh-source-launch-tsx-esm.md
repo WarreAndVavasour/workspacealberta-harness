@@ -8,7 +8,7 @@ English | [中文](2026-07-29-dsh-source-launch-tsx-esm.zh.md)
 
 ## Problem
 
-The [archived native source-launch decision](../../archived/architecture/2026-07-28-dsh-native-typescript-source-launch.md) ran `apps/cli/src/bin.ts` under `node --experimental-transform-types` with a resolve-only paths loader, so Node owned TypeScript transformation. Node 26.0.0 removed `--experimental-transform-types` (the process rejects the flag with `bad option`), keeping only strip mode, and strip mode rejects syntax this source graph requires: vendored Cordis parameter properties (`constructor(private ctx: Context)`), the `@Inject` decorators in `vendor/hmr`, and runtime enums/namespaces throughout `vendor/` and `packages/workflow`. The repository's engines range (`^22.19.0 || >=24.0.0`) includes Node 26, so the native launch chain could not start at all there — and no CI job executed the real launch vector, so the incompatibility shipped silently.
+The [archived native source-launch decision](../../archived/architecture/2026-07-28-dsh-native-typescript-source-launch.md) ran `apps/cli/src/bin.ts` under `node --experimental-transform-types` with a resolve-only paths loader, so Node owned TypeScript transformation. Node 26.0.0 removed `--experimental-transform-types` (the process rejects the flag with `bad option`), keeping only strip mode, and strip mode rejects syntax this source graph requires: vendored Cordis parameter properties (`constructor(private ctx: Context)`), the `@Inject` decorators in `vendor/hmr`, and runtime enums/namespaces throughout `vendor/` and `packages/workflow`. The repository's engines range (`^22.23.4 || ^24.22.1 || >=26.12.1`) includes Node 26.12.1 and later, so the native launch chain could not start at all there — and no CI job executed the real launch vector, so the incompatibility shipped silently.
 
 Startup latency also mattered: the off-thread `module.register()` hooks worker serialized every resolution across threads (~440ms of `makeSyncRequest` wait during TUI boot), and the full tsx default (`--import tsx`) pays ~0.4s in its CJS hook's resolution amplification.
 
@@ -18,7 +18,7 @@ The `dsh` TUI, Web, and headless source launches run `node --import tsx/esm`: ts
 
 `scripts/tspath-loader.ts` and `apps/cli/src/tsconfig-paths-loader.ts` are deleted. With them went the loader's runtime rule of mapping a workspace import only for declared runtime dependencies — tsx applies the `paths` map unconditionally. Declaration completeness now rests on the static gates alone: `verify-cordis-config` for configured bare plugins, and workspace constraints for manifests. (That runtime rule found real bugs: `dsh-plan-mode` and `dsh-tool-jobs` imported `@workspacealberta/wa-llm` while declaring it only in devDependencies; since fixed.)
 
-The node-compat CI matrix (Node 22.19 and 26) gains `dsh-source-launch-smoke` (`apps/cli/tests/source-launch.compat.spec.ts`): a keyless piped-stdio launch of the exact production runtime vector asserting the non-zero-exit TTY refusal. Any future Node change to module hooks or TypeScript handling turns this gate red instead of breaking developers' `pnpm wa`.
+The node-compat CI matrix (Node 22.23.4, 24.22.1, and 26) runs `dsh-source-launch-smoke` (`apps/cli/tests/source-launch.compat.spec.ts`): a keyless piped-stdio launch of the exact production runtime vector asserting the non-zero-exit TTY refusal. Any future Node change to module hooks or TypeScript handling turns this gate red instead of breaking developers' `pnpm wa`.
 
 ## Alternatives considered
 

@@ -10,7 +10,7 @@ Node 内置的 `fetch` 会忽略 `HTTP_PROXY` 与 `HTTPS_PROXY`。开发者运�
 
 仓库曾短暂拥有过答案，又在无人察觉时弄丢了。PR #971 在 `bin/dsh` 里设置了 `NODE_USE_ENV_PROXY=1`；十一天后 `bbb1b1cc38 cleanup: remove managed source installer` 整体删除了那个启动器，把该标志一并带走。留下的只有 `apps/cli/reference/README.md` 里的一句话，让读者去设置一个已经无人消费的变量。
 
-即便照做，那句话也不可能生效，原因有三条且都经过实测。`NODE_USE_ENV_PROXY` 在进程启动时对环境取快照，而 `loadLayeredEnv()` 是在之后才合并 `.env` 层，因此写在 `$DSH_HOME/.env` 中的代理对它不可见。它只覆盖 Node 24.0+，在 22 线上只覆盖 22.21+——而 `engines` 允许 `^22.19.0`，那里根本没有这个变量，设置了也不会有任何警告。它也完全触及不到 `web-fetch-http`：该提供方向 `fetch` 传入自己的 `dispatcher`，而显式 dispatcher 无论标志如何都会覆盖全局的那个。
+即便照做，那句话也不可能生效。`NODE_USE_ENV_PROXY` 在进程启动时对环境取快照，而 `loadLayeredEnv()` 是在之后才合并 `.env` 层，因此写在 `$DSH_HOME/.env` 中的代理对它不可见。该变量存在于 Node 22.21+ 与 24.0+，而 engines 范围 `^22.23.4 || ^24.22.1 || >=26.12.1` 只接受已经具备该变量的版本。它仍然完全触及不到 `web-fetch-http`：该提供方向 `fetch` 传入自己的 `dispatcher`，而显式 dispatcher 无论标志如何都会覆盖全局的那个。
 
 ## Decision
 
@@ -50,7 +50,7 @@ URL 层策略未受影响：仅 `http(s)`、禁止内嵌凭据、长度上限与
 
 **有两个 SDK 并不落到 `globalThis.fetch`，而读代码给出的答案是相反的。** 审计最初把 OTLP 导出器与 E2B SDK 判为已覆盖，依据是在 `@opentelemetry/otlp-exporter-base` 里 grep 到了 `globalThis.fetch`。那处命中属于**浏览器**传输；在 Node 上 delegate 选择的是 `http-exporter-transport`，它通过 `node:http` 投递——那里全局 dispatcher 触及不到。E2B 又是另一种形态：它自建 undici `Agent`／`ProxyAgent`，并接受一个自己从不从环境读取的 `proxy` URL。两者都实测为直连。E2B 接收 `proxyRouteFor` 给出的 `route.proxy`，与 `web-fetch-http` 调的是同一个函数。遥测则被有意保留为直连，而这个排除项才是更值得说的一半。
 
-**遥测的直连是有意为之。** 要让它走代理只有两条路，代价都超过这条通道本身的价值。`http.Agent` 通过 `proxyEnv` 读取环境，而该选项自 Node 22.21 与 24.5 才有——落在 engines 范围之内，因此 22.19、22.20 与 24.0–24.4 无论如何仍是直连，而代理包还得为一条只在部分运行时生效的路径保留 `createNodeHttpAgent` 导出。改用 SDK 的 `fetch` delegate 替换传输可以覆盖所有运行时，但该 delegate 没有压缩能力，而随附的 `base` bundle 启用了 gzip：实测一批真实规模的 OTLP 数据启用后体积只有 1/6.4。曾有一版转而在加载期拒绝 `exporter.compression`，结果凡是启动随附 bundle 的测试全部失败；另一版在 serializer 处 gzip 确实能跑通，但代价是把传输层代码塞进了遥测插件。
+**遥测的直连是有意为之。** 要让它走代理只有两条路，代价都超过这条通道本身的价值。`http.Agent` 通过 `proxyEnv` 读取环境，而该选项自 Node 22.21 与 24.5 才有。engines 范围接受的每个版本都具备它，因此缺少该选项的版本（22.19、22.20 与 24.0–24.4）落在支持范围之外；采用该 agent 仍须为仅遥测使用的路径保留 `createNodeHttpAgent` 导出。改用 SDK 的 `fetch` delegate 替换传输可以覆盖所有运行时，但该 delegate 没有压缩能力，而随附的 `base` bundle 启用了 gzip：实测一批真实规模的 OTLP 数据启用后体积只有 1/6.4。曾有一版转而在加载期拒绝 `exporter.compression`，结果凡是启动随附 bundle 的测试全部失败；另一版在 serializer 处 gzip 确实能跑通，但代价是把传输层代码塞进了遥测插件。
 
 与之相比，遥测是唯一一条丢失了对用户毫无代价的出网通道：没有任何工具、模型请求或会话依赖它，而连不上的导出本就被静默丢弃。处在强制代理后的用户，只是停留在本次改动之前的状态，而不是被弄坏。`egress.spec.ts` 现在断言这一排除——若某次 SDK 升级把导出器挪到 `fetch` 上，遥测就会开始静默走代理，而该用例正是让这件事暴露出来的东西。
 

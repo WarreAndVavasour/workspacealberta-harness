@@ -22,7 +22,7 @@ JSONL 持久化后端会逐字保留每个 `SessionEvent`，其中包括数量�
 
 压缩产物是标准独立 [Zstandard 帧](https://datatracker.ietf.org/doc/html/rfc8878)的串联：第一个带校验和的帧只包含头部行，后续每个持久追加批次各占一个带校验和的帧。正常 agent loop（智能体循环）批次就是轮次提交，因此帧边界保留既有持久化检查点，同时不让存储层依赖轮次事件类型。
 
-压缩使用 Node 内置的 [`zstdCompress` 与 `zstdDecompress`](https://nodejs.org/download/release/v22.19.0/docs/api/zlib.html)，仓库最低支持的 Node 22.19 已提供这些 API。后端启用 `ZSTD_c_checksumFlag`，其余采用 Node 默认值，不公开压缩级别调节项，也不增加依赖。Node 将该 API 标记为实验性，因此 Node 22.19、24 与 26 兼容性门禁会执行同一个辅助实现。
+压缩使用 Node 内置的 [`zstdCompress` 与 `zstdDecompress`](https://nodejs.org/download/release/v22.23.4/docs/api/zlib.html)，仓库最低支持的 Node 22.23.4 已提供这些 API。后端启用 `ZSTD_c_checksumFlag`，其余采用 Node 默认值，不公开压缩级别调节项，也不增加依赖。Node 将该 API 标记为实验性，因此 Node 22.23.4、24.22.1 与 26 兼容性门禁会执行同一个辅助实现。
 
 首次物化会在打开临时文件之前压缩两个初始帧，然后写入该文件并执行 `fsync`。POSIX 通过避免冲突的硬链接和目录 `fsync` 发布该文件；Windows 通过 `MoveFileExW(..., MOVEFILE_WRITE_THROUGH)` 在不替换目标文件的情况下发布。后续批次也会先压缩，再打开目标并在 EOF 追加。捕获到写入或文件同步失败时，后端会关闭追加句柄，以读写方式重新打开日志，截断到原有字节长度，同步回滚结果，再重新抛出错误，让协调器能够在两个平台上重试未变化的批次。
 
