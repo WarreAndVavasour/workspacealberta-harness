@@ -1,4 +1,4 @@
-# Agent Note: 将 Node LTS 引擎下限提升至 22.19
+# Agent Note: 要求已修复的受支持 Node 版本
 
 Status: implemented
 
@@ -10,21 +10,23 @@ Status: implemented
 
 ## 决策
 
-将 `engines.node` 设为 `^22.19.0 || >=24.0.0`，并在 `['22.19', 24, 26]` 上运行 keyless CI。主要的 Node 24 任务负责整套类型检查和单元测试覆盖率任务；三个版本均运行 source-worker、Zstandard、source-launch 和 [jsdom 存储](../testing/2026-07-30-vitest-jsdom-webstorage-ownership.zh.md) 专项冒烟测试，不重复这套类型检查和覆盖率任务。真实 API 的 e2e 工作流保持在 Node 24 上，因为它验证的是 API 集成而非运行时下限。
+[2026 年 10 月 Node 安全更新](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases) 在 22.23.4、24.22.1 和 26.12.1 修复 CVE-2026-111497。每个受支持的主版本都有独立的上界；开放范围 >=24.22.1 仍会接受存在漏洞的 Node 26。根清单与 Landlock 包采用相同的安全下限，严格引擎检查拒绝不安全的安装，.node-version 为部署选择 Node 24.22.2。Wine 准备过程直接解析主版本配置中的精确版本，不将其误作主版本，也不回退到较旧的缓存版本。Node 24.9 存在漏洞，不能保留在受支持的 loader 测试矩阵中。修改元数据不会替换正在运行的 Node 进程或已分发的可执行文件；部署与可执行文件发布必须分别提供实际版本证据。
+
+将 `engines.node` 设为 `^22.23.4 || ^24.22.1 || ^26.12.1`，并在 `['22.23.4', '24.22.1', 26]` 上运行 keyless CI。主要的 Node 24 任务负责整套类型检查和单元测试覆盖率任务；三个版本均运行 source-worker、Zstandard、source-launch 和 [jsdom 存储](../testing/2026-07-30-vitest-jsdom-webstorage-ownership.zh.md) 专项冒烟测试，不重复这套类型检查和覆盖率任务。真实 API 的 e2e 工作流保持在 Node 24 上，因为它验证的是 API 集成而非运行时下限。
 
 两个 Node 特性决定了源码运行时的门槛：
 
 - **`node:sqlite`**：`packages/storage/storage-sqlite` 在顶层执行 `import { DatabaseSync } from 'node:sqlite'`，可选 Session-query provider 则在首次搜索时加载它。该模块在 **22.13**（LTS）和 **23.4**（Current）取消了 `--experimental-sqlite` 标志要求；在此之前，导入它会在加载时抛出异常。
 - **原生 TypeScript 类型剥离**——构建模式的 `apps/cli/tests/profiles/headless/tests/keyless-smoke.e2e.ts` 冒烟测试使用纯 `node`（无 tsx）启动 test-support 的 `.ts` driver，并加载 `.ts` 测试适配器（`cli-mock-llm.ts`）。类型剥离从 **22.18**（LTS）和 **23.6**（Current）起成为默认行为；更早版本需要 `--experimental-strip-types`。
 
-这些源码特性在 22.x 线上于 **22.18** 全部就绪，但已安装的 Pi 适配器依赖将宣传的 LTS 下限进一步提高。`@workspacealberta/wa-llm-pi-ai` 依赖 `@earendil-works/pi-ai@0.79.3`，后者的包声明 `engines.node >=22.19.0`，因此 LTS 下限为 **22.19**。24.x 分支保持 `>=24.0.0`。该不相交范围完全排除了 Node 23：Node 23.0–23.5 至少还有一个源码特性需要标志，而 23 线是非 LTS/已 EOL 的，宣传 `>=23.6` 会增加一条已终止的发布线和一条 CI 分支，而没有任何部署应当使用它。
+这些源功能在 22.x 的 22.18 即可使用，但 Pi 适配器的 @earendil-works/pi-ai 依赖要求 Node >=22.19.0；安全修复将受支持的 22.x 下限提高到 22.23.4，24.x 下限为 24.22.1。分离的主版本范围排除已停止支持的 Node 23 和 25，也不会提前接受未经验证的未来主版本。
 
 `@types/node` 继续固定在 22.x 线（`^22.20.0`），以匹配 LTS 支持线：使用 Node 23+/24+/25+ 的 API 会在所有机器和类型检查门禁中导致 `tsc` 失败，而不是先编译通过，直到下限矩阵分支运行时才暴露错误。整个代码树针对 Node 22 类型 API 的类型检查全部通过，因此固定该版本不产生任何代价。
 
 ## 后果
 
 - 宣传的 LTS 分支不再低于 Pi 适配器依赖的下限。
-- CI 通过 Node 22.19 直接验证 Node 22 LTS 下限，将主要覆盖率任务保留在 `node: 24`，并用 Node 26 验证下一个偶数线；三个版本均运行聚焦的兼容性冒烟测试。
+- CI 通过 Node 22.23.4 直接验证 Node 22 LTS 下限，将主要覆盖率任务保留在 Node 24.22.2，并用 Node 26 验证下一个偶数线；三个版本均运行聚焦的兼容性冒烟测试。
 - 构建模式冒烟测试无需版本条件标志：在 22.19 上类型剥离已是默认行为，因此示例自有的 TypeScript driver 保持使用纯 `node fixture.ts` 路径。
 - 未来若依赖或源码 API 提高运行时下限，必须在同一变更中同步调整 `engines.node`、兼容性矩阵和本 Agent Note。
 

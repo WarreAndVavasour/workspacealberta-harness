@@ -13,7 +13,7 @@
 # persist in .cache/wine-windows/ so reruns skip provisioning.
 #
 # Environment: DSH_WINE_NODE_MAJOR (default $PRIMARY_NODE_VERSION, then 24)
-# picks the Windows Node line; DSH_WINE_GATE_CACHE_DIR relocates the cache;
+# accepts a major or exact Windows Node pin; DSH_WINE_GATE_CACHE_DIR relocates the cache;
 # DSH_WINE_GATE_KEEP=1 preserves the scratch tree for inspection.
 
 set -euo pipefail
@@ -108,14 +108,17 @@ download_node_archive() {
 }
 
 provision_node() {
-  # Latest release of the primary line, checksum-verified against the same
+  # Exact primary pin or latest release of the primary line, verified against the same
   # dist directory. Bound and retry every transfer so a stalled nodejs.org
   # response cannot consume the entire CI job. Offline runs fall back to the
-  # newest cached zip, loudly.
+  # newest cached zip for a major selector, loudly. Exact pins reuse only their own zip.
   local version zip
-  version="$(curl "${curl_metadata_args[@]}" https://nodejs.org/dist/index.json 2> /dev/null \
-    | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const v=JSON.parse(d).find(r=>r.version.startsWith('v$node_major.'));if(v)console.log(v.version)})" \
-    || true)"
+  if [[ "$node_major" == *.* ]]; then
+    version="$(node "$repo_root/scripts/wine-node-version.mjs" "$node_major" < /dev/null)"
+  else
+    version="$(curl "${curl_metadata_args[@]}" https://nodejs.org/dist/index.json 2> /dev/null \
+      | node "$repo_root/scripts/wine-node-version.mjs" "$node_major" || true)"
+  fi
   if [ -n "$version" ]; then
     zip="$cache_dir/node-$version-win-x64.zip"
     if [ ! -f "$zip" ]; then
