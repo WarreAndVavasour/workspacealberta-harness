@@ -10,7 +10,7 @@ Status: implemented
 
 ## 决策
 
-[2026 年 10 月 Node 安全更新](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases) 在 22.23.4、24.22.1 和 26.12.1 修复 CVE-2026-111497。每个受支持的主版本都有独立的上界；开放范围 >=24.22.1 仍会接受存在漏洞的 Node 26。根清单与 Landlock 包采用相同的安全下限，严格引擎检查拒绝不安全的安装，.node-version 为部署选择 Node 24.22.2。Node 24.9 存在漏洞，不能保留在受支持的 loader 测试矩阵中。修改元数据不会替换正在运行的 Node 进程或已分发的可执行文件；部署与可执行文件发布必须分别提供实际版本证据。
+[2026 年 10 月 Node 安全更新](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases) 在 22.23.4、24.22.1 和 26.12.1 修复 CVE-2026-111497。每个受支持的主版本都有独立的上界；开放范围 >=24.22.1 仍会接受存在漏洞的 Node 26。根清单与 Landlock 包采用相同的安全下限，严格引擎检查拒绝不安全的安装，.node-version 为部署选择 Node 24.22.2。Wine 准备过程直接解析主版本配置中的精确版本，不将其误作主版本，也不回退到较旧的缓存版本。Node 24.9 存在漏洞，不能保留在受支持的 loader 测试矩阵中。修改元数据不会替换正在运行的 Node 进程或已分发的可执行文件；部署与可执行文件发布必须分别提供实际版本证据。
 
 将 `engines.node` 设为 `^22.23.4 || ^24.22.1 || ^26.12.1`，并在 `['22.23.4', '24.22.1', 26]` 上运行 keyless CI。主要的 Node 24 任务负责整套类型检查和单元测试覆盖率任务；三个版本均运行 source-worker、Zstandard、source-launch 和 [jsdom 存储](../testing/2026-07-30-vitest-jsdom-webstorage-ownership.zh.md) 专项冒烟测试，不重复这套类型检查和覆盖率任务。真实 API 的 e2e 工作流保持在 Node 24 上，因为它验证的是 API 集成而非运行时下限。
 
