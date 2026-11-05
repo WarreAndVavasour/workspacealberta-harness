@@ -158,12 +158,17 @@ describe('SDK dsh launch resolution', () => {
     expect(resolveDshBinFromManifests(pair.dshUrl, pair.clientUrl)).toBe(join(pair.root, 'bin.js'))
   })
 
-  it.each([null, {}, ''])(
-    'rejects a manifest without a usable dsh executable (%j)',
+  it('accepts the object npm bin form keyed by the wa executable', () => {
+    const pair = manifestPair({ version: '1.0.0', bin: { wa: './bin.js' } }, { version: '1.0.0' })
+    expect(resolveDshBinFromManifests(pair.dshUrl, pair.clientUrl)).toBe(join(pair.root, 'bin.js'))
+  })
+
+  it.each([null, {}, { dsh: './bin.js' }, ''])(
+    'rejects a manifest without a usable wa executable (%j)',
     (bin) => {
       const pair = manifestPair({ version: '1.0.0', bin }, { version: '1.0.0' })
       expect(() => resolveDshBinFromManifests(pair.dshUrl, pair.clientUrl))
-        .toThrow('declares no dsh executable')
+        .toThrow('declares no wa executable')
     },
   )
 })
