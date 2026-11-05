@@ -72,6 +72,7 @@ describe.skipIf(!requiredArtifacts)('Goal Remote built LIB chain', () => {
         port: 0,
       })
       host.provide('credentials', {
+        allowAmbientAuthentication: true,
         readRecord(key) { return Promise.resolve(credentialRecords.get(key)) },
         async modifyRecord(key, mutate) {
           const current = credentialRecords.get(key)
