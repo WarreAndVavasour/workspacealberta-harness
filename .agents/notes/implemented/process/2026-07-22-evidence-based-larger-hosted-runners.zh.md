@@ -14,7 +14,7 @@ Status: implemented
 
 企业保留仅限本仓库使用的 Ubuntu 和 Windows x64 大型运行器池。普通拉取请求在 16 核 Ubuntu 24.04 池上运行 3 个 Linux 主作业，并在 16 核 Windows 2025 池上运行独立的原生 Windows 信号。必需的 Wine 信号仍位于标准托管 Linux。公网 IP 已禁用；工作流并发仍设有边界，因为自动扩缩容上限既不会分配闲置机器，也不意味着仓库工作可以无限扩展。
 
-必需主路径依赖这些企业级运行器池。GitHub 标准托管作业保留 Node 22.19、Node 26 和 Python SDK 兼容性约定，而[可移植恢复边界](2026-07-23-portable-required-pull-request-ci.zh.md)与[串行参考流程](2026-07-21-serial-cross-platform-ci-reference.zh.md)则在 `master` 上通过自托管热备池持续提供完整聚合流程证据（不存在托管的 Linux 串行参考）。`suite=larger-runner-benchmark` 比较已预配规格上相互独立的关键通道，`suite=consolidated-runner-benchmark` 则比较完整聚合流程。每项基准测试都会先报告实测的处理器和内存容量，再运行仓库工作。
+必需主路径依赖这些企业级运行器池。GitHub 标准托管作业保留 Node 22.23.4、Node 24.22.1、Node 26 和 Python SDK 兼容性约定，而[可移植恢复边界](2026-07-23-portable-required-pull-request-ci.zh.md)与[串行参考流程](2026-07-21-serial-cross-platform-ci-reference.zh.md)则在 `master` 上通过自托管热备池持续提供完整聚合流程证据（不存在托管的 Linux 串行参考）。`suite=larger-runner-benchmark` 比较已预配规格上相互独立的关键通道，`suite=consolidated-runner-benchmark` 则比较完整聚合流程。每项基准测试都会先报告实测的处理器和内存容量，再运行仓库工作。
 
 原有的门禁级和粗粒度主流程分片 job 已从工作流中移除。面向工作流的静态、lint、覆盖率、快照和场景选择器也已移除，因此未使用的诊断路径无法继续维系第二套 CI 架构。插桩覆盖率可以在[既有 job 内使用进程本地分区](2026-08-18-in-job-partitioned-coverage.zh.md)；该协调器既不选择工作流 job，也不在 runner 之间传输报告。
 

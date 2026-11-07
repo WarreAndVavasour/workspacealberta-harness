@@ -261,17 +261,19 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - node: '22.19'
-            name: node 22.19
+          # Exact patched floors for CVE-2026-111497. Floating majors would
+          # stop exercising the declared minimum (22.23.4 / 24.22.1).
+          - node: '22.23.4'
+            name: node 22.23.4
             runner: ubuntu-latest
             gate_concurrency: '1'
-          # Pinned inside 24.0-24.11.1: those releases carry the v1 internal
-          # loader while reporting major 24, and every other job tracks the
-          # latest 24, which is v2. A bare `24` here would retest that same v2.
-          - node: '24.9'
-            name: node 24.9
+          - node: '24.22.1'
+            name: node 24.22.1
             runner: ubuntu-latest
             gate_concurrency: '1'
+          # Current 26 line. setup-node resolves a bare major to the latest
+          # release, which is past the 26.12.1 Brotli fix. A concrete 26
+          # version below that fix is rejected by scripts/ci-workflow.spec.ts.
           - node: 26
             name: node 26
             runner: ubuntu-latest
