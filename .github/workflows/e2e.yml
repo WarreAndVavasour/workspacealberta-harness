@@ -99,7 +99,16 @@ jobs:
             echo "::error::report a false green. Configure the repo secret DEEPSEEK_API_KEY_EXTERNAL."
             exit 1
           fi
-          echo "DEEPSEEK_API_KEY present."
+          # A present but revoked, rotated, or unfunded key makes every real-API
+          # test fail with 401/402 after the full build; reject it here instead.
+          status=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 \
+            -H "Authorization: Bearer ${DEEPSEEK_API_KEY}" https://api.deepseek.com/user/balance)
+          case "$status" in
+            200) echo "DEEPSEEK_API_KEY present and accepted." ;;
+            401) echo "::error::DeepSeek rejected DEEPSEEK_API_KEY_EXTERNAL (HTTP 401). Rotate the repo secret."; exit 1 ;;
+            402) echo "::error::DeepSeek account has insufficient balance (HTTP 402). Top up the account."; exit 1 ;;
+            *) echo "::warning::DeepSeek key check returned HTTP ${status}; continuing." ;;
+          esac
 
       # The e2e suites boot the example bins in `lib` mode (DSH_EXAMPLE_MODE=lib):
       # the built artifact under plain Node, resolving plugins through real package
