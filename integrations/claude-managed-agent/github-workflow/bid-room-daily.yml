@@ -1,0 +1,28 @@
+# Copy to .github/workflows/ in the repo that should own the schedule.
+# Kept out of .github/ here so it doesn't run in the harness CI.
+name: Bid room agent (daily)
+on:
+  schedule:
+    - cron: "37 13 * * 1-5"   # 07:37 America/Edmonton (UTC-6), weekdays
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: "Single bid repo name (optional)"
+        required: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install anthropic
+      - run: python3 integrations/claude-managed-agent/scripts/run_bids.py ${{ inputs.repo && format('--repo {0}', inputs.repo) || '' }}
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BID_REPOS_TOKEN: ${{ secrets.BID_REPOS_TOKEN }}
+          WA_AGENT_ID: ${{ vars.WA_AGENT_ID }}
+          WA_ENVIRONMENT_ID: ${{ vars.WA_ENVIRONMENT_ID }}
+          WA_VAULT_ID: ${{ vars.WA_VAULT_ID }}
+          WA_MEMORY_STORE_ID: ${{ vars.WA_MEMORY_STORE_ID }}

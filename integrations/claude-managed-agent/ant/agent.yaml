@@ -1,0 +1,29 @@
+# ant apply -f ant/agent.yaml   (paste system_prompt.md into a `system: |` field first)
+name: W&V Bid Room Agent
+description: Processes one tender repo per session with the workspaceAlberta connector; drafts only, never submits.
+model: claude-opus-5-5
+mcp_servers:
+  - type: url
+    name: workspacealberta
+    url: https://elbowsupknivesout.warreandvavasour.com/mcp
+tools:
+  - type: agent_toolset_20260401            # bash, files, etc. Default policy: always_allow
+  - type: mcp_toolset
+    mcp_server_name: workspacealberta
+    # Default for mcp_toolset is always_ask, which would stall an unattended run.
+    # Enable only the tools the bid room needs and allow them without asking.
+    # VERIFY: the docs confirm `configs` entries take name/enabled/permission_policy, but only show
+    # the always_allow object on the built-in toolset. Check the API reference before applying.
+    default_config:
+      enabled: false
+    configs:
+      - {name: get_server_guide,             enabled: true, permission_policy: {type: always_allow}}
+      - {name: get_opportunity_details,      enabled: true, permission_policy: {type: always_allow}}
+      - {name: search_opportunities,         enabled: true, permission_policy: {type: always_allow}}
+      - {name: list_deadlines,               enabled: true, permission_policy: {type: always_allow}}
+      - {name: get_my_profile,               enabled: true, permission_policy: {type: always_allow}}
+      - {name: classify_tender,              enabled: true, permission_policy: {type: always_allow}}
+      - {name: bid_no_bid_scorecard,         enabled: true, permission_policy: {type: always_allow}}
+      - {name: analyze_contract_with_cohere, enabled: true, permission_policy: {type: always_allow}}
+      - {name: process_bid_room,             enabled: true, permission_policy: {type: always_allow}}
+      # Persistent account changes stay off: set_business_profile, watch_opportunity, unwatch_opportunity.
