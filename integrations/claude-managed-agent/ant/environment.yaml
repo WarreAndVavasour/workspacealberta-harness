@@ -1,0 +1,13 @@
+# ant apply -f ant/environment.yaml
+name: wv-bid-room
+config:
+  type: cloud
+  networking:
+    type: limited
+    allowed_hosts:
+      - github.com                                  # clone/push the bid repos
+      - canadabuys.canada.ca                        # public tender attachments and amendments
+      - elbowsupknivesout.warreandvavasour.com      # workspaceAlberta MCP
+      - api.cohere.com                              # only if COHERE_API_KEY is vaulted (optional)
+    allow_mcp_servers: true
+    allow_package_managers: true                    # apt/pip for ocrmypdf, tesseract, poppler-utils
