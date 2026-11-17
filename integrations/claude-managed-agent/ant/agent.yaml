@@ -1,4 +1,4 @@
-# ant apply -f ant/agent.yaml   (system prompt: system_prompt.md, inlined by scripts/setup.py)
+# ant apply -f ant/agent.yaml   (paste system_prompt.md into a `system: |` field first)
 name: W&V Bid Room Agent
 description: Processes one tender repo per session with the workspaceAlberta connector; drafts only, never submits.
 model: claude-opus-5-5
